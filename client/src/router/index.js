@@ -16,7 +16,7 @@ function AuthenticationRoute(props) {
   ) : (
     <Redirect
       to={{
-        pathname: PathConstant.LOGIN,
+        pathname: PathConstant.LOGIN_ADMIN,
         state: {
           from: rest.path,
         },
@@ -33,9 +33,9 @@ AuthenticationRoute.propTypes = {
 const Routes = () => {
   return (
     <Switch>
-      <Redirect exact from={PathConstant.ROOT} to={PathConstant.DASHBOARD} />
-      <AuthenticationRoute component={DashboardPage} exact path={PathConstant.DASHBOARD} />
-      <Route component={LoginPage} exact path={PathConstant.LOGIN} />
+      {/* <Redirect exact from={PathConstant.ROOT} to={PathConstant.DASHBOARD} /> */}
+      {/* <AuthenticationRoute component={DashboardPage} exact path={PathConstant.DASHBOARD} /> */}
+      <Route component={LoginPage} exact path={PathConstant.LOGIN_ADMIN} />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       <Redirect to={PathConstant.NOT_FOUND} />
     </Switch>
