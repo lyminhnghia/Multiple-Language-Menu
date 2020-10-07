@@ -13,12 +13,6 @@ export const NS_LOGIN = "login";
 
 // Text Key
 export const TXT_LOGIN = "TXT_LOGIN";
-
-// Format
-// export const FORMAT_??? = "???";
-
-// Message
-// export const MSG_?? = "???";
-
-// Error
-// export const ERR_EMAIL_PHONE = "ERR_EMAIL_PHONE";
+export const TXT_SHOP_LIST = "TXT_SHOP_LIST"
+export const TXT_REGISTER_SHOP = "TXT_REGISTER_SHOP"
+export const TXT_PROFILE = "TXT_PROFILE"

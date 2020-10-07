@@ -13,10 +13,9 @@ i18next.use(initReactI18next).init(
     },
     lng: LangConstant.DEFAULT_LANG,
     resources: {
-      en: enLang,
-      vi: viLang,
+      en: { translation: enLang },
+      vi: { translation: viLang },
     },
-    defaultNS: "common",
   },
   (err, t) => {
     if (err) {

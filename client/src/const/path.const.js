@@ -4,8 +4,8 @@ export const NOT_FOUND = "/not-found";
 
 // Admin
 export const LOGIN_ADMIN = "/admin/login"
-export const SHOP_LIST = "/admin/shop-list"
-export const REGISTER_SHOP = "/admin/register-shop"
+export const ADMIN_SHOP_LIST = "/admin/shop-list"
+export const ADMIN_REGISTER_SHOP = "/admin/register-shop"
 export const ADMIN_PROFILE = "/admin/profile"
 export const ADMIN_NOT_FOUND = "/admin/not-found"
 
