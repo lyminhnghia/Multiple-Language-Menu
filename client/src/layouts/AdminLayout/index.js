@@ -1,32 +1,27 @@
-import React, {memo} from "react";
-import { makeStyles, AppBar, Toolbar, Container, Typography } from "@material-ui/core"
-import { LangConstant } from "../../const"
-import { useTranslation } from "react-i18next"
+import React, { memo, useState } from "react";
+import { makeStyles } from "@material-ui/core";
+import { Inbox, Mail } from "@material-ui/icons";
+import { LangConstant } from "../../const";
+import { Sidebar } from "../../components";
+import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 
-const AdminLayout = props => {
+const AdminLayout = (props) => {
   const { children } = props;
-  const classes = useStyles();
   const { t: getLabel } = useTranslation();
-
-  return (
-  <AppBar style={{backgroundColor: "#ffffff", boxShadow: "none", borderBottom: "1px solid #cfd8dc", height: 50}}>
-    <Toolbar>
-      <Container maxWidth="md" className={classes.navbarDisplayFlex}>
-        <Typography color="primary">
-          {getLabel(LangConstant.TXT_SHOP_LIST)}
-        </Typography>
-      </Container>
-    </Toolbar>
-  </AppBar>)
+  const classes = useStyles();
+  const listSidebar = [
+    { content: "Inbox", icon: <Mail /> },
+    { content: "Starred", icon: <Inbox /> },
+    { content: "Send email", icon: <Mail /> },
+    { content: "Drafts", icon: <Inbox /> },
+  ];
+  return <Sidebar listSidebar={listSidebar} children={children} />;
 };
 
-const useStyles = makeStyles(theme => ({
-  navbarDisplayFlex: {
-    display: `flex`,
-    
-  },
-}));
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme) => ({}));
 
 AdminLayout.propTypes = {
   children: PropTypes.node,
