@@ -6,12 +6,12 @@ import {
   ListItem,
   Box,
   IconButton,
-  Divider
+  Divider,
 } from "@material-ui/core";
 import { Menu, ArrowBackIos } from "@material-ui/icons";
 import PropTypes from "prop-types";
 import { uuid } from "../utils";
-import SidebarItem from "./SidebarItem"
+import SidebarItem from "./SidebarItem";
 import { useLocation } from "react-router-dom";
 
 const Sidebar = (props) => {
@@ -42,31 +42,33 @@ const Sidebar = (props) => {
 
   return (
     <Paper
-      className={`${classes.sidebar} ${isTop || isSidebar ? classes.sidebarOpen : classes.sidebarClose}`}
+      className={`${classes.sidebar} ${
+        isTop || isSidebar ? classes.sidebarOpen : classes.sidebarClose
+      }`}
       elevation={1}
       square
     >
-      {
-        !isTop && (
-          <ListItem className={`center-root ${classes.sidebarAction}`}>
-            {
-              isSidebar && <Box flexGrow={1} />
-            }
-            <IconButton
-              className={classes.IconButton}
-              edge={isSidebar ? "end" : "start"}
-              onClick={() => setIsSidebar(!isSidebar)}
-            >
-              {isSidebar ? <ArrowBackIos /> : <Menu />}
-            </IconButton>
-          </ListItem>
-        )
-      }
+      {!isTop && (
+        <ListItem className={`center-root ${classes.sidebarAction}`}>
+          {isSidebar && <Box flexGrow={1} />}
+          <IconButton
+            className={classes.IconButton}
+            edge={isSidebar ? "end" : "start"}
+            onClick={() => setIsSidebar(!isSidebar)}
+          >
+            {isSidebar ? <ArrowBackIos /> : <Menu />}
+          </IconButton>
+        </ListItem>
+      )}
       <Divider />
       <List className={classes.list}>
         {listSidebar.map((item, index) => (
-          <div onClick={onClick} key={uuid}>
-            <SidebarItem item={item} key={uuid()} isSelected={item.path === location.pathname} />
+          <div onClick={onClick} key={uuid()}>
+            <SidebarItem
+              item={item}
+              key={uuid()}
+              isSelected={item.path === location.pathname}
+            />
           </div>
         ))}
       </List>
@@ -91,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
     whiteSpace: "nowrap",
     overflow: "auto",
-    backgroundColor: "rgb(48, 92, 139)"
+    backgroundColor: "rgb(48, 92, 139)",
   },
   sidebarOpen: {
     width: SIDEBAR_WIDTH_OPEN,
@@ -110,12 +112,12 @@ const useStyles = makeStyles((theme) => ({
   },
   sidebarAction: { minHeight: "60px", padding: "0 20px", marginBottom: "-7px" },
   list: { padding: 0 },
-  IconButton: { color: "#ffffff" }
+  IconButton: { color: "#ffffff" },
 }));
 
 Sidebar.propTypes = {
   listSidebar: PropTypes.array,
-  isTop: PropTypes.bool
+  isTop: PropTypes.bool,
 };
 
 export default memo(Sidebar);

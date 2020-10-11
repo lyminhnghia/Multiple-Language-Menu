@@ -12,4 +12,7 @@ export default {
   TXT_CONTRACT_PERIOD: "Thời hạn hợp đồng",
   TXT_STATUS: "Trạng thái",
   TXT_SETTING: "Cài đặt",
+
+  FN_PAGINATION: (from, to, count) =>
+    `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };

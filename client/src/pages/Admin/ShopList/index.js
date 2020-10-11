@@ -12,13 +12,17 @@ import {
 import { MoreHoriz } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
 import { AdminLayout } from "../../../layouts";
-import { CellBody, CellHead } from "../../../components";
+import { CellBody, CellHead, PaginationTable } from "../../../components";
 import { uuid } from "../../../utils";
 import { LangConstant } from "../../../const";
 
 const ShopList = (props) => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
+
+  const onChangePage = (event, newPage) => {
+    console.log(newPage);
+  };
 
   return (
     <AdminLayout>
@@ -38,7 +42,7 @@ const ShopList = (props) => {
             </TableHead>
             <TableBody>
               {dataShop.data.map((data, index) => (
-                <TableRow>
+                <TableRow key={uuid()}>
                   <CellBody
                     cellData={data.id}
                     className={classes.cell}
@@ -81,7 +85,7 @@ const ShopList = (props) => {
                   />
                   <CellBody
                     cellData={
-                      <IconButton style={{ padding: 0 }}>
+                      <IconButton className={classes.IconButton}>
                         <MoreHoriz />
                       </IconButton>
                     }
@@ -93,6 +97,13 @@ const ShopList = (props) => {
             </TableBody>
           </Table>
         </TableContainer>
+        <PaginationTable
+          total={10}
+          page={1}
+          rowsPerPage={10}
+          total_page={1}
+          onChangePage={onChangePage}
+        />
       </Box>
     </AdminLayout>
   );
@@ -122,6 +133,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#000000",
     fontSize: 14,
     border: "1px solid 	#C0C0C0",
+  },
+  IconButton: {
+    padding: 0,
   },
 }));
 

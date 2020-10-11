@@ -26,6 +26,8 @@ export const TXT_CONTRACT_PERIOD = "TXT_CONTRACT_PERIOD";
 export const TXT_STATUS = "TXT_STATUS";
 export const TXT_SETTING = "TXT_SETTING";
 
+export const FN_PAGINATION = "FN_PAGINATION";
+
 export const ARR_SHOP_LIST = [
   TXT_ID,
   TXT_SHOP_NAME,
