@@ -1,2 +1,4 @@
 import Sidebar from "./Sidebar";
-export { Sidebar };
+import CellBody from "./Table/CellBody"
+import CellHead from "./Table/CellHead"
+export { Sidebar, CellBody, CellHead };
