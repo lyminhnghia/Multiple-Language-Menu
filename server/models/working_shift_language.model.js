@@ -1,10 +1,8 @@
 module.exports = (sequelize, Sequelize) => {
-  const WorkingShift = sequelize.define("working_shifts", {
-    start_time: Sequelize.BIGINT,
-    end_time: Sequelize.BIGINT,
+  const WorkingShiftLanguage = sequelize.define("working_shift_languages", {
     day_of_week: Sequelize.STRING,
     createdAt: Sequelize.BIGINT,
     updatedAt: Sequelize.BIGINT,
   });
-  return WorkingShift;
+  return WorkingShiftLanguage;
 };
