@@ -4,24 +4,14 @@ import { Redirect, useHistory } from "react-router-dom";
 import AuthAction from "../../../redux/auth.redux";
 import {
   makeStyles,
-  TextField,
   createMuiTheme,
-  ThemeProvider,
+  Box,
+  Link
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import ButtonBox from "../../../components/buttonBox";
-
-const useStyles = makeStyles({
-  a: {
-    cursor: "pointer",
-    height: 25,
-    width: 25,
-    "&:hover": {
-      textDecoration: "underline",
-    },
-  },
-});
+import InputText from "../../../components/inputText"
 
 const LoginAdminPage = () => {
   const classes = useStyles();
@@ -32,9 +22,6 @@ const LoginAdminPage = () => {
 
   const theme = createMuiTheme({
     overrides: {
-      root: {
-        width: "1000px",
-      },
       MuiInputLabel: {
         root: {
           color: "#00adff",
@@ -70,16 +57,8 @@ const LoginAdminPage = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100vw",
-        height: "100vh",
-      }}
-    >
-      <div
+    <Box className={classes.boxParent}>
+      <Box
         style={{
           width: 1000,
           display: "flex",
@@ -90,7 +69,7 @@ const LoginAdminPage = () => {
           boxShadow: "0 5px 5px 0 rgba(0,0,0,.2), 0 6px 18px 0 rgba(0,0,0,.19)",
         }}
       >
-        <div
+        <Box
           style={{
             backgroundColor: "#305C8B",
             width: 500,
@@ -103,8 +82,8 @@ const LoginAdminPage = () => {
           }}
         >
           <h1 style={{ color: "white" }}>This is login page</h1>
-        </div>
-        <div
+        </Box>
+        <Box
           style={{
             backgroundColor: "#fff",
             width: 500,
@@ -116,13 +95,19 @@ const LoginAdminPage = () => {
             borderTopRightRadius: "50px",
           }}
         >
-          <form>
-            <ThemeProvider theme={theme}>
-              <TextField id="standard-basic" label="loginID" />
-              <TextField id="standard-basic" label="Password" />
-            </ThemeProvider>
+          <form >
+              {/* <TextField className={`${classes.formControl} ${classes.rootTextField}`} id="standard-basic" label="loginID" />
+              <TextField className={`${classes.formControl} ${classes.rootTextField}`} id="standard-basic" label="Password" /> */}
+              <InputText
+                nameLabel="loginID" 
+                typeInput="text"
+              />
+              <InputText 
+                nameLabel="Password" 
+                typeInput="password" 
+              />
           </form>
-          <div style={{ marginTop: "20px" }}>
+          <Box style={{ marginTop: "20px" }}>
             {/* <Button variant="contained" color="primary" onClick={onLogin}>
               {getLabel(LangConstant.TXT_LOGIN)}
             </Button>
@@ -133,16 +118,43 @@ const LoginAdminPage = () => {
               nameButton={getLabel(LangConstant.TXT_LOGIN)}
               onClick={onLogin}
             />
-            <div>
-              <a className={classes.a} onClick={onChangeLanguage}>
+            <Box>
+              <Link className={classes.a} onClick={onChangeLanguage}>
                 Change language to English
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+              </Link>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
+
+
+const useStyles = makeStyles({
+  a: {
+    cursor: "pointer",
+    height: 25,
+    width: 25,
+    "&:hover": {
+        textDecoration: "underline",
+    },
+  },
+  // rootTextField: {
+  //   "& .MuiFormLabel-root": {
+  //     color: "#000000"
+  //   },
+  // },
+  // formControl: {
+  //   display: "flex"
+  // },
+  boxParent: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100vw",
+    height: "100vh",
+  }
+});
 
 export default memo(LoginAdminPage);
