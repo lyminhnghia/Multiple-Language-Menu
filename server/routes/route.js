@@ -1,10 +1,10 @@
 module.exports = (app) => {
   const LanguageSchedule = require("../schedule/language.schedule");
 
-  let interval = () => {
+  let IntervalCreateLanguage = () => {
     LanguageSchedule.createLanguage();
   };
 
-  setInterval(interval, 1000 * 60 * 60 * 24);
-  clearInterval(interval);
+  setInterval(IntervalCreateLanguage, 1000 * 60 * 60 * 24);
+  clearInterval(IntervalCreateLanguage);
 };
