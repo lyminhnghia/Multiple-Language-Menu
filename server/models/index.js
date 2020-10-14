@@ -38,10 +38,6 @@ db.owner = require("./owner.model")(sequelize, Sequelize);
 db.payment_method = require("./payment_method.model")(sequelize, Sequelize);
 db.shop_information = require("./shop_information.model")(sequelize, Sequelize);
 db.shop = require("./shop.model")(sequelize, Sequelize);
-db.working_shift_language = require("./working_shift_language.model")(
-  sequelize,
-  Sequelize
-);
 db.working_shift = require("./working_shift.model")(sequelize, Sequelize);
 
 module.exports = db;

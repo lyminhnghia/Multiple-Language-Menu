@@ -4,8 +4,6 @@ module.exports = (sequelize, Sequelize) => {
     credit_card: Sequelize.BOOLEAN,
     app: Sequelize.BOOLEAN,
     etc: Sequelize.BOOLEAN,
-    createdAt: Sequelize.BIGINT,
-    updatedAt: Sequelize.BIGINT,
   });
   return PaymentMethod;
 };

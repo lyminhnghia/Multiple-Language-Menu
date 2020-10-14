@@ -5,8 +5,7 @@ module.exports = (sequelize, Sequelize) => {
     email: Sequelize.STRING,
     state: Sequelize.INTEGER,
     role: Sequelize.BOOLEAN,
-    createdAt: Sequelize.BIGINT,
-    updatedAt: Sequelize.BIGINT,
+    created: Sequelize.BIGINT,
   });
   return Account;
 };

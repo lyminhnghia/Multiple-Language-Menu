@@ -8,6 +8,7 @@ app.use(express.json());
 app.use(cors());
 dotenv.config();
 
+require("./routes/route")(app);
 db.sequelize
   .sync()
   .then(() => {

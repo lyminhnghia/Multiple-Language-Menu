@@ -4,8 +4,6 @@ module.exports = (sequelize, Sequelize) => {
     city: Sequelize.TEXT + " CHARSET utf8 COLLATE utf8_general_ci",
     address: Sequelize.TEXT + " CHARSET utf8 COLLATE utf8_general_ci",
     building: Sequelize.TEXT + " CHARSET utf8 COLLATE utf8_general_ci",
-    createdAt: Sequelize.BIGINT,
-    updatedAt: Sequelize.BIGINT,
   });
   return AddressLanguage;
 };

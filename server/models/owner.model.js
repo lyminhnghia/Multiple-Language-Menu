@@ -5,8 +5,6 @@ module.exports = (sequelize, Sequelize) => {
     telephone: Sequelize.STRING,
     staff_name: Sequelize.TEXT + " CHARSET utf8 COLLATE utf8_general_ci",
     email: Sequelize.STRING,
-    createdAt: Sequelize.BIGINT,
-    updatedAt: Sequelize.BIGINT,
   });
   return Owner;
 };
