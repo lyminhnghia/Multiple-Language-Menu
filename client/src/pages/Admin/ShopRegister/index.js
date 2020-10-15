@@ -1,97 +1,151 @@
-import React, { memo } from "react";
-import { PathConstant, LangConstant } from "../../../const";
+import React, { memo, useState } from "react";
+// import { PathConstant, LangConstant } from "../../../const";
 import { Redirect, useHistory } from "react-router-dom";
-import AuthAction from "../../../redux/auth.redux";
+// import AuthAction from "../../../redux/auth.redux";
 import {
   makeStyles,
-  TextField,
-  createMuiTheme,
   Box,
-  Link
+  Container,
+  Paper
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import InputText from "../../../components/inputText";
-
+import ButtonBox from "../../../components/buttonBox";
 
 const ShopRegisterAdmin = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const { t: getLabel, i18n } = useTranslation();
-  const isLogin = useSelector((state) => state.authRedux.isLogin);
+  // const dispatch = useDispatch();
+  // const history = useHistory();
+  // const { t: getLabel, i18n } = useTranslation();
+  // const isLogin = useSelector((state) => state.authRedux.isLogin);
+  const [formChange, setFormChange] = useState({
+    companyName:"",
+    address: "",
+    tel: "",
+    staffName: "",
+    email: "",
+    salesAgency: "",
+    ID: "",
+    password: "",
+    contractPeriod: "",
+    shopName: "",
+    address2: "",
+    notificationEmail: ""
+  });
 
-  if (isLogin) {
-    return (
-      <Redirect
-        to={{
-          pathname: PathConstant.DASHBOARD,
-          state: {
-            from: this.props.location,
-          },
-        }}
-      />
-    );
+  const handleSubmit = (event)=> {
+    event.preventDefault();
+    console.log(formChange);
   }
-
-  const onChangeLanguage = () => {
-    i18n.changeLanguage("en");
-  };
-  const onLogin = () => {
-    dispatch(
-      AuthAction.requestLogin({ username: "hieucv", password: "123465" })
-    );
-    history.push("/");
-  };
-
   return (
-    <Box className={classes.boxParent}>
-        <Box className={classes.boxBorder}>
-            <Box className={classes.boxHeader}>Owner information</Box>
-            <Box className={classes.boxContent}>
-                <InputText 
-                    nameLabel="Company name" 
-                    typeInput="text"
-                    requiredInput={true}
-                />
-                <InputText 
-                    nameLabel="Address"
-                    typeInput="text"
-                    requiredInput={true}
-                />
-                <InputText 
-                    nameLabel="Tel"
-                    typeInput="number"
-                    requiredInput={true}
-                />
-                <InputText 
-                    nameLabel="Staff name"
-                    typeInput="text"
-                    requiredInput={true}
-                />
-                <InputText 
-                    nameLabel="Email"
-                    typeInput="text"
-                    requiredInput={true}
-                />
-            </Box>
-        </Box>
-    </Box>
+    <Container className={classes.boxParent}>
+      {/* <Paper> */}
+        <form onSubmit={handleSubmit} >
+          <Box className={classes.boxBorder}>
+              <Box className={classes.boxHeader}>Owner information</Box>
+              <Box className={classes.boxContent}>
+                  <InputText 
+                      nameLabel="Company name" 
+                      typeInput="text"
+                      requiredInput={true}
+                      onInput = {e => setFormChange(formChange => ({...formChange,["companyName"]:e.target.value}))}
+                  />
+                  <InputText 
+                      nameLabel="Address"
+                      typeInput="text"
+                      requiredInput={true}
+                      onInput= {e => setFormChange(formChange => ({...formChange,["address"]:e.target.value}))}
+                  />
+                  <InputText 
+                      nameLabel="Tel"
+                      typeInput="number"
+                      requiredInput={true}
+                      onInput = {e => setFormChange(formChange => ({...formChange,["tel"]:e.target.value}))}
+                  />
+                  <InputText 
+                      nameLabel = "Staff name"
+                      typeInput = "text"
+                      requiredInput = {true}
+                      onInput = {e => setFormChange(formChange => ({...formChange,["staffName"]:e.target.value}))}
+                  />
+                  <InputText 
+                      nameLabel = "Email"
+                      typeInput = "text"
+                      requiredInput = {true}
+                      onInput = {e => setFormChange(formChange => ({...formChange,["email"]:e.target.value}))}
+                  />
+              </Box>
+          </Box>
+          <Box className={classes.boxBorder}>
+              <Box className={classes.boxHeader}>Shop information</Box>
+              <Box className={classes.boxContent}>
+                  <InputText 
+                      nameLabel="Sales agency" 
+                      typeInput="number"
+                      requiredInput={true}
+                      onInput={e => setFormChange(formChange=>({...formChange,["salesAgency"]:e.target.value}))}
+                  />
+                  <InputText 
+                      nameLabel="ID"
+                      typeInput="text"
+                      requiredInput={true}
+                      onInput={e => setFormChange(formChange => ({...formChange,["ID"]:e.target.value}))}
+                  />
+                  <InputText 
+                      nameLabel="Password"
+                      typeInput="text"
+                      requiredInput={true}
+                      onInput={e => setFormChange(formChange => ({...formChange,["password"]:e.target.value}))}
+                  />
+                  <InputText 
+                      nameLabel="Contract period"
+                      typeInput="date"
+                      defaultValueInput="2020-08-03"
+                      requiredInput={true}
+                      onInput={e => setFormChange(formChange => ({...formChange,["contractPeriod"]:e.target.value}))}
+                  />
+                  <InputText 
+                      nameLabel="Shop name"
+                      typeInput="text"
+                      requiredInput={true}
+                      onInput={e => setFormChange(formChange => ({...formChange,["shopName"]:e.target.value}))}
+                  />
+                  <InputText 
+                      nameLabel="Address"
+                      typeInput="text"
+                      requiredInput={true}
+                      onInput={e => setFormChange(formChange => ({...formChange,["address2"]:e.target.value}))}
+                  />
+                  <InputText 
+                      nameLabel="Notification email"
+                      typeInput="text"
+                      requiredInput={true}
+                      onInput={e => setFormChange(formChange => ({...formChange,["notificationEmail"]:e.target.value}))}
+                  />
+              </Box>
+          </Box>
+          <Box className={classes.boxButton}>
+            <ButtonBox nameButton="Confirmation" typeButton="submit"/>
+          </Box>
+        </form>
+      {/* </Paper> */}
+    </Container>
   );
 };
 
 
 const useStyles = makeStyles({
   boxParent: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100vw",
-    height: "100vh",
+    margin: "100px",
+    width: "1200px",
+    height:"100%"
   },
   boxBorder:{
+    margin: "0 auto",
     width:"1000px",
-    height:"500px",
+    marginTop: "20px",
+    marginBottom: "20px"
   },
   boxHeader:{
       width: "200px",
@@ -128,6 +182,10 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
     width: "100%"
   },
+  boxButton: {
+    width: "140px",
+    margin: "0 auto"
+  }
 });
 
 export default memo(ShopRegisterAdmin);

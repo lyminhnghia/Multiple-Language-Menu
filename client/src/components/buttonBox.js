@@ -11,18 +11,21 @@ const useStyles = makeStyles({
     width:"100%",
     padding: '0',
     fontWeight:"600",
-    margin:"5px",
     '&:hover':{
       backgroundColor:"#1C4877"
     }
   }
 });
 
-const ButtonBox = ({nameButton,onClick}) => {
+const ButtonBox = ({nameButton,onClick,typeButton}) => {
   const classes = useStyles();
   return (
     <Box>
-        <Button className={classes.root} onClick={onClick}>
+        <Button 
+          className={classes.root} 
+          onClick={onClick}
+          type={typeButton}
+        >
           {nameButton}
         </Button>
     </Box>
