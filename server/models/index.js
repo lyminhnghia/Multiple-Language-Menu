@@ -33,7 +33,7 @@ db.category = require("./category.model")(sequelize, Sequelize);
 db.item_language = require("./item_language.model")(sequelize, Sequelize);
 db.item = require("./item.model")(sequelize, Sequelize);
 db.language = require("./language.model")(sequelize, Sequelize);
-db.order = require("./language.model")(sequelize, Sequelize);
+db.order = require("./order.model")(sequelize, Sequelize);
 db.owner = require("./owner.model")(sequelize, Sequelize);
 db.payment_method = require("./payment_method.model")(sequelize, Sequelize);
 db.shop_information = require("./shop_information.model")(sequelize, Sequelize);
@@ -42,12 +42,16 @@ db.working_shift = require("./working_shift.model")(sequelize, Sequelize);
 
 // Join shop with owner
 db.shop.hasOne(db.owner);
+db.owner.belongsTo(db.shop);
 // Join shop with account
 db.shop.hasOne(db.account);
+db.account.belongsTo(db.shop);
 // Join shop with payment method
 db.shop.hasOne(db.payment_method);
+db.payment_method.belongsTo(db.shop);
 // Join shop with address
 db.shop.hasOne(db.address);
+db.address.belongsTo(db.shop);
 // Join shop with working shift
 db.shop.hasMany(db.working_shift);
 db.working_shift.belongsTo(db.shop);
@@ -56,6 +60,7 @@ db.shop.hasMany(db.shop_information);
 db.shop_information.belongsTo(db.shop);
 // Join shop information with address language
 db.shop_information.hasOne(db.address_language);
+db.address_language.belongsTo(db.shop_information);
 // Join shop with category
 db.shop.hasMany(db.category);
 db.category.belongsTo(db.shop);
@@ -66,8 +71,8 @@ db.item.belongsTo(db.category);
 db.category.hasMany(db.category_language);
 db.category_language.belongsTo(db.category);
 // Join category language with item language
-// db.category_language.hasMany(db.item_language);
-// db.item_language.belongsTo(db.category_language);
+db.category_language.hasMany(db.item_language);
+db.item_language.belongsTo(db.category_language);
 // Join item with item language
 db.item.hasMany(db.item_language);
 db.item_language.belongsTo(db.item);
@@ -81,7 +86,7 @@ db.shop_information.belongsTo(db.language);
 db.language.hasMany(db.category_language);
 db.category_language.belongsTo(db.language);
 // Join language with item language
-// db.language.hasMany(db.item_language);
-// db.item_language.belongsTo(db.language);
+db.language.hasMany(db.item_language);
+db.item_language.belongsTo(db.language);
 
 module.exports = db;
