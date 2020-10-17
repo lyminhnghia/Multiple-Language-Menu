@@ -58,7 +58,7 @@ const ShopList = (props) => {
                 marginRight: 0,
               }}
             >
-              <BoxButton nameButton="Tim kiem" />
+              <BoxButton nameButton={getLabel(LangConstant.TXT_SEARCH)} />
             </Box>
           </Box>
           <Box style={{ textAlign: "center" }}>
