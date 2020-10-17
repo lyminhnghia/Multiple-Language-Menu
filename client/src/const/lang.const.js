@@ -25,6 +25,7 @@ export const TXT_TELEPHONE = "TXT_TELEPHONE";
 export const TXT_CONTRACT_PERIOD = "TXT_CONTRACT_PERIOD";
 export const TXT_STATUS = "TXT_STATUS";
 export const TXT_SETTING = "TXT_SETTING";
+export const TXT_SEARCH = "TXT_SEARCH";
 
 export const FN_PAGINATION = "FN_PAGINATION";
 

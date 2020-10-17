@@ -12,7 +12,12 @@ import {
 import { MoreHoriz } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
 import { AdminLayout } from "../../../layouts";
-import { CellBody, CellHead, PaginationTable } from "../../../components";
+import {
+  CellBody,
+  CellHead,
+  PaginationTable,
+  SearchBar,
+} from "../../../components";
 import { uuid } from "../../../utils";
 import { LangConstant } from "../../../const";
 
@@ -24,9 +29,17 @@ const ShopList = (props) => {
     console.log(newPage);
   };
 
+  const onSearch = (name) => {
+    console.log(name);
+  };
+
   return (
     <AdminLayout>
       <Box>
+        <SearchBar
+          placeholder={getLabel(LangConstant.TXT_SEARCH)}
+          onKeyUp={onSearch}
+        />
         <TableContainer style={{ marginTop: 50 }}>
           <Table>
             <TableHead>
