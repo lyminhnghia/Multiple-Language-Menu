@@ -25,6 +25,15 @@ export default {
   TXT_BUILDING: "Tòa nhà",
   TXT_NOTIFICATION_EMAIL: "Địa chỉ Email",
   TXT_SHOP_INFORMATION: "Thông tin Shop",
+  TXT_CONFIRMATION: "Thêm mới",
+  TXT_CONFIRM_PASSWORD: "Confirm Password",
+  TXT_USER_NAME: "Tài khoản",
+  TXT_STATE: "Trạng thái",
+  TXT_ROLE: "Quyền",
+  TXT_CREATED: "Khởi tạo",
+  TXT_CHANGE_PASS: "Đổi mật khẩu",
+  TXT_EDIT_PROFILE: "Sửa",
+  TXT_SAVE_PROFILE: "Lưu thay đổi",
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };

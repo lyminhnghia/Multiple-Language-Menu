@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     },
 });
 
-const InputText = ({nameLabel,typeInput,requiredInput,defaultValueInput, onInput, nameText}) => {
+const InputText = ({nameLabel,typeInput,requiredInput,defaultValueInput, onInput, nameText,disabled}) => {
   const classes = useStyles();
   return (
     <TextField 
@@ -31,6 +31,7 @@ const InputText = ({nameLabel,typeInput,requiredInput,defaultValueInput, onInput
         defaultValue = {defaultValueInput}
         onInput = {onInput}
         name={nameText}
+        disabled={disabled}
     />
   );
 };

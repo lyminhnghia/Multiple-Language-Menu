@@ -91,7 +91,7 @@ const LoginAdminPage = () => {
                 typeInput="password" 
               />
           </form>
-          <Box style={{ marginTop: "20px" }}>
+          <Box style={{ marginTop: "20px",height:"40px" }}>
             {/* <Button variant="contained" color="primary" onClick={onLogin}>
               {getLabel(LangConstant.TXT_LOGIN)}
             </Button>

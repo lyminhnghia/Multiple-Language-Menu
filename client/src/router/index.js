@@ -38,6 +38,7 @@ const Routes = () => {
       <Route component={ShopListAdmin} exact path={PathConstant.ADMIN_SHOP_LIST} />
       <Route component={LoginAdminPage} exact path={PathConstant.LOGIN_ADMIN} />
       <Route component={ShopRegisterAdmin} exact path={PathConstant.ADMIN_REGISTER_SHOP} />
+      <Route component={ProfileAdmin} exact path={PathConstant.ADMIN_PROFILE} />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       <Redirect to={PathConstant.NOT_FOUND} />
     </Switch>

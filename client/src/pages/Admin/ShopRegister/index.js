@@ -4,6 +4,7 @@ import {
   makeStyles,
   Box,
   Container,
+  Switch
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import InputText from "../../../components/inputText";
@@ -23,6 +24,14 @@ const ShopRegisterAdmin = () => {
     setFormChange({...formChange, [e.target.name]: e.target.value})
     console.log(e.target.value, e.target.name)
   }
+  const [state, setState] = useState({
+    checkedA: true,
+    checkedB: true,
+  });
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
   return (
     <AdminLayout>
       <Container className={classes.boxParent}>
@@ -91,6 +100,13 @@ const ShopRegisterAdmin = () => {
                       nameText="password"
                       onInput = {e => onChange(e)}
                   />
+                  <InputText 
+                      nameLabel= {getLabel(LangConstant.TXT_CONFIRM_PASSWORD)}
+                      typeInput="text"
+                      requiredInput={true}
+                      nameText="confirm_password"
+                      onInput = {e => onChange(e)}
+                  />
                   <Box className={classes.boxFlex}>
                     <Box className={classes.boxFlexContent}>
                       <InputText 
@@ -154,11 +170,23 @@ const ShopRegisterAdmin = () => {
                     requiredInput={true}
                     nameText="notification_email"
                     onInput = {e => onChange(e)}
-                />
+                  />
+                  <Box style={{display:"flex",marginTop:"10px"}}>
+                    <Box style={{lineHeight: "34px",fontSize: "20px"}}>
+                      Trạng thái hoạt động
+                    </Box>
+                    <Switch
+                      checked={state.checkedB}
+                      onChange={handleChange}
+                      color="primary"
+                      name="checkedB"
+                      inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />
+                  </Box>
                 </Box>
           </Box>
           <Box className={classes.boxButton}>
-            <ButtonBox nameButton="Confirmation" typeButton="submit" />
+            <ButtonBox nameButton={getLabel(LangConstant.TXT_CONFIRMATION)} typeButton="submit" />
           </Box>
         </form>
       </Container>
@@ -215,7 +243,8 @@ const useStyles = makeStyles({
   },
   boxButton: {
     width: "140px",
-    margin: "0 auto"
+    margin: "0 auto",
+    height: "40px"
   },
   boxFlex: {
     display: "flex",
