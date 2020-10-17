@@ -13,7 +13,18 @@ export default {
   TXT_STATUS: "Trạng thái",
   TXT_SETTING: "Cài đặt",
   TXT_SEARCH: "Tìm kiếm",
-
+  TXT_OWNER_INFORMATION: "Thông tin chủ sở hữu",
+  TXT_COMPANY_NAME: "Tên công ty",
+  TXT_EMAIL: "Email",
+  TXT_SALES_AGENCY: "Đại lý bán hàng",
+  TXT_PASSWORD: "Password",
+  TXT_START_CONTRACT_PERIOD: "Thời gian bắt đầu hợp đồng",
+  TXT_END_CONTRACT_PERIOD: "Thời gian kết thúc hợp đồng",
+  TXT_POST_NUMBER: "Mã vùng",
+  TXT_CITY: "Thành phố",
+  TXT_BUILDING: "Tòa nhà",
+  TXT_NOTIFICATION_EMAIL: "Địa chỉ Email",
+  TXT_SHOP_INFORMATION: "Thông tin Shop",
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };

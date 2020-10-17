@@ -1,143 +1,174 @@
 import React, { memo, useState } from "react";
-// import { PathConstant, LangConstant } from "../../../const";
-import { Redirect, useHistory } from "react-router-dom";
-// import AuthAction from "../../../redux/auth.redux";
+import { LangConstant } from "../../../const";
 import {
   makeStyles,
   Box,
   Container,
-  Paper
 } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import InputText from "../../../components/inputText";
 import ButtonBox from "../../../components/buttonBox";
-
+import {AdminLayout} from "../../../layouts"
 const ShopRegisterAdmin = () => {
   const classes = useStyles();
-  // const dispatch = useDispatch();
-  // const history = useHistory();
-  // const { t: getLabel, i18n } = useTranslation();
-  // const isLogin = useSelector((state) => state.authRedux.isLogin);
-  const [formChange, setFormChange] = useState({
-    companyName:"",
-    address: "",
-    tel: "",
-    staffName: "",
-    email: "",
-    salesAgency: "",
-    ID: "",
-    password: "",
-    contractPeriod: "",
-    shopName: "",
-    address2: "",
-    notificationEmail: ""
-  });
+  const { t: getLabel} = useTranslation();
+  const [formChange, setFormChange] = useState({});
 
-  const handleSubmit = (event)=> {
-    event.preventDefault();
-    console.log(formChange);
+  const handleSubmit = e => {
+    e.preventDefault()
+    console.log(formChange)
+  }
+
+  const onChange = e => {
+    setFormChange({...formChange, [e.target.name]: e.target.value})
+    console.log(e.target.value, e.target.name)
   }
   return (
-    <Container className={classes.boxParent}>
-      {/* <Paper> */}
+    <AdminLayout>
+      <Container className={classes.boxParent}>
         <form onSubmit={handleSubmit} >
           <Box className={classes.boxBorder}>
-              <Box className={classes.boxHeader}>Owner information</Box>
+              <Box className={classes.boxHeader}>{getLabel(LangConstant.TXT_OWNER_INFORMATION)}</Box>
               <Box className={classes.boxContent}>
                   <InputText 
-                      nameLabel="Company name" 
+                      nameLabel={getLabel(LangConstant.TXT_COMPANY_NAME)}
                       typeInput="text"
                       requiredInput={true}
-                      onInput = {e => setFormChange(formChange => ({...formChange,["companyName"]:e.target.value}))}
+                      nameText="company_name"
+                      onInput = {e => onChange(e)}
                   />
                   <InputText 
-                      nameLabel="Address"
+                      nameLabel={getLabel(LangConstant.TXT_ADDRESS)}
                       typeInput="text"
                       requiredInput={true}
-                      onInput= {e => setFormChange(formChange => ({...formChange,["address"]:e.target.value}))}
+                      nameText="address1"
+                      onInput = {e => onChange(e)}
                   />
                   <InputText 
-                      nameLabel="Tel"
-                      typeInput="number"
-                      requiredInput={true}
-                      onInput = {e => setFormChange(formChange => ({...formChange,["tel"]:e.target.value}))}
+                      nameLabel = {getLabel(LangConstant.TXT_TELEPHONE)}
+                      typeInput = "number"
+                      requiredInput = {true}
+                      nameText = "tel"
+                      onInput = {e => onChange(e)}
                   />
                   <InputText 
-                      nameLabel = "Staff name"
+                      nameLabel = {getLabel(LangConstant.TXT_STAFF_NAME)}
                       typeInput = "text"
                       requiredInput = {true}
-                      onInput = {e => setFormChange(formChange => ({...formChange,["staffName"]:e.target.value}))}
+                      nameText = "staff_name"
+                      onInput = {e => onChange(e)}
                   />
                   <InputText 
-                      nameLabel = "Email"
+                      nameLabel = {getLabel(LangConstant.TXT_EMAIL)}
                       typeInput = "text"
                       requiredInput = {true}
-                      onInput = {e => setFormChange(formChange => ({...formChange,["email"]:e.target.value}))}
+                      nameText="email"
+                      onInput = {e => onChange(e)}
                   />
               </Box>
           </Box>
           <Box className={classes.boxBorder}>
-              <Box className={classes.boxHeader}>Shop information</Box>
+              <Box className={classes.boxHeader}>{getLabel(LangConstant.TXT_SHOP_INFORMATION)}</Box>
               <Box className={classes.boxContent}>
                   <InputText 
-                      nameLabel="Sales agency" 
+                      nameLabel = {getLabel(LangConstant.TXT_SALES_AGENCY)}
                       typeInput="number"
                       requiredInput={true}
-                      onInput={e => setFormChange(formChange=>({...formChange,["salesAgency"]:e.target.value}))}
+                      nameText="sales_agency"
+                      onInput = {e => onChange(e)}
                   />
                   <InputText 
-                      nameLabel="ID"
+                      nameLabel= {getLabel(LangConstant.TXT_ID)}
                       typeInput="text"
                       requiredInput={true}
-                      onInput={e => setFormChange(formChange => ({...formChange,["ID"]:e.target.value}))}
+                      nameText="ID"
+                      onInput = {e => onChange(e)}
                   />
                   <InputText 
-                      nameLabel="Password"
+                      nameLabel= {getLabel(LangConstant.TXT_PASSWORD)}
                       typeInput="text"
                       requiredInput={true}
-                      onInput={e => setFormChange(formChange => ({...formChange,["password"]:e.target.value}))}
+                      nameText="password"
+                      onInput = {e => onChange(e)}
                   />
+                  <Box className={classes.boxFlex}>
+                    <Box className={classes.boxFlexContent}>
+                      <InputText 
+                          nameLabel= {getLabel(LangConstant.TXT_START_CONTRACT_PERIOD)}
+                          typeInput="date"
+                          defaultValueInput="2020-08-03"
+                          requiredInput={true}
+                          nameText="start_contract_period"
+                          onInput = {e => onChange(e)}
+                      />
+                    </Box>
+                    <Box className={classes.boxFlexContent}>
+                      <InputText 
+                        nameLabel= {getLabel(LangConstant.TXT_END_CONTRACT_PERIOD)}
+                        typeInput="date"
+                        defaultValueInput="2020-08-03"
+                        requiredInput={true}
+                        nameText="end_contract_period"
+                        onInput = {e => onChange(e)}
+                      />
+                    </Box>
+                  </Box>                 
                   <InputText 
-                      nameLabel="Contract period"
-                      typeInput="date"
-                      defaultValueInput="2020-08-03"
-                      requiredInput={true}
-                      onInput={e => setFormChange(formChange => ({...formChange,["contractPeriod"]:e.target.value}))}
-                  />
-                  <InputText 
-                      nameLabel="Shop name"
+                      nameLabel= {getLabel(LangConstant.TXT_SHOP_NAME)}
                       typeInput="text"
                       requiredInput={true}
-                      onInput={e => setFormChange(formChange => ({...formChange,["shopName"]:e.target.value}))}
+                      nameText="shop_name"
+                      onInput = {e => onChange(e)}
                   />
                   <InputText 
-                      nameLabel="Address"
+                      nameLabel= {getLabel(LangConstant.TXT_POST_NUMBER)}
                       typeInput="text"
                       requiredInput={true}
-                      onInput={e => setFormChange(formChange => ({...formChange,["address2"]:e.target.value}))}
+                      nameText="post_number"
+                      onInput = {e => onChange(e)}
                   />
                   <InputText 
-                      nameLabel="Notification email"
+                      nameLabel= {getLabel(LangConstant.TXT_CITY)}
                       typeInput="text"
                       requiredInput={true}
-                      onInput={e => setFormChange(formChange => ({...formChange,["notificationEmail"]:e.target.value}))}
+                      nameText="city"
+                      onInput = {e => onChange(e)}
                   />
-              </Box>
+                  <InputText 
+                      nameLabel= {getLabel(LangConstant.TXT_ADDRESS)}
+                      typeInput="text"
+                      requiredInput={true}
+                      nameText="address2"
+                      onInput = {e => onChange(e)}
+                  />
+                  <InputText 
+                      nameLabel= {getLabel(LangConstant.TXT_BUILDING)}
+                      typeInput="text"
+                      requiredInput={true}
+                      nameText="building"
+                      onInput = {e => onChange(e)}
+                  />
+                  <InputText 
+                    nameLabel= {getLabel(LangConstant.TXT_NOTIFICATION_EMAIL)}
+                    typeInput="text"
+                    requiredInput={true}
+                    nameText="notification_email"
+                    onInput = {e => onChange(e)}
+                />
+                </Box>
           </Box>
           <Box className={classes.boxButton}>
-            <ButtonBox nameButton="Confirmation" typeButton="submit"/>
+            <ButtonBox nameButton="Confirmation" typeButton="submit" />
           </Box>
         </form>
-      {/* </Paper> */}
-    </Container>
+      </Container>
+    </AdminLayout>
   );
 };
 
 
 const useStyles = makeStyles({
   boxParent: {
-    margin: "100px",
     width: "1200px",
     height:"100%"
   },
@@ -185,6 +216,15 @@ const useStyles = makeStyles({
   boxButton: {
     width: "140px",
     margin: "0 auto"
+  },
+  boxFlex: {
+    display: "flex",
+    flexWrap: "wrap",
+    width:"100%",
+    justifyContent: "space-between"
+  },
+  boxFlexContent: {
+    width: "49%"
   }
 });
 
