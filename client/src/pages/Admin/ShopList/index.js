@@ -8,7 +8,6 @@ import {
   TableBody,
   TableRow,
   IconButton,
-  Button,
 } from "@material-ui/core";
 import { MoreHoriz } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
@@ -18,8 +17,6 @@ import {
   CellHead,
   PaginationTable,
   SearchBar,
-  DatePickers,
-  BoxButton,
 } from "../../../components";
 import { uuid } from "../../../utils";
 import { LangConstant } from "../../../const";
@@ -32,10 +29,6 @@ const ShopList = (props) => {
     console.log(newPage);
   };
 
-  const onGetDate = (e) => {
-    console.log(e.target.value);
-  };
-
   const onSearch = (name) => {
     console.log(name);
   };
@@ -43,39 +36,10 @@ const ShopList = (props) => {
   return (
     <AdminLayout>
       <Box>
-        <Box style={{ width: "100%", height: 150, backgroundColor: "#f1f3f6" }}>
-          <Box style={{ width: "100%", display: "flex", paddingTop: 30 }}>
-            <SearchBar
-              className={classes.SearchBar}
-              placeholder={getLabel(LangConstant.TXT_SEARCH)}
-              onKeyUp={onSearch}
-            />
-            <Box
-              style={{
-                width: 100,
-                height: 30,
-                marginLeft: 20,
-                marginRight: 0,
-              }}
-            >
-              <BoxButton nameButton="Tim kiem" />
-            </Box>
-          </Box>
-          <Box style={{ textAlign: "center" }}>
-            <Box style={{ display: "inline-flex" }}>from</Box>
-            <DatePickers
-              onChange={onGetDate}
-              name="start_date"
-              className={classes.findDate}
-            />
-            <Box style={{ display: "inline-flex", marginLeft: 100 }}>to</Box>
-            <DatePickers
-              onChange={onGetDate}
-              name="end_date"
-              className={classes.findDate}
-            />
-          </Box>
-        </Box>
+        <SearchBar
+          placeholder={getLabel(LangConstant.TXT_SEARCH)}
+          onKeyUp={onSearch}
+        />
         <TableContainer style={{ marginTop: 50 }}>
           <Table>
             <TableHead>
@@ -185,16 +149,6 @@ const useStyles = makeStyles((theme) => ({
   },
   IconButton: {
     padding: 0,
-  },
-  SearchBar: {
-    height: 30,
-    width: "auto",
-    display: "inline-flex",
-    width: "100%",
-  },
-  findDate: {
-    marginTop: 30,
-    marginLeft: 30,
   },
 }));
 
