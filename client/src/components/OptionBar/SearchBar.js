@@ -1,11 +1,6 @@
 import React, { memo, useState } from "react";
 import PropTypes from "prop-types";
-import {
-  makeStyles,
-  InputAdornment,
-  OutlinedInput,
-  useTheme,
-} from "@material-ui/core";
+import { makeStyles, InputAdornment, OutlinedInput } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 const SearchBar = ({
   placeholder,
@@ -13,11 +8,9 @@ const SearchBar = ({
   onChange,
   onKeyUp,
   className,
-  width,
   ...otherProps
 }) => {
   const classes = useStyles();
-  const theme = useTheme();
 
   const [inputValue, setInputValue] = useState(value);
   const onTyping = (event) => {
@@ -33,7 +26,6 @@ const SearchBar = ({
   };
   return (
     <OutlinedInput
-      style={{ width: width }}
       placeholder={placeholder}
       type="text"
       value={inputValue}
@@ -56,8 +48,9 @@ const SearchBar = ({
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: 0,
+    fontSize: 14,
     borderRadius: "unset",
-    border: `1px solid ${theme.palette.grey["200"]}`,
+    border: `1px solid ${theme.palette.grey["700"]}`,
   },
   notchedOutline: {
     border: "none",
@@ -68,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#000000",
     "&::placeholder": {
       color: "#000000",
-      opacity: 0.5,
+      opacity: 0.7,
     },
     "@media only screen and (max-width: 375px)": {
       padding: "0 10px",
@@ -81,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: "100%",
     minHeight: 30,
     justifyContent: "center",
-    borderRight: `1px solid ${theme.palette.grey["200"]}`,
+    borderRight: `1px solid ${theme.palette.grey["700"]}`,
     marginRight: 0,
     "@media only screen and (max-width: 375px)": {
       minWidth: 40,
