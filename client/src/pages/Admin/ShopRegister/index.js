@@ -139,7 +139,6 @@ const useStyles = makeStyles({
   boxParent: {
     margin: "100px",
     width: "1200px",
-    height:"100%"
   },
   boxBorder:{
     margin: "0 auto",

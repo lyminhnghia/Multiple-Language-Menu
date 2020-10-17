@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Box, Button, makeStyles} from '@material-ui/core';
+import {Button, makeStyles} from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -17,18 +17,16 @@ const useStyles = makeStyles({
   }
 });
 
-const ButtonBox = ({nameButton,onClick,typeButton}) => {
+const ButtonBox = ({className,nameButton,onClick,typeButton}) => {
   const classes = useStyles();
   return (
-    <Box>
-        <Button 
-          className={classes.root} 
-          onClick={onClick}
-          type={typeButton}
-        >
-          {nameButton}
-        </Button>
-    </Box>
+    <Button 
+      className={`${classes.root} ${className}`} 
+      onClick={onClick}
+      type={typeButton}
+    >
+      {nameButton}
+    </Button>
   );
 };
 
