@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { TextField, makeStyles} from '@material-ui/core';
+import { Box, TextField, makeStyles} from '@material-ui/core';
 
 const useStyles = makeStyles({
     root :{
@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     },
     rootTextField: {
         "& .MuiFormLabel-root": {
-          color: "rgb(48, 92, 139)"
+          color: "#000000"
         },
         "& .MuiInputBase-root": {
             color: "#000000"
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     },
 });
 
-const InputText = ({nameLabel,typeInput,requiredInput,defaultValueInput, onInput}) => {
+const InputText = ({nameLabel,typeInput,requiredInput}) => {
   const classes = useStyles();
   return (
     <TextField 
@@ -28,8 +28,6 @@ const InputText = ({nameLabel,typeInput,requiredInput,defaultValueInput, onInput
         label={nameLabel}
         type={typeInput}
         required= {requiredInput}
-        defaultValue={defaultValueInput}
-        onInput={onInput}
     />
   );
 };

@@ -4,6 +4,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import AuthAction from "../../../redux/auth.redux";
 import {
   makeStyles,
+  createMuiTheme,
   Box,
   Link
 } from "@material-ui/core";
@@ -19,6 +20,19 @@ const LoginAdminPage = () => {
   const { t: getLabel, i18n } = useTranslation();
   const isLogin = useSelector((state) => state.authRedux.isLogin);
 
+  const theme = createMuiTheme({
+    overrides: {
+      MuiInputLabel: {
+        root: {
+          color: "#00adff",
+          width: 2000,
+          "&$focused": {
+            color: "blue",
+          },
+        },
+      },
+    },
+  });
   if (isLogin) {
     return (
       <Redirect
@@ -82,6 +96,8 @@ const LoginAdminPage = () => {
           }}
         >
           <form >
+              {/* <TextField className={`${classes.formControl} ${classes.rootTextField}`} id="standard-basic" label="loginID" />
+              <TextField className={`${classes.formControl} ${classes.rootTextField}`} id="standard-basic" label="Password" /> */}
               <InputText
                 nameLabel="loginID" 
                 typeInput="text"
@@ -102,7 +118,7 @@ const LoginAdminPage = () => {
               nameButton={getLabel(LangConstant.TXT_LOGIN)}
               onClick={onLogin}
             />
-            <Box className={classes.boxLink}>
+            <Box>
               <Link className={classes.a} onClick={onChangeLanguage}>
                 Change language to English
               </Link>
@@ -124,18 +140,20 @@ const useStyles = makeStyles({
         textDecoration: "underline",
     },
   },
+  // rootTextField: {
+  //   "& .MuiFormLabel-root": {
+  //     color: "#000000"
+  //   },
+  // },
+  // formControl: {
+  //   display: "flex"
+  // },
   boxParent: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     width: "100vw",
     height: "100vh",
-  },
-  boxLink: {
-    paddingTop: "20px",
-    borderTop: "1px solid black",
-    marginTop: "20px",
-    textAlign: "center",
   }
 });
 
