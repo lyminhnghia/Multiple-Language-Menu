@@ -1,9 +1,5 @@
-import { APIConstant } from "../const";
-import API from "../api";
+import { ApiConstant } from "../const";
+import { createApi } from "../api";
 
-export const login = data =>
-  API.post(APIConstant.POST_LOGIN, {
-    login_nm: data.username,
-    login_pw: data.password,
-    client_id: APIConstant.ClIENT_ID,
-  });
+export const login = (data) =>
+  createApi().post(ApiConstant.POST_LOGIN_ADMIN, data);

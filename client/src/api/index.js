@@ -2,16 +2,17 @@
  * Export an instance of api client
  */
 
-import { APIConstant } from "../const";
+import { ApiConstant } from "../const";
 import apisauce from "apisauce";
 
 export const defaultConfig = {
-  baseURL: APIConstant.BASE_URL,
-  headers: APIConstant.HEADER_DEFAULT,
-  timeout: APIConstant.TIMEOUT,
+  baseURL: ApiConstant.BASE_URL,
+  headers: ApiConstant.HEADER_DEFAULT,
+  timeout: ApiConstant.TIMEOUT,
 };
 
-export const createApi = (initConfig = defaultConfig) => apisauce.create(initConfig);
+export const createApi = (initConfig = defaultConfig) =>
+  apisauce.create(initConfig);
 
 const Api = createApi();
 

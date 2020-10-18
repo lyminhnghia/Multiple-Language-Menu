@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import { PathConstant, LangConstant } from "../../../const";
 import { Redirect, useHistory } from "react-router-dom";
 import AuthAction from "../../../redux/auth.redux";
@@ -14,6 +14,11 @@ const LoginAdminPage = () => {
   const history = useHistory();
   const { t: getLabel } = useTranslation();
   const isLogin = useSelector((state) => state.authRedux.isLogin);
+  const [data, setData] = useState({});
+
+  const onChange = (event) => {
+    setData({ ...data, [event.target.name]: event.target.value });
+  };
 
   if (isLogin) {
     return (
@@ -29,10 +34,7 @@ const LoginAdminPage = () => {
   }
 
   const onLogin = () => {
-    dispatch(
-      AuthAction.requestLogin({ username: "hieucv", password: "123456" })
-    );
-    history.push("/admin/shop-list");
+    dispatch(AuthAction.requestLogin(data));
   };
 
   return (
@@ -47,11 +49,13 @@ const LoginAdminPage = () => {
               nameLabel={getLabel(LangConstant.TXT_USER_NAME)}
               typeInput="text"
               nameText="username"
+              onInput={onChange}
             />
             <InputText
               nameLabel={getLabel(LangConstant.TXT_PASSWORD)}
               typeInput="password"
               nameText="password"
+              onInput={onChange}
             />
           </form>
           <Box className={classes.box4}>
