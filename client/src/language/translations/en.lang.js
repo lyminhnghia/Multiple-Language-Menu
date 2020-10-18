@@ -1,6 +1,3 @@
 export default {
-  login: {
-    TXT_LOGIN: "LOGIN",
-  },
-  common: {},
+  TXT_LOGIN: "LOGIN"
 };

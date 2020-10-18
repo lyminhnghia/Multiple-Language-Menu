@@ -1,3 +1,5 @@
+import { yellow } from "@material-ui/core/colors";
+
 const white = "#FFFFFF";
 const black = "#000000";
 const gray = "rgba(255, 255, 255, 0.5)";
@@ -24,19 +26,19 @@ export default {
     light: "#E4F89B",
   },
   info: {
-    contrastText: white,
+    contrastText: black,
     dark: "#0A51B7",
     main: "#00C8FF",
     light: "#A1DFFF",
   },
   warning: {
-    contrastText: white,
+    contrastText: yellow,
     dark: "#B77501",
     main: "#FFB000",
     light: "#FFE999",
   },
   error: {
-    contrastText: white,
+    contrastText: gray,
     dark: "#AC2925",
     main: "#D03C38",
     light: "#FF6263",
@@ -48,7 +50,7 @@ export default {
   },
   background: {
     default: "#151937",
-    paper: "#2C3359",
+    paper: white,
   },
   icon: "#3A3B3F",
   divider: "rgba(255, 255, 255, 0.34)",
