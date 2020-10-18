@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
     url_website: Sequelize.STRING,
     url_image: Sequelize.STRING,
     url_qrcode: Sequelize.STRING,
-    created: Sequelize.BIGINT,
+    status_change: Sequelize.BOOLEAN,
   });
   return Shop;
 };
