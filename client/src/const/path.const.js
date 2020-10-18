@@ -11,5 +11,6 @@ export const ADMIN_NOT_FOUND = "/admin/not-found"
 
 // Shop
 export const LOGIN_SHOP = "/shop/login";
-export const SHOP_NOT_FOUND = "/shop/not-found"
+export const SHOP_NOT_FOUND = "/shop/not-found";
+export const SHOP_ADD_CATEGORY = "/shop/add-category"
 // Consumer

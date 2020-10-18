@@ -34,6 +34,13 @@ export default {
   TXT_CHANGE_PASS: "Đổi mật khẩu",
   TXT_EDIT_PROFILE: "Sửa",
   TXT_SAVE_PROFILE: "Lưu thay đổi",
+  TXT_NAME_PRODUCT: "Tên sản phẩm",
+  TXT_DESCRIPTION_PRODUCT: "Mô tả sản phẩm",
+  TXT_PRICE_PRODUCT: "Giá sản phẩm",
+  TXT_CATEGORY_PRODUCT: "Danh mục sản phẩm",
+  TXT_ID_PRODUCT: "Mã sản phẩm",
+  TXT_ADD_CATEGORY: "Thêm danh mục",
+  TXT_NEW_CATEGORY: "Danh mục mới",
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };
