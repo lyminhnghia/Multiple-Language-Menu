@@ -7,13 +7,10 @@ import {
   TextareaAutosize,
   Select,
   FormControl,
-  Button,
-  
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import InputText from "../../../components/inputText";
 import ButtonBox from "../../../components/buttonBox";
-import {AdminLayout} from "../../../layouts"
 import PopupBox from "./Components/popup"
 
 const ShopAddCategory = () => {
@@ -143,6 +140,7 @@ const useStyles = makeStyles({
     fontSize: "18px",
     fontWeight: "500",
     marginBottom: "5px",
+    color: "rgb(48, 92, 139)"
   },
   formControl: {
     width: "calc(100% - 58px)"

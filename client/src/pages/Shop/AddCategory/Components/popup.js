@@ -9,7 +9,7 @@ import {
     DialogContentText,
     IconButton,
     Box,
-
+    TextareaAutosize,
 } from "@material-ui/core";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import InputText from "../../../../components/inputText";
@@ -47,6 +47,17 @@ const PopupBox = () => {
               requiredInput={true}
               nameText="email"
               // onInput = {e => onChange(e)}
+            />
+            <Box className={classes.boxLabel}>
+              {getLabel(LangConstant.TXT_DESCRIPTION_PRODUCT)}
+            </Box>
+            <TextareaAutosize
+              style={{width:"100%"}}
+              rowsMax={4}
+              aria-label="maximum height"
+              placeholder="Maximum 4 rows"
+              defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                  ut labore et dolore magna aliqua."
             />
           </DialogContentText>
         </DialogContent>
@@ -91,6 +102,12 @@ const useStyles = makeStyles({
     color: "#000000",
     padding: "20px 0px 0px 20px",
     fontSize: "20px",
-  }  
+  },
+  boxLabel: {
+    fontSize: "18px",
+    fontWeight: "500",
+    marginTop: "15px",
+    color: "rgb(48, 92, 139)"
+  },  
 });
 export default memo(PopupBox);
