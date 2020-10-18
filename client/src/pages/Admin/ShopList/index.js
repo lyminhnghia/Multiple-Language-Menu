@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import {
   makeStyles,
   Box,
@@ -8,7 +8,6 @@ import {
   TableBody,
   TableRow,
   IconButton,
-  Button,
 } from "@material-ui/core";
 import { MoreHoriz } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
@@ -27,17 +26,28 @@ import { LangConstant } from "../../../const";
 const ShopList = (props) => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
+  const [filter, setFilter] = useState("");
+  const [from, setFrom] = useState(null);
+  const [to, setTo] = useState(null);
 
   const onChangePage = (event, newPage) => {
     console.log(newPage);
   };
 
-  const onGetDate = (e) => {
-    console.log(e.target.value);
+  const onGetDateFrom = (e) => {
+    setFrom(e.target.value);
+  };
+
+  const onGetDateTo = (e) => {
+    setTo(e.target.value);
   };
 
   const onSearch = (name) => {
     console.log(name);
+  };
+
+  const onSubmit = () => {
+    console.log(from, to);
   };
 
   return (
@@ -58,19 +68,22 @@ const ShopList = (props) => {
                 marginRight: 0,
               }}
             >
-              <BoxButton nameButton={getLabel(LangConstant.TXT_SEARCH)} />
+              <BoxButton
+                onClick={onSubmit}
+                nameButton={getLabel(LangConstant.TXT_SEARCH)}
+              />
             </Box>
           </Box>
           <Box style={{ textAlign: "center" }}>
             <Box style={{ display: "inline-flex" }}>from</Box>
             <DatePickers
-              onChange={onGetDate}
+              onChange={onGetDateFrom}
               name="start_date"
               className={classes.findDate}
             />
             <Box style={{ display: "inline-flex", marginLeft: 100 }}>to</Box>
             <DatePickers
-              onChange={onGetDate}
+              onChange={onGetDateTo}
               name="end_date"
               className={classes.findDate}
             />
