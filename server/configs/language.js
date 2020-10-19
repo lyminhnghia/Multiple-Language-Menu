@@ -1,118 +1,118 @@
 module.exports = [
   {
     lang_code: "zh-cn",
-    lang_name: "Chinese Simplified",
+    lang_name: "Tiếng Trung giản thể",
   },
   {
     lang_code: "zh-tw",
-    lang_name: "Chinese Traditional",
+    lang_name: "Tiếng Trung truyền thống",
   },
   {
     lang_code: "es",
-    lang_name: "Spanish",
+    lang_name: "Tiếng Tây Ban Nha",
   },
   {
     lang_code: "en",
-    lang_name: "English",
+    lang_name: "Tiếng Anh",
   },
   {
     lang_code: "hi",
-    lang_name: "Hindi",
+    lang_name: "Tiếng Hindi",
   },
   {
     lang_code: "ar",
-    lang_name: "Arabic",
+    lang_name: "Tiếng Ả Rập",
   },
   {
     lang_code: "pt",
-    lang_name: "Portuguese",
+    lang_name: "Tiếng Bồ Đào Nha",
   },
   {
     lang_code: "bn",
-    lang_name: "Bengali",
+    lang_name: "Tiếng Bengali",
   },
   {
     lang_code: "ru",
-    lang_name: "Russian",
+    lang_name: "Tiếng Nga",
   },
   {
     lang_code: "ja",
-    lang_name: "Japanese",
+    lang_name: "Tiếng Nhật",
   },
   {
     lang_code: "pa",
-    lang_name: "Punjabi",
+    lang_name: "Tiếng Punjabi",
   },
   {
     lang_code: "de",
-    lang_name: "German",
+    lang_name: "Tiếng Đức",
   },
   {
     lang_code: "jw",
-    lang_name: "Javanese",
+    lang_name: "Tiếng Java",
   },
   {
     lang_code: "ms",
-    lang_name: "Malay",
+    lang_name: "Tiếng Mã Lai",
   },
   {
     lang_code: "te",
-    lang_name: "Telugu",
+    lang_name: "Tiếng Telugu",
   },
   {
     lang_code: "vi",
-    lang_name: "Vietnamese",
+    lang_name: "Tiếng Việt",
   },
   {
     lang_code: "ko",
-    lang_name: "Korean",
+    lang_name: "Tiếng Hàn",
   },
   {
     lang_code: "fr",
-    lang_name: "French",
+    lang_name: "Tiếng Pháp",
   },
   {
     lang_code: "mr",
-    lang_name: "Marathi",
+    lang_name: "Tiếng Marathi",
   },
   {
     lang_code: "ta",
-    lang_name: "Tamil",
+    lang_name: "Tiếng Tamil",
   },
   {
     lang_code: "my",
-    lang_name: "Myanmar",
+    lang_name: "Tiếng Myanmar",
   },
   {
     lang_code: "lo",
-    lang_name: "Lao",
+    lang_name: "Tiếng Lào",
   },
   {
     lang_code: "id",
-    lang_name: "Indonesian",
+    lang_name: "Tiếng Indonesian",
   },
   {
     lang_code: "ca",
-    lang_name: "Catalan",
+    lang_name: "Tiếng Catalan",
   },
   {
     lang_code: "cs",
-    lang_name: "Czech",
+    lang_name: "Tiếng Séc",
   },
   {
     lang_code: "hr",
-    lang_name: "Croatian",
+    lang_name: "Tiếng Croatia",
   },
   {
     lang_code: "el",
-    lang_name: "Greek",
+    lang_name: "Tiếng Hy Lạp",
   },
   {
     lang_code: "th",
-    lang_name: "Thai",
+    lang_name: "Tiếng Thái",
   },
   {
     lang_code: "ur",
-    lang_name: "Urdu",
+    lang_name: "Tiếng Urdu",
   },
 ];
