@@ -1,19 +1,19 @@
-/**
- * Export an instance of api client
- */
-
-import { ApiConstant } from "../const";
+import { ApiConstant, AppConstant } from "../const";
 import apisauce from "apisauce";
+import Cookie from "js-cookie";
 
-export const defaultConfig = {
+export const DEFAULT_CONFIG = {
   baseURL: ApiConstant.BASE_URL,
   headers: ApiConstant.HEADER_DEFAULT,
   timeout: ApiConstant.TIMEOUT,
 };
 
-export const createApi = (initConfig = defaultConfig) =>
-  apisauce.create(initConfig);
+export const createApi = (initConfig = DEFAULT_CONFIG) => {
+  const token = Cookie.get(AppConstant.KEY_TOKEN);
+  if (token && token.length > 0) {
+    initConfig.headers.accessToken = token;
+  }
+  return apisauce.create(initConfig);
+};
 
-const Api = createApi();
-
-export default Api;
+export const createApiRegistration = () => createApi(DEFAULT_CONFIG);

@@ -5,6 +5,7 @@ const { Types, Creators } = createActions({
   requestLogin: ["data"],
   loginSuccess: ["data"],
   loginFailure: ["error"],
+  reset: [],
 });
 
 export const AuthTypes = Types;
@@ -39,11 +40,13 @@ export const loginFailure = (state = INITIAL_STATE, action) => ({
   error: action.error,
 });
 
+export const reset = () => INITIAL_STATE;
 /* ------------- Mapping ------------- */
 export const HANDLERS = {
   [Types.REQUEST_LOGIN]: requestLogin,
   [Types.LOGIN_SUCCESS]: loginSuccess,
   [Types.LOGIN_FAILURE]: loginFailure,
+  [Types.RESET]: reset,
 };
 
 /* ------------- Hookup Reducers To Types ------------- */

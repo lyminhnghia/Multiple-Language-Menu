@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const config = require("../configs/secret-key");
 
 exports.verifyTokenAdmin = async (req, res, next) => {
-  let token = req.headers["x-access-token"];
+  let token = req.headers["accesstoken"];
   if (!token) {
     return res.status(401).send({
       success: false,

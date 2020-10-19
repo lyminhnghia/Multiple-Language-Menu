@@ -10,10 +10,15 @@ export function* requestLogin(action) {
     let response = yield call(AuthService.login, data);
     if (response.status == ApiConstant.STT_OK) {
       let responseData = response.data.data;
-      yield put(AuthAction.loginSuccess(responseData));
-      Cookie.set(AppConstant.KEY_TOKEN, responseData, {
+      Cookie.set(AppConstant.KEY_TOKEN, responseData.token, {
         expires: AppConstant.EXPIRES_TOKEN,
       });
+      Cookie.set(AppConstant.KEY_ROLE, responseData.role, {
+        expires: AppConstant.EXPIRES_TOKEN,
+      });
+      if (responseData.role) {
+        yield put(AuthAction.loginSuccess({ isLogin: true }));
+      }
     } else {
       yield put(AuthAction.loginFailure(response.data.error));
     }

@@ -1,5 +1,5 @@
 import { ApiConstant } from "../const";
-import { createApi } from "../api";
+import { createApiRegistration } from "../api";
 
 export const login = (data) =>
-  createApi().post(ApiConstant.POST_LOGIN_ADMIN, data);
+  createApiRegistration().post(ApiConstant.POST_LOGIN_ADMIN, data);
