@@ -4,6 +4,7 @@ module.exports = (app) => {
   const middleware = require("../middleware/middleware");
   const global = require("../controllers/global");
   const shopAdmin = require("../controllers/Admin/shop.admin");
+  const profileShop = require("../controllers/Shop/profile.shop");
   const limiter = rateLimit({
     windowMs: 15 * 1000,
     max: 15,
@@ -39,6 +40,8 @@ module.exports = (app) => {
   // Delete shop
   app.delete("/api/admin/shop/:id", limiter, shopAdmin.deleteShop);
   // ROLE SHOP
+  // get QRCode
+  app.get("/api/shop/qrcode", profileShop.createQRCode);
   // Login
   app.post("/api/shop/login", limiter, global.LoginShop);
   // Edit password

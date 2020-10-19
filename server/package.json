@@ -18,6 +18,7 @@
     "googletrans": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.2.5",
+    "qrcode": "^1.4.4",
     "sequelize": "^6.3.5"
   }
 }
