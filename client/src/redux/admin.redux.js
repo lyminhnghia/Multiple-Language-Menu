@@ -2,51 +2,44 @@ import { createReducer, createActions } from "reduxsauce";
 
 /* ------------- Types and Action Creators ------------- */
 const { Types, Creators } = createActions({
-  requestLogin: ["data"],
-  loginSuccess: ["data"],
-  loginFailure: ["error"],
-  reset: [],
+  getListShop: ["data"],
+  getListShopSuccess: ["data"],
+  getListShopFailure: ["error"],
 });
 
-export const AuthTypes = Types;
+export const AdminTypes = Types;
 export default Creators;
 
 /* ------------- Initial State ------------- */
 export const INITIAL_STATE = {
   isFetching: false,
   error: null,
-  isLogin: false,
+  data: null,
 };
 
 /* ------------- Reducers ------------- */
-export const requestLogin = (state = INITIAL_STATE) => ({
+export const getListShop = (state = INITIAL_STATE) => ({
   ...state,
   isFetching: true,
-  isLogin: null,
 });
 
-export const loginSuccess = (state = INITIAL_STATE, action) => {
-  window.isChecked = true;
-  return {
-    ...state,
-    isFetching: false,
-    isLogin: action.data.isLogin,
-  };
-};
+export const getListShopSuccess = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isFetching: false,
+  data: action.data,
+});
 
-export const loginFailure = (state = INITIAL_STATE, action) => ({
+export const getListShopFailure = (state = INITIAL_STATE, action) => ({
   ...state,
   isFetching: false,
   error: action.error,
 });
 
-export const reset = () => INITIAL_STATE;
 /* ------------- Mapping ------------- */
 export const HANDLERS = {
-  [Types.REQUEST_LOGIN]: requestLogin,
-  [Types.LOGIN_SUCCESS]: loginSuccess,
-  [Types.LOGIN_FAILURE]: loginFailure,
-  [Types.RESET]: reset,
+  [Types.GET_LIST_SHOP]: getListShop,
+  [Types.GET_LIST_SHOP_SUCCESS]: getListShopSuccess,
+  [Types.GET_LIST_SHOP_FAILURE]: getListShopFailure,
 };
 
 /* ------------- Hookup Reducers To Types ------------- */
