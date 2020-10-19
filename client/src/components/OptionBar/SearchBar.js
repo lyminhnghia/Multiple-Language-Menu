@@ -19,11 +19,6 @@ const SearchBar = ({
     }
     setInputValue(event.target.value);
   };
-  const onKeyUpInput = (event) => {
-    if (Boolean(onKeyUp) && (event.key === "Enter" || event.keyCode === 13)) {
-      onKeyUp(event.target.value);
-    }
-  };
   return (
     <OutlinedInput
       placeholder={placeholder}
@@ -40,7 +35,6 @@ const SearchBar = ({
           <SearchIcon className={classes.SearchIcon} />
         </InputAdornment>
       }
-      onKeyUp={onKeyUpInput}
       {...otherProps}
     />
   );

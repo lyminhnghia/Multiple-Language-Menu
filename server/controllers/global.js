@@ -32,7 +32,9 @@ exports.LoginAdmin = async (req, res) => {
       expiresIn: 86400,
     });
 
-    res.status(200).send({ success: true, data: JWToken });
+    res
+      .status(200)
+      .send({ success: true, data: { token: JWToken, role: user.role } });
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
   }
@@ -65,7 +67,9 @@ exports.LoginShop = async (req, res) => {
       expiresIn: 86400,
     });
 
-    res.status(200).send({ success: true, data: JWToken });
+    res
+      .status(200)
+      .send({ success: true, data: { token: JWToken, role: user.role } });
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
   }

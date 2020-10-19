@@ -1,112 +1,63 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import { PathConstant, LangConstant } from "../../../const";
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import AuthAction from "../../../redux/auth.redux";
-import {
-  makeStyles,
-  Box,
-  Link
-} from "@material-ui/core";
+import { makeStyles, Box } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import ButtonBox from "../../../components/buttonBox";
-import InputText from "../../../components/inputText"
+import { BoxButton, InputText } from "../../../components";
 
 const LoginAdminPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
-  const { t: getLabel, i18n } = useTranslation();
+  const { t: getLabel } = useTranslation();
   const isLogin = useSelector((state) => state.authRedux.isLogin);
+  const [data, setData] = useState({});
+
+  const onChange = (event) => {
+    setData({ ...data, [event.target.name]: event.target.value });
+  };
+
+  const onLogin = () => {
+    dispatch(AuthAction.requestLogin(data));
+  };
 
   if (isLogin) {
     return (
       <Redirect
         to={{
-          pathname: PathConstant.DASHBOARD,
-          state: {
-            from: this.props.location,
-          },
+          pathname: PathConstant.ADMIN_SHOP_LIST,
         }}
       />
     );
   }
 
-  const onChangeLanguage = () => {
-    i18n.changeLanguage("en");
-  };
-  const onLogin = () => {
-    dispatch(
-      AuthAction.requestLogin({ username: "hieucv", password: "123465" })
-    );
-    history.push("/");
-  };
-
   return (
     <Box className={classes.boxParent}>
-      <Box
-        style={{
-          width: 1000,
-          display: "flex",
-          flexWrap: "wrap",
-          height: 430,
-          backgroundColor: "#fff",
-          borderRadius: "50px",
-          boxShadow: "0 5px 5px 0 rgba(0,0,0,.2), 0 6px 18px 0 rgba(0,0,0,.19)",
-        }}
-      >
-        <Box
-          style={{
-            backgroundColor: "#305C8B",
-            width: 500,
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderBottomLeftRadius: "50px",
-            borderTopLeftRadius: "50px",
-          }}
-        >
-          <h1 style={{ color: "white" }}>This is login page</h1>
+      <Box className={classes.box1}>
+        <Box className={classes.box2}>
+          <h1 className={classes.h1}>Admin Page</h1>
         </Box>
-        <Box
-          style={{
-            backgroundColor: "#fff",
-            width: 500,
-            paddingTop: 100,
-            boxSizing: "border-box",
-            paddingLeft: "100px",
-            paddingRight: "100px",
-            borderBottomRightRadius: "50px",
-            borderTopRightRadius: "50px",
-          }}
-        >
-          <form >
-              <InputText
-                nameLabel="loginID" 
-                typeInput="text"
-              />
-              <InputText 
-                nameLabel="Password" 
-                typeInput="password" 
-              />
+        <Box className={classes.box3}>
+          <form>
+            <InputText
+              nameLabel={getLabel(LangConstant.TXT_USER_NAME)}
+              typeInput="text"
+              nameText="username"
+              onInput={onChange}
+            />
+            <InputText
+              nameLabel={getLabel(LangConstant.TXT_PASSWORD)}
+              typeInput="password"
+              nameText="password"
+              onInput={onChange}
+            />
           </form>
-          <Box style={{ marginTop: "20px" }}>
-            {/* <Button variant="contained" color="primary" onClick={onLogin}>
-              {getLabel(LangConstant.TXT_LOGIN)}
-            </Button>
-            <Button variant="contained" color="secondary" onClick={onChangeLanguage}>
-              Change language to English
-            </Button> */}
-            <ButtonBox
+          <Box className={classes.box4}>
+            <BoxButton
               nameButton={getLabel(LangConstant.TXT_LOGIN)}
               onClick={onLogin}
             />
-            <Box className={classes.boxLink}>
-              <Link className={classes.a} onClick={onChangeLanguage}>
-                Change language to English
-              </Link>
-            </Box>
           </Box>
         </Box>
       </Box>
@@ -114,16 +65,7 @@ const LoginAdminPage = () => {
   );
 };
 
-
 const useStyles = makeStyles({
-  a: {
-    cursor: "pointer",
-    height: 25,
-    width: 25,
-    "&:hover": {
-        textDecoration: "underline",
-    },
-  },
   boxParent: {
     display: "flex",
     justifyContent: "center",
@@ -131,12 +73,42 @@ const useStyles = makeStyles({
     width: "100vw",
     height: "100vh",
   },
-  boxLink: {
-    paddingTop: "20px",
-    borderTop: "1px solid black",
-    marginTop: "20px",
-    textAlign: "center",
-  }
+  box1: {
+    width: 1000,
+    display: "flex",
+    flexWrap: "wrap",
+    height: 430,
+    backgroundColor: "#fff",
+    borderRadius: 50,
+    boxShadow: "0 5px 5px 0 rgba(0,0,0,.2), 0 6px 18px 0 rgba(0,0,0,.19)",
+  },
+  box2: {
+    backgroundColor: "#305C8B",
+    width: 500,
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderBottomLeftRadius: 50,
+    borderTopLeftRadius: 50,
+  },
+  h1: { color: "white" },
+  box3: {
+    backgroundColor: "#fff",
+    width: 500,
+    paddingTop: 80,
+    boxSizing: "border-box",
+    paddingLeft: 100,
+    paddingRight: 100,
+    borderBottomRightRadius: 50,
+    borderTopRightRadius: 50,
+  },
+  box4: {
+    marginTop: 40,
+    height: 40,
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
 });
 
 export default memo(LoginAdminPage);
