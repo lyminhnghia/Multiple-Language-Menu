@@ -41,6 +41,8 @@ export default {
   TXT_ID_PRODUCT: "Mã sản phẩm",
   TXT_ADD_CATEGORY: "Thêm danh mục",
   TXT_NEW_CATEGORY: "Danh mục mới",
+  TXT_FROM: "Từ:",
+  TXT_TO: "Đến:",
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };

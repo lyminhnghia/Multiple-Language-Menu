@@ -16,3 +16,5 @@ export const STT_INTERNAL_SERVER = 500;
 
 // Api
 export const POST_LOGIN_ADMIN = "/api/admin/login";
+export const GET_LIST_SHOP_ADMIN = "/api/admin/shop";
+export const GET_SHOP_ADMIN = "/api/admin/shop/{0}";

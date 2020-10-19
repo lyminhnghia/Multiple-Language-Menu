@@ -1,23 +1,18 @@
 import React, { memo, useState } from "react";
-import { PathConstant, LangConstant, AppConstant } from "../../../const";
-import { Redirect, useHistory } from "react-router-dom";
+import { PathConstant, LangConstant } from "../../../const";
+import { Redirect } from "react-router-dom";
 import AuthAction from "../../../redux/auth.redux";
 import { makeStyles, Box } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { BoxButton, InputText } from "../../../components";
-import Cookie from "js-cookie";
-import { useEffect } from "react";
 
 const LoginAdminPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
   const { t: getLabel } = useTranslation();
   const isLogin = useSelector((state) => state.authRedux.isLogin);
   const [data, setData] = useState({});
-  const role = Cookie.get(AppConstant.KEY_TOKEN);
-  const token = Cookie.get(AppConstant.KEY_ROLE);
 
   const onChange = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
@@ -28,7 +23,6 @@ const LoginAdminPage = () => {
   };
 
   if (isLogin) {
-    dispatch(AuthAction.reset());
     return (
       <Redirect
         to={{

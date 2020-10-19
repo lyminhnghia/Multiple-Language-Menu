@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import {
   makeStyles,
   Box,
@@ -22,6 +22,8 @@ import {
 } from "../../../components";
 import { uuid } from "../../../utils";
 import { LangConstant } from "../../../const";
+import { useDispatch, useSelector } from "react-redux";
+import AdminAction from "../../../redux/admin.redux";
 
 const ShopList = (props) => {
   const classes = useStyles();
@@ -29,9 +31,16 @@ const ShopList = (props) => {
   const [filter, setFilter] = useState("");
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
+  const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.adminRedux.data);
+
+  if (data === null) {
+    dispatch(AdminAction.getListShop({ page: 1 }));
+  }
 
   const onChangePage = (event, newPage) => {
-    console.log(newPage);
+    setPage(1);
   };
 
   const onGetDateFrom = (e) => {
@@ -43,45 +52,40 @@ const ShopList = (props) => {
   };
 
   const onSearch = (name) => {
-    console.log(name);
+    setFilter(name);
   };
 
   const onSubmit = () => {
-    console.log(from, to);
+    console.log(from, to, filter);
   };
 
   return (
     <AdminLayout>
       <Box>
-        <Box style={{ width: "100%", height: 150, backgroundColor: "#f1f3f6" }}>
-          <Box style={{ width: "100%", display: "flex", paddingTop: 30 }}>
+        <Box className={classes.box1}>
+          <Box className={classes.box2}>
             <SearchBar
               className={classes.SearchBar}
               placeholder={getLabel(LangConstant.TXT_SEARCH)}
-              onKeyUp={onSearch}
+              onChange={onSearch}
             />
-            <Box
-              style={{
-                width: 100,
-                height: 30,
-                marginLeft: 20,
-                marginRight: 0,
-              }}
-            >
+            <Box className={classes.box3}>
               <BoxButton
                 onClick={onSubmit}
                 nameButton={getLabel(LangConstant.TXT_SEARCH)}
               />
             </Box>
           </Box>
-          <Box style={{ textAlign: "center" }}>
-            <Box style={{ display: "inline-flex" }}>from</Box>
+          <Box className={classes.box4}>
+            <Box className={classes.box5}>
+              {getLabel(LangConstant.TXT_FROM)}
+            </Box>
             <DatePickers
               onChange={onGetDateFrom}
               name="start_date"
               className={classes.findDate}
             />
-            <Box style={{ display: "inline-flex", marginLeft: 100 }}>to</Box>
+            <Box className={classes.box6}>{getLabel(LangConstant.TXT_TO)}</Box>
             <DatePickers
               onChange={onGetDateTo}
               name="end_date"
@@ -89,7 +93,7 @@ const ShopList = (props) => {
             />
           </Box>
         </Box>
-        <TableContainer style={{ marginTop: 50 }}>
+        <TableContainer className={classes.containerTable}>
           <Table>
             <TableHead>
               <TableRow>
@@ -191,6 +195,35 @@ for (let i = 1; i < 11; i++) {
 }
 
 const useStyles = makeStyles((theme) => ({
+  box1: {
+    width: "100%",
+    height: 150,
+    backgroundColor: "#f1f3f6",
+  },
+  box2: {
+    width: "100%",
+    display: "flex",
+    paddingTop: 30,
+  },
+  box3: {
+    width: 100,
+    height: 30,
+    marginLeft: 20,
+    marginRight: 0,
+  },
+  box4: {
+    textAlign: "center",
+  },
+  box5: {
+    display: "inline-flex",
+  },
+  box6: {
+    display: "inline-flex",
+    marginLeft: 100,
+  },
+  containerTable: {
+    marginTop: 50,
+  },
   cell: {
     color: "#000000",
     fontSize: 14,
