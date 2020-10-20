@@ -18,6 +18,7 @@ exports.createCategory = async (req, res) => {
     let newCategory = await Category.create({
       name: req.body.name,
       description: req.body.description,
+      status_change: true,
       shopId: req.body.shopId,
     });
 
@@ -40,10 +41,11 @@ exports.updateCategory = async (req, res) => {
         .status(400)
         .send({ success: false, error: "Category already exists!" });
     }
-    let newCategory = await Category.update(
+    await Category.update(
       {
         name: req.body.name,
         description: req.body.description,
+        status_change: true,
       },
       {
         where: {
@@ -52,7 +54,7 @@ exports.updateCategory = async (req, res) => {
       }
     );
 
-    res.status(200).send({ success: true, data: newCategory });
+    res.status(200).send({ success: true, data: "Updated successful!" });
   } catch (error) {
     res.status(500).send({ success: false, error: error });
   }

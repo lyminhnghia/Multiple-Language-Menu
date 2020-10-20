@@ -10,7 +10,7 @@ dotenv.config();
 
 require("./routes/route")(app);
 db.sequelize
-  .sync()
+  .sync({ alter: true })
   .then(() => {
     console.log("Sequelize is Running");
   })
