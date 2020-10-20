@@ -59,7 +59,7 @@ exports.updateItem = async (req, res) => {
       }
     );
 
-    res.status(200).send({ success: true, data: newItem });
+    res.status(200).send({ success: true, data: "Updated successful!" });
   } catch (error) {
     res.status(500).send({ success: false, error: error });
   }

@@ -34,7 +34,7 @@ exports.verifyTokenAdmin = (req, res, next) => {
 };
 
 exports.verifyTokenShop = (req, res, next) => {
-  let token = req.headers["x-access-token"];
+  let token = req.headers["accesstoken"];
   if (!token) {
     return res.status(401).send({
       success: false,
@@ -52,6 +52,7 @@ exports.verifyTokenShop = (req, res, next) => {
 
     req.userId = decoded.id;
     req.role = decoded.role;
+    req.shopId = decoded.shopId;
 
     if (!req.role) {
       next();

@@ -52,6 +52,13 @@ module.exports = (app) => {
     global.editPassword
   );
 
+  // get Contract Shop
+  app.get(
+    "/api/shop/contract",
+    [middleware.verifyTokenShop],
+    profileShop.getContractShop
+  );
+
   // Create Category
   app.post(
     "/api/shop/create-category",
