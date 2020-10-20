@@ -82,7 +82,7 @@ exports.getListCategory = async (req, res) => {
   try {
     let listCategory = await Category.findAndCountAll({
       where: {
-        shopId: req.body.shopId,
+        shopId: req.shopId,
       },
       include: [
         {

@@ -67,9 +67,10 @@ exports.LoginShop = async (req, res) => {
       expiresIn: 86400,
     });
 
-    res
-      .status(200)
-      .send({ success: true, data: { token: JWToken, role: user.role } });
+    res.status(200).send({
+      success: true,
+      data: { token: JWToken, role: user.role, shopId: user.shopId },
+    });
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
   }
