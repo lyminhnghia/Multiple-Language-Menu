@@ -12,8 +12,8 @@ require("./routes/route")(app);
 const LanguageSchedule = require("./schedule/language.schedule");
 db.sequelize
   .sync()
-  .then(() => {
-    LanguageSchedule.createLanguage();
+  .then(async () => {
+    await LanguageSchedule.createLanguage();
     LanguageSchedule.createElementTranslate();
     console.log("Sequelize is Running");
   })
