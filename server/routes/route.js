@@ -87,11 +87,4 @@ module.exports = (app) => {
   app.delete("/api/shop/item/:id", ItemShop.deleteItem);
   // Get QRCode
   app.get("/api/shop/qrcode", profileShop.createQRCode);
-
-  let IntervalCreateLanguage = () => {
-    LanguageSchedule.createLanguage();
-  };
-
-  setInterval(IntervalCreateLanguage, 1000 * 60 * 60 * 24);
-  clearInterval(IntervalCreateLanguage);
 };

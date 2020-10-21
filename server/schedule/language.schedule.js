@@ -1,7 +1,9 @@
 const translate = require("googletrans").default;
 const language = require("../configs/language");
+const elementTranslate = require("../configs/element-translate");
 const db = require("../models/index");
 const Language = db.language;
+const TitleLanguage = db.title_language;
 
 exports.createLanguage = async () => {
   try {
@@ -12,17 +14,26 @@ exports.createLanguage = async () => {
         },
       });
       if (!langs) {
-        let data = await translate(language[i].lang_name, {
-          from: "en",
-          to: language[i].lang_code,
-        });
         await Language.create({
           lang_code: language[i].lang_code,
-          lang_name: data.text,
-          name: language[i].lang_name,
-          sort_order: i + 1,
+          lang_name: language[i].lang_name,
+          name: language[i].name,
+          sort_order: language[i].sort_order,
         });
       }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.createElementTranslate = async () => {
+  try {
+    let titleLang = await TitleLanguage.findOne({
+      where: elementTranslate,
+    });
+    if (!titleLang) {
+      TitleLanguage.create(elementTranslate);
     }
   } catch (error) {
     console.log(error);

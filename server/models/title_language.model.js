@@ -13,8 +13,7 @@ module.exports = (sequelize, Sequelize) => {
     item_button_add: Sequelize.TEXT + " CHARSET utf8 COLLATE utf8_general_ci",
     order_list_delete: Sequelize.TEXT + " CHARSET utf8 COLLATE utf8_general_ci",
     order_list_button: Sequelize.TEXT + " CHARSET utf8 COLLATE utf8_general_ci",
-    order_screen_button:
-      Sequelize.TEXT + " CHARSET utf8 COLLATE utf8_general_ci",
+    order_finish: Sequelize.TEXT + " CHARSET utf8 COLLATE utf8_general_ci",
     order_total: Sequelize.TEXT + " CHARSET utf8 COLLATE utf8_general_ci",
     order_history: Sequelize.TEXT + " CHARSET utf8 COLLATE utf8_general_ci",
   });

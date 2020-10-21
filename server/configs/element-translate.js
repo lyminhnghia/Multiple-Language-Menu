@@ -1,0 +1,16 @@
+module.exports = {
+  menu: "Danh mục sản phẩm",
+  history: "Lịch sử",
+  shop_info: "Thông tin cửa hàng",
+  guide_welcome: "Chào mừng bạn đã đến với cửa hàng của chúng tôi!",
+  guide_customer_name: "Tên của bạn",
+  guide_customer_phone: "Số điện thoại",
+  guide_start_button: "Bắt đầu",
+  item_button_add: "Thêm vào danh sách sản phẩm",
+  order_list_delete: "Xóa danh sách sản phẩm",
+  order_list_button: "Xem sản phẩm đã đặt",
+  order_finish: "Hoàn thành",
+  order_total: "Tổng",
+  order_history: "Lịch sử đặt hàng",
+  languageId: 1,
+};
