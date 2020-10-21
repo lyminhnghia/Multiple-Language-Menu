@@ -1,35 +1,19 @@
 module.exports = [
   {
-    lang_code: "zh-cn",
-    lang_name: "Tiếng Trung giản thể",
-  },
-  {
-    lang_code: "zh-tw",
-    lang_name: "Tiếng Trung truyền thống",
-  },
-  {
-    lang_code: "es",
-    lang_name: "Tiếng Tây Ban Nha",
+    lang_code: "vi",
+    lang_name: "Tiếng Việt",
   },
   {
     lang_code: "en",
     lang_name: "Tiếng Anh",
   },
   {
-    lang_code: "hi",
-    lang_name: "Tiếng Hindi",
+    lang_code: "zh-cn",
+    lang_name: "Tiếng Trung giản thể",
   },
   {
-    lang_code: "ar",
-    lang_name: "Tiếng Ả Rập",
-  },
-  {
-    lang_code: "pt",
-    lang_name: "Tiếng Bồ Đào Nha",
-  },
-  {
-    lang_code: "bn",
-    lang_name: "Tiếng Bengali",
+    lang_code: "zh-tw",
+    lang_name: "Tiếng Trung truyền thống",
   },
   {
     lang_code: "ru",
@@ -40,12 +24,40 @@ module.exports = [
     lang_name: "Tiếng Nhật",
   },
   {
-    lang_code: "pa",
-    lang_name: "Tiếng Punjabi",
+    lang_code: "ko",
+    lang_name: "Tiếng Hàn",
+  },
+  {
+    lang_code: "fr",
+    lang_name: "Tiếng Pháp",
   },
   {
     lang_code: "de",
     lang_name: "Tiếng Đức",
+  },
+  {
+    lang_code: "ar",
+    lang_name: "Tiếng Ả Rập",
+  },
+  {
+    lang_code: "es",
+    lang_name: "Tiếng Tây Ban Nha",
+  },
+  {
+    lang_code: "hi",
+    lang_name: "Tiếng Hindi",
+  },
+  {
+    lang_code: "pt",
+    lang_name: "Tiếng Bồ Đào Nha",
+  },
+  {
+    lang_code: "bn",
+    lang_name: "Tiếng Bengali",
+  },
+  {
+    lang_code: "pa",
+    lang_name: "Tiếng Punjabi",
   },
   {
     lang_code: "jw",
@@ -58,18 +70,6 @@ module.exports = [
   {
     lang_code: "te",
     lang_name: "Tiếng Telugu",
-  },
-  {
-    lang_code: "vi",
-    lang_name: "Tiếng Việt",
-  },
-  {
-    lang_code: "ko",
-    lang_name: "Tiếng Hàn",
-  },
-  {
-    lang_code: "fr",
-    lang_name: "Tiếng Pháp",
   },
   {
     lang_code: "mr",
