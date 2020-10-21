@@ -1,6 +1,5 @@
 const rateLimit = require("express-rate-limit");
 module.exports = (app) => {
-  const LanguageSchedule = require("../schedule/language.schedule");
   const middleware = require("../middleware/middleware");
   const global = require("../controllers/global");
   const shopAdmin = require("../controllers/Admin/shop.admin");
