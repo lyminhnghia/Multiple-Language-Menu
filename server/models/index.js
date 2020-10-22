@@ -66,7 +66,7 @@ db.shop.hasMany(db.sort_language);
 db.sort_language.belongsTo(db.shop);
 // Join language with sort language
 db.language.hasMany(db.sort_language);
-db.sort_language.hasMany(db.sort_language);
+db.sort_language.belongsTo(db.language);
 // Join shop information with address language
 db.shop_information.hasOne(db.address_language);
 db.address_language.belongsTo(db.shop_information);

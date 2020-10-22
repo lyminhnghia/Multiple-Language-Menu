@@ -1,9 +1,55 @@
 const QRcode = require("qrcode");
-const fs = require("fs");
 const db = require("../../models/index");
 const Shop = db.shop;
 const Account = db.account;
 const Owner = db.owner;
+const Language = db.language;
+const PaymentMethod = db.payment_method;
+const SortLanguage = db.sort_language;
+const WorkingShift = db.working_shift;
+const Address = db.address;
+
+exports.getProfilebyShop = async (req, res) => {
+  try {
+    let shop = await Shop.findOne({
+      where: {
+        id: req.shopId,
+      },
+      attributes: [
+        "shop_type",
+        "shop_name",
+        "email",
+        "telephone",
+        "name_wifi",
+        "password_wifi",
+        "url_website",
+        "url_image",
+        "url_qrcode",
+      ],
+      include: [
+        {
+          model: PaymentMethod,
+        },
+        {
+          model: WorkingShift,
+        },
+        {
+          model: Address,
+        },
+      ],
+    });
+    res.status(200).send({ success: true, data: shop });
+  } catch (error) {
+    res.status(500).send({ success: false, error: error.message });
+  }
+};
+
+exports.updateProfilebyShop = async (req, res) => {
+  try {
+  } catch (error) {
+    res.status(500).send({ success: false, error: error.message });
+  }
+};
 
 exports.getContractShop = async (req, res) => {
   try {
@@ -47,7 +93,20 @@ exports.getContractShop = async (req, res) => {
 
 exports.getLanguage = async (req, res) => {
   try {
-    let;
+    let sortLanguage = await SortLanguage.findAll({
+      attributes: ["sort_order"],
+      where: {
+        shopId: req.shopId,
+      },
+      order: [["sort_order", "ASC"]],
+      include: [
+        {
+          model: Language,
+          attributes: ["id", "lang_code", "lang_name", "name"],
+        },
+      ],
+    });
+    res.status(200).send({ success: true, data: sortLanguage });
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
   }
@@ -55,6 +114,28 @@ exports.getLanguage = async (req, res) => {
 
 exports.sortLanguage = async (req, res) => {
   try {
+    let sortLanguage = req.body;
+    if (sortLanguage.length !== 29) {
+      return res
+        .status(400)
+        .send({ success: false, error: "Required 29 language!" });
+    }
+    res
+      .status(200)
+      .send({ success: true, data: "Updated sort language is successful!" });
+    for (let i = 0; i < sortLanguage.length; i++) {
+      await SortLanguage.update(
+        {
+          sort_order: sortLanguage[i].sort_order,
+        },
+        {
+          where: {
+            languageId: sortLanguage[i].languageId,
+            shopId: req.shopId,
+          },
+        }
+      );
+    }
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
   }

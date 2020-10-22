@@ -6,6 +6,7 @@ const Address = db.address;
 const Account = db.account;
 const Language = db.language;
 const SortLanguage = db.sort_language;
+const PaymentMethod = db.payment_method;
 const Op = db.Sequelize.Op;
 
 exports.createShop = async (req, res) => {
@@ -43,14 +44,14 @@ exports.createShop = async (req, res) => {
       status_change: true,
     });
 
-    await Account.create({
+    Account.create({
       username: req.body.shopID,
       password: bcrypt.hashSync(req.body.password, 8),
       state: req.body.state,
       role: false,
       shopId: newShop.id,
     });
-    await Owner.create({
+    Owner.create({
       company_name: req.body.company_name,
       address: req.body.address_owner,
       telephone: req.body.telephone_owner,
@@ -58,7 +59,7 @@ exports.createShop = async (req, res) => {
       email: req.body.email_owner,
       shopId: newShop.id,
     });
-    await Address.create({
+    Address.create({
       port_number: req.body.port_number,
       city: req.body.city,
       address: req.body.address_shop,
@@ -74,6 +75,13 @@ exports.createShop = async (req, res) => {
         sort_order: language[i].sort_order,
       });
     }
+    PaymentMethod.create({
+      shopId: newShop.id,
+      cash: false,
+      credit_card: false,
+      app: false,
+      etc: false,
+    });
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
   }

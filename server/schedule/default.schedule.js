@@ -112,6 +112,26 @@ exports.createElementTranslate = async () => {
           from: "vi",
           to: language[i].lang_code,
         });
+        let payment_method = await translate(elementTranslate.payment_method, {
+          from: "vi",
+          to: language[i].lang_code,
+        });
+        let cash = await translate(elementTranslate.cash, {
+          from: "vi",
+          to: language[i].lang_code,
+        });
+        let credit_card = await translate(elementTranslate.credit_card, {
+          from: "vi",
+          to: language[i].lang_code,
+        });
+        let app = await translate(elementTranslate.app, {
+          from: "vi",
+          to: language[i].lang_code,
+        });
+        let etc = await translate(elementTranslate.etc, {
+          from: "vi",
+          to: language[i].lang_code,
+        });
 
         TitleLanguage.create({
           menu: menu.text,
@@ -127,6 +147,11 @@ exports.createElementTranslate = async () => {
           order_finish: order_finish.text,
           order_total: order_total.text,
           order_history: order_history.text,
+          payment_method: payment_method.text,
+          cash: cash.text,
+          credit_card: credit_card.text,
+          app: app.text,
+          etc: etc.text,
           languageId: language[i].order_list,
         });
       }

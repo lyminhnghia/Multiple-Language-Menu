@@ -12,5 +12,10 @@ module.exports = {
   order_finish: "Hoàn thành",
   order_total: "Tổng",
   order_history: "Lịch sử đặt hàng",
+  payment_method: "Phương thức thanh toán",
+  cash: "Tiền mặt",
+  credit_card: "Thẻ tín dụng",
+  app: "Ứng dụng",
+  etc: "Khác",
   languageId: 1,
 };

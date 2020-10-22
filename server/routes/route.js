@@ -57,6 +57,18 @@ module.exports = (app) => {
     [middleware.verifyTokenShop],
     profileShop.getContractShop
   );
+  // get list language
+  app.get(
+    "/api/shop/list-language",
+    [middleware.verifyTokenShop],
+    profileShop.getLanguage
+  );
+  // sort Language
+  app.put(
+    "/api/shop/sort-language",
+    [middleware.verifyTokenShop],
+    profileShop.sortLanguage
+  );
 
   // Create Category
   app.post(
