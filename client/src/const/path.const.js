@@ -13,4 +13,5 @@ export const LOGIN_SHOP = "/shop/login";
 export const SHOP_NOT_FOUND = "/shop/not-found";
 export const SHOP_ADD_CATEGORY = "/shop/add-category"
 export const SHOP_CATEGORY_TABLE = "/shop/table-category"
+export const SHOP_TRANFER_LANGUAGE = "/shop/tranfer-language"
 // Consumer

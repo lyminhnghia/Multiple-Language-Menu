@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { LoginAdminPage, ShopListAdmin, ShopRegisterAdmin, ProfileAdmin, NotFoundAdmin } from "../pages/Admin"
 import DashboardPage from "../pages/Dashboard";
 import NotFoundPage from "../pages/NotFound";
-import {ShopAddCategory, CategoryTable} from '../pages/Shop';
+import {ShopAddCategory, CategoryTable, TranferLanguage} from '../pages/Shop';
 function AuthenticationRoute(props) {
   const { component: Component, ...rest } = props;
   // Check authentication with the page need to be protected
@@ -41,6 +41,7 @@ const Routes = () => {
       <Route component={ProfileAdmin} exact path={PathConstant.ADMIN_PROFILE} />
       <Route component={ShopAddCategory} exact path={PathConstant.SHOP_ADD_CATEGORY} />
       <Route component={CategoryTable} exact path={PathConstant.SHOP_CATEGORY_TABLE} />
+      <Route component={TranferLanguage} exact path={PathConstant.SHOP_TRANFER_LANGUAGE} />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       <Redirect to={PathConstant.NOT_FOUND} />
     </Switch>
