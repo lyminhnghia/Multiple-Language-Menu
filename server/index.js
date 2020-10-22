@@ -9,9 +9,12 @@ app.use(cors());
 dotenv.config();
 
 require("./routes/route")(app);
+const DefaultSchedule = require("./schedule/default.schedule");
 db.sequelize
   .sync()
-  .then(() => {
+  .then(async () => {
+    await DefaultSchedule.createLanguage();
+    await DefaultSchedule.createElementTranslate();
     console.log("Sequelize is Running");
   })
   .catch((err) => {

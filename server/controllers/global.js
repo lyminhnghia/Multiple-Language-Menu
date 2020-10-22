@@ -28,9 +28,13 @@ exports.LoginAdmin = async (req, res) => {
         .send({ success: false, error: "Password incorrect!" });
     }
 
-    let JWToken = jwt.sign({ id: user.id, role: user.role }, config.secret, {
-      expiresIn: 86400,
-    });
+    let JWToken = jwt.sign(
+      { id: user.id, role: user.role, shopId: user.shopId },
+      config.secret,
+      {
+        expiresIn: 86400,
+      }
+    );
 
     res
       .status(200)
@@ -63,13 +67,18 @@ exports.LoginShop = async (req, res) => {
         .send({ success: false, error: "Password incorrect!" });
     }
 
-    let JWToken = jwt.sign({ id: user.id, role: user.role }, config.secret, {
-      expiresIn: 86400,
-    });
+    let JWToken = jwt.sign(
+      { id: user.id, role: user.role, shopId: user.shopId },
+      config.secret,
+      {
+        expiresIn: 86400,
+      }
+    );
 
-    res
-      .status(200)
-      .send({ success: true, data: { token: JWToken, role: user.role } });
+    res.status(200).send({
+      success: true,
+      data: { token: JWToken, role: user.role, shopId: user.shopId },
+    });
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
   }
