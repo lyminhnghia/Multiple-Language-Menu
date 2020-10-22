@@ -178,7 +178,7 @@ const ShopList = (props) => {
                     />
                     <CellBody
                       cellData={getLabel(
-                        LangConstant.ARR_STATE[data.account.state]
+                        LangConstant.ARR_ADMIN_STATE[data.account.state]
                       )}
                       className={
                         data.account.state ? classes.colorCell : classes.cell

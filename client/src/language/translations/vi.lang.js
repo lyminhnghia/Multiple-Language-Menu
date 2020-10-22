@@ -46,6 +46,9 @@ export default {
   TXT_WORKING: "Đang hoạt động",
   TXT_STOP: "Dừng hoạt động",
   TXT_EXPIRED: "Hêt hạn hợp đồng",
+  TXT_EDIT: "Chỉnh sửa",
+  TXT_START: "Bắt đầu",
+  TXT_STOP: "Dừng lại",
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };

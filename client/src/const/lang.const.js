@@ -60,6 +60,9 @@ export const TXT_TO = "TXT_TO";
 export const TXT_WORKING = "TXT_WORKING";
 export const TXT_STOP = "TXT_STOP";
 export const TXT_EXPIRED = "TXT_EXPIRED";
+export const TXT_EDIT = "TXT_EDIT";
+export const TXT_START = "TXT_START";
+export const TXT_STOP = "TXT_STOP";
 export const ARR_SHOP_LIST = [
   TXT_ID,
   TXT_SHOP_NAME,
@@ -71,4 +74,5 @@ export const ARR_SHOP_LIST = [
   TXT_STATUS,
   TXT_SETTING,
 ];
-export const ARR_STATE = [TXT_WORKING, TXT_STOP, TXT_EXPIRED];
+export const ARR_ADMIN_STATE = [TXT_WORKING, TXT_STOP, TXT_EXPIRED];
+export const ARR_ADMIN_OPTION = [TXT_EDIT, TXT_STOP, TXT_START];
