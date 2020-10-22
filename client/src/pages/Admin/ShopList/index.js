@@ -24,6 +24,7 @@ import { uuid } from "../../../utils";
 import { LangConstant } from "../../../const";
 import { useDispatch, useSelector } from "react-redux";
 import AdminAction from "../../../redux/admin.redux";
+import moment from "moment";
 
 const ShopList = (props) => {
   const classes = useStyles();
@@ -33,9 +34,11 @@ const ShopList = (props) => {
   const [to, setTo] = useState(null);
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.adminRedux.data);
+  const dataShop = useSelector((state) => state.adminRedux.data);
+  const [shop, setShop] = useState([]);
+  const [total, setTotal] = useState(0);
 
-  if (data === null) {
+  if (dataShop === null) {
     dispatch(AdminAction.getListShop({ page: 1 }));
   }
 
@@ -44,11 +47,15 @@ const ShopList = (props) => {
   };
 
   const onGetDateFrom = (e) => {
-    setFrom(e.target.value);
+    let current = new Date(e.target.value);
+    let from = handleTime(current);
+    setFrom(from);
   };
 
   const onGetDateTo = (e) => {
-    setTo(e.target.value);
+    let current = new Date(e.target.value);
+    let to = handleTime(current);
+    setTo(to);
   };
 
   const onSearch = (name) => {
@@ -56,8 +63,30 @@ const ShopList = (props) => {
   };
 
   const onSubmit = () => {
-    console.log(from, to, filter);
+    dispatch(
+      AdminAction.getListShop({ page: 1, from: from, to: to, filter: filter })
+    );
   };
+
+  const handleTime = (time) => {
+    let result =
+      Math.floor(new Date(time).getTime() / 1000) -
+      time.getHours() * 60 * 60 -
+      time.getMinutes() * 60 -
+      time.getSeconds();
+    return result;
+  };
+
+  useEffect(() => {
+    if (dataShop) {
+      if (dataShop.data) {
+        setShop(dataShop.data);
+      }
+      if (dataShop.total) {
+        setTotal(dataShop.total);
+      }
+    }
+  }, [dataShop]);
 
   return (
     <AdminLayout>
@@ -107,92 +136,78 @@ const ShopList = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {dataShop.data.map((data, index) => (
-                <TableRow key={uuid()}>
-                  <CellBody
-                    cellData={data.id}
-                    className={classes.cell}
-                    key={uuid()}
-                  />
-                  <CellBody
-                    cellData={data.shop_name}
-                    className={classes.cell}
-                    key={uuid()}
-                  />
-                  <CellBody
-                    cellData={data.owner}
-                    className={classes.cell}
-                    key={uuid()}
-                  />
-                  <CellBody
-                    cellData={data.address}
-                    className={classes.cell}
-                    key={uuid()}
-                  />
-                  <CellBody
-                    cellData={data.staff_name}
-                    className={classes.cell}
-                    key={uuid()}
-                  />
-                  <CellBody
-                    cellData={data.telephone}
-                    className={classes.cell}
-                    key={uuid()}
-                  />
-                  <CellBody
-                    cellData={data.contract_period}
-                    className={classes.cell}
-                    key={uuid()}
-                  />
-                  <CellBody
-                    cellData={data.status}
-                    className={classes.cell}
-                    key={uuid()}
-                  />
-                  <CellBody
-                    cellData={
-                      <IconButton className={classes.IconButton}>
-                        <MoreHoriz />
-                      </IconButton>
-                    }
-                    className={classes.cell}
-                    key={uuid()}
-                  />
-                </TableRow>
-              ))}
+              {shop &&
+                shop.map((data, index) => (
+                  <TableRow key={uuid()}>
+                    <CellBody
+                      cellData={index + 1}
+                      className={classes.cell}
+                      key={uuid()}
+                    />
+                    <CellBody
+                      cellData={data.shop_name}
+                      className={classes.cell}
+                      key={uuid()}
+                    />
+                    <CellBody
+                      cellData={data.owner.company_name}
+                      className={classes.cell}
+                      key={uuid()}
+                    />
+                    <CellBody
+                      cellData={data.owner.address}
+                      className={classes.cell}
+                      key={uuid()}
+                    />
+                    <CellBody
+                      cellData={data.owner.staff_name}
+                      className={classes.cell}
+                      key={uuid()}
+                    />
+                    <CellBody
+                      cellData={data.owner.telephone}
+                      className={classes.cell}
+                      key={uuid()}
+                    />
+                    <CellBody
+                      cellData={moment(
+                        new Date(data.end_contract * 1000)
+                      ).format("DD/MM/YYYY")}
+                      className={classes.cell}
+                      key={uuid()}
+                    />
+                    <CellBody
+                      cellData={data.account.state}
+                      className={classes.cell}
+                      key={uuid()}
+                    />
+                    <CellBody
+                      cellData={
+                        <IconButton className={classes.IconButton}>
+                          <MoreHoriz />
+                        </IconButton>
+                      }
+                      className={classes.cell}
+                      key={uuid()}
+                    />
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
-        <PaginationTable
-          total={10}
-          page={1}
-          rowsPerPage={10}
-          total_page={1}
-          onChangePage={onChangePage}
-        />
+        {(total || total === 0) && (
+          <PaginationTable
+            total={total}
+            page={page}
+            rowsPerPage={10}
+            total_page={parseInt((total - 1) / 10) + 1}
+            onChangePage={onChangePage}
+          />
+        )}
       </Box>
     </AdminLayout>
   );
 };
-
-const dataShop = {
-  data: [],
-  page: 1,
-  total: 10,
-};
-
-for (let i = 1; i < 11; i++) {
-  dataShop.data.push({
-    id: i,
-    shop_name: "shop lmn " + i,
-    owner: "Minh Nghia",
-    address: "Lang son",
-    staff_name: "Ngo Thai Son",
-    telephone: "0913098197",
-    contract_period: "Lang Son",
-    status: 1,
-  });
-}
 
 const useStyles = makeStyles((theme) => ({
   box1: {
