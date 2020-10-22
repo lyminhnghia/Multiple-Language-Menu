@@ -69,7 +69,18 @@ module.exports = (app) => {
     [middleware.verifyTokenShop],
     profileShop.sortLanguage
   );
-
+  // get Profile Shop
+  app.get(
+    "/api/shop/profile",
+    [middleware.verifyTokenShop],
+    profileShop.getProfilebyShop
+  );
+  // update Profile Shop
+  app.put(
+    "/api/shop/update-shop",
+    [middleware.verifyTokenShop],
+    profileShop.updateProfilebyShop
+  );
   // Create Category
   app.post(
     "/api/shop/create-category",
@@ -96,6 +107,12 @@ module.exports = (app) => {
   app.get("/api/shop/item/:id", ItemShop.getItem);
   // Delete Item
   app.delete("/api/shop/item/:id", ItemShop.deleteItem);
+  // Create QRCode
+  app.post("/api/shop/create-qrcode", profileShop.createQRCode);
   // Get QRCode
-  app.get("/api/shop/qrcode", profileShop.createQRCode);
+  app.get(
+    "/api/shop/qrcode",
+    [middleware.verifyTokenShop],
+    profileShop.getQRCode
+  );
 };

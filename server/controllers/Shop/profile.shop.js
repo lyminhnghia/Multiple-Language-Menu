@@ -24,7 +24,6 @@ exports.getProfilebyShop = async (req, res) => {
         "password_wifi",
         "url_website",
         "url_image",
-        "url_qrcode",
       ],
       include: [
         {
@@ -46,6 +45,35 @@ exports.getProfilebyShop = async (req, res) => {
 
 exports.updateProfilebyShop = async (req, res) => {
   try {
+    let shop = await Shop.findOne({
+      where: {
+        shop_name: req.body.shop_name,
+      },
+    });
+    if (shop) {
+      return res.status(400).send({
+        success: false,
+        error: "Shop name already exist!",
+      });
+    }
+    res.status(200).send({ success: true, data: "Updated shop successful!" });
+    Shop.update(
+      {
+        shop_type: req.body.shop_type,
+        shop_name: req.body.shop_name,
+        email: req.body.email,
+        telephone: req.body.telephone,
+        name_wifi: req.body.name_wifi,
+        password_wifi: req.body.password_wifi,
+        url_website: req.body.url_website,
+        url_image: req.body.url_image,
+      },
+      {
+        where: {
+          id: req.shopId,
+        },
+      }
+    );
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
   }
@@ -162,6 +190,20 @@ exports.createQRCode = async (req, res) => {
         res.status(500).send({ success: false, error: error });
       }
     });
+  } catch (error) {
+    res.status(500).send({ success: false, error: error.message });
+  }
+};
+
+exports.getQRCode = async (req, res) => {
+  try {
+    let QRCode = await Shop.findOne({
+      where: {
+        id: req.shopId,
+      },
+      attributes: ["url_qrcode"],
+    });
+    res.status(200).send({ success: true, data: QRCode });
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
   }
