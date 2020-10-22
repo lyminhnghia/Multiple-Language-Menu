@@ -142,13 +142,27 @@ exports.sortLanguage = async (req, res) => {
 };
 
 exports.createQRCode = async (req, res) => {
-  let temp = req.body.url;
-  QRcode.toDataURL(temp, { errorCorrectionLevel: "H" }, (error, url) => {
-    if (!error) {
-      let base64Image = url.split(";base64,").pop();
-      res.status(200).send(base64Image);
-    } else {
-      res.status(200).send({ success: false, error: error });
-    }
-  });
+  try {
+    let temp = req.body.url;
+    QRcode.toDataURL(temp, { errorCorrectionLevel: "H" }, (error, url) => {
+      if (!error) {
+        let base64Image = url.split(";base64,").pop();
+        res.status(200).send(base64Image);
+        Shop.update(
+          {
+            url_qrcode: base64Image,
+          },
+          {
+            where: {
+              id: req.shopId,
+            },
+          }
+        );
+      } else {
+        res.status(500).send({ success: false, error: error });
+      }
+    });
+  } catch (error) {
+    res.status(500).send({ success: false, error: error.message });
+  }
 };
