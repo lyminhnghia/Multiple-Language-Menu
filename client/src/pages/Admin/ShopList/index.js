@@ -21,7 +21,7 @@ import {
   BoxButton,
 } from "../../../components";
 import { uuid } from "../../../utils";
-import { LangConstant } from "../../../const";
+import { LangConstant, AppConstant } from "../../../const";
 import { useDispatch, useSelector } from "react-redux";
 import AdminAction from "../../../redux/admin.redux";
 import moment from "moment";
@@ -172,18 +172,25 @@ const ShopList = (props) => {
                     <CellBody
                       cellData={moment(
                         new Date(data.end_contract * 1000)
-                      ).format("DD/MM/YYYY")}
+                      ).format(AppConstant.FM_DD_MM_YYYY)}
                       className={classes.cell}
                       key={uuid()}
                     />
                     <CellBody
-                      cellData={data.account.state}
-                      className={classes.cell}
+                      cellData={getLabel(
+                        LangConstant.ARR_STATE[data.account.state]
+                      )}
+                      className={
+                        data.account.state ? classes.colorCell : classes.cell
+                      }
                       key={uuid()}
                     />
                     <CellBody
                       cellData={
-                        <IconButton className={classes.IconButton}>
+                        <IconButton
+                          onClick={() => console.log(shop[index].id)}
+                          className={classes.IconButton}
+                        >
                           <MoreHoriz />
                         </IconButton>
                       }
@@ -231,16 +238,23 @@ const useStyles = makeStyles((theme) => ({
   },
   box5: {
     display: "inline-flex",
+    fontSize: 20,
   },
   box6: {
     display: "inline-flex",
     marginLeft: 100,
+    fontSize: 20,
   },
   containerTable: {
     marginTop: 50,
   },
   cell: {
     color: "#000000",
+    fontSize: 14,
+    border: "1px solid 	#C0C0C0",
+  },
+  colorCell: {
+    color: "red",
     fontSize: 14,
     border: "1px solid 	#C0C0C0",
   },

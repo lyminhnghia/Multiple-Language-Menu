@@ -57,6 +57,9 @@ export const TXT_ADD_CATEGORY = "TXT_ADD_CATEGORY";
 export const TXT_NEW_CATEGORY = "TXT_NEW_CATEGORY";
 export const TXT_FROM = "TXT_FROM";
 export const TXT_TO = "TXT_TO";
+export const TXT_WORKING = "TXT_WORKING";
+export const TXT_STOP = "TXT_STOP";
+export const TXT_EXPIRED = "TXT_EXPIRED";
 export const ARR_SHOP_LIST = [
   TXT_ID,
   TXT_SHOP_NAME,
@@ -68,3 +71,4 @@ export const ARR_SHOP_LIST = [
   TXT_STATUS,
   TXT_SETTING,
 ];
+export const ARR_STATE = [TXT_WORKING, TXT_STOP, TXT_EXPIRED];

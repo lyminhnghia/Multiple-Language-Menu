@@ -43,6 +43,9 @@ export default {
   TXT_NEW_CATEGORY: "Danh mục mới",
   TXT_FROM: "Từ:",
   TXT_TO: "Đến:",
+  TXT_WORKING: "Đang hoạt động",
+  TXT_STOP: "Dừng hoạt động",
+  TXT_EXPIRED: "Hêt hạn hợp đồng",
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };
