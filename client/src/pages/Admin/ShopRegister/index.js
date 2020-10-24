@@ -1,8 +1,8 @@
 import React, { memo, useState, useEffect } from "react";
 import { LangConstant } from "../../../const";
-import { makeStyles, Box, Container, Switch } from "@material-ui/core";
+import { makeStyles, Box, Container } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { InputText, Notify } from "../../../components";
+import { InputText, Notify, MultipleChoice } from "../../../components";
 import ButtonBox from "../../../components/buttonBox";
 import { AdminLayout } from "../../../layouts";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +16,7 @@ const ShopRegisterAdmin = () => {
   const DataSuccess = useSelector((state) => state.adminRedux.dataCreate);
   const DataError = useSelector((state) => state.adminRedux.errorCreate);
   const [formChange, setFormChange] = useState({});
-  const [checked, setChecked] = useState(true);
+  const [choice, setChoice] = useState(1);
   const [notifySuccess, setNotifySuccess] = useState("");
   const [notifyError, setNotifyError] = useState("");
   const [open, setOpen] = useState(false);
@@ -24,7 +24,7 @@ const ShopRegisterAdmin = () => {
   const onSubmitForm = (e) => {
     e.preventDefault();
     let formData = formChange;
-    formData.state = checked;
+    formData.state = choice;
     formData.start_contract = formChange.start_contract
       ? onConvertTime(formChange.start_contract)
       : parseInt(Date.now() / 1000);
@@ -39,8 +39,8 @@ const ShopRegisterAdmin = () => {
     setFormChange({ ...formChange, [e.target.name]: e.target.value });
   };
 
-  const onChoose = (event) => {
-    setChecked(event.target.checked);
+  const onChangeChoice = (index) => {
+    setChoice(index + 1);
   };
 
   const onConvertTime = (time) => {
@@ -216,12 +216,10 @@ const ShopRegisterAdmin = () => {
                 <Box className={classes.boxChildCheck}>
                   {getLabel(LangConstant.TXT_STATE_WORKING)}
                 </Box>
-                <Switch
-                  checked={checked}
-                  onChange={onChoose}
-                  color="primary"
-                  name="state"
-                  inputProps={{ "aria-label": "primary checkbox" }}
+                <MultipleChoice
+                  className={classes.multipleChoice}
+                  listMenu={LangConstant.ARR_ADMIN_WORKING}
+                  onChange={onChangeChoice}
                 />
               </Box>
             </Box>
@@ -308,6 +306,10 @@ const useStyles = makeStyles({
     color: "#305C8B",
     lineHeight: "34px",
     fontSize: "20px",
+  },
+  multipleChoice: {
+    marginLeft: 30,
+    height: 40,
   },
 });
 
