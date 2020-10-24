@@ -57,6 +57,7 @@ export const TXT_ADD_CATEGORY = "TXT_ADD_CATEGORY";
 export const TXT_NEW_CATEGORY = "TXT_NEW_CATEGORY";
 export const TXT_FROM = "TXT_FROM";
 export const TXT_TO = "TXT_TO";
+export const TXT_ADD_IMAGE = "TXT_ADD_IMAGE";
 export const ARR_SHOP_LIST = [
   TXT_ID,
   TXT_SHOP_NAME,

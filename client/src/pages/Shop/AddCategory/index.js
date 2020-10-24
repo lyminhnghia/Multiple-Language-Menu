@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import InputText from "../../../components/inputText";
 import ButtonBox from "../../../components/buttonBox";
 import PopupBox from "./Components/popup"
-
+import AddImage from "./Components/AddImage"
 const ShopAddCategory = () => {
   const classes = useStyles();
   const { t: getLabel} = useTranslation();
@@ -63,12 +63,11 @@ const ShopAddCategory = () => {
               {getLabel(LangConstant.TXT_DESCRIPTION_PRODUCT)}
             </Box>
             <TextareaAutosize
-              style={{width:"100%"}}
-              rowsMax={4}
+              style={{width:"100%",height: 56, fontSize:"14px"}}
+              // rowsMax={10}
               aria-label="maximum height"
-              placeholder="Maximum 4 rows"
-              defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                  ut labore et dolore magna aliqua."
+              placeholder={`${getLabel(LangConstant.TXT_DESCRIPTION_PRODUCT)}...`}
+              defaultValue=""
             />
           </Box>
           <Box className={classes.BoxChild}>
@@ -92,6 +91,12 @@ const ShopAddCategory = () => {
               </Select>
             </FormControl>          
             <PopupBox />
+          </Box>
+          <Box className={classes.BoxChild}>
+            <Box className={classes.boxLabel}>
+              {getLabel(LangConstant.TXT_ADD_IMAGE)}
+            </Box>
+            <AddImage />
           </Box>
           <Box className={classes.boxButton}>
             <ButtonBox nameButton={getLabel(LangConstant.TXT_CONFIRMATION)} typeButton="submit" />
