@@ -1,36 +1,59 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { LangConstant } from "../../../const";
 import { makeStyles, Box, Container, Switch } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import InputText from "../../../components/inputText";
 import ButtonBox from "../../../components/buttonBox";
 import { AdminLayout } from "../../../layouts";
+import { useDispatch, useSelector } from "react-redux";
+import AdminAction from "../../../redux/admin.redux";
+import moment from "moment";
+
 const ShopRegisterAdmin = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.adminRedux.dataCreate);
   const [formChange, setFormChange] = useState({});
+  const [notification, setNotification] = useState("");
+  const [checked, setChecked] = useState(true);
 
-  const handleSubmit = (e) => {
+  const onSubmitForm = (e) => {
     e.preventDefault();
-    console.log(formChange);
+    let formData = formChange;
+    formData.state = checked;
+    formData.start_contract = formChange.start_contract
+      ? onConvertTime(formChange.start_contract)
+      : parseInt(Date.now() / 1000);
+    formData.end_contract = formChange.end_contract
+      ? onConvertTime(formChange.end_contract)
+      : parseInt(Date.now() / 1000);
+    dispatch(AdminAction.createShop(formData));
   };
 
   const onChange = (e) => {
     setFormChange({ ...formChange, [e.target.name]: e.target.value });
-    console.log(e.target.value, e.target.name);
   };
-  const [state, setState] = useState({
-    checkedA: true,
-    checkedB: true,
-  });
 
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+  const onChoose = (event) => {
+    setChecked(event.target.checked);
   };
+
+  const onConvertTime = (time) => {
+    let result = Math.floor(new Date(time).getTime() / 1000);
+    return result;
+  };
+
+  useEffect(() => {
+    if (data) {
+      setNotification(data);
+    }
+  }, [data]);
+
   return (
     <AdminLayout>
       <Container className={classes.boxParent}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onSubmitForm}>
           <Box className={classes.boxBorder}>
             <Box className={classes.boxHeader}>
               {getLabel(LangConstant.TXT_OWNER_INFORMATION)}
@@ -47,14 +70,14 @@ const ShopRegisterAdmin = () => {
                 nameLabel={getLabel(LangConstant.TXT_ADDRESS)}
                 typeInput="text"
                 requiredInput={true}
-                nameText="address1"
+                nameText="address_owner"
                 onInput={(e) => onChange(e)}
               />
               <InputText
                 nameLabel={getLabel(LangConstant.TXT_TELEPHONE)}
-                typeInput="number"
+                typeInput="text"
                 requiredInput={true}
-                nameText="tel"
+                nameText="telephone_owner"
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -68,7 +91,7 @@ const ShopRegisterAdmin = () => {
                 nameLabel={getLabel(LangConstant.TXT_EMAIL)}
                 typeInput="text"
                 requiredInput={true}
-                nameText="email"
+                nameText="email_owner"
                 onInput={(e) => onChange(e)}
               />
             </Box>
@@ -80,16 +103,16 @@ const ShopRegisterAdmin = () => {
             <Box className={classes.boxContent}>
               <InputText
                 nameLabel={getLabel(LangConstant.TXT_SALES_AGENCY)}
-                typeInput="number"
+                typeInput="text"
                 requiredInput={true}
-                nameText="sales_agency"
+                nameText="shop_type"
                 onInput={(e) => onChange(e)}
               />
               <InputText
                 nameLabel={getLabel(LangConstant.TXT_ID)}
                 typeInput="text"
                 requiredInput={true}
-                nameText="ID"
+                nameText="shopID"
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -111,9 +134,9 @@ const ShopRegisterAdmin = () => {
                   <InputText
                     nameLabel={getLabel(LangConstant.TXT_START_CONTRACT_PERIOD)}
                     typeInput="date"
-                    defaultValueInput="2020-08-03"
+                    defaultValueInput={moment(Date.now()).format("YYYY-MM-DD")}
                     requiredInput={true}
-                    nameText="start_contract_period"
+                    nameText="start_contract"
                     onInput={(e) => onChange(e)}
                   />
                 </Box>
@@ -121,9 +144,9 @@ const ShopRegisterAdmin = () => {
                   <InputText
                     nameLabel={getLabel(LangConstant.TXT_END_CONTRACT_PERIOD)}
                     typeInput="date"
-                    defaultValueInput="2020-08-03"
+                    defaultValueInput={moment(Date.now()).format("YYYY-MM-DD")}
                     requiredInput={true}
-                    nameText="end_contract_period"
+                    nameText="end_contract"
                     onInput={(e) => onChange(e)}
                   />
                 </Box>
@@ -136,10 +159,10 @@ const ShopRegisterAdmin = () => {
                 onInput={(e) => onChange(e)}
               />
               <InputText
-                nameLabel={getLabel(LangConstant.TXT_POST_NUMBER)}
+                nameLabel={getLabel(LangConstant.TXT_PORT_NUMBER)}
                 typeInput="text"
                 requiredInput={true}
-                nameText="post_number"
+                nameText="port_number"
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -153,7 +176,7 @@ const ShopRegisterAdmin = () => {
                 nameLabel={getLabel(LangConstant.TXT_ADDRESS)}
                 typeInput="text"
                 requiredInput={true}
-                nameText="address2"
+                nameText="address_shop"
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -167,24 +190,25 @@ const ShopRegisterAdmin = () => {
                 nameLabel={getLabel(LangConstant.TXT_NOTIFICATION_EMAIL)}
                 typeInput="text"
                 requiredInput={true}
-                nameText="notification_email"
+                nameText="email_shop"
                 onInput={(e) => onChange(e)}
               />
-              <Box style={{ display: "flex", marginTop: "20px" }}>
-                <Box
-                  style={{
-                    color: "#305C8B",
-                    lineHeight: "34px",
-                    fontSize: "20px",
-                  }}
-                >
-                  Trạng thái hoạt động
+              <InputText
+                nameLabel={getLabel(LangConstant.TXT_TELEPHONE)}
+                typeInput="text"
+                requiredInput={true}
+                nameText="telephone_shop"
+                onInput={(e) => onChange(e)}
+              />
+              <Box className={classes.boxParentCheck}>
+                <Box className={classes.boxChildCheck}>
+                  {getLabel(LangConstant.TXT_STATE_WORKING)}
                 </Box>
                 <Switch
-                  checked={state.checkedB}
-                  onChange={handleChange}
+                  checked={checked}
+                  onChange={onChoose}
                   color="primary"
-                  name="checkedB"
+                  name="state"
                   inputProps={{ "aria-label": "primary checkbox" }}
                 />
               </Box>
@@ -204,12 +228,12 @@ const ShopRegisterAdmin = () => {
 
 const useStyles = makeStyles({
   boxParent: {
-    width: "1200px",
+    width: "100%",
     height: "100%",
   },
   boxBorder: {
     margin: "0 auto",
-    width: "1000px",
+    width: "80%",
     marginTop: "20px",
     marginBottom: "20px",
   },
@@ -261,6 +285,15 @@ const useStyles = makeStyles({
   },
   boxFlexContent: {
     width: "49%",
+  },
+  boxParentCheck: {
+    display: "flex",
+    marginTop: "20px",
+  },
+  boxChildCheck: {
+    color: "#305C8B",
+    lineHeight: "34px",
+    fontSize: "20px",
   },
 });
 

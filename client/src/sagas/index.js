@@ -10,7 +10,7 @@ import { AdminTypes } from "../redux/admin.redux";
 
 /* ------------- Sagas ------------- */
 import { requestLogin } from "./auth.saga";
-import { getListShopAdmin } from "./admin.saga";
+import { getListShopAdmin, createShopAdmin } from "./admin.saga";
 
 /* ------------- Connect Types To Sagas ------------- */
 export default function* root() {
@@ -20,5 +20,6 @@ export default function* root() {
 
     // admin
     takeLatest(AdminTypes.GET_LIST_SHOP, getListShopAdmin),
+    takeLatest(AdminTypes.CREATE_SHOP, createShopAdmin),
   ]);
 }

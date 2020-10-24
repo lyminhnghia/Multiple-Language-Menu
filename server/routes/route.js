@@ -132,7 +132,7 @@ module.exports = (app) => {
   };
 
   setInterval(ShopInterval, 1000 * 60 * 60);
-  setInterval(AddressInterval, 1000 * 60);
+  setInterval(AddressInterval, 1000 * 60 * 60);
   setInterval(CategoryInterval, 1000 * 60 * 60);
   setInterval(ItemInterval, 1000 * 60 * 60);
 };

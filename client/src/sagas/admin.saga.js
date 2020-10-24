@@ -17,3 +17,18 @@ export function* getListShopAdmin(action) {
     yield put(AdminAction.getListShopFailure(error));
   }
 }
+
+export function* createShopAdmin(action) {
+  try {
+    const { data } = action;
+    let response = yield call(AdminService.createShopAdmin, data);
+    if (response.status == ApiConstant.STT_OK) {
+      let responseData = response.data.data;
+      yield put(AdminAction.createShopSuccess(responseData));
+    } else {
+      yield put(AdminAction.createShopFailure(response.data.error));
+    }
+  } catch (error) {
+    yield put(AdminAction.createShopFailure(error));
+  }
+}
