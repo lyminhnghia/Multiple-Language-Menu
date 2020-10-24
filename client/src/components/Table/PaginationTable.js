@@ -106,6 +106,7 @@ PaginationTable.propTypes = {
   page: PropTypes.number,
   rowsPerPage: PropTypes.number,
   total_page: PropTypes.number,
+  onChangePage: PropTypes.func,
 };
 
 export default memo(PaginationTable);

@@ -256,8 +256,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 20,
   },
   containerTable: {
-    marginTop: 50,
-    minHeight: 450,
+    marginTop: 20,
+    minHeight: 420,
   },
   cell: {
     color: "#000000",
