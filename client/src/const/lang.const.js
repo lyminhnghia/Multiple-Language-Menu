@@ -13,6 +13,7 @@ export const NS_LOGIN = "login";
 
 // Text Key
 export const TXT_LOGIN = "TXT_LOGIN";
+export const TXT_LOGOUT = "TXT_LOGOUT";
 export const TXT_SHOP_LIST = "TXT_SHOP_LIST";
 export const TXT_REGISTER_SHOP = "TXT_REGISTER_SHOP";
 export const TXT_PROFILE = "TXT_PROFILE";

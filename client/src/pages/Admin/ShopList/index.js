@@ -198,7 +198,9 @@ const ShopList = (props) => {
                     <CellBody
                       cellData={
                         <IconButton
-                          onClick={() => console.log(shop[index].id)}
+                          onClick={() =>
+                            dispatch(AdminAction.getShop({ id: data.id }))
+                          }
                           className={classes.IconButton}
                         >
                           <MoreHoriz />

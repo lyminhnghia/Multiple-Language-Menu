@@ -32,3 +32,33 @@ export function* createShopAdmin(action) {
     yield put(AdminAction.createShopFailure(error));
   }
 }
+
+export function* getShopAdmin(action) {
+  try {
+    const { data } = action;
+    let response = yield call(AdminService.getShopAdmin, data);
+    if (response.status == ApiConstant.STT_OK) {
+      let responseData = response.data.data;
+      yield put(AdminAction.getShopSuccess(responseData));
+    } else {
+      yield put(AdminAction.getShopFailure(response.data.error));
+    }
+  } catch (error) {
+    yield put(AdminAction.getShopFailure(error));
+  }
+}
+
+export function* updateShopAdmin(action) {
+  try {
+    const { data } = action;
+    let response = yield call(AdminService.updateShopAdmin, data);
+    if (response.status == ApiConstant.STT_OK) {
+      let responseData = response.data.data;
+      yield put(AdminAction.updateShopSuccess(responseData));
+    } else {
+      yield put(AdminAction.updateShopFailure(response.data.error));
+    }
+  } catch (error) {
+    yield put(AdminAction.updateShopFailure(error));
+  }
+}
