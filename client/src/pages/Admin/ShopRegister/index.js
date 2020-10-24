@@ -2,7 +2,7 @@ import React, { memo, useState, useEffect } from "react";
 import { LangConstant } from "../../../const";
 import { makeStyles, Box, Container, Switch } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import InputText from "../../../components/inputText";
+import { InputText, Notify } from "../../../components";
 import ButtonBox from "../../../components/buttonBox";
 import { AdminLayout } from "../../../layouts";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,10 +13,11 @@ const ShopRegisterAdmin = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.adminRedux.dataCreate);
+  const DataSuccess = useSelector((state) => state.adminRedux.dataCreate);
   const [formChange, setFormChange] = useState({});
-  const [notification, setNotification] = useState("");
+  const [notifySuccess, setNotifySuccess] = useState("");
   const [checked, setChecked] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const onSubmitForm = (e) => {
     e.preventDefault();
@@ -45,10 +46,10 @@ const ShopRegisterAdmin = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      setNotification(data);
+    if (DataSuccess) {
+      setNotifySuccess(DataSuccess);
     }
-  }, [data]);
+  }, [DataSuccess]);
 
   return (
     <AdminLayout>
@@ -221,6 +222,7 @@ const ShopRegisterAdmin = () => {
             />
           </Box>
         </form>
+        {/* <Notify open={open} setOpen={setOpen} data={notifySuccess} /> */}
       </Container>
     </AdminLayout>
   );

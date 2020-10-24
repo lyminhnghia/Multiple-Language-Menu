@@ -43,7 +43,15 @@ const ShopList = (props) => {
   }
 
   const onChangePage = (event, newPage) => {
-    setPage(1);
+    setPage(newPage);
+    dispatch(
+      AdminAction.getListShop({
+        page: newPage,
+        from: from,
+        to: to,
+        filter: filter,
+      })
+    );
   };
 
   const onGetDateFrom = (e) => {
@@ -247,6 +255,7 @@ const useStyles = makeStyles((theme) => ({
   },
   containerTable: {
     marginTop: 50,
+    minHeight: 450,
   },
   cell: {
     color: "#000000",
