@@ -148,7 +148,7 @@ const ShopList = (props) => {
                 shop.map((data, index) => (
                   <TableRow key={uuid()}>
                     <CellBody
-                      cellData={index + 1}
+                      cellData={data.id}
                       className={classes.cell}
                       key={uuid()}
                     />
@@ -186,10 +186,12 @@ const ShopList = (props) => {
                     />
                     <CellBody
                       cellData={getLabel(
-                        LangConstant.ARR_ADMIN_STATE[data.account.state]
+                        LangConstant.ARR_ADMIN_STATE[data.account.state - 1]
                       )}
                       className={
-                        data.account.state ? classes.colorCell : classes.cell
+                        data.account.state - 1 !== 0
+                          ? classes.colorCell
+                          : classes.cell
                       }
                       key={uuid()}
                     />

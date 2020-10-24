@@ -14,9 +14,11 @@ const ShopRegisterAdmin = () => {
   const { t: getLabel } = useTranslation();
   const dispatch = useDispatch();
   const DataSuccess = useSelector((state) => state.adminRedux.dataCreate);
+  const DataError = useSelector((state) => state.adminRedux.errorCreate);
   const [formChange, setFormChange] = useState({});
-  const [notifySuccess, setNotifySuccess] = useState("");
   const [checked, setChecked] = useState(true);
+  const [notifySuccess, setNotifySuccess] = useState("");
+  const [notifyError, setNotifyError] = useState("");
   const [open, setOpen] = useState(false);
 
   const onSubmitForm = (e) => {
@@ -29,6 +31,7 @@ const ShopRegisterAdmin = () => {
     formData.end_contract = formChange.end_contract
       ? onConvertTime(formChange.end_contract)
       : parseInt(Date.now() / 1000);
+    setOpen(true);
     dispatch(AdminAction.createShop(formData));
   };
 
@@ -46,10 +49,18 @@ const ShopRegisterAdmin = () => {
   };
 
   useEffect(() => {
-    if (DataSuccess) {
+    if (DataSuccess && open) {
       setNotifySuccess(DataSuccess);
+      setTimeout(() => setOpen(false), 1.5 * 1000);
     }
   }, [DataSuccess]);
+
+  useEffect(() => {
+    if (DataError && open) {
+      setNotifyError(DataError);
+      setTimeout(() => setOpen(false), 1.5 * 1000);
+    }
+  }, [DataError]);
 
   return (
     <AdminLayout>
@@ -222,7 +233,8 @@ const ShopRegisterAdmin = () => {
             />
           </Box>
         </form>
-        {/* <Notify open={open} setOpen={setOpen} data={notifySuccess} /> */}
+        <Notify open={open} setOpen={setOpen} dataSuccess={notifySuccess} />
+        <Notify open={open} setOpen={setOpen} dataError={notifyError} />
       </Container>
     </AdminLayout>
   );
