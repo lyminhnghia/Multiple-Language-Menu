@@ -115,4 +115,24 @@ module.exports = (app) => {
     [middleware.verifyTokenShop],
     profileShop.getQRCode
   );
+
+  const LanguageSchedule = require("../schedule/language.schedule");
+
+  const ShopInterval = () => {
+    LanguageSchedule.ShopInfoSchedule();
+  };
+  const AddressInterval = () => {
+    LanguageSchedule.AddressSchedule();
+  };
+  const CategoryInterval = () => {
+    LanguageSchedule.CategorySchedule();
+  };
+  const ItemInterval = () => {
+    LanguageSchedule.ItemSchedule();
+  };
+
+  setInterval(ShopInterval, 1000 * 60 * 60);
+  setInterval(AddressInterval, 1000 * 60);
+  setInterval(CategoryInterval, 1000 * 60 * 60);
+  setInterval(ItemInterval, 1000 * 60 * 60);
 };
