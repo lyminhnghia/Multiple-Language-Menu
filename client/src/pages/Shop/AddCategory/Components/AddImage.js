@@ -7,23 +7,24 @@ import {
     Fab
   } from "@material-ui/core";
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
-const UploadImage = ()=> {
+
+const UploadImage = ({getData})=> {
   const [chooseFile,setSelectedFile] = useState({
     mainState: "initial",
     imageUploaded: 0,
     selectedFile: null
   })
+
   const [displays,setDisplay] = useState(false)  
   const handleUploadClick = event => {
-    console.log();
     var file = event.target.files[0];
     if(file.size <= 2097152){
         const reader = new FileReader();
         var url = reader.readAsDataURL(file);
-        console.log(event.target.files[0].size)//2097152b
+        // console.log(event.target.files[0].size)//2097152b
         reader.onloadend = function(e) {
         setSelectedFile({...chooseFile, ["selectedFile"]:[reader.result]});
-        console.log(reader.result)
+        getData(reader.result);
         };
         setSelectedFile({
             mainState: "uploaded",
@@ -60,6 +61,7 @@ const UploadImage = ()=> {
     </Box>
   );
 }
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: "flex",

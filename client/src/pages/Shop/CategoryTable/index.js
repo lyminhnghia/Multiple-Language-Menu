@@ -78,6 +78,9 @@ function createData(name, calories, fat, carbs, protein, price) {
                         </TableCell>
                         <TableCell>{historyRow.customerId}</TableCell>
                         <TableCell >{historyRow.amount}</TableCell>
+                        <TableCell>
+                          <img src="" style={{width:"100px",height:"100px"}}></img>
+                        </TableCell>
                         <TableCell >
                           {Math.round(historyRow.amount * row.price * 100) / 100}
                         </TableCell>
