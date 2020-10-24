@@ -29,14 +29,13 @@ const TranferLanguage = () => {
       ["Vietnam","Việt Nam"],
       ["indog","Indog"],
       ["pinoy","Pinoy"],
-      ["thai gay","thaiGay"]
-    ]);
-  const [right, setRight] = useState([
+      ["thai gay","thaiGay"],
       ["Sin","Sin"],
       ["polpot","polpot"],
       ["laos","laos"],
       ["malay","malay"]
     ]);
+  const [right, setRight] = useState([]);
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
@@ -55,63 +54,68 @@ const TranferLanguage = () => {
   };
 
   const handleAllRight = () => {
+    setRight([])
     setRight(right.concat(left));
-    setLeft([]);
+    // setLeft([]);
   };
 
   const handleCheckedRight = () => {
-    setRight(right.concat(leftChecked));
-    setLeft(not(left, leftChecked));
+    for(var i = 0; i < leftChecked.length;i++){
+      if(right.indexOf(leftChecked[i]) ===-1){
+        setRight(right.concat(leftChecked));
+        console.log(leftChecked)
+      }
+    }    
+    // setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
   };
 
   const handleCheckedLeft = () => {
-    setLeft(left.concat(rightChecked));
+    // setLeft(left.concat(rightChecked));
     setRight(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
   };
 
   const handleAllLeft = () => {
-    setLeft(left.concat(right));
+    // setLeft(left.concat(right));
     setRight([]);
   };
 
   const customList = (items,name) => (
-    <Box>
+    <Box className={classes.rootBox}>
         <Box className = {classes.textHeader}>{name == "left"? "Các ngôn ngữ hiện có":"Ngôn ngữ ưu tiên dịch"}</Box>
-            <Paper className={classes.paper}>       
+          <Paper className={classes.paper}>       
             <List dense component="div" role="list">
-                {items.map((value) => {
+              {items.map((value) => {
                 const labelId = `transfer-list-item-${value}-label`;
-
                 return (
-                    <ListItem key={value} role="listitem" button onClick={handleToggle(value)}>
-                        <ListItemIcon>
-                            <Checkbox
-                                className = {classes.checkbox}
-                            checked={checked.indexOf(value) !== -1}
-                            tabIndex={-1}
-                            disableRipple
-                            inputProps={{ 'aria-labelledby': labelId }}
-                            />
-                        </ListItemIcon>
-                        <Box className = {classes.boxList}>
-                            <Box className = {classes.listText} id={labelId} >{value[0]}</Box>
-                            <Box className = {classes.listText} id={labelId} >{value[1]}</Box>
-                        </Box>                   
-                    </ListItem>
+                  <ListItem className={classes.iconBox} key={value} role="listitem" button onClick={handleToggle(value)}>
+                    <ListItemIcon>
+                      <Checkbox
+                        className = {classes.checkBox}
+                        checked={checked.indexOf(value) !== -1}
+                        tabIndex={-1}
+                        disableRipple
+                        inputProps={{ 'aria-labelledby': labelId }}
+                      />
+                    </ListItemIcon>
+                    <Box className = {classes.boxList}>
+                      <Box className = {classes.listText} id={labelId} >{value[0]}</Box>
+                      <Box className = {classes.listText} id={labelId} >{value[1]}</Box>
+                    </Box>                   
+                  </ListItem>
                 );
-                })}
-                <ListItem />
-            </List>
-        </Paper>
+              })}
+          <ListItem />
+        </List>
+      </Paper>
     </Box>
-    );
+  );
 
   return (
     <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
       <Grid item>{customList(left,"left")}</Grid>
-      <Grid item>
+      <Grid className={classes.gridControl} item>
         <Grid container direction="column" alignItems="center">
           <Button
             variant="outlined"
@@ -166,14 +170,26 @@ const useStyles = makeStyles({
         margin: 'auto',
         backgroundColor: "#e9ebee",
         width:"100vw",
-        height: "100vh"
+        height: "100vh",
+        "& .MuiGrid-root ": {
+          height: "100%",
+        }
+    },
+    gridControl: {
+      "& .MuiGrid-root": {
+        display: "flex",
+        justifyContent: "center",
+      }
+    },
+    rootBox: {
+      height: "80%"
     },
     paper: {
         width: 500,
-        height: 230,
+        height: "100%",
         overflow: 'auto',
     },
-    checkbox: {
+    checkBox: {
         color: "#000000"
     },
     listText: {
@@ -197,6 +213,11 @@ const useStyles = makeStyles({
         textAlign: "center",
         padding: "20px 0px",
         fontSize: "20px"
+    },
+    iconBox: {
+      "& .MuiCheckbox-colorSecondary.Mui-checked": {
+        color: "rgb(48, 92, 139)"
+      }
     }
 });
 
