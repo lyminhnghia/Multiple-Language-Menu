@@ -58,7 +58,7 @@ const Routes = () => {
         exact
         path={PathConstant.ADMIN_NOT_FOUND}
       />
-      <Redirect to={PathConstant.ADMIN_NOT_FOUND} />
+      {/* <Redirect to={PathConstant.ADMIN_NOT_FOUND} /> */}
 
       <Route
         component={ShopAddCategory}
