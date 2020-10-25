@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import InputText from "../../../components/inputText";
 import ButtonBox from "../../../components/buttonBox";
 import PopupBox from "./Components/popup"
-
+import AddImage from "./Components/AddImage"
 const ShopAddCategory = () => {
   const classes = useStyles();
   const { t: getLabel} = useTranslation();
@@ -27,6 +27,9 @@ const ShopAddCategory = () => {
     setFormChange({...formChange, [e.target.name]: e.target.value})
     console.log(e.target.value, e.target.name)
   }
+  const getImgBase64 = (data) =>{
+    setFormChange({...formChange, ["base-64"]: data})
+  }
   return (
     <Box className={classes.boxParent}>
       <Box className={classes.boxBorder}>
@@ -36,7 +39,7 @@ const ShopAddCategory = () => {
               nameLabel={getLabel(LangConstant.TXT_NAME_PRODUCT)}
               typeInput="text"
               requiredInput={true}
-              nameText="email"
+              nameText="name-product"
               onInput = {e => onChange(e)}
             />
           </Box>
@@ -45,7 +48,7 @@ const ShopAddCategory = () => {
               nameLabel={getLabel(LangConstant.TXT_ID_PRODUCT)}
               typeInput="text"
               requiredInput={true}
-              nameText="email"
+              nameText="id-product"
               onInput = {e => onChange(e)}
             />
           </Box>
@@ -54,7 +57,7 @@ const ShopAddCategory = () => {
               nameLabel={getLabel(LangConstant.TXT_PRICE_PRODUCT)}
               typeInput="number"
               requiredInput={true}
-              nameText="email"
+              nameText="price-product"
               onInput = {e => onChange(e)}
             />
           </Box>
@@ -63,12 +66,13 @@ const ShopAddCategory = () => {
               {getLabel(LangConstant.TXT_DESCRIPTION_PRODUCT)}
             </Box>
             <TextareaAutosize
-              style={{width:"100%"}}
-              rowsMax={4}
+              style={{width:"100%",height: 56, fontSize:"14px"}}
+              // rowsMax={10}
               aria-label="maximum height"
-              placeholder="Maximum 4 rows"
-              defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                  ut labore et dolore magna aliqua."
+              placeholder={`${getLabel(LangConstant.TXT_DESCRIPTION_PRODUCT)}...`}
+              defaultValue=""
+              name = "description-product"
+              onChange = {e => onChange(e)}
             />
           </Box>
           <Box className={classes.BoxChild}>
@@ -78,9 +82,10 @@ const ShopAddCategory = () => {
                 native
                 // value={state.age}
                 // onChange={handleChange}
-                label="Age"
+                label="category-product"
+                onInput = {e => onChange(e)}
                 inputProps={{
-                  name: 'age',
+                  name: 'category-product',
                   id: 'outlined-age-native-simple',
                 }}
                 className={classes.selectBox}
@@ -92,6 +97,12 @@ const ShopAddCategory = () => {
               </Select>
             </FormControl>          
             <PopupBox />
+          </Box>
+          <Box className={classes.BoxChild}>
+            <Box className={classes.boxLabel}>
+              {getLabel(LangConstant.TXT_ADD_IMAGE)}
+            </Box>
+            <AddImage getData = {getImgBase64}/>
           </Box>
           <Box className={classes.boxButton}>
             <ButtonBox nameButton={getLabel(LangConstant.TXT_CONFIRMATION)} typeButton="submit" />

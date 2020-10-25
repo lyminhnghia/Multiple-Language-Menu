@@ -6,11 +6,16 @@ import { takeLatest, all } from "redux-saga/effects";
 
 /* ------------- Types ------------- */
 import { AuthTypes } from "../redux/auth.redux";
-import { AdminTypes } from "../redux/admin.redux";
+import { AdminTypes, updateShop } from "../redux/admin.redux";
 
 /* ------------- Sagas ------------- */
 import { requestLogin } from "./auth.saga";
-import { getListShopAdmin } from "./admin.saga";
+import {
+  getListShopAdmin,
+  createShopAdmin,
+  getShopAdmin,
+  updateShopAdmin,
+} from "./admin.saga";
 
 /* ------------- Connect Types To Sagas ------------- */
 export default function* root() {
@@ -20,5 +25,8 @@ export default function* root() {
 
     // admin
     takeLatest(AdminTypes.GET_LIST_SHOP, getListShopAdmin),
+    takeLatest(AdminTypes.CREATE_SHOP, createShopAdmin),
+    takeLatest(AdminTypes.GET_SHOP, getShopAdmin),
+    takeLatest(AdminTypes.UPDATE_SHOP, updateShopAdmin),
   ]);
 }

@@ -13,6 +13,7 @@ export const NS_LOGIN = "login";
 
 // Text Key
 export const TXT_LOGIN = "TXT_LOGIN";
+export const TXT_LOGOUT = "TXT_LOGOUT";
 export const TXT_SHOP_LIST = "TXT_SHOP_LIST";
 export const TXT_REGISTER_SHOP = "TXT_REGISTER_SHOP";
 export const TXT_PROFILE = "TXT_PROFILE";
@@ -33,7 +34,7 @@ export const TXT_SALES_AGENCY = "TXT_SALES_AGENCY";
 export const TXT_PASSWORD = "TXT_PASSWORD";
 export const TXT_START_CONTRACT_PERIOD = "TXT_START_CONTRACT_PERIOD";
 export const TXT_END_CONTRACT_PERIOD = "TXT_END_CONTRACT_PERIOD";
-export const TXT_POST_NUMBER = "TXT_POST_NUMBER";
+export const TXT_PORT_NUMBER = "TXT_PORT_NUMBER";
 export const TXT_CITY = "TXT_CITY";
 export const TXT_BUILDING = "TXT_BUILDING";
 export const TXT_NOTIFICATION_EMAIL = "TXT_NOTIFICATION_EMAIL";
@@ -57,6 +58,18 @@ export const TXT_ADD_CATEGORY = "TXT_ADD_CATEGORY";
 export const TXT_NEW_CATEGORY = "TXT_NEW_CATEGORY";
 export const TXT_FROM = "TXT_FROM";
 export const TXT_TO = "TXT_TO";
+export const TXT_ADD_IMAGE = "TXT_ADD_IMAGE";
+export const TXT_NAME_CATEGORY = "TXT_NAME_CATEGORY";
+export const TXT_AMOUNT_ITEAM = "TXT_AMOUNT_ITEAM";
+export const TXT_DESCRIPTION_CATEGORY = "TXT_DESCRIPTION_CATEGORY";
+export const TXT_EDIT = "TXT_EDIT";
+export const TXT_IMAGE = "TXT_IMAGE";
+export const TXT_STATE_WORKING = "TXT_STATE_WORKING";
+export const TXT_WORKING = "TXT_WORKING";
+export const TXT_STOP_WORKING = "TXT_STOP_WORKING";
+export const TXT_EXPIRED = "TXT_EXPIRED";
+export const TXT_START = "TXT_START";
+export const TXT_STOP = "TXT_STOP";
 export const ARR_SHOP_LIST = [
   TXT_ID,
   TXT_SHOP_NAME,
@@ -68,3 +81,6 @@ export const ARR_SHOP_LIST = [
   TXT_STATUS,
   TXT_SETTING,
 ];
+export const ARR_ADMIN_STATE = [TXT_WORKING, TXT_STOP_WORKING, TXT_EXPIRED];
+export const ARR_ADMIN_OPTION = [TXT_EDIT, TXT_STOP, TXT_START];
+export const ARR_ADMIN_WORKING = [TXT_WORKING, TXT_STOP_WORKING];
