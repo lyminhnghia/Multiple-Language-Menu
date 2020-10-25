@@ -41,8 +41,14 @@ export default {
   TXT_ID_PRODUCT: "Mã sản phẩm",
   TXT_ADD_CATEGORY: "Thêm danh mục",
   TXT_NEW_CATEGORY: "Danh mục mới",
+  TXT_ADD_IMAGE: "Thêm ảnh",
   TXT_FROM: "Từ:",
   TXT_TO: "Đến:",
+  TXT_NAME_CATEGORY: "Tên danh mục",
+  TXT_AMOUNT_ITEAM: "Số lượng",
+  TXT_DESCRIPTION_CATEGORY: "Mô tả danh mục",
+  TXT_EDIT: "Chỉnh sửa",
+  TXT_IMAGE: "Ảnh",
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };
