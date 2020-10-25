@@ -1,13 +1,13 @@
-import LoginAdminPage from "./Login"
-import ShopListAdmin from "./ShopList"
-import ShopRegisterAdmin from "./ShopRegister"
-import ProfileAdmin from "./Profile"
-import NotFoundAdmin from "./NotFound"
+import LoginAdminPage from "./Login";
+import ShopListAdmin from "./ShopList";
+import ShopRegisterAdmin from "./ShopRegister";
+import ProfileAdmin from "./Profile";
+import AdminNotFound from "./NotFound";
 
 export {
-    LoginAdminPage,
-    ShopListAdmin,
-    ShopRegisterAdmin,
-    ProfileAdmin,
-    NotFoundAdmin
-}
+  LoginAdminPage,
+  ShopListAdmin,
+  ShopRegisterAdmin,
+  ProfileAdmin,
+  AdminNotFound,
+};

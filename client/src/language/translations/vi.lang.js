@@ -1,5 +1,6 @@
 export default {
   TXT_LOGIN: "Đăng nhập",
+  TXT_LOGOUT: "Đăng xuất",
   TXT_SHOP_LIST: "Danh sách cửa hàng",
   TXT_REGISTER_SHOP: "Đăng ký cửa hàng",
   TXT_PROFILE: "Thông tin cá nhân",
@@ -20,7 +21,7 @@ export default {
   TXT_PASSWORD: "Mật khẩu",
   TXT_START_CONTRACT_PERIOD: "Thời gian bắt đầu hợp đồng",
   TXT_END_CONTRACT_PERIOD: "Thời gian kết thúc hợp đồng",
-  TXT_POST_NUMBER: "Mã vùng",
+  TXT_PORT_NUMBER: "Mã vùng",
   TXT_CITY: "Thành phố",
   TXT_BUILDING: "Tòa nhà",
   TXT_NOTIFICATION_EMAIL: "Địa chỉ Email",
@@ -49,6 +50,12 @@ export default {
   TXT_DESCRIPTION_CATEGORY: "Mô tả danh mục",
   TXT_EDIT: "Chỉnh sửa",
   TXT_IMAGE: "Ảnh",
+  TXT_STATE_WORKING: "Trạng thái hoạt động",
+  TXT_WORKING: "Đang hoạt động",
+  TXT_STOP_WORKING: "Dừng hoạt động",
+  TXT_EXPIRED: "Hêt hạn hợp đồng",
+  TXT_START: "Bắt đầu",
+  TXT_STOP: "Dừng lại",
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };

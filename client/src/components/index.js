@@ -6,6 +6,8 @@ import SearchBar from "./OptionBar/SearchBar";
 import DatePickers from "./OptionBar/DatePickers";
 import BoxButton from "./buttonBox";
 import InputText from "./inputText";
+import Notify from "./Validate/Notify";
+import MultipleChoice from "./OptionBar/MultipleChoice";
 export {
   Sidebar,
   CellBody,
@@ -15,4 +17,6 @@ export {
   DatePickers,
   BoxButton,
   InputText,
+  Notify,
+  MultipleChoice,
 };

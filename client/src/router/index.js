@@ -2,10 +2,16 @@ import React from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 import { PathConstant } from "../const";
 import PropTypes from "prop-types";
-import { LoginAdminPage, ShopListAdmin, ShopRegisterAdmin, ProfileAdmin, NotFoundAdmin } from "../pages/Admin"
+import {
+  LoginAdminPage,
+  ShopListAdmin,
+  ShopRegisterAdmin,
+  ProfileAdmin,
+  AdminNotFound,
+} from "../pages/Admin";
 import DashboardPage from "../pages/Dashboard";
 import NotFoundPage from "../pages/NotFound";
-import {ShopAddCategory, CategoryTable, TranferLanguage} from '../pages/Shop';
+import { ShopAddCategory, CategoryTable, TranferLanguage } from "../pages/Shop";
 function AuthenticationRoute(props) {
   const { component: Component, ...rest } = props;
   // Check authentication with the page need to be protected
@@ -14,15 +20,15 @@ function AuthenticationRoute(props) {
   return isChecked ? (
     <Route {...rest} render={(matchProps) => <Component {...matchProps} />} />
   ) : (
-      <Redirect
-        to={{
-          pathname: PathConstant.LOGIN_ADMIN,
-          state: {
-            from: rest.path,
-          },
-        }}
-      />
-    );
+    <Redirect
+      to={{
+        pathname: PathConstant.LOGIN_ADMIN,
+        state: {
+          from: rest.path,
+        },
+      }}
+    />
+  );
 }
 
 AuthenticationRoute.propTypes = {
@@ -35,13 +41,40 @@ const Routes = () => {
     <Switch>
       {/* <Redirect exact from={PathConstant.ROOT} to={PathConstant.DASHBOARD} /> */}
       {/* <AuthenticationRoute component={DashboardPage} exact path={PathConstant.DASHBOARD} /> */}
-      <Route component={ShopListAdmin} exact path={PathConstant.ADMIN_SHOP_LIST} />
+      <Route
+        component={ShopListAdmin}
+        exact
+        path={PathConstant.ADMIN_SHOP_LIST}
+      />
       <Route component={LoginAdminPage} exact path={PathConstant.LOGIN_ADMIN} />
-      <Route component={ShopRegisterAdmin} exact path={PathConstant.ADMIN_REGISTER_SHOP} />
+      <Route
+        component={ShopRegisterAdmin}
+        exact
+        path={PathConstant.ADMIN_REGISTER_SHOP}
+      />
       <Route component={ProfileAdmin} exact path={PathConstant.ADMIN_PROFILE} />
-      <Route component={ShopAddCategory} exact path={PathConstant.SHOP_ADD_CATEGORY} />
-      <Route component={CategoryTable} exact path={PathConstant.SHOP_CATEGORY_TABLE} />
-      <Route component={TranferLanguage} exact path={PathConstant.SHOP_TRANFER_LANGUAGE} />
+      <Route
+        component={AdminNotFound}
+        exact
+        path={PathConstant.ADMIN_NOT_FOUND}
+      />
+      <Redirect to={PathConstant.ADMIN_NOT_FOUND} />
+
+      <Route
+        component={ShopAddCategory}
+        exact
+        path={PathConstant.SHOP_ADD_CATEGORY}
+      />
+      <Route
+        component={CategoryTable}
+        exact
+        path={PathConstant.SHOP_CATEGORY_TABLE}
+      />
+      <Route
+        component={TranferLanguage}
+        exact
+        path={PathConstant.SHOP_TRANFER_LANGUAGE}
+      />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       <Redirect to={PathConstant.NOT_FOUND} />
     </Switch>
