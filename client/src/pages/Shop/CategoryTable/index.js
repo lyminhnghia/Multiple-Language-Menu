@@ -16,7 +16,8 @@ import {
 import { useTranslation } from "react-i18next";
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import ButtonIcon from "./Components/buttonIcon";
+import PopupCategory from "./Components/popupCategory";
+import PopupProduct from "./Components/popupProduct";
 
 const  createData = (nameCategory, total, description)=> {
   return {
@@ -24,9 +25,9 @@ const  createData = (nameCategory, total, description)=> {
     total,
     description,
     category: [
-      { nameIteam: 'Hảo hảo', itemId: '11091700', price: 30000, descriptionIteam: "chó Nghĩa" },
-      { nameIteam: 'jummy', itemId: 'Anonymous', price: 10000, descriptionIteam: "nhân tạo" },
-      { nameIteam: 'harri', itemId: 'HarriXCIX', price: 10000000, descriptionIteam: "hoàn toàn thiên nhiên"  },
+      { nameIteam: 'Hảo hảo', itemId: '11091700', price: 30000, descriptionIteam: "chó Nghĩa", srcIteam: "" },
+      { nameIteam: 'jummy', itemId: 'Anonymous', price: 10000, descriptionIteam: "nhân tạo", srcIteam: "" },
+      { nameIteam: 'harri', itemId: 'HarriXCIX', price: 10000000, descriptionIteam: "hoàn toàn thiên nhiên", srcIteam: "" },
     ],
   };
 }
@@ -36,15 +37,9 @@ function Row(props) {
   const { row } = props;
   const [open, setOpen] = useState(false);
   const classes = useStyles();
-  const onChangeCategory = () =>{
-    console.log("1234")
-  }
-  const onChange = () =>{
-    console.log("hihi")
-  }
   return (
     <React.Fragment>
-      <TableRow className={classes.root}>
+      <TableRow key = {row.index} className={classes.root}>
         <TableCell>
           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -60,9 +55,8 @@ function Row(props) {
           {row.description}
         </TableCell>
         <TableCell align="right">
-          <ButtonIcon onClick={onChangeCategory}/>
+          <PopupCategory key = {row.index} nameCategory={row.nameCategory} descriptionCategory={row.description} />
         </TableCell>
-        {/* <TableCell align="right">{row.protein}</TableCell> */}
       </TableRow>
       <TableRow style={{backgroundColor:"#F2F3F5"}}>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -72,6 +66,9 @@ function Row(props) {
                 <TableHead>
                   <TableRow className={classes.root}>
                     <TableCell>
+                      {getLabel(LangConstant.TXT_IMAGE)}
+                    </TableCell>
+                    <TableCell>
                       {getLabel(LangConstant.TXT_NAME_PRODUCT)}
                     </TableCell>
                     <TableCell>
@@ -79,10 +76,7 @@ function Row(props) {
                     </TableCell>
                     <TableCell>
                       {getLabel(LangConstant.TXT_PRICE_PRODUCT)}
-                    </TableCell>
-                    <TableCell>
-                      {getLabel(LangConstant.TXT_IMAGE)}
-                    </TableCell>
+                    </TableCell>                  
                     <TableCell>
                       {getLabel(LangConstant.TXT_DESCRIPTION_PRODUCT)}
                     </TableCell>
@@ -93,7 +87,10 @@ function Row(props) {
                 </TableHead>
                 <TableBody>
                   {row.category.map((categoryRow,index) => (
-                    <TableRow key={categoryRow.date} className={index % 2 === 0 ? classes.root1 : classes.root} >
+                    <TableRow key={index} className={index % 2 === 0 ? classes.root1 : classes.root} >
+                      <TableCell>
+                        <img src={categoryRow.srcIteam} style={{width:"100px",height:"100px"}}></img>
+                      </TableCell>
                       <TableCell component="th" scope="row">
                         {categoryRow.nameIteam}
                       </TableCell>
@@ -102,15 +99,19 @@ function Row(props) {
                       </TableCell>
                       <TableCell >
                         {categoryRow.price}
-                      </TableCell>
-                      <TableCell>
-                        <img src="" style={{width:"100px",height:"100px"}}></img>
-                      </TableCell>
+                      </TableCell>                     
                       <TableCell >
                         {categoryRow.descriptionIteam}
                       </TableCell>
                       <TableCell>
-                        <ButtonIcon onClick={onChange} />
+                        <PopupProduct
+                         key={index} 
+                         nameProduct = {categoryRow.nameIteam} 
+                         IDProduct = {categoryRow.itemId} 
+                         priceProduct = {categoryRow.price}
+                         descriptionProduct = {categoryRow.descriptionIteam}
+                         imgProduct = {categoryRow.srcIteam}
+                       />
                       </TableCell>
                     </TableRow>
                   ))}
@@ -156,7 +157,7 @@ const CategoryTable = () => {
         </TableHead>
         <TableBody>
           {rows.map((row,index) => (
-            <Row key={row.name} row={row} />
+            <Row key={index} row={row} />
           ))}
         </TableBody>
       </Table>

@@ -49,6 +49,10 @@ export default {
   TXT_DESCRIPTION_CATEGORY: "Mô tả danh mục",
   TXT_EDIT: "Chỉnh sửa",
   TXT_IMAGE: "Ảnh",
+  TXT_EDIT_CATEGORY: "Sửa danh mục",
+  TXT_EDIT_PRODUCT: "Sửa sản phẩm",
+  TXT_CANCER: "Hủy",
+  TXT_SAVE: "Lưu thay đổi",
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };

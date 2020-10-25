@@ -63,6 +63,10 @@ export const TXT_AMOUNT_ITEAM = "TXT_AMOUNT_ITEAM";
 export const TXT_DESCRIPTION_CATEGORY = "TXT_DESCRIPTION_CATEGORY";
 export const TXT_EDIT = "TXT_EDIT";
 export const TXT_IMAGE = "TXT_IMAGE";
+export const TXT_EDIT_CATEGORY = "TXT_EDIT_CATEGORY";
+export const TXT_EDIT_PRODUCT = "TXT_EDIT_PRODUCT";
+export const TXT_CANCER = "TXT_CANCER";
+export const TXT_SAVE = "TXT_SAVE";
 export const ARR_SHOP_LIST = [
   TXT_ID,
   TXT_SHOP_NAME,
