@@ -39,6 +39,9 @@ db.payment_method = require("./payment_method.model")(sequelize, Sequelize);
 db.shop_information = require("./shop_information.model")(sequelize, Sequelize);
 db.shop = require("./shop.model")(sequelize, Sequelize);
 db.working_shift = require("./working_shift.model")(sequelize, Sequelize);
+db.sort_language = require("./sort_language.model")(sequelize, Sequelize);
+db.customer = require("./customer.model")(sequelize, Sequelize);
+db.title_language = require("./title_language.model")(sequelize, Sequelize);
 
 // Join shop with owner
 db.shop.hasOne(db.owner);
@@ -58,6 +61,12 @@ db.working_shift.belongsTo(db.shop);
 // Join shop with shop information
 db.shop.hasMany(db.shop_information);
 db.shop_information.belongsTo(db.shop);
+// Join shop with sort language
+db.shop.hasMany(db.sort_language);
+db.sort_language.belongsTo(db.shop);
+// Join language with sort language
+db.language.hasMany(db.sort_language);
+db.sort_language.belongsTo(db.language);
 // Join shop information with address language
 db.shop_information.hasOne(db.address_language);
 db.address_language.belongsTo(db.shop_information);
@@ -76,9 +85,9 @@ db.item_language.belongsTo(db.category_language);
 // Join item with item language
 db.item.hasMany(db.item_language);
 db.item_language.belongsTo(db.item);
-// Join item language with order
-db.item_language.hasMany(db.order);
-db.order.belongsTo(db.item_language);
+// Join item with order
+db.item.hasMany(db.order);
+db.order.belongsTo(db.item);
 // Join language with shop information
 db.language.hasMany(db.shop_information);
 db.shop_information.belongsTo(db.language);
@@ -88,5 +97,11 @@ db.category_language.belongsTo(db.language);
 // Join language with item language
 db.language.hasMany(db.item_language);
 db.item_language.belongsTo(db.language);
+// Join customer with order
+db.customer.hasMany(db.order);
+db.order.belongsTo(db.customer);
+// Join language to title language
+db.language.hasMany(db.title_language);
+db.title_language.belongsTo(db.language);
 
 module.exports = db;

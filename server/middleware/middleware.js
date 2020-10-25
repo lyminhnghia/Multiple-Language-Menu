@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require("../configs/secret-key");
 
-exports.verifyTokenAdmin = async (req, res, next) => {
+exports.verifyTokenAdmin = (req, res, next) => {
   let token = req.headers["accesstoken"];
   if (!token) {
     return res.status(401).send({
@@ -20,6 +20,7 @@ exports.verifyTokenAdmin = async (req, res, next) => {
 
     req.userId = decoded.id;
     req.role = decoded.role;
+    req.shopId = decoded.shopId;
 
     if (req.role) {
       next();
@@ -32,8 +33,8 @@ exports.verifyTokenAdmin = async (req, res, next) => {
   });
 };
 
-exports.verifyTokenShop = async (req, res, next) => {
-  let token = req.headers["x-access-token"];
+exports.verifyTokenShop = (req, res, next) => {
+  let token = req.headers["accesstoken"];
   if (!token) {
     return res.status(401).send({
       success: false,
@@ -51,6 +52,7 @@ exports.verifyTokenShop = async (req, res, next) => {
 
     req.userId = decoded.id;
     req.role = decoded.role;
+    req.shopId = decoded.shopId;
 
     if (!req.role) {
       next();
@@ -63,7 +65,7 @@ exports.verifyTokenShop = async (req, res, next) => {
   });
 };
 
-exports.checkPasswordEdit = async (req, res, next) => {
+exports.checkPasswordEdit = (req, res, next) => {
   newPassword = "" + req.body.new_password;
   confirmPassword = "" + req.body.confirm_password;
   if (newPassword.length < 6) {
@@ -83,7 +85,7 @@ exports.checkPasswordEdit = async (req, res, next) => {
   next();
 };
 
-exports.checkCreateShop = async (req, res, next) => {
+exports.checkCreateShop = (req, res, next) => {
   let errors = "";
   if (!req.body.shop_type) errors = errors + "Required shop type, ";
   if (!req.body.shop_name) errors = errors + "Required shop name, ";
@@ -120,6 +122,27 @@ exports.checkCreateShop = async (req, res, next) => {
       success: false,
       error: "Password not equals confirm password",
     });
+  }
+  next();
+};
+
+exports.checkCategory = (req, res, next) => {
+  if (!req.body.name) {
+    return res
+      .status(400)
+      .send({ success: false, error: "Required name category" });
+  }
+  next();
+};
+
+exports.checkItem = (req, res, next) => {
+  let errors = "";
+  if (!req.body.image) errors = errors + "Required image item, ";
+  if (!req.body.name) errors = errors + "Required name item, ";
+  if (!req.body.code) errors = errors + "Required code item, ";
+  if (!req.body.price) errors = errors + "Required price item";
+  if (errors !== "") {
+    return res.status(400).send({ success: false, error: errors });
   }
   next();
 };
