@@ -5,7 +5,7 @@ import {
   makeStyles,
   Box,
   ListItem,
-  ListItemText,
+  // ListItemText,
   Checkbox,
   ListItemIcon,
   List,
@@ -14,6 +14,9 @@ import {
   Button,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
+import ButtonBox from "../../../components/buttonBox";
+
+
 const not = (a, b) => {
   return a.filter((value) => b.indexOf(value) === -1);
 };
@@ -57,7 +60,7 @@ const TranferLanguage = () => {
   const handleAllRight = () => {
     setRight([]);
     setRight(right.concat(left));
-    // setLeft([]);
+    setLeft([]);
   };
 
   const handleCheckedRight = () => {
@@ -67,21 +70,28 @@ const TranferLanguage = () => {
         console.log(leftChecked);
       }
     }
-    // setLeft(not(left, leftChecked));
+    setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
   };
 
   const handleCheckedLeft = () => {
-    // setLeft(left.concat(rightChecked));
+    setLeft(left.concat(rightChecked));
     setRight(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
   };
 
   const handleAllLeft = () => {
-    // setLeft(left.concat(right));
+    setLeft(left.concat(right));
     setRight([]);
   };
-
+  const onSubmit = () =>{
+    if(left.length <1 ){
+      console.log(right)
+    }
+    else{
+      console.log("con du lieu!!!")
+    }
+  }
   const customList = (items, name) => (
     <Box className={classes.rootBox}>
       <Box className={classes.textHeader}>
@@ -127,70 +137,82 @@ const TranferLanguage = () => {
 
   return (
     <ShopLayout>
-      <Grid
-        container
-        spacing={2}
-        justify="center"
-        alignItems="center"
-        className={classes.root}
-      >
-        <Grid item>{customList(left, "left")}</Grid>
-        <Grid className={classes.gridControl} item>
-          <Grid container direction="column" alignItems="center">
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.button}
-              onClick={handleAllRight}
-              disabled={left.length === 0}
-              aria-label="move all right"
-            >
-              ≫
-            </Button>
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.button}
-              onClick={handleCheckedRight}
-              disabled={leftChecked.length === 0}
-              aria-label="move selected right"
-            >
-              &gt;
-            </Button>
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.button}
-              onClick={handleCheckedLeft}
-              disabled={rightChecked.length === 0}
-              aria-label="move selected left"
-            >
-              &lt;
-            </Button>
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.button}
-              onClick={handleAllLeft}
-              disabled={right.length === 0}
-              aria-label="move all left"
-            >
-              ≪
-            </Button>
+      <Box className={classes.boxParen}>
+        <Grid
+          container
+          spacing={2}
+          justify="center"
+          alignItems="center"
+          className={classes.root}
+        >
+          <Grid item>{customList(left, "left")}</Grid>
+          <Grid className={classes.gridControl} item>
+            <Grid container direction="column" alignItems="center">
+              <Button
+                variant="outlined"
+                size="small"
+                className={classes.button}
+                onClick={handleAllRight}
+                disabled={left.length === 0}
+                aria-label="move all right"
+              >
+                ≫
+              </Button>
+              <Button
+                variant="outlined"
+                size="small"
+                className={classes.button}
+                onClick={handleCheckedRight}
+                disabled={leftChecked.length === 0}
+                aria-label="move selected right"
+              >
+                &gt;
+              </Button>
+              <Button
+                variant="outlined"
+                size="small"
+                className={classes.button}
+                onClick={handleCheckedLeft}
+                disabled={rightChecked.length === 0}
+                aria-label="move selected left"
+              >
+                &lt;
+              </Button>
+              <Button
+                variant="outlined"
+                size="small"
+                className={classes.button}
+                onClick={handleAllLeft}
+                disabled={right.length === 0}
+                aria-label="move all left"
+              >
+                ≪
+              </Button>
+            </Grid>
           </Grid>
+          <Grid item>{customList(right, "right")}</Grid>
         </Grid>
-        <Grid item>{customList(right, "right")}</Grid>
-      </Grid>
+        <Box className={classes.boxButton}>
+          <ButtonBox
+            nameButton={getLabel(LangConstant.TXT_CONFIRMATION)}
+            onClick={onSubmit}
+          />
+        </Box>
+      </Box>
     </ShopLayout>
   );
 };
 
 const useStyles = makeStyles({
-  root: {
-    margin: "auto",
+  boxParen: {
+    width: "100%",
+    height: "100%",
     backgroundColor: "#e9ebee",
-    width: "100vw",
-    height: "100vh",
+  },
+  root: {
+    margin: "auto", 
+    width: "100%",
+    // height: "90%",
     "& .MuiGrid-root ": {
       height: "100%",
     },
@@ -206,7 +228,7 @@ const useStyles = makeStyles({
   },
   paper: {
     width: 500,
-    height: "100%",
+    height: 550,
     overflow: "auto",
   },
   checkBox: {
@@ -238,6 +260,12 @@ const useStyles = makeStyles({
     "& .MuiCheckbox-colorSecondary.Mui-checked": {
       color: "rgb(48, 92, 139)",
     },
+  },
+  boxButton: {
+    width: "140px",
+    margin: "0 auto",
+    height: "40px",
+    marginTop: "20px",
   },
 });
 
