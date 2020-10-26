@@ -1,10 +1,13 @@
-import ShopAddCategory from "./AddCategory"
-import CategoryTable from "./CategoryTable"
-import TranferLanguage from "./TranferLanguage"
-import ContractInformation from "./ContractInformation"
+import LoginShop from "./Login";
+import ShopAddCategory from "./AddCategory";
+import CategoryTable from "./CategoryTable";
+import TranferLanguage from "./TranferLanguage";
+import ContractInformation from "./ContractInformation";
+
 export {
-    ShopAddCategory,
-    CategoryTable,
-    TranferLanguage,
-    ContractInformation,
-}
+  LoginShop,
+  ShopAddCategory,
+  CategoryTable,
+  TranferLanguage,
+  ContractInformation,
+};
