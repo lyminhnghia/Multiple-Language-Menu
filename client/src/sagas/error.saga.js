@@ -2,8 +2,8 @@ import { put } from "redux-saga/effects";
 import ErrorActions from "../redux/error.redux";
 
 export function* raiseError(action) {
-  let { error, status } = action;
-  yield put(ErrorActions.failure(error, status));
+  let { data } = action;
+  yield put(ErrorActions.failure(data));
 }
 
 export function* resetError() {

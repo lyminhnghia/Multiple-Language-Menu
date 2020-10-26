@@ -8,7 +8,7 @@ export function* getListCategoryShop(action) {
     const { data } = action;
     let response = yield call(CategoryShopService.getListCategory, data);
     if (response.status == ApiConstant.STT_OK) {
-      let responseData = response.data;
+      let responseData = response.data.data;
       yield put(CategoryShopAction.getListCategorySuccess(responseData));
     } else {
       yield put(CategoryShopAction.getListCategoryFailure(response.data.error));

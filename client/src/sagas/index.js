@@ -20,6 +20,8 @@ import {
 
 import { getListCategoryShop } from "./categoryShop.saga";
 
+import { raiseError, resetError } from "./error.saga";
+
 /* ------------- Connect Types To Sagas ------------- */
 export default function* root() {
   yield all([
@@ -32,7 +34,33 @@ export default function* root() {
     takeLatest(AdminTypes.CREATE_SHOP, createShopAdmin),
     takeLatest(AdminTypes.GET_SHOP, getShopAdmin),
     takeLatest(AdminTypes.UPDATE_SHOP, updateShopAdmin),
+
     // shop
     takeLatest(CategoryShopTypes.GET_LIST_CATEGORY, getListCategoryShop),
+
+    takeLatest(
+      [
+        AuthTypes.REQUEST_LOGIN,
+        AuthTypes.REQUEST_LOGIN_SHOP,
+        AdminTypes.GET_LIST_SHOP,
+        AdminTypes.CREATE_SHOP,
+        AdminTypes.GET_SHOP,
+        AdminTypes.UPDATE_SHOP,
+        CategoryShopTypes.GET_LIST_CATEGORY,
+      ],
+      resetError
+    ),
+    takeLatest(
+      [
+        AuthTypes.REQUEST_LOGIN,
+        AuthTypes.REQUEST_LOGIN_SHOP,
+        AdminTypes.GET_LIST_SHOP,
+        AdminTypes.CREATE_SHOP,
+        AdminTypes.GET_SHOP,
+        AdminTypes.UPDATE_SHOP,
+        CategoryShopTypes.GET_LIST_CATEGORY,
+      ],
+      raiseError
+    ),
   ]);
 }

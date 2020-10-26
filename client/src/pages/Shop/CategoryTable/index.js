@@ -27,8 +27,9 @@ const CategoryTable = () => {
   const { t: getLabel } = useTranslation();
   const category = useSelector((state) => state.categoryShopRedux.listCategory);
   if (category === null) {
-    dispatch(CategoryShopAction.getListCategory());
+    dispatch(CategoryShopAction.getListCategory({}));
   }
+  console.log(category);
   return (
     <ShopLayout>
       <TableContainer component={Paper} className={classes.tableContainer}>
