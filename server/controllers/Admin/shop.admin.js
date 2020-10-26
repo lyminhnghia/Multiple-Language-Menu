@@ -131,8 +131,6 @@ exports.editShop = async (req, res) => {
 
     await Account.update(
       {
-        username: req.body.shopID,
-        password: bcrypt.hashSync(req.body.password, 8),
         state: req.body.state,
       },
       {

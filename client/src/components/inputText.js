@@ -6,6 +6,7 @@ const InputText = ({
   typeInput,
   requiredInput,
   defaultValueInput,
+  value,
   onInput,
   nameText,
   disabled,
@@ -18,6 +19,7 @@ const InputText = ({
       type={typeInput}
       required={requiredInput}
       defaultValue={defaultValueInput}
+      value={value}
       onInput={onInput}
       name={nameText}
       disabled={disabled}
