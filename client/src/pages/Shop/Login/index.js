@@ -11,7 +11,7 @@ const LoginShopPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { t: getLabel } = useTranslation();
-  const isLogin = useSelector((state) => state.authRedux.isLogin);
+  const isLogin = useSelector((state) => state.authRedux.isLoginShop);
   const [data, setData] = useState({});
 
   const onChange = (event) => {
@@ -19,7 +19,7 @@ const LoginShopPage = () => {
   };
 
   const onLogin = () => {
-    dispatch(AuthAction.requestLogin(data));
+    dispatch(AuthAction.requestLoginShop(data));
   };
 
   if (isLogin) {

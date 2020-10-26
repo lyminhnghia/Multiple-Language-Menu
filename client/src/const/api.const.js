@@ -21,6 +21,7 @@ export const CREATE_SHOP_ADMIN = "/api/admin/create-shop";
 export const SHOP_ADMIN = "/api/admin/shop/{0}";
 
 // Api Shop
+export const POST_LOGIN_SHOP = "/api/shop/login";
 export const CREATE_CATEGORY = "/api/shop/create-category";
 export const LIST_CATEGORY = "/api/shop/category";
 export const UPDATE_CATEGORY = "/api/shop/category/{0}";

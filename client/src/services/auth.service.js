@@ -3,3 +3,6 @@ import { createApiRegistration } from "../api";
 
 export const login = (data) =>
   createApiRegistration().post(ApiConstant.POST_LOGIN_ADMIN, data);
+
+export const loginShop = (data) =>
+  createApiRegistration().post(ApiConstant.POST_LOGIN_SHOP, data);

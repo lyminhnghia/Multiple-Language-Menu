@@ -10,7 +10,7 @@ import { AdminTypes, updateShop } from "../redux/admin.redux";
 import { CategoryShopTypes } from "../redux/categoryShop.redux";
 
 /* ------------- Sagas ------------- */
-import { requestLogin } from "./auth.saga";
+import { requestLogin, requestLoginShop } from "./auth.saga";
 import {
   getListShopAdmin,
   createShopAdmin,
@@ -25,6 +25,7 @@ export default function* root() {
   yield all([
     // authentication
     takeLatest(AuthTypes.REQUEST_LOGIN, requestLogin),
+    takeLatest(AuthTypes.REQUEST_LOGIN_SHOP, requestLoginShop),
 
     // admin
     takeLatest(AdminTypes.GET_LIST_SHOP, getListShopAdmin),
