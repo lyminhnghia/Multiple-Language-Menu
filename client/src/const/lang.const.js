@@ -74,6 +74,10 @@ export const TXT_STOP_WORKING = "TXT_STOP_WORKING";
 export const TXT_EXPIRED = "TXT_EXPIRED";
 export const TXT_START = "TXT_START";
 export const TXT_STOP = "TXT_STOP";
+export const TXT_SORT_LANGUAGE = "TXT_SORT_LANGUAGE";
+export const TXT_QR_CODE = "TXT_QR_CODE";
+export const TXT_CONTRACT_INFO = "TXT_CONTRACT_INFO";
+export const TXT_ORDER_HISTORY = "TXT_ORDER_HISTORY";
 export const ARR_SHOP_LIST = [
   TXT_ID,
   TXT_SHOP_NAME,

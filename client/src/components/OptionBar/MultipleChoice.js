@@ -5,11 +5,19 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useTranslation } from "react-i18next";
 import { uuid } from "../../utils";
 
-const MultipleChoice = ({ listMenu, onChange, className, ...otherProps }) => {
+const MultipleChoice = ({
+  listMenu,
+  onChange,
+  className,
+  defaultValue,
+  ...otherProps
+}) => {
   const { t: getLabel } = useTranslation();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(
+    defaultValue ? defaultValue : 0
+  );
 
   const onClickListItem = (event) => {
     setAnchorEl(event.currentTarget);

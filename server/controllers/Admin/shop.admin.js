@@ -100,17 +100,6 @@ exports.editShop = async (req, res) => {
         error: "Shop does not exist!",
       });
     }
-    let account = await Account.findOne({
-      where: {
-        username: req.body.shopID,
-      },
-    });
-    if (account.shopId !== shop.id) {
-      return res.status(400).send({
-        success: false,
-        error: "Shop ID already exist!",
-      });
-    }
     res.status(200).send({ success: true, data: "Updated shop successful!" });
     await Shop.update(
       {
@@ -131,8 +120,6 @@ exports.editShop = async (req, res) => {
 
     await Account.update(
       {
-        username: req.body.shopID,
-        password: bcrypt.hashSync(req.body.password, 8),
         state: req.body.state,
       },
       {
