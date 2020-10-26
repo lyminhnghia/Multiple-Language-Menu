@@ -8,8 +8,9 @@ import {
   TableBody,
   TableRow,
   IconButton,
+  Dialog,
 } from "@material-ui/core";
-import { MoreHoriz } from "@material-ui/icons";
+import { Settings } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
 import { AdminLayout } from "../../../layouts";
 import {
@@ -24,6 +25,7 @@ import { uuid } from "../../../utils";
 import { LangConstant, AppConstant } from "../../../const";
 import { useDispatch, useSelector } from "react-redux";
 import AdminAction from "../../../redux/admin.redux";
+import EditShop from "./component/EditShop";
 import moment from "moment";
 
 const ShopList = (props) => {
@@ -37,6 +39,7 @@ const ShopList = (props) => {
   const dataShop = useSelector((state) => state.adminRedux.data);
   const [shop, setShop] = useState([]);
   const [total, setTotal] = useState(0);
+  const [open, setOpen] = useState(false);
 
   if (dataShop === null) {
     dispatch(AdminAction.getListShop({ page: 1 }));
@@ -74,6 +77,12 @@ const ShopList = (props) => {
     dispatch(
       AdminAction.getListShop({ page: 1, from: from, to: to, filter: filter })
     );
+  };
+
+  const onOpenShop = (shopId) => {
+    setOpen(true);
+    // dispatch(AdminAction.getShop({ id: shopId }))
+    console.log(shopId);
   };
 
   const handleTime = (time) => {
@@ -198,12 +207,10 @@ const ShopList = (props) => {
                     <CellBody
                       cellData={
                         <IconButton
-                          onClick={() =>
-                            dispatch(AdminAction.getShop({ id: data.id }))
-                          }
+                          onClick={() => onOpenShop(data.id)}
                           className={classes.IconButton}
                         >
-                          <MoreHoriz />
+                          <Settings />
                         </IconButton>
                       }
                       className={classes.cell}
@@ -212,6 +219,9 @@ const ShopList = (props) => {
                   </TableRow>
                 ))}
             </TableBody>
+            <Dialog fullScreen open={false}>
+              <EditShop />
+            </Dialog>
           </Table>
         </TableContainer>
         {(total || total === 0) && (

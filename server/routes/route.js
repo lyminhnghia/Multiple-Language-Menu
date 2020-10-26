@@ -118,6 +118,9 @@ module.exports = (app) => {
 
   const LanguageSchedule = require("../schedule/language.schedule");
 
+  const StateInterval = () => {
+    LanguageSchedule.UpdateState();
+  };
   const ShopInterval = () => {
     LanguageSchedule.ShopInfoSchedule();
   };
@@ -130,7 +133,7 @@ module.exports = (app) => {
   const ItemInterval = () => {
     LanguageSchedule.ItemSchedule();
   };
-
+  setInterval(StateInterval, 1000 * 60 * 10);
   setInterval(ShopInterval, 1000 * 60 * 60 * 24);
   setInterval(AddressInterval, 1000 * 60 * 60 * 24);
   setInterval(CategoryInterval, 1000 * 60 * 60 * 24);
