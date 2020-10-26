@@ -1,18 +1,18 @@
 import React,{memo, useState} from 'react';
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import {
-    makeStyles,
-    Box,
-    Avatar,
-    Fab
-  } from "@material-ui/core";
+  makeStyles,
+  Box,
+  Avatar,
+  Fab
+} from "@material-ui/core";
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
-const UploadImage = ({getData})=> {
+const UploadImage = ({getData,src})=> {
   const [chooseFile,setSelectedFile] = useState({
     mainState: "initial",
     imageUploaded: 0,
-    selectedFile: null
+    selectedFile: src
   })
 
   const [displays,setDisplay] = useState(false)  
