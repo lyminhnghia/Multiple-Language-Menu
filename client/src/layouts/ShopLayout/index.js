@@ -124,7 +124,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     flexGrow: 1,
     height: "100%",
-    margin: "0 10px",
+    margin: "0 auto",
     overflow: "auto",
   },
 }));
