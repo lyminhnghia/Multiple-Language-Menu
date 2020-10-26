@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { ShopLayout } from "../../../layouts";
 import { LangConstant } from "../../../const";
 import {
@@ -14,10 +14,22 @@ import InputText from "../../../components/inputText";
 import ButtonBox from "../../../components/buttonBox";
 import PopupBox from "./Components/popup";
 import AddImage from "../../../components/AddImage";
+import { useDispatch, useSelector } from "react-redux";
+import CategoryShopAction from "../../../redux/categoryShop.redux";
+import { uuid } from "../../../utils";
 const ShopAddCategory = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
   const [formChange, setFormChange] = useState({});
+  const dispatch = useDispatch();
+  const [category, setCategory] = useState([]);
+  const listCategory = useSelector(
+    (state) => state.categoryShopRedux.listCategory
+  );
+
+  if (listCategory === null) {
+    dispatch(CategoryShopAction.getListCategory({}));
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,6 +43,13 @@ const ShopAddCategory = () => {
   const getImgBase64 = (data) => {
     setFormChange({ ...formChange, ["base-64"]: data });
   };
+
+  useEffect(() => {
+    if (listCategory) {
+      setCategory(listCategory);
+    }
+  }, [listCategory]);
+
   return (
     <ShopLayout>
       <Box className={classes.boxParent}>
@@ -104,15 +123,12 @@ const ShopAddCategory = () => {
                     aria-label="None"
                     value=""
                   />
-                  <option className={classes.optionBox} value={10}>
-                    Ten
-                  </option>
-                  <option className={classes.optionBox} value={20}>
-                    Twenty
-                  </option>
-                  <option className={classes.optionBox} value={30}>
-                    Thirty
-                  </option>
+                  {category &&
+                    category.map((data, index) => (
+                      <option className={classes.optionBox} value={data.id}>
+                        {data.name}
+                      </option>
+                    ))}
                 </Select>
               </FormControl>
               <PopupBox />

@@ -6,8 +6,9 @@ import { takeLatest, all } from "redux-saga/effects";
 
 /* ------------- Types ------------- */
 import { AuthTypes } from "../redux/auth.redux";
-import { AdminTypes, updateShop } from "../redux/admin.redux";
+import { AdminTypes } from "../redux/admin.redux";
 import { CategoryShopTypes } from "../redux/categoryShop.redux";
+import { ShopInfoTypes } from "../redux/shopInfo.redux";
 
 /* ------------- Sagas ------------- */
 import { requestLogin, requestLoginShop } from "./auth.saga";
@@ -17,6 +18,8 @@ import {
   getShopAdmin,
   updateShopAdmin,
 } from "./admin.saga";
+import { getListCategoryShop, createCategoryShop } from "./categoryShop.saga";
+import { getShopContract } from "./shopInfo.saga";
 
 import { raiseError, resetError } from "./error.saga";
 
@@ -34,6 +37,9 @@ export default function* root() {
     takeLatest(AdminTypes.UPDATE_SHOP, updateShopAdmin),
 
     // shop
+    takeLatest(CategoryShopTypes.GET_LIST_CATEGORY, getListCategoryShop),
+    takeLatest(CategoryShopTypes.CREATE_CATEGORY, createCategoryShop),
+    takeLatest(ShopInfoTypes.GET_CONTRACT, getShopContract),
 
     takeLatest(
       [
@@ -43,6 +49,9 @@ export default function* root() {
         AdminTypes.CREATE_SHOP,
         AdminTypes.GET_SHOP,
         AdminTypes.UPDATE_SHOP,
+        CategoryShopTypes.GET_LIST_CATEGORY,
+        CategoryShopTypes.CREATE_CATEGORY,
+        ShopInfoTypes.GET_CONTRACT,
       ],
       resetError
     ),
@@ -54,6 +63,9 @@ export default function* root() {
         AdminTypes.CREATE_SHOP,
         AdminTypes.GET_SHOP,
         AdminTypes.UPDATE_SHOP,
+        CategoryShopTypes.GET_LIST_CATEGORY,
+        CategoryShopTypes.CREATE_CATEGORY,
+        ShopInfoTypes.GET_CONTRACT,
       ],
       raiseError
     ),
