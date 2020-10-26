@@ -16,6 +16,7 @@ import {
   ShopAddCategory,
   CategoryTable,
   TranferLanguage,
+  ContractInformation,
 } from "../pages/Shop";
 function AuthenticationRoute(props) {
   const { component: Component, ...rest } = props;
@@ -81,6 +82,11 @@ const Routes = () => {
         component={TranferLanguage}
         exact
         path={PathConstant.SHOP_TRANFER_LANGUAGE}
+      />
+      <Route
+        component={ContractInformation}
+        exact
+        path={PathConstant.SHOP_CONTRACT}
       />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       <Redirect to={PathConstant.NOT_FOUND} />
