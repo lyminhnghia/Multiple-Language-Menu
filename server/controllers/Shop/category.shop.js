@@ -24,7 +24,7 @@ exports.createCategory = async (req, res) => {
 
     res.status(200).send({ success: true, data: newCategory });
   } catch (error) {
-    res.status(500).send({ success: false, error: error });
+    res.status(500).send({ success: false, error: error.message });
   }
 };
 
@@ -56,7 +56,7 @@ exports.updateCategory = async (req, res) => {
 
     res.status(200).send({ success: true, data: "Updated successful!" });
   } catch (error) {
-    res.status(500).send({ success: false, error: error });
+    res.status(500).send({ success: false, error: error.message });
   }
 };
 
@@ -74,7 +74,7 @@ exports.getCategory = async (req, res) => {
     }
     res.status(200).send({ success: true, data: category });
   } catch (error) {
-    res.status(500).send({ success: false, error: error });
+    res.status(500).send({ success: false, error: error.message });
   }
 };
 
@@ -83,6 +83,11 @@ exports.getListCategory = async (req, res) => {
     let listCategory = await Category.findAndCountAll({
       where: {
         shopId: req.shopId,
+      },
+      attributes: {
+        include: [
+          [db.Sequelize.fn("COUNT", db.Sequelize.col("items.id")), "totalItem"],
+        ],
       },
       include: [
         {
@@ -96,7 +101,7 @@ exports.getListCategory = async (req, res) => {
       data: listCategory.rows,
     });
   } catch (error) {
-    res.status(500).send({ success: false, error: error });
+    res.status(500).send({ success: false, error: error.message });
   }
 };
 
@@ -119,6 +124,6 @@ exports.deleteCategory = async (req, res) => {
     });
     res.status(200).send({ success: true, data: "Deleted is successful!" });
   } catch (error) {
-    res.status(500).send({ success: false, error: error });
+    res.status(500).send({ success: false, error: error.message });
   }
 };
