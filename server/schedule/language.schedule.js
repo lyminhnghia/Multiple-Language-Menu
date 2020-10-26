@@ -7,6 +7,7 @@ const googleTranslate = new Translate({
 });
 const language = require("../configs/language");
 const db = require("../models/index");
+const Account = db.account;
 const Shop = db.shop;
 const Address = db.address;
 const Category = db.category;
@@ -15,6 +16,30 @@ const AddressLanguage = db.address_language;
 const ShopInfo = db.shop_information;
 const CategoryLanguage = db.category_language;
 const ItemLanguage = db.item_language;
+
+exports.UpdateState = async () => {
+  try {
+    let shops = await Shop.findAll({
+      attributes: ["id", "end_contract"],
+    });
+    for (let i = 0; i < shops.length; i++) {
+      if (Date.now() / 1000 > shops[i].end_contract) {
+        Account.update(
+          {
+            state: 3,
+          },
+          {
+            where: {
+              shopId: shops[i].id,
+            },
+          }
+        );
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 exports.ShopInfoSchedule = async () => {
   try {
