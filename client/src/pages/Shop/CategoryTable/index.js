@@ -18,18 +18,10 @@ import { useTranslation } from "react-i18next";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
 import PopupCategory from "./Components/popupCategory";
 import PopupProduct from "./Components/popupProduct";
-import { useDispatch, useSelector } from "react-redux";
-import CategoryShopAction from "../../../redux/categoryShop.redux";
 
 const CategoryTable = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const { t: getLabel } = useTranslation();
-  const category = useSelector((state) => state.categoryShopRedux.listCategory);
-  if (category === null) {
-    dispatch(CategoryShopAction.getListCategory({}));
-  }
-  console.log(category);
   return (
     <ShopLayout>
       <TableContainer component={Paper} className={classes.tableContainer}>

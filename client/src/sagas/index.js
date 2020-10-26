@@ -18,8 +18,6 @@ import {
   updateShopAdmin,
 } from "./admin.saga";
 
-import { getListCategoryShop } from "./categoryShop.saga";
-
 import { raiseError, resetError } from "./error.saga";
 
 /* ------------- Connect Types To Sagas ------------- */
@@ -36,7 +34,6 @@ export default function* root() {
     takeLatest(AdminTypes.UPDATE_SHOP, updateShopAdmin),
 
     // shop
-    takeLatest(CategoryShopTypes.GET_LIST_CATEGORY, getListCategoryShop),
 
     takeLatest(
       [
@@ -46,7 +43,6 @@ export default function* root() {
         AdminTypes.CREATE_SHOP,
         AdminTypes.GET_SHOP,
         AdminTypes.UPDATE_SHOP,
-        CategoryShopTypes.GET_LIST_CATEGORY,
       ],
       resetError
     ),
@@ -58,7 +54,6 @@ export default function* root() {
         AdminTypes.CREATE_SHOP,
         AdminTypes.GET_SHOP,
         AdminTypes.UPDATE_SHOP,
-        CategoryShopTypes.GET_LIST_CATEGORY,
       ],
       raiseError
     ),
