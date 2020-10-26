@@ -31,7 +31,7 @@ module.exports = (app) => {
   app.put(
     "/api/admin/shop/:id",
     limiter,
-    [middleware.checkCreateShop],
+    [middleware.checkUpdateShop],
     shopAdmin.editShop
   );
   // Get list shop
