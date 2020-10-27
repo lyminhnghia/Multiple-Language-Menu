@@ -94,7 +94,11 @@ module.exports = (app) => {
     CategoryShop.updateCategory
   );
   // Get list Category
-  app.get("/api/shop/category", CategoryShop.getListCategory);
+  app.get(
+    "/api/shop/category",
+    [middleware.verifyTokenShop],
+    CategoryShop.getListCategory
+  );
   // Get Category by Id
   app.get("/api/shop/category/:id", CategoryShop.getCategory);
   // Delete Category
