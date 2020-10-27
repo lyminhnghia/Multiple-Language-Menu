@@ -64,6 +64,10 @@ export default {
   TXT_QR_CODE: "QR code",
   TXT_CONTRACT_INFO: "Thông tin hợp đồng",
   TXT_ORDER_HISTORY: "Lịch sử đặt hàng",
+  TXT_DOWNLOAD: "Tải xuống",
+  TXT_SMALL: "Nhỏ",
+  TXT_MIDDLE: "vừa",
+  TXT_LARGE: "Lớn",
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };

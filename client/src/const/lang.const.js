@@ -78,6 +78,10 @@ export const TXT_SORT_LANGUAGE = "TXT_SORT_LANGUAGE";
 export const TXT_QR_CODE = "TXT_QR_CODE";
 export const TXT_CONTRACT_INFO = "TXT_CONTRACT_INFO";
 export const TXT_ORDER_HISTORY = "TXT_ORDER_HISTORY";
+export const TXT_DOWNLOAD = "TXT_DOWNLOAD";
+export const TXT_SMALL = "TXT_SMALL";
+export const TXT_MIDDLE = "TXT_MIDDLE";
+export const TXT_LARGE = "TXT_LARGE";
 export const ARR_SHOP_LIST = [
   TXT_ID,
   TXT_SHOP_NAME,

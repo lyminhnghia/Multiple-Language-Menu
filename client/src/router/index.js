@@ -11,7 +11,7 @@ import {
 } from "../pages/Admin";
 import DashboardPage from "../pages/Dashboard";
 import NotFoundPage from "../pages/NotFound";
-import { ShopAddCategory, CategoryTable, TranferLanguage, ContractInformation } from "../pages/Shop";
+import { ShopAddCategory, CategoryTable, TranferLanguage, ContractInformation,QRcodeShop } from "../pages/Shop";
 function AuthenticationRoute(props) {
   const { component: Component, ...rest } = props;
   // Check authentication with the page need to be protected
@@ -79,6 +79,11 @@ const Routes = () => {
         component={ContractInformation}
         exact
         path={PathConstant.SHOP_CONTRACT}
+      />
+      <Route
+        component={QRcodeShop}
+        exact
+        path={PathConstant.SHOP_QR_CODE}
       />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       <Redirect to={PathConstant.NOT_FOUND} />
