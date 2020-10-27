@@ -88,6 +88,11 @@ const Routes = () => {
         exact
         path={PathConstant.SHOP_CONTRACT}
       />
+      <Route
+        component={QRcodeShop}
+        exact
+        path={PathConstant.SHOP_QR_CODE}
+      />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       <Redirect to={PathConstant.NOT_FOUND} />
     </Switch>
