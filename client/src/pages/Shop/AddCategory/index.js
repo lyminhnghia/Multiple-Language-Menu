@@ -60,7 +60,7 @@ const ShopAddCategory = () => {
                 nameLabel={getLabel(LangConstant.TXT_NAME_PRODUCT)}
                 typeInput="text"
                 requiredInput={true}
-                nameText="name-product"
+                nameText="name"
                 onInput={(e) => onChange(e)}
               />
             </Box>
@@ -69,7 +69,7 @@ const ShopAddCategory = () => {
                 nameLabel={getLabel(LangConstant.TXT_ID_PRODUCT)}
                 typeInput="text"
                 requiredInput={true}
-                nameText="id-product"
+                nameText="code"
                 onInput={(e) => onChange(e)}
               />
             </Box>
@@ -78,7 +78,7 @@ const ShopAddCategory = () => {
                 nameLabel={getLabel(LangConstant.TXT_PRICE_PRODUCT)}
                 typeInput="number"
                 requiredInput={true}
-                nameText="price-product"
+                nameText="price"
                 onInput={(e) => onChange(e)}
               />
             </Box>
@@ -94,7 +94,7 @@ const ShopAddCategory = () => {
                   LangConstant.TXT_DESCRIPTION_PRODUCT
                 )}...`}
                 defaultValue=""
-                name="description-product"
+                name="description"
                 onChange={(e) => onChange(e)}
               />
             </Box>
@@ -108,12 +108,10 @@ const ShopAddCategory = () => {
                 </InputLabel>
                 <Select
                   native
-                  // value={state.age}
-                  // onChange={handleChange}
                   label="category-product"
                   onInput={(e) => onChange(e)}
                   inputProps={{
-                    name: "category-product",
+                    name: "categoryId",
                     id: "outlined-age-native-simple",
                   }}
                   className={classes.selectBox}
@@ -125,7 +123,11 @@ const ShopAddCategory = () => {
                   />
                   {category &&
                     category.map((data, index) => (
-                      <option className={classes.optionBox} value={data.id}>
+                      <option
+                        className={classes.optionBox}
+                        value={data.id}
+                        key={uuid()}
+                      >
                         {data.name}
                       </option>
                     ))}

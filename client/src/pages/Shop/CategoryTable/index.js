@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { LangConstant } from "../../../const";
 import { ShopLayout } from "../../../layouts";
 import {
@@ -20,11 +20,13 @@ import PopupCategory from "./Components/popupCategory";
 import PopupProduct from "./Components/popupProduct";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryShopAction from "../../../redux/categoryShop.redux";
+import { uuid } from "../../../utils";
 
 const CategoryTable = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
   const dispatch = useDispatch();
+  const [category, setCategory] = useState(null);
   const listCategory = useSelector(
     (state) => state.categoryShopRedux.listCategory
   );
@@ -32,6 +34,12 @@ const CategoryTable = () => {
   if (listCategory === null) {
     dispatch(CategoryShopAction.getListCategory({}));
   }
+
+  useEffect(() => {
+    if (listCategory) {
+      setCategory(listCategory);
+    }
+  }, [listCategory]);
 
   return (
     <ShopLayout>
@@ -53,9 +61,8 @@ const CategoryTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, index) => (
-              <Row key={index} row={row} />
-            ))}
+            {category &&
+              category.map((row, index) => <Row key={uuid()} row={row} />)}
           </TableBody>
         </Table>
       </TableContainer>
@@ -81,14 +88,14 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.nameCategory}
+          {row.name}
         </TableCell>
-        <TableCell align="center">{row.total}</TableCell>
+        <TableCell align="center">{row.totalItem}</TableCell>
         <TableCell align="right">{row.description}</TableCell>
         <TableCell align="right">
           <PopupCategory
             key={row.index}
-            nameCategory={row.nameCategory}
+            nameCategory={row.name}
             descriptionCategory={row.description}
           />
         </TableCell>
@@ -117,31 +124,31 @@ function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.category.map((categoryRow, index) => (
+                  {row.items.map((item, index) => (
                     <TableRow
                       key={index}
                       className={index % 2 === 0 ? classes.root1 : classes.root}
                     >
                       <TableCell>
                         <img
-                          src={categoryRow.srcIteam}
+                          src={item.image_item}
                           style={{ width: "100px", height: "100px" }}
                         ></img>
                       </TableCell>
                       <TableCell component="th" scope="row">
-                        {categoryRow.nameIteam}
+                        {item.name}
                       </TableCell>
-                      <TableCell>{categoryRow.itemId}</TableCell>
-                      <TableCell>{categoryRow.price}</TableCell>
-                      <TableCell>{categoryRow.descriptionIteam}</TableCell>
+                      <TableCell>{item.code}</TableCell>
+                      <TableCell>{item.price}</TableCell>
+                      <TableCell>{item.description}</TableCell>
                       <TableCell>
                         <PopupProduct
                           key={index}
-                          nameProduct={categoryRow.nameIteam}
-                          IDProduct={categoryRow.itemId}
-                          priceProduct={categoryRow.price}
-                          descriptionProduct={categoryRow.descriptionIteam}
-                          imgProduct={categoryRow.srcIteam}
+                          nameProduct={item.name}
+                          IDProduct={item.code}
+                          priceProduct={item.price}
+                          descriptionProduct={item.description}
+                          imgProduct={item.image_item}
                         />
                       </TableCell>
                     </TableRow>
