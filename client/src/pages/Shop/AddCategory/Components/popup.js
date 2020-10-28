@@ -1,76 +1,96 @@
 import React, { memo, useState } from "react";
 import { LangConstant } from "../../../../const";
-import { 
-    Button, 
-    makeStyles,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    IconButton,
-    Box,
-    TextareaAutosize,
+import {
+  Button,
+  makeStyles,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  IconButton,
+  Box,
+  TextareaAutosize,
 } from "@material-ui/core";
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import InputText from "../../../../components/inputText";
 import { useTranslation } from "react-i18next";
 
 const PopupBox = () => {
   const classes = useStyles();
+  const { t: getLabel } = useTranslation();
   const [open, setOpen] = useState(false);
-  const { t: getLabel} = useTranslation();
-  const handleClickOpen = () => {
+  const [data, setData] = useState({});
+
+  const onClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false)
+  const onClose = () => {
+    setOpen(false);
   };
+
+  const onChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = () => {
+    onClose();
+  };
+
   return (
     <Box>
-      <IconButton className={classes.iconButton} aria-label="add" onClick={handleClickOpen}>
+      <IconButton
+        className={classes.iconButton}
+        aria-label="add"
+        onClick={onClickOpen}
+      >
         <AddCircleIcon />
       </IconButton>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={onClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         className={classes.dialogBox}
       >
-        <Box className={classes.dialogTitleBox}>{getLabel(LangConstant.TXT_ADD_CATEGORY)}</Box>
+        <Box className={classes.dialogTitleBox}>
+          {getLabel(LangConstant.TXT_ADD_CATEGORY)}
+        </Box>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            <InputText 
+          <Box id="alert-dialog-description">
+            <InputText
               nameLabel={getLabel(LangConstant.TXT_NEW_CATEGORY)}
               typeInput="text"
               requiredInput={true}
-              nameText="email"
-              // onInput = {e => onChange(e)}
+              nameText="name"
+              onInput={(e) => onChange(e)}
             />
             <Box className={classes.boxLabel}>
               {getLabel(LangConstant.TXT_DESCRIPTION_PRODUCT)}
             </Box>
             <TextareaAutosize
-              style={{width:"100%"}}
+              style={{ width: "100%", height: 56 }}
               rowsMax={4}
+              onChange={(e) => onChange(e)}
+              name="description"
               aria-label="maximum height"
-              placeholder="Maximum 4 rows"
-              defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                  ut labore et dolore magna aliqua."
+              placeholder={`${getLabel(
+                LangConstant.TXT_DESCRIPTION_PRODUCT
+              )}...`}
+              defaultValue=""
             />
-          </DialogContentText>
+          </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Disagree
+          <Button onClick={onClose} color="primary">
+            {getLabel(LangConstant.TXT_CANCER)}
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            Agree
+          <Button onClick={onSubmit} color="primary" autoFocus>
+            {getLabel(LangConstant.TXT_ADD_CATEGORY)}
           </Button>
         </DialogActions>
       </Dialog>
-    </Box> 
+    </Box>
   );
 };
 const useStyles = makeStyles({
@@ -89,14 +109,14 @@ const useStyles = makeStyles({
   iconButton: {
     padding: "9px",
     color: "#305C8B",
-    '& .MuiIconButton-label .MuiSvgIcon-root': {
-      fontSize: "2.5rem"
+    "& .MuiIconButton-label .MuiSvgIcon-root": {
+      fontSize: "2.5rem",
     },
   },
   dialogBox: {
-    "& .MuiDialog-container .MuiDialog-paperWidthSm " :{
-      width: "600px"
-    }   
+    "& .MuiDialog-container .MuiDialog-paperWidthSm ": {
+      width: "600px",
+    },
   },
   dialogTitleBox: {
     color: "#000000",
@@ -107,7 +127,7 @@ const useStyles = makeStyles({
     fontSize: "18px",
     fontWeight: "500",
     marginTop: "15px",
-    color: "rgb(48, 92, 139)"
-  },  
+    color: "rgb(48, 92, 139)",
+  },
 });
 export default memo(PopupBox);

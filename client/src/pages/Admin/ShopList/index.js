@@ -81,8 +81,7 @@ const ShopList = (props) => {
 
   const onOpenShop = (shopId) => {
     setOpen(true);
-    // dispatch(AdminAction.getShop({ id: shopId }))
-    console.log(shopId);
+    dispatch(AdminAction.getShop({ id: shopId }));
   };
 
   const handleTime = (time) => {
@@ -219,8 +218,8 @@ const ShopList = (props) => {
                   </TableRow>
                 ))}
             </TableBody>
-            <Dialog fullScreen open={false}>
-              <EditShop />
+            <Dialog fullScreen open={open}>
+              <EditShop setOpen={setOpen} />
             </Dialog>
           </Table>
         </TableContainer>

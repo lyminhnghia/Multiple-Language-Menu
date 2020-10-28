@@ -25,7 +25,7 @@ export default {
   TXT_CITY: "Thành phố",
   TXT_BUILDING: "Tòa nhà",
   TXT_NOTIFICATION_EMAIL: "Địa chỉ Email",
-  TXT_SHOP_INFORMATION: "Thông tin Shop",
+  TXT_SHOP_INFORMATION: "Thông tin cửa hàng",
   TXT_CONFIRMATION: "Thêm mới",
   TXT_CONFIRM_PASSWORD: "Xác nhận mật khẩu",
   TXT_USER_NAME: "Tài khoản",
@@ -60,6 +60,14 @@ export default {
   TXT_EXPIRED: "Hêt hạn hợp đồng",
   TXT_START: "Bắt đầu",
   TXT_STOP: "Dừng lại",
+  TXT_SORT_LANGUAGE: "Sắp xếp ngôn ngữ",
+  TXT_QR_CODE: "QR code",
+  TXT_CONTRACT_INFO: "Thông tin hợp đồng",
+  TXT_ORDER_HISTORY: "Lịch sử đặt hàng",
+  TXT_DOWNLOAD: "Tải xuống",
+  TXT_SMALL: "Nhỏ",
+  TXT_MIDDLE: "vừa",
+  TXT_LARGE: "Lớn",
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };

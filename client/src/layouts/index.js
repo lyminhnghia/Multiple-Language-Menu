@@ -1,5 +1,4 @@
-import AdminLayout from "./AdminLayout"
+import AdminLayout from "./AdminLayout";
+import ShopLayout from "./ShopLayout";
 
-export {
-    AdminLayout
-}
+export { AdminLayout, ShopLayout };

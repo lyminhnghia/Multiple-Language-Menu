@@ -26,3 +26,22 @@ export const validatePhone = (content) => {
 export const validatePassword = (content) => {
   return content && content.length >= 8;
 };
+
+export const getError = (response) => {
+  let errorContent = "";
+  if (response) {
+    const { errors, error, message } = response;
+    if (errors) {
+      errors.forEach(
+        (item) => (errorContent += item.details ? item.details : item.errKey)
+      );
+    } else if (error) {
+      errorContent = JSON.stringify(error);
+    } else if (message) {
+      errorContent = JSON.stringify(message);
+    } else {
+      errorContent = "bug";
+    }
+  }
+  return errorContent;
+};

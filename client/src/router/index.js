@@ -11,13 +11,21 @@ import {
 } from "../pages/Admin";
 import DashboardPage from "../pages/Dashboard";
 import NotFoundPage from "../pages/NotFound";
-import { ShopAddCategory, CategoryTable, TranferLanguage } from "../pages/Shop";
+import {
+  LoginShop,
+  ShopAddCategory,
+  CategoryTable,
+  TranferLanguage,
+  ContractInformation,
+  QRCodeShop,
+} from "../pages/Shop";
 function AuthenticationRoute(props) {
   const { component: Component, ...rest } = props;
   // Check authentication with the page need to be protected
-  const isChecked = window.isChecked;
+  const isCheckedAdmin = window.isCheckedAdmin;
+  const isCheckedShop = window.isCheckedShop;
 
-  return isChecked ? (
+  return isCheckedAdmin ? (
     <Route {...rest} render={(matchProps) => <Component {...matchProps} />} />
   ) : (
     <Redirect
@@ -60,6 +68,7 @@ const Routes = () => {
       />
       {/* <Redirect to={PathConstant.ADMIN_NOT_FOUND} /> */}
 
+      <Route component={LoginShop} exact path={PathConstant.LOGIN_SHOP} />
       <Route
         component={ShopAddCategory}
         exact
@@ -75,6 +84,12 @@ const Routes = () => {
         exact
         path={PathConstant.SHOP_TRANFER_LANGUAGE}
       />
+      <Route
+        component={ContractInformation}
+        exact
+        path={PathConstant.SHOP_CONTRACT}
+      />
+      <Route component={QRCodeShop} exact path={PathConstant.SHOP_QR_CODE} />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       <Redirect to={PathConstant.NOT_FOUND} />
     </Switch>
