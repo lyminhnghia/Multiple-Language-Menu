@@ -17,6 +17,7 @@ import {
   CategoryTable,
   TranferLanguage,
   ContractInformation,
+  QRCodeShop,
 } from "../pages/Shop";
 function AuthenticationRoute(props) {
   const { component: Component, ...rest } = props;
@@ -88,11 +89,7 @@ const Routes = () => {
         exact
         path={PathConstant.SHOP_CONTRACT}
       />
-      <Route
-        component={QRcodeShop}
-        exact
-        path={PathConstant.SHOP_QR_CODE}
-      />
+      <Route component={QRCodeShop} exact path={PathConstant.SHOP_QR_CODE} />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       <Redirect to={PathConstant.NOT_FOUND} />
     </Switch>

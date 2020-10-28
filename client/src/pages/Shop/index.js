@@ -3,6 +3,7 @@ import ShopAddCategory from "./AddCategory";
 import CategoryTable from "./CategoryTable";
 import TranferLanguage from "./TranferLanguage";
 import ContractInformation from "./ContractInformation";
+import QRCodeShop from "./QRCodeShop";
 
 export {
   LoginShop,
@@ -10,4 +11,5 @@ export {
   CategoryTable,
   TranferLanguage,
   ContractInformation,
+  QRCodeShop,
 };
