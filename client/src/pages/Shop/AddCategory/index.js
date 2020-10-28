@@ -122,6 +122,7 @@ const ShopAddCategory = () => {
                     name: "categoryId",
                     id: "outlined-age-native-simple",
                   }}
+                  value={formChange.categoryId ? formChange.categoryId : ""}
                   className={classes.selectBox}
                 >
                   <option
