@@ -6,4 +6,4 @@ export const getListCategoryShop = (data) =>
   createApiRegistration().get(ApiConstant.LIST_CATEGORY, data);
 
 export const createCategoryShop = (data) =>
-  createApiRegistration().get(ApiConstant.CREATE_CATEGORY, data);
+  createApiRegistration().post(ApiConstant.CREATE_CATEGORY, data);

@@ -90,7 +90,7 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.name}
         </TableCell>
-        <TableCell align="center">{row.totalItem}</TableCell>
+        <TableCell align="center">{row.items.length}</TableCell>
         <TableCell align="right">{row.description}</TableCell>
         <TableCell align="right">
           <PopupCategory

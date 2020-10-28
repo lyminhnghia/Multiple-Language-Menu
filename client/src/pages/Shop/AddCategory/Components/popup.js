@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   IconButton,
   Box,
   TextareaAutosize,
@@ -14,10 +13,13 @@ import {
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import InputText from "../../../../components/inputText";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import CategoryShopAction from "../../../../redux/categoryShop.redux";
 
 const PopupBox = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({});
 
@@ -34,6 +36,7 @@ const PopupBox = () => {
   };
 
   const onSubmit = () => {
+    dispatch(CategoryShopAction.createCategory(data));
     onClose();
   };
 
