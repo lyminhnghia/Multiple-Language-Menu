@@ -68,6 +68,13 @@ export default {
   TXT_SMALL: "Nhỏ",
   TXT_MIDDLE: "vừa",
   TXT_LARGE: "Lớn",
+  TXT_TYPE_SHOP: "Loại cửa hàng",
+  TXT_WIFI: "wifi",
+  TXT_PASS_WIFI: "pass wifi",
+  TXT_LINK_WEBSITE: "Link Website",
+  TXT_PAYMENTS: "Hình thức thanh toán",
+  TXT_TIME_WORK: "Thời gian làm việc",
+  TXT_CHANGE_IMAGE: "Đổi ảnh",
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };
