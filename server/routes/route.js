@@ -1,4 +1,7 @@
 const rateLimit = require("express-rate-limit");
+const multer = require("multer");
+const path = require("path");
+
 module.exports = (app) => {
   const middleware = require("../middleware/middleware");
   const global = require("../controllers/global");
@@ -10,6 +13,7 @@ module.exports = (app) => {
     windowMs: 15 * 1000,
     max: 15,
   });
+  const imageUploader = multer({ dest: "images/" });
   // ROLE ADMIN
   // Login
   app.post("/api/admin/login", limiter, global.LoginAdmin);
@@ -119,6 +123,19 @@ module.exports = (app) => {
     [middleware.verifyTokenShop],
     profileShop.getQRCode
   );
+  // Post Image
+  app.post("/api/upload", [imageUploader.single("file")], global.UploadImage);
+  // Get Image
+  app.get("/api/image/:name", (req, res) => {
+    const fileName = req.params.name;
+    if (!fileName) {
+      return res.status(400).send({
+        success: false,
+        data: "No filename specified",
+      });
+    }
+    res.sendFile(path.resolve(`./images/${fileName}`));
+  });
 
   const LanguageSchedule = require("../schedule/language.schedule");
 

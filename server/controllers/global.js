@@ -1,7 +1,10 @@
+const fs = require("fs");
+const path = require("path");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const db = require("../models/index");
 const config = require("../configs/secret-key");
+require("dotenv").config();
 
 const Account = db.account;
 
@@ -117,4 +120,18 @@ exports.editPassword = async (req, res) => {
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
   }
+};
+
+exports.UploadImage = (req, res) => {
+  const processedFile = req.file || {};
+  let orgName = processedFile.originalname || "";
+  orgName = orgName.trim().replace(/ /g, "-");
+  const fullPathInServ = processedFile.path;
+  const newFullPath = `${fullPathInServ}-${orgName}`;
+  fs.renameSync(fullPathInServ, newFullPath);
+
+  var fileString = path.basename(newFullPath);
+  var filePath = `${process.env.SERVER_HOST}/api/image/` + fileString;
+
+  res.status(200).send({ success: true, url: filePath });
 };
