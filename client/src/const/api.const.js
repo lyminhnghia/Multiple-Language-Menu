@@ -28,3 +28,4 @@ export const UPDATE_CATEGORY = "/api/shop/category/{0}";
 export const CREATE_ITEM = "/api/shop/create-item";
 export const UPDATE_ITEM = "/api/shop/item/{0}";
 export const SHOP_CONTRACT = "/api/shop/contract";
+export const SHOP_INFO = "/api/shop/profile";
