@@ -82,6 +82,13 @@ export const TXT_DOWNLOAD = "TXT_DOWNLOAD";
 export const TXT_SMALL = "TXT_SMALL";
 export const TXT_MIDDLE = "TXT_MIDDLE";
 export const TXT_LARGE = "TXT_LARGE";
+export const TXT_TYPE_SHOP = "TXT_TYPE_SHOP";
+export const TXT_WIFI = "TXT_WIFI";
+export const TXT_PASS_WIFI = "TXT_PASS_WIFI";
+export const TXT_LINK_WEBSITE = "TXT_LINK_WEBSITE";
+export const TXT_PAYMENTS = "TXT_PAYMENTS";
+export const TXT_TIME_WORK = "TXT_TIME_WORK";
+export const TXT_CHANGE_IMAGE = "TXT_CHANGE_IMAGE";
 export const ARR_SHOP_LIST = [
   TXT_ID,
   TXT_SHOP_NAME,
