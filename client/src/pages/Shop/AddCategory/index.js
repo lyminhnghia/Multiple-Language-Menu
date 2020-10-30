@@ -26,7 +26,9 @@ const ShopAddCategory = () => {
   const listCategory = useSelector(
     (state) => state.categoryShopRedux.listCategory
   );
-  const dataCreate = useSelector((state) => state.categoryShopRedux.dataCreate);
+  const isCreateSuccess = useSelector(
+    (state) => state.categoryShopRedux.isCreateSuccess
+  );
 
   if (listCategory === null) {
     dispatch(CategoryShopAction.getListCategory({}));
@@ -52,10 +54,11 @@ const ShopAddCategory = () => {
   }, [listCategory]);
 
   useEffect(() => {
-    if (dataCreate) {
+    if (isCreateSuccess) {
+      dispatch(CategoryShopAction.resetCategory());
       dispatch(CategoryShopAction.getListCategory({}));
     }
-  }, [dataCreate]);
+  }, [isCreateSuccess]);
 
   return (
     <ShopLayout>

@@ -36,7 +36,7 @@ exports.updateCategory = async (req, res) => {
         shopId: req.shopId,
       },
     });
-    if (category) {
+    if (category && category.id != req.params.id) {
       return res
         .status(400)
         .send({ success: false, error: "Category already exists!" });

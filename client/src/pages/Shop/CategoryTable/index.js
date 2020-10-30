@@ -30,6 +30,9 @@ const CategoryTable = () => {
   const listCategory = useSelector(
     (state) => state.categoryShopRedux.listCategory
   );
+  const isUpdateSuccess = useSelector(
+    (state) => state.categoryShopRedux.isUpdateSuccess
+  );
 
   if (listCategory === null) {
     dispatch(CategoryShopAction.getListCategory({}));
@@ -40,6 +43,13 @@ const CategoryTable = () => {
       setCategory(listCategory);
     }
   }, [listCategory]);
+
+  useEffect(() => {
+    if (isUpdateSuccess) {
+      dispatch(CategoryShopAction.resetCategory());
+      dispatch(CategoryShopAction.getListCategory({}));
+    }
+  }, [isUpdateSuccess]);
 
   return (
     <ShopLayout>
@@ -95,6 +105,7 @@ function Row(props) {
         <TableCell align="right">
           <PopupCategory
             key={row.index}
+            id={row.id}
             nameCategory={row.name}
             descriptionCategory={row.description}
           />

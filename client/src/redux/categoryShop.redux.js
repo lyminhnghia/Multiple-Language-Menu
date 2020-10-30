@@ -9,6 +9,12 @@ const { Types, Creators } = createActions({
   createCategory: ["data"],
   createCategorySuccess: ["data"],
   createCategoryFailure: ["error"],
+
+  updateCategory: ["data"],
+  updateCategorySuccess: ["data"],
+  updateCategoryFailure: ["error"],
+
+  resetCategory: [],
 });
 
 export const CategoryShopTypes = Types;
@@ -25,6 +31,11 @@ export const INITIAL_STATE = {
   errorCreate: null,
   isCreateSuccess: false,
   dataCreate: null,
+
+  isUpdate: false,
+  errorUpdate: null,
+  isUpdateSuccess: false,
+  dataUpdate: null,
 };
 
 /* ------------- Reducers ------------- */
@@ -66,16 +77,51 @@ export const createCategoryFailure = (state = INITIAL_STATE, action) => ({
   errorCreate: action.error,
 });
 
+/* ------------- update Category ------------- */
+export const updateCategory = (state = INITIAL_STATE) => ({
+  ...state,
+  isUpdate: true,
+});
+
+export const updateCategorySuccess = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isUpdate: false,
+  isUpdateSuccess: true,
+  dataUpdate: action.data,
+});
+
+export const updateCategoryFailure = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isUpdate: false,
+  errorUpdate: action.error,
+});
+
+/* ------------- reset Category ------------- */
+export const resetCategory = (state = INITIAL_STATE) => ({
+  ...state,
+  isCreateSuccess: false,
+  isUpdateSuccess: false,
+});
+
 /* ------------- Mapping ------------- */
 export const HANDLERS = {
   // get List Shop
   [Types.GET_LIST_CATEGORY]: getListCategory,
   [Types.GET_LIST_CATEGORY_SUCCESS]: getListCategorySuccess,
   [Types.GET_LIST_CATEGORY_FAILURE]: getListCategoryFailure,
+
   // create Category
   [Types.CREATE_CATEGORY]: createCategory,
   [Types.CREATE_CATEGORY_SUCCESS]: createCategorySuccess,
   [Types.CREATE_CATEGORY_FAILURE]: createCategoryFailure,
+
+  // update Category
+  [Types.UPDATE_CATEGORY]: updateCategory,
+  [Types.UPDATE_CATEGORY_SUCCESS]: updateCategorySuccess,
+  [Types.UPDATE_CATEGORY_FAILURE]: updateCategoryFailure,
+
+  // reset Category
+  [Types.RESET_CATEGORY]: resetCategory,
 };
 
 /* ------------- Hookup Reducers To Types ------------- */
