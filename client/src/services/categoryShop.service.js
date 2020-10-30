@@ -13,3 +13,6 @@ export const updateCategoryShop = (data) =>
     format(ApiConstant.UPDATE_CATEGORY, data.id),
     data
   );
+
+export const removeCategoryShop = (data) =>
+  createApiRegistration().delete(format(ApiConstant.UPDATE_CATEGORY, data.id));

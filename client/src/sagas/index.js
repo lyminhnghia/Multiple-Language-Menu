@@ -22,6 +22,7 @@ import {
   getListCategoryShop,
   createCategoryShop,
   updateCategoryShop,
+  removeCategoryShop,
 } from "./categoryShop.saga";
 import { getShopContract, getShopInfo } from "./shopInfo.saga";
 
@@ -42,8 +43,11 @@ export default function* root() {
 
     // shop
     takeLatest(CategoryShopTypes.GET_LIST_CATEGORY, getListCategoryShop),
+
     takeLatest(CategoryShopTypes.CREATE_CATEGORY, createCategoryShop),
     takeLatest(CategoryShopTypes.UPDATE_CATEGORY, updateCategoryShop),
+    takeLatest(CategoryShopTypes.REMOVE_CATEGORY, removeCategoryShop),
+
     takeLatest(ShopInfoTypes.GET_CONTRACT, getShopContract),
     takeLatest(ShopInfoTypes.GET_SHOP_INFO, getShopInfo),
 
@@ -58,6 +62,7 @@ export default function* root() {
         CategoryShopTypes.GET_LIST_CATEGORY,
         CategoryShopTypes.CREATE_CATEGORY,
         CategoryShopTypes.UPDATE_CATEGORY,
+        CategoryShopTypes.REMOVE_CATEGORY,
         ShopInfoTypes.GET_CONTRACT,
         ShopInfoTypes.GET_SHOP_INFO,
       ],
@@ -74,6 +79,7 @@ export default function* root() {
         CategoryShopTypes.GET_LIST_CATEGORY,
         CategoryShopTypes.CREATE_CATEGORY,
         CategoryShopTypes.UPDATE_CATEGORY,
+        CategoryShopTypes.REMOVE_CATEGORY,
         ShopInfoTypes.GET_CONTRACT,
         ShopInfoTypes.GET_SHOP_INFO,
       ],
