@@ -134,7 +134,7 @@ module.exports = (app) => {
         data: "No filename specified",
       });
     }
-    res.sendFile(path.resolve(`./images/${fileName}`));
+    res.status(200).sendFile(path.resolve(`./images/${fileName}`));
   });
 
   const LanguageSchedule = require("../schedule/language.schedule");
