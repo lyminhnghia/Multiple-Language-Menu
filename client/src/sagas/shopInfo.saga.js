@@ -17,3 +17,18 @@ export function* getShopContract(action) {
     yield put(ShopInfoAction.getContractFailure(error));
   }
 }
+
+export function* getShopInfo(action) {
+  try {
+    const { data } = action;
+    let response = yield call(ShopInfoService.getShopInfo, data);
+    if (response.status == ApiConstant.STT_OK) {
+      let responseData = response.data.data;
+      yield put(ShopInfoAction.getShopInfoSuccess(responseData));
+    } else {
+      yield put(ShopInfoAction.getShopInfoFailure(response.data.error));
+    }
+  } catch (error) {
+    yield put(ShopInfoAction.getShopInfoFailure(error));
+  }
+}
