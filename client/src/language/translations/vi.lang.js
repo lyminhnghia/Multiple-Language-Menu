@@ -75,6 +75,10 @@ export default {
   TXT_PAYMENTS: "Hình thức thanh toán",
   TXT_TIME_WORK: "Thời gian làm việc",
   TXT_CHANGE_IMAGE: "Đổi ảnh",
+  TXT_REMOVE: "Xóa",
+  TXT_CONFIRM_REMOVE: "Bạn có chắc chắn muốn xóa không?",
+  TXT_REMOVE_PRODUCT: "Xóa danh mục",
+  TXT_REMOVE_ITEM: "Xóa sản phẩm",
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };

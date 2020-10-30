@@ -15,9 +15,10 @@ import {
   Paper,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
+import { KeyboardArrowDown, KeyboardArrowUp, Delete } from "@material-ui/icons";
 import PopupCategory from "./Components/popupCategory";
 import PopupProduct from "./Components/popupProduct";
+import PopupRemove from "./Components/popupRemove";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryShopAction from "../../../redux/categoryShop.redux";
 import { uuid } from "../../../utils";
@@ -30,6 +31,9 @@ const CategoryTable = () => {
   const listCategory = useSelector(
     (state) => state.categoryShopRedux.listCategory
   );
+  const isUpdateSuccess = useSelector(
+    (state) => state.categoryShopRedux.isUpdateSuccess
+  );
 
   if (listCategory === null) {
     dispatch(CategoryShopAction.getListCategory({}));
@@ -40,6 +44,13 @@ const CategoryTable = () => {
       setCategory(listCategory);
     }
   }, [listCategory]);
+
+  useEffect(() => {
+    if (isUpdateSuccess) {
+      dispatch(CategoryShopAction.resetCategory());
+      dispatch(CategoryShopAction.getListCategory({}));
+    }
+  }, [isUpdateSuccess]);
 
   return (
     <ShopLayout>
@@ -70,7 +81,7 @@ const CategoryTable = () => {
   );
 };
 
-function Row(props) {
+const Row = (props) => {
   const { t: getLabel } = useTranslation();
   const { row } = props;
   const [open, setOpen] = useState(false);
@@ -93,11 +104,18 @@ function Row(props) {
         <TableCell align="center">{row.items.length}</TableCell>
         <TableCell align="right">{row.description}</TableCell>
         <TableCell align="right">
-          <PopupCategory
-            key={row.index}
-            nameCategory={row.name}
-            descriptionCategory={row.description}
-          />
+          <Box display="inline-flex">
+            <PopupCategory
+              key={row.index}
+              id={row.id}
+              nameCategory={row.name}
+              descriptionCategory={row.description}
+            />
+            <PopupRemove
+              id={row.id}
+              title={getLabel(LangConstant.TXT_REMOVE_PRODUCT)}
+            />
+          </Box>
         </TableCell>
       </TableRow>
       <TableRow style={{ backgroundColor: "#F2F3F5" }}>
@@ -126,7 +144,7 @@ function Row(props) {
                 <TableBody>
                   {row.items.map((item, index) => (
                     <TableRow
-                      key={index}
+                      key={uuid()}
                       className={index % 2 === 0 ? classes.root1 : classes.root}
                     >
                       <TableCell>
@@ -142,14 +160,20 @@ function Row(props) {
                       <TableCell>{item.price}</TableCell>
                       <TableCell>{item.description}</TableCell>
                       <TableCell>
-                        <PopupProduct
-                          key={index}
-                          nameProduct={item.name}
-                          IDProduct={item.code}
-                          priceProduct={item.price}
-                          descriptionProduct={item.description}
-                          imgProduct={item.image_item}
-                        />
+                        <Box display="inline-flex">
+                          <PopupProduct
+                            key={uuid()}
+                            nameProduct={item.name}
+                            IDProduct={item.code}
+                            priceProduct={item.price}
+                            descriptionProduct={item.description}
+                            imgProduct={item.image_item}
+                          />
+                          <PopupRemove
+                            id={item.id}
+                            title={getLabel(LangConstant.TXT_REMOVE_ITEM)}
+                          />
+                        </Box>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -161,45 +185,7 @@ function Row(props) {
       </TableRow>
     </React.Fragment>
   );
-}
-
-const createData = (nameCategory, total, description) => {
-  return {
-    nameCategory,
-    total,
-    description,
-    category: [
-      {
-        nameIteam: "Hảo hảo",
-        itemId: "11091700",
-        price: 30000,
-        descriptionIteam: "chó Nghĩa",
-        srcIteam: "",
-      },
-      {
-        nameIteam: "jummy",
-        itemId: "Anonymous",
-        price: 10000,
-        descriptionIteam: "nhân tạo",
-        srcIteam: "",
-      },
-      {
-        nameIteam: "harri",
-        itemId: "HarriXCIX",
-        price: 10000000,
-        descriptionIteam: "hoàn toàn thiên nhiên",
-        srcIteam: "",
-      },
-    ],
-  };
 };
-
-const rows = [
-  createData("Đồ ăn", 159, "đây là đồ ăn"),
-  createData("Đồ uống", 237, "đây là đồ uống"),
-  createData("Nước ép", 262, "đây là nước ép"),
-  createData("Mỳ Tôm", 305, "đây là mỳ tôm"),
-];
 
 const useStyles = makeStyles({
   tableContainer: {

@@ -7,7 +7,7 @@ exports.createCategory = async (req, res) => {
     let category = await Category.findOne({
       where: {
         name: req.body.name,
-        shopId: req.body.shopId,
+        shopId: req.shopId,
       },
     });
     if (category) {
@@ -19,7 +19,7 @@ exports.createCategory = async (req, res) => {
       name: req.body.name,
       description: req.body.description,
       status_change: true,
-      shopId: req.body.shopId,
+      shopId: req.shopId,
     });
 
     res.status(200).send({ success: true, data: newCategory });
@@ -33,10 +33,10 @@ exports.updateCategory = async (req, res) => {
     let category = await Category.findOne({
       where: {
         name: req.body.name,
-        shopId: req.body.shopId,
+        shopId: req.shopId,
       },
     });
-    if (category) {
+    if (category && category.id != req.params.id) {
       return res
         .status(400)
         .send({ success: false, error: "Category already exists!" });
@@ -80,14 +80,9 @@ exports.getCategory = async (req, res) => {
 
 exports.getListCategory = async (req, res) => {
   try {
-    let listCategory = await Category.findAndCountAll({
+    let listCategory = await Category.findAll({
       where: {
         shopId: req.shopId,
-      },
-      attributes: {
-        include: [
-          [db.Sequelize.fn("COUNT", db.Sequelize.col("items.id")), "totalItem"],
-        ],
       },
       include: [
         {
@@ -97,8 +92,7 @@ exports.getListCategory = async (req, res) => {
     });
     res.status(200).send({
       success: true,
-      total: listCategory.count,
-      data: listCategory.rows,
+      data: listCategory,
     });
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });

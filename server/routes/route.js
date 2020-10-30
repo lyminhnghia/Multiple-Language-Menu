@@ -88,13 +88,13 @@ module.exports = (app) => {
   // Create Category
   app.post(
     "/api/shop/create-category",
-    [middleware.checkCategory],
+    [middleware.checkCategory, middleware.verifyTokenShop],
     CategoryShop.createCategory
   );
   // Update Category
   app.put(
     "/api/shop/category/:id",
-    [middleware.checkCategory],
+    [middleware.checkCategory, middleware.verifyTokenShop],
     CategoryShop.updateCategory
   );
   // Get list Category
@@ -104,17 +104,37 @@ module.exports = (app) => {
     CategoryShop.getListCategory
   );
   // Get Category by Id
-  app.get("/api/shop/category/:id", CategoryShop.getCategory);
+  app.get(
+    "/api/shop/category/:id",
+    [middleware.verifyTokenShop],
+    CategoryShop.getCategory
+  );
   // Delete Category
-  app.delete("/api/shop/category/:id", CategoryShop.deleteCategory);
+  app.delete(
+    "/api/shop/category/:id",
+    [middleware.verifyTokenShop],
+    CategoryShop.deleteCategory
+  );
   // Create Item
-  app.post("/api/shop/create-item", ItemShop.createItem);
+  app.post(
+    "/api/shop/create-item",
+    [middleware.checkItem, middleware.verifyTokenShop],
+    ItemShop.createItem
+  );
   // Update Item
-  app.put("/api/shop/item/:id", ItemShop.updateItem);
+  app.put(
+    "/api/shop/item/:id",
+    [middleware.verifyTokenShop],
+    ItemShop.updateItem
+  );
   // Get Item by Id
-  app.get("/api/shop/item/:id", ItemShop.getItem);
+  app.get("/api/shop/item/:id", [middleware.verifyTokenShop], ItemShop.getItem);
   // Delete Item
-  app.delete("/api/shop/item/:id", ItemShop.deleteItem);
+  app.delete(
+    "/api/shop/item/:id",
+    [middleware.verifyTokenShop],
+    ItemShop.deleteItem
+  );
   // Create QRCode
   app.post("/api/shop/create-qrcode", profileShop.createQRCode);
   // Get QRCode
