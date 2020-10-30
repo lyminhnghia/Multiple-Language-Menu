@@ -15,7 +15,6 @@ const ShopInformation = () => {
   const dispatch = useDispatch();
   const shopInfo = useSelector((state) => state.shopInfoRedux.ShopInfo);
   const [formChange, setFormChange] = useState({});
-  const [data, setData] = useState({});
 
   if (shopInfo === null) {
     dispatch(ShopInfoAction.getShopInfo({}));
@@ -36,11 +35,9 @@ const ShopInformation = () => {
 
   useEffect(() => {
     if (shopInfo) {
-      setData(shopInfo);
+      setFormChange(shopInfo);
     }
   }, [shopInfo]);
-
-  console.log(data);
 
   return (
     <ShopLayout>
@@ -56,7 +53,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="shop_type"
-                value={data.shop_type ? data.shop_type : ""}
+                value={formChange.shop_type ? formChange.shop_type : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -64,7 +61,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="shop_name"
-                value={data.shop_name ? data.shop_name : ""}
+                value={formChange.shop_name ? formChange.shop_name : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -72,7 +69,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="email"
-                value={data.email ? data.email : ""}
+                value={formChange.email ? formChange.email : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -80,7 +77,7 @@ const ShopInformation = () => {
                 typeInput="number"
                 requiredInput={true}
                 nameText="telephone"
-                value={data.telephone ? data.telephone : ""}
+                value={formChange.telephone ? formChange.telephone : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -88,7 +85,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="name_wifi"
-                value={data.name_wifi ? data.name_wifi : ""}
+                value={formChange.name_wifi ? formChange.name_wifi : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -96,7 +93,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="password_wifi"
-                value={data.password_wifi ? data.password_wifi : ""}
+                value={formChange.password_wifi ? formChange.password_wifi : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -104,7 +101,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="url_website"
-                value={data.url_website ? data.url_website : ""}
+                value={formChange.url_website ? formChange.url_website : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -112,7 +109,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="payment_method"
-                defaultValueInput={data.payments}
+                defaultValueInput={formChange.payments}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -120,7 +117,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="time_work"
-                defaultValueInput={data.time_work}
+                defaultValueInput={formChange.time_work}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -128,11 +125,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="port_number"
-                input={
-                  data.address && data.address.port_number
-                    ? data.address.port_number
-                    : ""
-                }
+                value={formChange.port_number ? formChange.port_number : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -140,9 +133,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="city"
-                input={
-                  data.address && data.address.city ? data.address.city : ""
-                }
+                value={formChange.city ? formChange.city : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -150,11 +141,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="address"
-                input={
-                  data.address && data.address.address
-                    ? data.address.address
-                    : ""
-                }
+                value={formChange.address ? formChange.address : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -162,11 +149,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="building"
-                input={
-                  data.address && data.address.building
-                    ? data.address.building
-                    : ""
-                }
+                value={formChange.building ? formChange.building : ""}
                 onInput={(e) => onChange(e)}
               />
             </Box>
