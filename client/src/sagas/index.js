@@ -9,6 +9,7 @@ import { AuthTypes } from "../redux/auth.redux";
 import { AdminTypes } from "../redux/admin.redux";
 import { CategoryShopTypes } from "../redux/categoryShop.redux";
 import { ShopInfoTypes } from "../redux/shopInfo.redux";
+import { ItemShopTypes } from "../redux/itemShop.redux";
 
 /* ------------- Sagas ------------- */
 import { requestLogin, requestLoginShop } from "./auth.saga";
@@ -25,6 +26,7 @@ import {
   removeCategoryShop,
 } from "./categoryShop.saga";
 import { getShopContract, getShopInfo } from "./shopInfo.saga";
+import { createItemShop, removeItemShop } from "./itemShop.saga";
 
 import { raiseError, resetError } from "./error.saga";
 
@@ -48,6 +50,8 @@ export default function* root() {
     takeLatest(CategoryShopTypes.UPDATE_CATEGORY, updateCategoryShop),
     takeLatest(CategoryShopTypes.REMOVE_CATEGORY, removeCategoryShop),
 
+    takeLatest(ItemShopTypes.REMOVE_ITEM, removeItemShop),
+
     takeLatest(ShopInfoTypes.GET_CONTRACT, getShopContract),
     takeLatest(ShopInfoTypes.GET_SHOP_INFO, getShopInfo),
 
@@ -63,6 +67,7 @@ export default function* root() {
         CategoryShopTypes.CREATE_CATEGORY,
         CategoryShopTypes.UPDATE_CATEGORY,
         CategoryShopTypes.REMOVE_CATEGORY,
+        ItemShopTypes.REMOVE_ITEM,
         ShopInfoTypes.GET_CONTRACT,
         ShopInfoTypes.GET_SHOP_INFO,
       ],
@@ -80,6 +85,7 @@ export default function* root() {
         CategoryShopTypes.CREATE_CATEGORY,
         CategoryShopTypes.UPDATE_CATEGORY,
         CategoryShopTypes.REMOVE_CATEGORY,
+        ItemShopTypes.REMOVE_ITEM,
         ShopInfoTypes.GET_CONTRACT,
         ShopInfoTypes.GET_SHOP_INFO,
       ],

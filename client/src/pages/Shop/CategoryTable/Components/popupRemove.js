@@ -13,6 +13,7 @@ import { Delete } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import CategoryShopAction from "../../../../redux/categoryShop.redux";
+import ItemShopAction from "../../../../redux/itemShop.redux";
 
 const PopupRemove = ({ id, title, codeRemove }) => {
   const classes = useStyles();
@@ -32,7 +33,7 @@ const PopupRemove = ({ id, title, codeRemove }) => {
     setOpen(false);
     codeRemove
       ? dispatch(CategoryShopAction.removeCategory({ id: id }))
-      : console.log("run");
+      : dispatch(ItemShopAction.removeItem({ id: id }));
   };
 
   return (

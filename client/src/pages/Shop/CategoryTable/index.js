@@ -37,6 +37,9 @@ const CategoryTable = () => {
   const isRemoveCategory = useSelector(
     (state) => state.categoryShopRedux.isRemoveSuccess
   );
+  const isRemoveItem = useSelector(
+    (state) => state.itemShopRedux.isRemoveSuccess
+  );
 
   if (listCategory === null) {
     dispatch(CategoryShopAction.getListCategory({}));
@@ -61,6 +64,13 @@ const CategoryTable = () => {
       dispatch(CategoryShopAction.getListCategory({}));
     }
   }, [isRemoveCategory]);
+
+  useEffect(() => {
+    if (isRemoveItem) {
+      dispatch(CategoryShopAction.resetCategory());
+      dispatch(CategoryShopAction.getListCategory({}));
+    }
+  }, [isRemoveItem]);
 
   return (
     <ShopLayout>

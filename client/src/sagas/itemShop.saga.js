@@ -17,3 +17,18 @@ export function* createItemShop(action) {
     yield put(ItemShopAction.createItemFailure(error));
   }
 }
+
+export function* removeItemShop(action) {
+  try {
+    const { data } = action;
+    let response = yield call(ItemShopService.removeItemShop, data);
+    if (response.status == ApiConstant.STT_OK) {
+      let responseData = response.data.data;
+      yield put(ItemShopAction.removeItemSuccess(responseData));
+    } else {
+      yield put(ItemShopAction.removeItemFailure(response.data.error));
+    }
+  } catch (error) {
+    yield put(ItemShopAction.removeItemFailure(error));
+  }
+}
