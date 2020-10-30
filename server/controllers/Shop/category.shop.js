@@ -104,6 +104,7 @@ exports.deleteCategory = async (req, res) => {
     let category = await Category.findOne({
       where: {
         id: req.params.id,
+        shopId: req.shopId,
       },
     });
     if (!category) {
@@ -114,6 +115,7 @@ exports.deleteCategory = async (req, res) => {
     await Category.destroy({
       where: {
         id: req.params.id,
+        shopId: req.shopId,
       },
     });
     res.status(200).send({ success: true, data: "Deleted is successful!" });

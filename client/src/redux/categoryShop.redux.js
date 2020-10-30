@@ -14,6 +14,10 @@ const { Types, Creators } = createActions({
   updateCategorySuccess: ["data"],
   updateCategoryFailure: ["error"],
 
+  removeCategory: ["data"],
+  removeCategorySuccess: ["data"],
+  removeCategoryFailure: ["error"],
+
   resetCategory: [],
 });
 
@@ -36,6 +40,11 @@ export const INITIAL_STATE = {
   errorUpdate: null,
   isUpdateSuccess: false,
   dataUpdate: null,
+
+  isRemove: false,
+  errorRemove: null,
+  isRemoveSuccess: false,
+  dataRemove: null,
 };
 
 /* ------------- Reducers ------------- */
@@ -96,11 +105,31 @@ export const updateCategoryFailure = (state = INITIAL_STATE, action) => ({
   errorUpdate: action.error,
 });
 
+/* ------------- remove Category ------------- */
+export const removeCategory = (state = INITIAL_STATE) => ({
+  ...state,
+  isRemove: true,
+});
+
+export const removeCategorySuccess = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isRemove: false,
+  isRemoveSuccess: true,
+  dataRemove: action.data,
+});
+
+export const removeCategoryFailure = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isRemove: false,
+  errorRemove: action.error,
+});
+
 /* ------------- reset Category ------------- */
 export const resetCategory = (state = INITIAL_STATE) => ({
   ...state,
   isCreateSuccess: false,
   isUpdateSuccess: false,
+  isRemoveSuccess: false,
 });
 
 /* ------------- Mapping ------------- */
@@ -119,6 +148,11 @@ export const HANDLERS = {
   [Types.UPDATE_CATEGORY]: updateCategory,
   [Types.UPDATE_CATEGORY_SUCCESS]: updateCategorySuccess,
   [Types.UPDATE_CATEGORY_FAILURE]: updateCategoryFailure,
+
+  // remove Category
+  [Types.REMOVE_CATEGORY]: removeCategory,
+  [Types.REMOVE_CATEGORY_SUCCESS]: removeCategorySuccess,
+  [Types.REMOVE_CATEGORY_FAILURE]: removeCategoryFailure,
 
   // reset Category
   [Types.RESET_CATEGORY]: resetCategory,

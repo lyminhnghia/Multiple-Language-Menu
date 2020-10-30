@@ -5,6 +5,10 @@ const { Types, Creators } = createActions({
   createItem: ["data"],
   createItemSuccess: ["data"],
   createItemFailure: ["error"],
+
+  removeItem: ["data"],
+  removeItemSuccess: ["data"],
+  removeItemFailure: ["error"],
 });
 
 export const ItemShopTypes = Types;
@@ -16,6 +20,11 @@ export const INITIAL_STATE = {
   errorCreate: null,
   isCreateSuccess: false,
   dataCreate: null,
+
+  isRemove: false,
+  errorRemove: null,
+  isRemoveSuccess: false,
+  dataRemove: null,
 };
 
 /* ------------- Reducers ------------- */
@@ -38,12 +47,35 @@ export const createItemFailure = (state = INITIAL_STATE, action) => ({
   errorCreate: action.error,
 });
 
+/* ------------- remove Item ------------- */
+export const removeItem = (state = INITIAL_STATE) => ({
+  ...state,
+  isRemove: true,
+});
+
+export const removeItemSuccess = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isRemove: false,
+  isRemoveSuccess: true,
+  dataRemove: action.data,
+});
+
+export const removeItemFailure = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isRemove: false,
+  errorRemove: action.error,
+});
+
 /* ------------- Mapping ------------- */
 export const HANDLERS = {
   // create Item
   [Types.CREATE_ITEM]: createItem,
   [Types.CREATE_ITEM_SUCCESS]: createItemSuccess,
   [Types.CREATE_ITEM_FAILURE]: createItemFailure,
+  // remove Item
+  [Types.REMOVE_ITEM]: removeItem,
+  [Types.REMOVE_ITEM_SUCCESS]: removeItemSuccess,
+  [Types.REMOVE_ITEM_FAILURE]: removeItemFailure,
 };
 
 /* ------------- Hookup Reducers To Types ------------- */

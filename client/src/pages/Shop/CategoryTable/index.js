@@ -34,6 +34,12 @@ const CategoryTable = () => {
   const isUpdateSuccess = useSelector(
     (state) => state.categoryShopRedux.isUpdateSuccess
   );
+  const isRemoveCategory = useSelector(
+    (state) => state.categoryShopRedux.isRemoveSuccess
+  );
+  const isRemoveItem = useSelector(
+    (state) => state.itemShopRedux.isRemoveSuccess
+  );
 
   if (listCategory === null) {
     dispatch(CategoryShopAction.getListCategory({}));
@@ -51,6 +57,20 @@ const CategoryTable = () => {
       dispatch(CategoryShopAction.getListCategory({}));
     }
   }, [isUpdateSuccess]);
+
+  useEffect(() => {
+    if (isRemoveCategory) {
+      dispatch(CategoryShopAction.resetCategory());
+      dispatch(CategoryShopAction.getListCategory({}));
+    }
+  }, [isRemoveCategory]);
+
+  useEffect(() => {
+    if (isRemoveItem) {
+      dispatch(CategoryShopAction.resetCategory());
+      dispatch(CategoryShopAction.getListCategory({}));
+    }
+  }, [isRemoveItem]);
 
   return (
     <ShopLayout>
@@ -114,6 +134,7 @@ const Row = (props) => {
             <PopupRemove
               id={row.id}
               title={getLabel(LangConstant.TXT_REMOVE_PRODUCT)}
+              codeRemove={true}
             />
           </Box>
         </TableCell>
@@ -172,6 +193,7 @@ const Row = (props) => {
                           <PopupRemove
                             id={item.id}
                             title={getLabel(LangConstant.TXT_REMOVE_ITEM)}
+                            codeRemove={false}
                           />
                         </Box>
                       </TableCell>

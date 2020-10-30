@@ -13,8 +13,9 @@ import { Delete } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import CategoryShopAction from "../../../../redux/categoryShop.redux";
+import ItemShopAction from "../../../../redux/itemShop.redux";
 
-const PopupRemove = ({ id, title }) => {
+const PopupRemove = ({ id, title, codeRemove }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const { t: getLabel } = useTranslation();
@@ -30,7 +31,9 @@ const PopupRemove = ({ id, title }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     setOpen(false);
-    // dispatch(CategoryShopAction.updateCategory(id));
+    codeRemove
+      ? dispatch(CategoryShopAction.removeCategory({ id: id }))
+      : dispatch(ItemShopAction.removeItem({ id: id }));
   };
 
   return (
