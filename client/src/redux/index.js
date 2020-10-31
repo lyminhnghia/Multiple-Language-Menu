@@ -6,6 +6,7 @@ import * as AdminRedux from "./admin.redux";
 import * as CategoryShopRedux from "./categoryShop.redux";
 import * as ShopInfoRedux from "./shopInfo.redux";
 import * as ItemShopRedux from "./itemShop.redux";
+import * as LanguageShopRedux from "./languageShop.redux";
 
 /* ------------- Assemble The Reducers ------------- */
 export const appReducer = combineReducers({
@@ -14,6 +15,7 @@ export const appReducer = combineReducers({
   categoryShopRedux: CategoryShopRedux.reducer,
   shopInfoRedux: ShopInfoRedux.reducer,
   itemShopRedux: ItemShopRedux.reducer,
+  languageShopRedux: LanguageShopRedux.reducer,
 });
 
 export const rootReducer = (state, action) => {

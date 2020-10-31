@@ -10,6 +10,7 @@ import { AdminTypes } from "../redux/admin.redux";
 import { CategoryShopTypes } from "../redux/categoryShop.redux";
 import { ShopInfoTypes } from "../redux/shopInfo.redux";
 import { ItemShopTypes } from "../redux/itemShop.redux";
+import { LanguageShopTypes } from "../redux/languageShop.redux";
 
 /* ------------- Sagas ------------- */
 import { requestLogin, requestLoginShop } from "./auth.saga";
@@ -27,6 +28,7 @@ import {
 } from "./categoryShop.saga";
 import { getShopContract, getShopInfo } from "./shopInfo.saga";
 import { createItemShop, removeItemShop } from "./itemShop.saga";
+import { getLanguageShop } from "./languageShop.saga";
 
 import { raiseError, resetError } from "./error.saga";
 
@@ -55,6 +57,8 @@ export default function* root() {
     takeLatest(ShopInfoTypes.GET_CONTRACT, getShopContract),
     takeLatest(ShopInfoTypes.GET_SHOP_INFO, getShopInfo),
 
+    takeLatest(LanguageShopTypes.GET_LANGUAGE, getLanguageShop),
+
     takeLatest(
       [
         AuthTypes.REQUEST_LOGIN,
@@ -70,6 +74,7 @@ export default function* root() {
         ItemShopTypes.REMOVE_ITEM,
         ShopInfoTypes.GET_CONTRACT,
         ShopInfoTypes.GET_SHOP_INFO,
+        LanguageShopTypes.GET_LANGUAGE,
       ],
       resetError
     ),
@@ -88,6 +93,7 @@ export default function* root() {
         ItemShopTypes.REMOVE_ITEM,
         ShopInfoTypes.GET_CONTRACT,
         ShopInfoTypes.GET_SHOP_INFO,
+        LanguageShopTypes.GET_LANGUAGE,
       ],
       raiseError
     ),
