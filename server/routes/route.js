@@ -6,6 +6,7 @@ module.exports = (app) => {
   const middleware = require("../middleware/middleware");
   const global = require("../controllers/global");
   const shopAdmin = require("../controllers/Admin/shop.admin");
+  const profileAdmin = require("../controllers/Admin/profile.admin");
   const profileShop = require("../controllers/Shop/profile.shop");
   const CategoryShop = require("../controllers/Shop/category.shop");
   const ItemShop = require("../controllers/Shop/item.shop");
@@ -28,22 +29,42 @@ module.exports = (app) => {
   app.post(
     "/api/admin/create-shop",
     limiter,
-    [middleware.checkCreateShop],
+    [middleware.verifyTokenAdmin, middleware.checkCreateShop],
     shopAdmin.createShop
   );
   // Update shop
   app.put(
     "/api/admin/shop/:id",
     limiter,
-    [middleware.checkUpdateShop],
+    [middleware.verifyTokenAdmin, middleware.checkUpdateShop],
     shopAdmin.editShop
   );
   // Get list shop
-  app.get("/api/admin/shop", limiter, shopAdmin.getListShop);
+  app.get(
+    "/api/admin/shop",
+    [middleware.verifyTokenAdmin],
+    limiter,
+    shopAdmin.getListShop
+  );
   // Get shop by Id
-  app.get("/api/admin/shop/:id", limiter, shopAdmin.getShopById);
+  app.get(
+    "/api/admin/shop/:id",
+    [middleware.verifyTokenAdmin],
+    limiter,
+    shopAdmin.getShopById
+  );
   // Delete shop
-  app.delete("/api/admin/shop/:id", limiter, shopAdmin.deleteShop);
+  app.delete(
+    "/api/admin/shop/:id",
+    [middleware.verifyTokenAdmin],
+    limiter,
+    shopAdmin.deleteShop
+  );
+  app.get(
+    "/api/admin/profile",
+    [middleware.verifyTokenAdmin],
+    profileAdmin.readProfile
+  );
   // ROLE SHOP
   // Login
   app.post("/api/shop/login", limiter, global.LoginShop);

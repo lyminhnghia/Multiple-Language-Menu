@@ -13,7 +13,9 @@ const ShopRegisterAdmin = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
   const dispatch = useDispatch();
-  const DataSuccess = useSelector((state) => state.adminRedux.dataCreate);
+  const isCreateSuccess = useSelector(
+    (state) => state.adminRedux.isCreateSuccess
+  );
   const DataError = useSelector((state) => state.adminRedux.errorCreate);
   const [formChange, setFormChange] = useState({});
   const [choice, setChoice] = useState(1);
@@ -49,15 +51,18 @@ const ShopRegisterAdmin = () => {
   };
 
   useEffect(() => {
-    if (DataSuccess && open) {
-      setNotifySuccess(DataSuccess);
-      setTimeout(() => setOpen(false), 1.5 * 1000);
+    if (isCreateSuccess && open) {
+      setNotifySuccess(getLabel(LangConstant.TXT_CREATE_SUCCESS));
+      setTimeout(() => {
+        setOpen(false);
+        dispatch(AdminAction.getListShop({ page: 1 }));
+      }, 1.5 * 1000);
     }
-  }, [DataSuccess]);
+  }, [isCreateSuccess]);
 
   useEffect(() => {
     if (DataError && open) {
-      setNotifyError(DataError);
+      setNotifyError(getLabel(LangConstant.TXT_CREATE_FAILED));
       setTimeout(() => setOpen(false), 1.5 * 1000);
     }
   }, [DataError]);

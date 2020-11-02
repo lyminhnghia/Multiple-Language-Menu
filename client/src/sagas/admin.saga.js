@@ -62,3 +62,17 @@ export function* updateShopAdmin(action) {
     yield put(AdminAction.updateShopFailure(error));
   }
 }
+
+export function* getProfileAdmin() {
+  try {
+    let response = yield call(AdminService.getProfileAdmin, {});
+    if (response.status == ApiConstant.STT_OK) {
+      let responseData = response.data.data;
+      yield put(AdminAction.getProfileAdminSuccess(responseData));
+    } else {
+      yield put(AdminAction.getProfileAdminFailure(response.data.error));
+    }
+  } catch (error) {
+    yield put(AdminAction.getProfileAdminFailure(error));
+  }
+}

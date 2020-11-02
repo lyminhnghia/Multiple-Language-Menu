@@ -19,6 +19,7 @@ import {
   createShopAdmin,
   getShopAdmin,
   updateShopAdmin,
+  getProfileAdmin,
 } from "./admin.saga";
 import {
   getListCategoryShop,
@@ -44,6 +45,7 @@ export default function* root() {
     takeLatest(AdminTypes.CREATE_SHOP, createShopAdmin),
     takeLatest(AdminTypes.GET_SHOP, getShopAdmin),
     takeLatest(AdminTypes.UPDATE_SHOP, updateShopAdmin),
+    takeLatest(AdminTypes.GET_PROFILE_ADMIN, getProfileAdmin),
 
     // shop
     takeLatest(CategoryShopTypes.GET_LIST_CATEGORY, getListCategoryShop),
@@ -67,6 +69,7 @@ export default function* root() {
         AdminTypes.CREATE_SHOP,
         AdminTypes.GET_SHOP,
         AdminTypes.UPDATE_SHOP,
+        AdminTypes.GET_PROFILE_ADMIN,
         CategoryShopTypes.GET_LIST_CATEGORY,
         CategoryShopTypes.CREATE_CATEGORY,
         CategoryShopTypes.UPDATE_CATEGORY,
@@ -86,6 +89,7 @@ export default function* root() {
         AdminTypes.CREATE_SHOP,
         AdminTypes.GET_SHOP,
         AdminTypes.UPDATE_SHOP,
+        AdminTypes.GET_PROFILE_ADMIN,
         CategoryShopTypes.GET_LIST_CATEGORY,
         CategoryShopTypes.CREATE_CATEGORY,
         CategoryShopTypes.UPDATE_CATEGORY,
