@@ -10,7 +10,7 @@ import {
   IconButton,
   Dialog,
 } from "@material-ui/core";
-import { Settings } from "@material-ui/icons";
+import { Settings, Delete } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
 import { AdminLayout } from "../../../layouts";
 import {
@@ -26,6 +26,7 @@ import { LangConstant, AppConstant } from "../../../const";
 import { useDispatch, useSelector } from "react-redux";
 import AdminAction from "../../../redux/admin.redux";
 import EditShop from "./component/EditShop";
+import DeleteShop from "./component/DeleteShop";
 import moment from "moment";
 
 const ShopList = (props) => {
@@ -37,9 +38,12 @@ const ShopList = (props) => {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const dataShop = useSelector((state) => state.adminRedux.data);
+  const isDelete = useSelector((state) => state.adminRedux.isDeleteSuccess);
   const [shop, setShop] = useState([]);
   const [total, setTotal] = useState(0);
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [id, setId] = useState(0);
 
   if (dataShop === null) {
     dispatch(AdminAction.getListShop({ page: 1 }));
@@ -84,6 +88,11 @@ const ShopList = (props) => {
     dispatch(AdminAction.getShop({ id: shopId }));
   };
 
+  const onDeleteShop = (shopId) => {
+    setOpenDelete(true);
+    setId(shopId);
+  };
+
   const handleTime = (time) => {
     let result =
       Math.floor(new Date(time).getTime() / 1000) -
@@ -103,6 +112,13 @@ const ShopList = (props) => {
       }
     }
   }, [dataShop]);
+
+  useEffect(() => {
+    if (isDelete) {
+      dispatch(AdminAction.resetAdmin());
+      dispatch(AdminAction.getListShop({ page: 1 }));
+    }
+  }, [isDelete]);
 
   return (
     <AdminLayout>
@@ -205,12 +221,20 @@ const ShopList = (props) => {
                     />
                     <CellBody
                       cellData={
-                        <IconButton
-                          onClick={() => onOpenShop(data.id)}
-                          className={classes.IconButton}
-                        >
-                          <Settings />
-                        </IconButton>
+                        <Box className={classes.box7}>
+                          <IconButton
+                            onClick={() => onOpenShop(data.id)}
+                            className={classes.IconButtonEdit}
+                          >
+                            <Settings />
+                          </IconButton>
+                          <IconButton
+                            onClick={() => onDeleteShop(data.id)}
+                            className={classes.IconButtonDelete}
+                          >
+                            <Delete />
+                          </IconButton>
+                        </Box>
                       }
                       className={classes.cell}
                       key={uuid()}
@@ -220,6 +244,13 @@ const ShopList = (props) => {
             </TableBody>
             <Dialog fullScreen open={open}>
               <EditShop setOpen={setOpen} />
+            </Dialog>
+            <Dialog open={openDelete}>
+              <DeleteShop
+                id={id}
+                setOpen={setOpenDelete}
+                title={getLabel(LangConstant.TXT_REMOVE_ITEM)}
+              />
             </Dialog>
           </Table>
         </TableContainer>
@@ -266,6 +297,12 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 100,
     fontSize: 20,
   },
+  box7: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+  },
   containerTable: {
     marginTop: 20,
     minHeight: 420,
@@ -280,8 +317,14 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
     border: "1px solid 	#C0C0C0",
   },
-  IconButton: {
+  IconButtonEdit: {
     padding: 0,
+    color: "#305C8B",
+  },
+  IconButtonDelete: {
+    padding: 0,
+    marginLeft: 10,
+    color: "#305C8B",
   },
   SearchBar: {
     height: 30,
