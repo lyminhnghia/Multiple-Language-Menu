@@ -2,7 +2,7 @@ import React, { memo, useState, useEffect } from "react";
 import { ShopLayout } from "../../../layouts";
 import { LangConstant } from "../../../const";
 import { makeStyles, Box } from "@material-ui/core";
-import { getDefaults, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import InputText from "../../../components/inputText";
 import ButtonBox from "../../../components/buttonBox";
 import EditImage from "./Components/editImg";
@@ -38,7 +38,7 @@ const ShopInformation = () => {
       setFormChange(shopInfo);
     }
   }, [shopInfo]);
-  const getDefaults = () =>{
+  const getDefaultsValue = () =>{
     setFormChange({})
   }
   return (
@@ -53,7 +53,7 @@ const ShopInformation = () => {
               <Box className={`${classes.boxButton} ${classes.boxChange}`}>
                 <ButtonBox
                   nameButton={getLabel(LangConstant.TXT_CANCER)}
-                  onClick={e => getDefaults()}
+                  onClick={e => getDefaultsValue()}
                 />
               </Box>
               <Box className={classes.boxButton}>
