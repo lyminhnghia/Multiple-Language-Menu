@@ -40,7 +40,7 @@ const EditImage = ({getData,src})=> {
   const classes = useStyles();
   return (
     <Box className={classes.root}>
-        <Avatar className = {classes.largerImage} src={chooseFile.selectedFile}>
+        <Avatar className = {classes.boxImage} src={chooseFile.selectedFile}>
             <PhotoCameraIcon style={{width: "50%",height:"50%"}}/>
         </Avatar>
         <input
@@ -67,18 +67,19 @@ const useStyles = makeStyles((theme) => ({
     input: {
       display: 'none',
     },
-    largerImage: {
+    boxImage: {
         width: "350px",
         height: "350px",
-        position : "absolute"
+        position : "absolute",
+        borderRadius: "0"
     },
     boxLabel: {
         width: "350px",
         height: "175px",      
         zIndex: "1",
         marginTop: "175px",
-        borderBottomRightRadius: "180px",
-        borderBottomLeftRadius: "180px",
+        // borderBottomRightRadius: "180px",
+        // borderBottomLeftRadius: "180px",
         textAlign: "center",
         paddingTop: "80px",
         fontSize: "18px",

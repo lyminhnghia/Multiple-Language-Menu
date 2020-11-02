@@ -44,7 +44,22 @@ const ShopInformation = () => {
       <form onSubmit={handleSubmit} style={{ width: "100%" }}>
         <Box className={classes.boxParent}>
           <Box className={classes.boxHeader}>
-            {getLabel(LangConstant.TXT_SHOP_INFORMATION)}
+            <Box className={classes.boxLabel}>
+              {getLabel(LangConstant.TXT_SHOP_INFORMATION)}
+            </Box>
+            
+            <Box className={classes.boxButton}>
+              <ButtonBox
+                nameButton={getLabel(LangConstant.TXT_SAVE)}
+                typeButton="submit"
+              />
+            </Box>
+            <Box className={classes.boxButton}>
+              <ButtonBox
+                nameButton={getLabel(LangConstant.TXT_SAVE)}
+                typeButton="submit"
+              />
+            </Box>
           </Box>
           <Box className={classes.boxBody}>
             <Box className={classes.boxContent}>
@@ -155,12 +170,12 @@ const ShopInformation = () => {
             </Box>
             <Box className={classes.boxImg}>
               <EditImage getData={getImgBase64} src={null} />
-              <Box className={classes.boxButton}>
+              {/* <Box className={classes.boxButton}>
                 <ButtonBox
                   nameButton={getLabel(LangConstant.TXT_SAVE)}
                   typeButton="submit"
                 />
-              </Box>
+              </Box> */}
             </Box>
           </Box>
         </Box>
@@ -205,6 +220,9 @@ const useStyles = makeStyles({
   boxImg: {
     marginTop: "20px",
   },
+  boxLabel: {
+    
+  }
 });
 
 export default memo(ShopInformation);

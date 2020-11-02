@@ -20,6 +20,11 @@ import {
   QRCodeShop,
   ShopInformation
 } from "../pages/Shop";
+
+import {
+  OrderHistory 
+} from "../pages/Customer"
+
 function AuthenticationRoute(props) {
   const { component: Component, ...rest } = props;
   // Check authentication with the page need to be protected
@@ -91,14 +96,19 @@ const Routes = () => {
         path={PathConstant.SHOP_CONTRACT}
       />
       <Route 
-      component={QRCodeShop} 
-      exact 
-      path={PathConstant.SHOP_QR_CODE} 
+        component={QRCodeShop} 
+        exact 
+        path={PathConstant.SHOP_QR_CODE} 
       />
       <Route
         component={ShopInformation}
         exact
         path={PathConstant.SHOP_INFORMATION}
+      />
+      <Route
+        component={OrderHistory}
+        exact
+        path={PathConstant.CUSTOMER_ORDER_HISTORY}
       />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       <Redirect to={PathConstant.NOT_FOUND} />

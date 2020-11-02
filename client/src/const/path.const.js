@@ -19,3 +19,4 @@ export const SHOP_TRANFER_LANGUAGE = "/shop/tranfer-language";
 export const SHOP_CONTRACT = "/shop/contract-info";
 export const SHOP_ORDER_HISTORY = "/shop/order-history";
 // Consumer
+export const CUSTOMER_ORDER_HISTORY = "/customer/oder-history";
