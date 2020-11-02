@@ -2,7 +2,7 @@ import React, { memo, useState, useEffect } from "react";
 import { ShopLayout } from "../../../layouts";
 import { LangConstant } from "../../../const";
 import { makeStyles, Box } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
+import { getDefaults, useTranslation } from "react-i18next";
 import InputText from "../../../components/inputText";
 import ButtonBox from "../../../components/buttonBox";
 import EditImage from "./Components/editImg";
@@ -38,7 +38,9 @@ const ShopInformation = () => {
       setFormChange(shopInfo);
     }
   }, [shopInfo]);
-
+  const getDefaults = () =>{
+    setFormChange({})
+  }
   return (
     <ShopLayout>
       <form onSubmit={handleSubmit} style={{ width: "100%" }}>
@@ -47,19 +49,21 @@ const ShopInformation = () => {
             <Box className={classes.boxLabel}>
               {getLabel(LangConstant.TXT_SHOP_INFORMATION)}
             </Box>
+            <Box style={{display: "flex"}}>
+              <Box className={`${classes.boxButton} ${classes.boxChange}`}>
+                <ButtonBox
+                  nameButton={getLabel(LangConstant.TXT_CANCER)}
+                  onClick={e => getDefaults()}
+                />
+              </Box>
+              <Box className={classes.boxButton}>
+                <ButtonBox
+                  nameButton={getLabel(LangConstant.TXT_SAVE)}
+                  typeButton="submit"
+                />
+              </Box>
+            </Box>
             
-            <Box className={classes.boxButton}>
-              <ButtonBox
-                nameButton={getLabel(LangConstant.TXT_SAVE)}
-                typeButton="submit"
-              />
-            </Box>
-            <Box className={classes.boxButton}>
-              <ButtonBox
-                nameButton={getLabel(LangConstant.TXT_SAVE)}
-                typeButton="submit"
-              />
-            </Box>
           </Box>
           <Box className={classes.boxBody}>
             <Box className={classes.boxContent}>
@@ -196,16 +200,16 @@ const useStyles = makeStyles({
     width: "100%",
     backgroundColor: "#F2F3F5",
     height: "200px",
-    fontSize: "40px",
-    lineHeight: "200px",
-    fontWeight: "500",
-    paddingLeft: "100px",
+    display: "flex",
+    alignItems: "center",
+    padding: "0px 100px",
+    justifyContent: "space-between",
   },
   boxButton: {
     width: "140px",
     margin: "0 auto",
     height: "40px",
-    marginTop: "40px",
+    marginLeft: "5px",
   },
   boxBody: {
     width: "100%",
@@ -221,8 +225,15 @@ const useStyles = makeStyles({
     marginTop: "20px",
   },
   boxLabel: {
-    
-  }
+    fontSize: "40px",
+    lineHeight: "200px",
+    fontWeight: "500",
+  },
+  boxChange: {
+    "& .MuiButtonBase-root": {
+        backgroundColor: "#ff4d4d"
+    }
+},
 });
 
 export default memo(ShopInformation);
