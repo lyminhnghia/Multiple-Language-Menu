@@ -38,7 +38,9 @@ const ShopList = (props) => {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const dataShop = useSelector((state) => state.adminRedux.data);
+  const dataGet = useSelector((state) => state.adminRedux.dataGet);
   const isDelete = useSelector((state) => state.adminRedux.isDeleteSuccess);
+  const isUpdate = useSelector((state) => state.adminRedux.isUpdateSuccess);
   const [shop, setShop] = useState([]);
   const [total, setTotal] = useState(0);
   const [open, setOpen] = useState(false);
@@ -84,8 +86,8 @@ const ShopList = (props) => {
   };
 
   const onOpenShop = (shopId) => {
-    setOpen(true);
     dispatch(AdminAction.getShop({ id: shopId }));
+    setId(shopId);
   };
 
   const onDeleteShop = (shopId) => {
@@ -114,11 +116,24 @@ const ShopList = (props) => {
   }, [dataShop]);
 
   useEffect(() => {
+    if (isUpdate) {
+      dispatch(AdminAction.resetAdmin());
+      dispatch(AdminAction.getListShop({ page: 1 }));
+    }
+  }, [isUpdate]);
+
+  useEffect(() => {
     if (isDelete) {
       dispatch(AdminAction.resetAdmin());
       dispatch(AdminAction.getListShop({ page: 1 }));
     }
   }, [isDelete]);
+
+  useEffect(() => {
+    if (dataGet && !open) {
+      setOpen(true);
+    }
+  }, [dataGet]);
 
   return (
     <AdminLayout>
@@ -243,7 +258,7 @@ const ShopList = (props) => {
                 ))}
             </TableBody>
             <Dialog fullScreen open={open}>
-              <EditShop setOpen={setOpen} />
+              <EditShop id={id} setOpen={setOpen} data={dataGet} />
             </Dialog>
             <Dialog open={openDelete}>
               <DeleteShop
