@@ -81,6 +81,9 @@ export default {
   TXT_REMOVE_ITEM: "Xóa sản phẩm",
   TXT_ADMIN: "Quản trị viên",
   TXT_SHOP_ADMIN: "Quản lý cửa hàng",
+  TXT_CREATE_SUCCESS: "Tạo thành công!",
+  TXT_CREATE_FAILED: "Tạo không thành công!",
+
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };
