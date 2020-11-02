@@ -13,3 +13,6 @@ export const createShopAdmin = (data) =>
 
 export const updateShopAdmin = (data) =>
   createApiRegistration().put(format(ApiConstant.SHOP_ADMIN, data.id), data);
+
+export const getProfileAdmin = (data) =>
+  createApiRegistration().get(ApiConstant.PROFILE_ADMIN, data);
