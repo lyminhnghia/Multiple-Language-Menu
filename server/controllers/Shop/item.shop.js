@@ -38,12 +38,12 @@ exports.updateItem = async (req, res) => {
         categoryId: req.body.categoryId,
       },
     });
-    if (item) {
+    if (item && item.id != req.params.id) {
       return res
         .status(400)
         .send({ success: false, error: "Item already exists!" });
     }
-    let newItem = await Item.update(
+    await Item.update(
       {
         image_item: req.body.image,
         name: req.body.name,

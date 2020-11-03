@@ -9,6 +9,16 @@ const { Types, Creators } = createActions({
   createCategory: ["data"],
   createCategorySuccess: ["data"],
   createCategoryFailure: ["error"],
+
+  updateCategory: ["data"],
+  updateCategorySuccess: ["data"],
+  updateCategoryFailure: ["error"],
+
+  removeCategory: ["data"],
+  removeCategorySuccess: ["data"],
+  removeCategoryFailure: ["error"],
+
+  resetCategory: [],
 });
 
 export const CategoryShopTypes = Types;
@@ -25,6 +35,16 @@ export const INITIAL_STATE = {
   errorCreate: null,
   isCreateSuccess: false,
   dataCreate: null,
+
+  isUpdate: false,
+  errorUpdate: null,
+  isUpdateSuccess: false,
+  dataUpdate: null,
+
+  isRemove: false,
+  errorRemove: null,
+  isRemoveSuccess: false,
+  dataRemove: null,
 };
 
 /* ------------- Reducers ------------- */
@@ -66,16 +86,76 @@ export const createCategoryFailure = (state = INITIAL_STATE, action) => ({
   errorCreate: action.error,
 });
 
+/* ------------- update Category ------------- */
+export const updateCategory = (state = INITIAL_STATE) => ({
+  ...state,
+  isUpdate: true,
+});
+
+export const updateCategorySuccess = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isUpdate: false,
+  isUpdateSuccess: true,
+  dataUpdate: action.data,
+});
+
+export const updateCategoryFailure = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isUpdate: false,
+  errorUpdate: action.error,
+});
+
+/* ------------- remove Category ------------- */
+export const removeCategory = (state = INITIAL_STATE) => ({
+  ...state,
+  isRemove: true,
+});
+
+export const removeCategorySuccess = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isRemove: false,
+  isRemoveSuccess: true,
+  dataRemove: action.data,
+});
+
+export const removeCategoryFailure = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isRemove: false,
+  errorRemove: action.error,
+});
+
+/* ------------- reset Category ------------- */
+export const resetCategory = (state = INITIAL_STATE) => ({
+  ...state,
+  isCreateSuccess: false,
+  isUpdateSuccess: false,
+  isRemoveSuccess: false,
+});
+
 /* ------------- Mapping ------------- */
 export const HANDLERS = {
   // get List Shop
   [Types.GET_LIST_CATEGORY]: getListCategory,
   [Types.GET_LIST_CATEGORY_SUCCESS]: getListCategorySuccess,
   [Types.GET_LIST_CATEGORY_FAILURE]: getListCategoryFailure,
+
   // create Category
   [Types.CREATE_CATEGORY]: createCategory,
   [Types.CREATE_CATEGORY_SUCCESS]: createCategorySuccess,
   [Types.CREATE_CATEGORY_FAILURE]: createCategoryFailure,
+
+  // update Category
+  [Types.UPDATE_CATEGORY]: updateCategory,
+  [Types.UPDATE_CATEGORY_SUCCESS]: updateCategorySuccess,
+  [Types.UPDATE_CATEGORY_FAILURE]: updateCategoryFailure,
+
+  // remove Category
+  [Types.REMOVE_CATEGORY]: removeCategory,
+  [Types.REMOVE_CATEGORY_SUCCESS]: removeCategorySuccess,
+  [Types.REMOVE_CATEGORY_FAILURE]: removeCategoryFailure,
+
+  // reset Category
+  [Types.RESET_CATEGORY]: resetCategory,
 };
 
 /* ------------- Hookup Reducers To Types ------------- */

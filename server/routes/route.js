@@ -6,6 +6,7 @@ module.exports = (app) => {
   const middleware = require("../middleware/middleware");
   const global = require("../controllers/global");
   const shopAdmin = require("../controllers/Admin/shop.admin");
+  const profileAdmin = require("../controllers/Admin/profile.admin");
   const profileShop = require("../controllers/Shop/profile.shop");
   const CategoryShop = require("../controllers/Shop/category.shop");
   const ItemShop = require("../controllers/Shop/item.shop");
@@ -16,11 +17,10 @@ module.exports = (app) => {
   const imageUploader = multer({ dest: "images/" });
   // ROLE ADMIN
   // Login
-  app.post("/api/admin/login", limiter, global.LoginAdmin);
+  app.post("/api/admin/login", global.LoginAdmin);
   // Edit password
   app.put(
     "/api/admin/edit-password",
-    limiter,
     [middleware.verifyTokenAdmin, middleware.checkPasswordEdit],
     global.editPassword
   );
@@ -28,22 +28,39 @@ module.exports = (app) => {
   app.post(
     "/api/admin/create-shop",
     limiter,
-    [middleware.checkCreateShop],
+    [middleware.verifyTokenAdmin, middleware.checkCreateShop],
     shopAdmin.createShop
   );
   // Update shop
   app.put(
     "/api/admin/shop/:id",
     limiter,
-    [middleware.checkUpdateShop],
+    [middleware.verifyTokenAdmin, middleware.checkUpdateShop],
     shopAdmin.editShop
   );
   // Get list shop
-  app.get("/api/admin/shop", limiter, shopAdmin.getListShop);
+  app.get(
+    "/api/admin/shop",
+    [middleware.verifyTokenAdmin],
+    shopAdmin.getListShop
+  );
   // Get shop by Id
-  app.get("/api/admin/shop/:id", limiter, shopAdmin.getShopById);
+  app.get(
+    "/api/admin/shop/:id",
+    [middleware.verifyTokenAdmin],
+    shopAdmin.getShopById
+  );
   // Delete shop
-  app.delete("/api/admin/shop/:id", limiter, shopAdmin.deleteShop);
+  app.delete(
+    "/api/admin/shop/:id",
+    [middleware.verifyTokenAdmin],
+    shopAdmin.deleteShop
+  );
+  app.get(
+    "/api/admin/profile",
+    [middleware.verifyTokenAdmin],
+    profileAdmin.readProfile
+  );
   // ROLE SHOP
   // Login
   app.post("/api/shop/login", limiter, global.LoginShop);
@@ -88,13 +105,13 @@ module.exports = (app) => {
   // Create Category
   app.post(
     "/api/shop/create-category",
-    [middleware.checkCategory],
+    [middleware.checkCategory, middleware.verifyTokenShop],
     CategoryShop.createCategory
   );
   // Update Category
   app.put(
     "/api/shop/category/:id",
-    [middleware.checkCategory],
+    [middleware.checkCategory, middleware.verifyTokenShop],
     CategoryShop.updateCategory
   );
   // Get list Category
@@ -104,17 +121,37 @@ module.exports = (app) => {
     CategoryShop.getListCategory
   );
   // Get Category by Id
-  app.get("/api/shop/category/:id", CategoryShop.getCategory);
+  app.get(
+    "/api/shop/category/:id",
+    [middleware.verifyTokenShop],
+    CategoryShop.getCategory
+  );
   // Delete Category
-  app.delete("/api/shop/category/:id", CategoryShop.deleteCategory);
+  app.delete(
+    "/api/shop/category/:id",
+    [middleware.verifyTokenShop],
+    CategoryShop.deleteCategory
+  );
   // Create Item
-  app.post("/api/shop/create-item", ItemShop.createItem);
+  app.post(
+    "/api/shop/create-item",
+    [middleware.checkItem, middleware.verifyTokenShop],
+    ItemShop.createItem
+  );
   // Update Item
-  app.put("/api/shop/item/:id", ItemShop.updateItem);
+  app.put(
+    "/api/shop/item/:id",
+    [middleware.verifyTokenShop],
+    ItemShop.updateItem
+  );
   // Get Item by Id
-  app.get("/api/shop/item/:id", ItemShop.getItem);
+  app.get("/api/shop/item/:id", [middleware.verifyTokenShop], ItemShop.getItem);
   // Delete Item
-  app.delete("/api/shop/item/:id", ItemShop.deleteItem);
+  app.delete(
+    "/api/shop/item/:id",
+    [middleware.verifyTokenShop],
+    ItemShop.deleteItem
+  );
   // Create QRCode
   app.post("/api/shop/create-qrcode", profileShop.createQRCode);
   // Get QRCode

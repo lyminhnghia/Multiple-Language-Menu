@@ -6,3 +6,6 @@ export const login = (data) =>
 
 export const loginShop = (data) =>
   createApiRegistration().post(ApiConstant.POST_LOGIN_SHOP, data);
+
+export const changePassword = (data) =>
+  createApiRegistration().put(ApiConstant.CHANGE_PASSWORD_ADMIN, data);

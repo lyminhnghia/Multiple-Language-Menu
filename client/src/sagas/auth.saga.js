@@ -49,3 +49,18 @@ export function* requestLoginShop(action) {
     yield put(AuthAction.loginShopFailure(error));
   }
 }
+
+export function* changePassword(action) {
+  try {
+    const { data } = action;
+    let response = yield call(AuthService.changePassword, data);
+    if (response.status == ApiConstant.STT_OK) {
+      let responseData = response.data.data;
+      yield put(AuthAction.changePasswordSuccess(responseData));
+    } else {
+      yield put(AuthAction.changePasswordFailure(response.data.error));
+    }
+  } catch (error) {
+    yield put(AuthAction.changePasswordFailure(error));
+  }
+}

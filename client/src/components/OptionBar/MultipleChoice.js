@@ -1,7 +1,7 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { makeStyles, Menu, Box, MenuItem, IconButton } from "@material-ui/core";
 import PropTypes from "prop-types";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { ExpandMore } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
 import { uuid } from "../../utils";
 
@@ -15,9 +15,7 @@ const MultipleChoice = ({
   const { t: getLabel } = useTranslation();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(
-    defaultValue ? defaultValue : 0
-  );
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const onClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
@@ -33,6 +31,12 @@ const MultipleChoice = ({
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    if (defaultValue) {
+      setSelectedIndex(defaultValue);
+    }
+  }, [defaultValue]);
+
   return (
     <Box className={`${classes.boxRoot} ${className}`}>
       <IconButton
@@ -43,7 +47,7 @@ const MultipleChoice = ({
         }}
       >
         {getLabel(listMenu[selectedIndex])}
-        <ExpandMoreIcon className={classes.icon} />
+        <ExpandMore className={classes.icon} />
       </IconButton>
       <Menu
         keepMounted

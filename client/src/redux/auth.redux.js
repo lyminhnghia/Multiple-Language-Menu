@@ -10,6 +10,10 @@ const { Types, Creators } = createActions({
   loginShopSuccess: ["data"],
   loginShopFailure: ["error"],
 
+  requestChangePassword: ["data"],
+  changePasswordSuccess: ["data"],
+  changePasswordFailure: ["error"],
+
   reset: [],
 });
 
@@ -25,6 +29,11 @@ export const INITIAL_STATE = {
   isFetchingShop: false,
   errorShop: null,
   isLoginShop: false,
+
+  isFetchingPassword: false,
+  errorPassword: null,
+  isPasswordSuccess: false,
+  dataChange: null,
 };
 
 /* ------------- Reducers ------------- */
@@ -72,6 +81,25 @@ export const loginShopFailure = (state = INITIAL_STATE, action) => ({
   errorShop: action.error,
 });
 
+/* ------------- Change Password ------------- */
+export const requestChangePassword = (state = INITIAL_STATE) => ({
+  ...state,
+  isFetchingPassword: true,
+});
+
+export const changePasswordSuccess = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isFetchingPassword: false,
+  isPasswordSuccess: true,
+  dataChange: action.data,
+});
+
+export const changePasswordFailure = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isFetchingPassword: false,
+  errorPassword: action.error,
+});
+
 export const reset = () => INITIAL_STATE;
 /* ------------- Mapping ------------- */
 export const HANDLERS = {
@@ -82,6 +110,11 @@ export const HANDLERS = {
   [Types.REQUEST_LOGIN_SHOP]: requestLoginShop,
   [Types.LOGIN_SHOP_SUCCESS]: loginShopSuccess,
   [Types.LOGIN_SHOP_FAILURE]: loginShopFailure,
+
+  [Types.REQUEST_CHANGE_PASSWORD]: requestChangePassword,
+  [Types.CHANGE_PASSWORD_SUCCESS]: changePasswordSuccess,
+  [Types.CHANGE_PASSWORD_FAILURE]: changePasswordFailure,
+
   [Types.RESET]: reset,
 };
 

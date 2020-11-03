@@ -15,19 +15,14 @@ import {
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import ButtonBox from "../../../components/buttonBox";
-
-
-const not = (a, b) => {
-  return a.filter((value) => b.indexOf(value) === -1);
-};
-
-const intersection = (a, b) => {
-  return a.filter((value) => b.indexOf(value) !== -1);
-};
+import { useDispatch, useSelector } from "react-redux";
+import LanguageShopAction from "../../../redux/languageShop.redux";
+import { useEffect } from "react";
 
 const TranferLanguage = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
+  const dispatch = useDispatch();
   const [checked, setChecked] = useState([]);
   const [left, setLeft] = useState([
     ["Vietnam", "Việt Nam"],
@@ -41,8 +36,16 @@ const TranferLanguage = () => {
   ]);
   const [right, setRight] = useState([]);
 
+  const [dataLeft, setDataLeft] = useState([]);
+
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
+
+  const listLanguage = useSelector((state) => state.languageShopRedux.getData);
+
+  if (listLanguage === null) {
+    dispatch(LanguageShopAction.getLanguage({}));
+  }
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -84,14 +87,14 @@ const TranferLanguage = () => {
     setLeft(left.concat(right));
     setRight([]);
   };
-  const onSubmit = () =>{
-    if(left.length <1 ){
-      console.log(right)
+  const onSubmit = () => {
+    if (left.length < 1) {
+      console.log(right);
+    } else {
+      console.log("con du lieu!!!");
     }
-    else{
-      console.log("con du lieu!!!")
-    }
-  }
+  };
+
   const customList = (items, name) => (
     <Box className={classes.rootBox}>
       <Box className={classes.textHeader}>
@@ -134,6 +137,12 @@ const TranferLanguage = () => {
       </Paper>
     </Box>
   );
+
+  useEffect(() => {
+    if (listLanguage) {
+      setDataLeft(listLanguage);
+    }
+  }, [listLanguage]);
 
   return (
     <ShopLayout>
@@ -203,6 +212,14 @@ const TranferLanguage = () => {
   );
 };
 
+const not = (a, b) => {
+  return a.filter((value) => b.indexOf(value) === -1);
+};
+
+const intersection = (a, b) => {
+  return a.filter((value) => b.indexOf(value) !== -1);
+};
+
 const useStyles = makeStyles({
   boxParen: {
     width: "100%",
@@ -210,7 +227,7 @@ const useStyles = makeStyles({
     backgroundColor: "#e9ebee",
   },
   root: {
-    margin: "auto", 
+    margin: "auto",
     width: "100%",
     // height: "90%",
     "& .MuiGrid-root ": {

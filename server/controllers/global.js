@@ -14,6 +14,7 @@ exports.LoginAdmin = async (req, res) => {
       where: {
         username: req.body.username,
         role: true,
+        state: 1,
       },
     });
 
@@ -53,6 +54,7 @@ exports.LoginShop = async (req, res) => {
       where: {
         username: req.body.username,
         role: false,
+        state: 1,
       },
     });
 
@@ -105,7 +107,7 @@ exports.editPassword = async (req, res) => {
 
     await Account.update(
       {
-        password: bcrypt.hashSync(req.body.newpassword, 8),
+        password: bcrypt.hashSync(req.body.new_password, 8),
       },
       {
         where: {

@@ -9,22 +9,17 @@ import {
   IconButton,
   Box,
 } from "@material-ui/core";
-import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import { Delete } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
-import InputText from "../../../../components/inputText";
 import { useDispatch } from "react-redux";
 import CategoryShopAction from "../../../../redux/categoryShop.redux";
+import ItemShopAction from "../../../../redux/itemShop.redux";
 
-const PopupCategory = ({ key, id, nameCategory, descriptionCategory }) => {
+const PopupRemove = ({ id, title, codeRemove }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const { t: getLabel } = useTranslation();
   const dispatch = useDispatch();
-  const [formChange, setFormChange] = useState({
-    id: id,
-    name: nameCategory,
-    description: descriptionCategory,
-  });
 
   const onClickOpen = () => {
     setOpen(true);
@@ -36,21 +31,19 @@ const PopupCategory = ({ key, id, nameCategory, descriptionCategory }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     setOpen(false);
-    dispatch(CategoryShopAction.updateCategory(formChange));
-  };
-
-  const onChange = (e) => {
-    setFormChange({ ...formChange, [e.target.name]: e.target.value });
+    codeRemove
+      ? dispatch(CategoryShopAction.removeCategory({ id: id }))
+      : dispatch(ItemShopAction.removeItem({ id: id }));
   };
 
   return (
     <Box>
       <IconButton
         className={classes.iconButton}
-        aria-label="add"
+        aria-label="remove"
         onClick={onClickOpen}
       >
-        <EditOutlinedIcon />
+        <Delete />
       </IconButton>
       <Dialog
         open={open}
@@ -60,35 +53,18 @@ const PopupCategory = ({ key, id, nameCategory, descriptionCategory }) => {
         className={classes.dialogBox}
       >
         <form onSubmit={onSubmit}>
-          <Box className={classes.dialogTitleBox}>
-            {getLabel(LangConstant.TXT_EDIT_CATEGORY)}
-          </Box>
-
+          <Box className={classes.dialogTitleBox}>{title}</Box>
           <DialogContent>
-            <InputText
-              nameLabel={getLabel(LangConstant.TXT_NAME_CATEGORY)}
-              typeInput="text"
-              requiredInput={true}
-              nameText="name"
-              value={formChange.name}
-              onInput={(e) => onChange(e)}
-            />
-            <InputText
-              nameLabel={getLabel(LangConstant.TXT_DESCRIPTION_CATEGORY)}
-              typeInput="text"
-              requiredInput={true}
-              nameText="description"
-              value={formChange.description}
-              onInput={(e) => onChange(e)}
-            />
+            <Box className={classes.dialogContentBox}>
+              {getLabel(LangConstant.TXT_CONFIRM_REMOVE)}
+            </Box>
           </DialogContent>
-
           <DialogActions>
             <Button onClick={onClose} color="primary">
               {getLabel(LangConstant.TXT_CANCER)}
             </Button>
             <Button onClick={onSubmit} type="submit" color="primary">
-              {getLabel(LangConstant.TXT_SAVE)}
+              {getLabel(LangConstant.TXT_REMOVE)}
             </Button>
           </DialogActions>
         </form>
@@ -111,5 +87,11 @@ const useStyles = makeStyles({
     padding: "20px 0px 0px 20px",
     fontSize: "20px",
   },
+  dialogContentBox: {
+    margin: "20px 0px",
+    color: "#000000",
+    padding: "0",
+    fontSize: "14px",
+  },
 });
-export default memo(PopupCategory);
+export default memo(PopupRemove);

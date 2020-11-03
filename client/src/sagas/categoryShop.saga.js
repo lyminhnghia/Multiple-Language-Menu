@@ -32,3 +32,33 @@ export function* createCategoryShop(action) {
     yield put(CategoryShopAction.createCategoryFailure(error));
   }
 }
+
+export function* updateCategoryShop(action) {
+  try {
+    const { data } = action;
+    let response = yield call(CategoryShopService.updateCategoryShop, data);
+    if (response.status == ApiConstant.STT_OK) {
+      let responseData = response.data.data;
+      yield put(CategoryShopAction.updateCategorySuccess(responseData));
+    } else {
+      yield put(CategoryShopAction.updateCategoryFailure(response.data.error));
+    }
+  } catch (error) {
+    yield put(CategoryShopAction.updateCategoryFailure(error));
+  }
+}
+
+export function* removeCategoryShop(action) {
+  try {
+    const { data } = action;
+    let response = yield call(CategoryShopService.removeCategoryShop, data);
+    if (response.status == ApiConstant.STT_OK) {
+      let responseData = response.data.data;
+      yield put(CategoryShopAction.removeCategorySuccess(responseData));
+    } else {
+      yield put(CategoryShopAction.removeCategoryFailure(response.data.error));
+    }
+  } catch (error) {
+    yield put(CategoryShopAction.removeCategoryFailure(error));
+  }
+}

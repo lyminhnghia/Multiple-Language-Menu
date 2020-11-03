@@ -33,6 +33,7 @@ export default {
   TXT_ROLE: "Quyền",
   TXT_CREATED: "Khởi tạo",
   TXT_CHANGE_PASS: "Đổi mật khẩu",
+  TXT_NEW_PASSWORD: "Mật khẩu mới",
   TXT_EDIT_PROFILE: "Sửa",
   TXT_SAVE_PROFILE: "Lưu thay đổi",
   TXT_NAME_PRODUCT: "Tên sản phẩm",
@@ -75,6 +76,15 @@ export default {
   TXT_PAYMENTS: "Hình thức thanh toán",
   TXT_TIME_WORK: "Thời gian làm việc",
   TXT_CHANGE_IMAGE: "Đổi ảnh",
+  TXT_REMOVE: "Xóa",
+  TXT_CONFIRM_REMOVE: "Bạn có chắc chắn muốn xóa không?",
+  TXT_REMOVE_PRODUCT: "Xóa danh mục",
+  TXT_REMOVE_ITEM: "Xóa sản phẩm",
+  TXT_ADMIN: "Quản trị viên",
+  TXT_SHOP_ADMIN: "Quản lý cửa hàng",
+  TXT_CREATE_SUCCESS: "Tạo thành công!",
+  TXT_CREATE_FAILED: "Tạo không thành công!",
+
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
 };

@@ -15,7 +15,6 @@ const ShopInformation = () => {
   const dispatch = useDispatch();
   const shopInfo = useSelector((state) => state.shopInfoRedux.ShopInfo);
   const [formChange, setFormChange] = useState({});
-  const [data, setData] = useState({});
 
   if (shopInfo === null) {
     dispatch(ShopInfoAction.getShopInfo({}));
@@ -36,18 +35,35 @@ const ShopInformation = () => {
 
   useEffect(() => {
     if (shopInfo) {
-      setData(shopInfo);
+      setFormChange(shopInfo);
     }
   }, [shopInfo]);
-
-  console.log(data);
-
+  const getDefaultsValue = () =>{
+    setFormChange({})
+  }
   return (
     <ShopLayout>
       <form onSubmit={handleSubmit} style={{ width: "100%" }}>
         <Box className={classes.boxParent}>
           <Box className={classes.boxHeader}>
-            {getLabel(LangConstant.TXT_SHOP_INFORMATION)}
+            <Box className={classes.boxLabel}>
+              {getLabel(LangConstant.TXT_SHOP_INFORMATION)}
+            </Box>
+            <Box style={{display: "flex"}}>
+              <Box className={`${classes.boxButton} ${classes.boxChange}`}>
+                <ButtonBox
+                  nameButton={getLabel(LangConstant.TXT_CANCER)}
+                  onClick={e => getDefaultsValue()}
+                />
+              </Box>
+              <Box className={classes.boxButton}>
+                <ButtonBox
+                  nameButton={getLabel(LangConstant.TXT_SAVE)}
+                  typeButton="submit"
+                />
+              </Box>
+            </Box>
+            
           </Box>
           <Box className={classes.boxBody}>
             <Box className={classes.boxContent}>
@@ -56,7 +72,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="shop_type"
-                value={data.shop_type ? data.shop_type : ""}
+                value={formChange.shop_type ? formChange.shop_type : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -64,7 +80,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="shop_name"
-                value={data.shop_name ? data.shop_name : ""}
+                value={formChange.shop_name ? formChange.shop_name : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -72,7 +88,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="email"
-                value={data.email ? data.email : ""}
+                value={formChange.email ? formChange.email : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -80,7 +96,7 @@ const ShopInformation = () => {
                 typeInput="number"
                 requiredInput={true}
                 nameText="telephone"
-                value={data.telephone ? data.telephone : ""}
+                value={formChange.telephone ? formChange.telephone : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -88,7 +104,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="name_wifi"
-                value={data.name_wifi ? data.name_wifi : ""}
+                value={formChange.name_wifi ? formChange.name_wifi : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -96,7 +112,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="password_wifi"
-                value={data.password_wifi ? data.password_wifi : ""}
+                value={formChange.password_wifi ? formChange.password_wifi : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -104,7 +120,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="url_website"
-                value={data.url_website ? data.url_website : ""}
+                value={formChange.url_website ? formChange.url_website : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -112,7 +128,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="payment_method"
-                defaultValueInput={data.payments}
+                defaultValueInput={formChange.payments}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -120,7 +136,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="time_work"
-                defaultValueInput={data.time_work}
+                defaultValueInput={formChange.time_work}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -128,11 +144,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="port_number"
-                input={
-                  data.address && data.address.port_number
-                    ? data.address.port_number
-                    : ""
-                }
+                value={formChange.port_number ? formChange.port_number : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -140,9 +152,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="city"
-                input={
-                  data.address && data.address.city ? data.address.city : ""
-                }
+                value={formChange.city ? formChange.city : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -150,11 +160,7 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="address"
-                input={
-                  data.address && data.address.address
-                    ? data.address.address
-                    : ""
-                }
+                value={formChange.address ? formChange.address : ""}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -162,22 +168,18 @@ const ShopInformation = () => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="building"
-                input={
-                  data.address && data.address.building
-                    ? data.address.building
-                    : ""
-                }
+                value={formChange.building ? formChange.building : ""}
                 onInput={(e) => onChange(e)}
               />
             </Box>
             <Box className={classes.boxImg}>
               <EditImage getData={getImgBase64} src={null} />
-              <Box className={classes.boxButton}>
+              {/* <Box className={classes.boxButton}>
                 <ButtonBox
                   nameButton={getLabel(LangConstant.TXT_SAVE)}
                   typeButton="submit"
                 />
-              </Box>
+              </Box> */}
             </Box>
           </Box>
         </Box>
@@ -198,16 +200,16 @@ const useStyles = makeStyles({
     width: "100%",
     backgroundColor: "#F2F3F5",
     height: "200px",
-    fontSize: "40px",
-    lineHeight: "200px",
-    fontWeight: "500",
-    paddingLeft: "100px",
+    display: "flex",
+    alignItems: "center",
+    padding: "0px 100px",
+    justifyContent: "space-between",
   },
   boxButton: {
     width: "140px",
     margin: "0 auto",
     height: "40px",
-    marginTop: "40px",
+    marginLeft: "5px",
   },
   boxBody: {
     width: "100%",
@@ -222,6 +224,16 @@ const useStyles = makeStyles({
   boxImg: {
     marginTop: "20px",
   },
+  boxLabel: {
+    fontSize: "40px",
+    lineHeight: "200px",
+    fontWeight: "500",
+  },
+  boxChange: {
+    "& .MuiButtonBase-root": {
+        backgroundColor: "#ff4d4d"
+    }
+},
 });
 
 export default memo(ShopInformation);

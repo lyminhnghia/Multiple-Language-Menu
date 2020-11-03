@@ -26,22 +26,25 @@ const ShopAddCategory = () => {
   const listCategory = useSelector(
     (state) => state.categoryShopRedux.listCategory
   );
+  const isCreateSuccess = useSelector(
+    (state) => state.categoryShopRedux.isCreateSuccess
+  );
 
   if (listCategory === null) {
     dispatch(CategoryShopAction.getListCategory({}));
   }
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     console.log(formChange);
   };
 
   const onChange = (e) => {
     setFormChange({ ...formChange, [e.target.name]: e.target.value });
-    console.log(e.target.value, e.target.name);
   };
+
   const getImgBase64 = (data) => {
-    setFormChange({ ...formChange, ["base-64"]: data });
+    setFormChange({ ...formChange, ["image"]: data });
   };
 
   useEffect(() => {
@@ -50,11 +53,18 @@ const ShopAddCategory = () => {
     }
   }, [listCategory]);
 
+  useEffect(() => {
+    if (isCreateSuccess) {
+      dispatch(CategoryShopAction.resetCategory());
+      dispatch(CategoryShopAction.getListCategory({}));
+    }
+  }, [isCreateSuccess]);
+
   return (
     <ShopLayout>
       <Box className={classes.boxParent}>
         <Box className={classes.boxBorder}>
-          <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+          <form onSubmit={onSubmit} style={{ width: "100%" }}>
             <Box className={classes.BoxChild}>
               <InputText
                 nameLabel={getLabel(LangConstant.TXT_NAME_PRODUCT)}
@@ -110,6 +120,7 @@ const ShopAddCategory = () => {
                   native
                   label="category-product"
                   onInput={(e) => onChange(e)}
+                  value={formChange.categoryId ? formChange.categoryId : ""}
                   inputProps={{
                     name: "categoryId",
                     id: "outlined-age-native-simple",
