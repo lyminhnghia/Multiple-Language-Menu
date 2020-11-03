@@ -1,11 +1,20 @@
 import React, { memo, useState, useEffect } from "react";
 import { LangConstant } from "../../../const";
-import { makeStyles, Box, Container } from "@material-ui/core";
+import {
+  makeStyles,
+  Box,
+  Container,
+  Dialog,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import ButtonBox from "../../../components/buttonBox";
+import { BoxButton, InputText } from "../../../components";
 import { AdminLayout } from "../../../layouts";
 import { useDispatch, useSelector } from "react-redux";
 import AdminAction from "../../../redux/admin.redux";
+import AuthAction from "../../../redux/auth.redux";
 
 const ProfileAdmin = () => {
   const classes = useStyles();
@@ -13,10 +22,30 @@ const ProfileAdmin = () => {
   const { t: getLabel } = useTranslation();
   const dataProfile = useSelector((state) => state.adminRedux.dataProfile);
   const [profile, setProfile] = useState({});
+  const [open, setOpen] = useState(false);
+  const [form, setForm] = useState({});
 
   if (!dataProfile) {
     dispatch(AdminAction.getProfileAdmin());
   }
+
+  const onOpenForm = () => {
+    setOpen(true);
+  };
+
+  const onCloseForm = () => {
+    setOpen(false);
+  };
+
+  const onSubmitForm = (e) => {
+    e.preventDefault();
+    setOpen(false);
+    dispatch(AuthAction.requestChangePassword(form));
+  };
+
+  const onChangeForm = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   useEffect(() => {
     if (dataProfile) {
@@ -74,10 +103,59 @@ const ProfileAdmin = () => {
               </Box>
             </Box>
             <Box className={classes.boxButton}>
-              <ButtonBox
+              <BoxButton
                 nameButton={getLabel(LangConstant.TXT_CHANGE_PASS)}
-                typeButton="submit"
+                onClick={onOpenForm}
               />
+              <Dialog
+                open={open}
+                onClose={onCloseForm}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className={classes.dialogBox}
+              >
+                <form onSubmit={onSubmitForm}>
+                  <Box className={classes.dialogTitleBox}>
+                    {getLabel(LangConstant.TXT_CHANGE_PASS)}
+                  </Box>
+
+                  <DialogContent>
+                    <InputText
+                      nameLabel={getLabel(LangConstant.TXT_PASSWORD)}
+                      typeInput="password"
+                      requiredInput={true}
+                      nameText="password"
+                      onInput={(e) => onChangeForm(e)}
+                    />
+                    <InputText
+                      nameLabel={getLabel(LangConstant.TXT_NEW_PASSWORD)}
+                      typeInput="password"
+                      requiredInput={true}
+                      nameText="new_password"
+                      onInput={(e) => onChangeForm(e)}
+                    />
+                    <InputText
+                      nameLabel={getLabel(LangConstant.TXT_CONFIRM_PASSWORD)}
+                      typeInput="password"
+                      requiredInput={true}
+                      nameText="confirm_password"
+                      onInput={(e) => onChangeForm(e)}
+                    />
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={onCloseForm} color="primary">
+                      {getLabel(LangConstant.TXT_CANCER)}
+                    </Button>
+                    <Button
+                      onClick={onSubmitForm}
+                      type="submit"
+                      color="primary"
+                    >
+                      {getLabel(LangConstant.TXT_SAVE)}
+                    </Button>
+                  </DialogActions>
+                </form>
+              </Dialog>
             </Box>
           </Box>
         </Box>
@@ -124,6 +202,17 @@ const useStyles = makeStyles({
     fontSize: 24,
     fontWeight: 500,
     marginLeft: 150,
+  },
+  dialogBox: {
+    "& .MuiDialog-container .MuiDialog-paperWidthSm ": {
+      width: "600px",
+    },
+  },
+  dialogTitleBox: {
+    color: "#000000",
+    padding: "20px 0px 0px 20px",
+    fontSize: "24px",
+    textAlign: "center",
   },
 });
 

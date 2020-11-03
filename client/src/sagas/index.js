@@ -13,7 +13,7 @@ import { ItemShopTypes } from "../redux/itemShop.redux";
 import { LanguageShopTypes } from "../redux/languageShop.redux";
 
 /* ------------- Sagas ------------- */
-import { requestLogin, requestLoginShop } from "./auth.saga";
+import { requestLogin, requestLoginShop, changePassword } from "./auth.saga";
 import {
   getListShopAdmin,
   createShopAdmin,
@@ -40,6 +40,7 @@ export default function* root() {
     // authentication
     takeLatest(AuthTypes.REQUEST_LOGIN, requestLogin),
     takeLatest(AuthTypes.REQUEST_LOGIN_SHOP, requestLoginShop),
+    takeLatest(AuthTypes.REQUEST_CHANGE_PASSWORD, changePassword),
 
     // admin
     takeLatest(AdminTypes.GET_LIST_SHOP, getListShopAdmin),
@@ -67,6 +68,7 @@ export default function* root() {
       [
         AuthTypes.REQUEST_LOGIN,
         AuthTypes.REQUEST_LOGIN_SHOP,
+        AuthTypes.REQUEST_CHANGE_PASSWORD,
         AdminTypes.GET_LIST_SHOP,
         AdminTypes.CREATE_SHOP,
         AdminTypes.GET_SHOP,
@@ -88,6 +90,7 @@ export default function* root() {
       [
         AuthTypes.REQUEST_LOGIN,
         AuthTypes.REQUEST_LOGIN_SHOP,
+        AuthTypes.REQUEST_CHANGE_PASSWORD,
         AdminTypes.GET_LIST_SHOP,
         AdminTypes.CREATE_SHOP,
         AdminTypes.GET_SHOP,
