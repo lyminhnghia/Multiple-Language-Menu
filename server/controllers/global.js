@@ -107,7 +107,7 @@ exports.editPassword = async (req, res) => {
 
     await Account.update(
       {
-        password: bcrypt.hashSync(req.body.newpassword, 8),
+        password: bcrypt.hashSync(req.body.new_password, 8),
       },
       {
         where: {

@@ -20,6 +20,7 @@ export const GET_LIST_SHOP_ADMIN = "/api/admin/shop";
 export const CREATE_SHOP_ADMIN = "/api/admin/create-shop";
 export const SHOP_ADMIN = "/api/admin/shop/{0}";
 export const PROFILE_ADMIN = "/api/admin/profile";
+export const CHANGE_PASSWORD_ADMIN = "/api/admin/edit-password";
 
 // Api Shop
 export const POST_LOGIN_SHOP = "/api/shop/login";

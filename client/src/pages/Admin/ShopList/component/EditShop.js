@@ -2,33 +2,47 @@ import React, { memo, useState, useEffect } from "react";
 import { LangConstant } from "../../../../const";
 import { makeStyles, Box, Container } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { InputText, Notify, MultipleChoice } from "../../../../components";
+import { InputText, MultipleChoice } from "../../../../components";
 import ButtonBox from "../../../../components/buttonBox";
 import { AdminLayout } from "../../../../layouts";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import AdminAction from "../../../../redux/admin.redux";
 import moment from "moment";
 
 const EditShop = (props) => {
-  const { setOpen } = props;
+  const { setOpen, data, id } = props;
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
   const dispatch = useDispatch();
-  const dataShop = useSelector((state) => state.adminRedux.dataGet);
-  const [showData, setShowData] = useState({});
-  const [formChange, setFormChange] = useState({});
+  const [formChange, setFormChange] = useState({
+    id: id,
+    company_name: data.owner.company_name,
+    address_owner: data.owner.address,
+    telephone_owner: data.owner.telephone,
+    staff_name: data.owner.staff_name,
+    email_owner: data.owner.email,
+    shop_type: data.shop_type,
+    start_contract: moment(data.start_contract * 1000).format("YYYY-MM-DD"),
+    end_contract: moment(data.end_contract * 1000).format("YYYY-MM-DD"),
+    shop_name: data.shop_name,
+    port_number: data.address.port_number,
+    city: data.address.city,
+    address_shop: data.address.address,
+    building: data.address.building,
+    email_shop: data.email,
+    telephone_shop: data.telephone,
+    state: data.account.state,
+  });
   const [choice, setChoice] = useState(1);
 
   const onSubmitForm = (e) => {
     e.preventDefault();
     let formData = formChange;
     formData.state = choice;
-    formData.start_contract = formChange.start_contract
-      ? onConvertTime(formChange.start_contract)
-      : parseInt(Date.now() / 1000);
-    formData.end_contract = formChange.end_contract
-      ? onConvertTime(formChange.end_contract)
-      : parseInt(Date.now() / 1000);
+    formData.start_contract = onConvertTime(formChange.start_contract);
+    formData.end_contract = onConvertTime(formChange.end_contract);
+    dispatch(AdminAction.updateShop(formData));
+    setOpen(false);
   };
 
   const onChange = (e) => {
@@ -48,12 +62,6 @@ const EditShop = (props) => {
     setOpen(false);
   };
 
-  useEffect(() => {
-    if (dataShop) {
-      setShowData(dataShop);
-    }
-  }, [dataShop]);
-
   return (
     <AdminLayout>
       <Container className={classes.boxParent}>
@@ -68,7 +76,7 @@ const EditShop = (props) => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="company_name"
-                value={showData.owner ? showData.owner.company_name : ""}
+                value={formChange.company_name}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -76,7 +84,7 @@ const EditShop = (props) => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="address_owner"
-                value={showData.owner ? showData.owner.address : ""}
+                value={formChange.address_owner}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -84,7 +92,7 @@ const EditShop = (props) => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="telephone_owner"
-                value={showData.owner ? showData.owner.telephone : ""}
+                value={formChange.telephone_owner}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -92,7 +100,7 @@ const EditShop = (props) => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="staff_name"
-                value={showData.owner ? showData.owner.staff_name : ""}
+                value={formChange.staff_name}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -100,7 +108,7 @@ const EditShop = (props) => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="email_owner"
-                value={showData.owner ? showData.owner.email : ""}
+                value={formChange.email_owner}
                 onInput={(e) => onChange(e)}
               />
             </Box>
@@ -115,7 +123,7 @@ const EditShop = (props) => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="shop_type"
-                value={showData ? showData.shop_type : ""}
+                value={formChange.shop_type}
                 onInput={(e) => onChange(e)}
               />
               <Box className={classes.boxFlex}>
@@ -123,13 +131,7 @@ const EditShop = (props) => {
                   <InputText
                     nameLabel={getLabel(LangConstant.TXT_START_CONTRACT_PERIOD)}
                     typeInput="date"
-                    value={
-                      showData
-                        ? moment(showData.start_contract * 1000).format(
-                            "YYYY-MM-DD"
-                          )
-                        : moment(Date.now()).format("YYYY-MM-DD")
-                    }
+                    value={formChange.start_contract}
                     requiredInput={true}
                     nameText="start_contract"
                     onInput={(e) => onChange(e)}
@@ -139,13 +141,7 @@ const EditShop = (props) => {
                   <InputText
                     nameLabel={getLabel(LangConstant.TXT_END_CONTRACT_PERIOD)}
                     typeInput="date"
-                    value={
-                      showData
-                        ? moment(showData.end_contract * 1000).format(
-                            "YYYY-MM-DD"
-                          )
-                        : moment(Date.now()).format("YYYY-MM-DD")
-                    }
+                    value={formChange.end_contract}
                     requiredInput={true}
                     nameText="end_contract"
                     onInput={(e) => onChange(e)}
@@ -156,7 +152,7 @@ const EditShop = (props) => {
                 nameLabel={getLabel(LangConstant.TXT_SHOP_NAME)}
                 typeInput="text"
                 requiredInput={true}
-                value={showData ? showData.shop_name : ""}
+                value={formChange.shop_name}
                 nameText="shop_name"
                 onInput={(e) => onChange(e)}
               />
@@ -165,7 +161,7 @@ const EditShop = (props) => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="port_number"
-                value={showData.address ? showData.address.port_number : ""}
+                value={formChange.port_number}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -173,7 +169,7 @@ const EditShop = (props) => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="city"
-                value={showData.address ? showData.address.city : ""}
+                value={formChange.city}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -181,7 +177,7 @@ const EditShop = (props) => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="address_shop"
-                value={showData.address ? showData.address.address : ""}
+                value={formChange.address_shop}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -189,7 +185,7 @@ const EditShop = (props) => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="building"
-                value={showData.address ? showData.address.building : ""}
+                value={formChange.building}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -197,7 +193,7 @@ const EditShop = (props) => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="email_shop"
-                value={showData ? showData.email : ""}
+                value={formChange.email_shop}
                 onInput={(e) => onChange(e)}
               />
               <InputText
@@ -205,7 +201,7 @@ const EditShop = (props) => {
                 typeInput="text"
                 requiredInput={true}
                 nameText="telephone_shop"
-                value={showData ? showData.telephone : ""}
+                value={formChange.telephone_shop}
                 onInput={(e) => onChange(e)}
               />
               <Box className={classes.boxParentCheck}>
@@ -215,9 +211,7 @@ const EditShop = (props) => {
                 <MultipleChoice
                   className={classes.multipleChoice}
                   listMenu={LangConstant.ARR_ADMIN_STATE}
-                  defaultValue={
-                    showData.account ? showData.account.state - 1 : 0
-                  }
+                  defaultValue={formChange.state - 1}
                   onChange={onChangeChoice}
                 />
               </Box>

@@ -97,6 +97,7 @@ export const TXT_ADMIN = "TXT_ADMIN";
 export const TXT_SHOP_ADMIN = "TXT_SHOP_ADMIN";
 export const TXT_CREATE_SUCCESS = "TXT_CREATE_SUCCESS";
 export const TXT_CREATE_FAILED = "TXT_CREATE_FAILED";
+export const TXT_NEW_PASSWORD = "TXT_NEW_PASSWORD";
 
 export const ARR_SHOP_LIST = [
   TXT_ID,

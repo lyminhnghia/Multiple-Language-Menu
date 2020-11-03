@@ -17,11 +17,10 @@ module.exports = (app) => {
   const imageUploader = multer({ dest: "images/" });
   // ROLE ADMIN
   // Login
-  app.post("/api/admin/login", limiter, global.LoginAdmin);
+  app.post("/api/admin/login", global.LoginAdmin);
   // Edit password
   app.put(
     "/api/admin/edit-password",
-    limiter,
     [middleware.verifyTokenAdmin, middleware.checkPasswordEdit],
     global.editPassword
   );
@@ -43,21 +42,18 @@ module.exports = (app) => {
   app.get(
     "/api/admin/shop",
     [middleware.verifyTokenAdmin],
-    limiter,
     shopAdmin.getListShop
   );
   // Get shop by Id
   app.get(
     "/api/admin/shop/:id",
     [middleware.verifyTokenAdmin],
-    limiter,
     shopAdmin.getShopById
   );
   // Delete shop
   app.delete(
     "/api/admin/shop/:id",
     [middleware.verifyTokenAdmin],
-    limiter,
     shopAdmin.deleteShop
   );
   app.get(

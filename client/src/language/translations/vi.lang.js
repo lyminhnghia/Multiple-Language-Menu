@@ -33,6 +33,7 @@ export default {
   TXT_ROLE: "Quyền",
   TXT_CREATED: "Khởi tạo",
   TXT_CHANGE_PASS: "Đổi mật khẩu",
+  TXT_NEW_PASSWORD: "Mật khẩu mới",
   TXT_EDIT_PROFILE: "Sửa",
   TXT_SAVE_PROFILE: "Lưu thay đổi",
   TXT_NAME_PRODUCT: "Tên sản phẩm",

@@ -137,7 +137,6 @@ const TranferLanguage = () => {
       </Paper>
     </Box>
   );
-  console.log(listLanguage);
 
   useEffect(() => {
     if (listLanguage) {
