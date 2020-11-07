@@ -22,7 +22,8 @@ import {
 } from "../pages/Shop";
 
 import {
-  OrderHistory 
+  OrderHistory,
+  OrderList
 } from "../pages/Customer"
 
 function AuthenticationRoute(props) {
@@ -109,6 +110,11 @@ const Routes = () => {
         component={OrderHistory}
         exact
         path={PathConstant.CUSTOMER_ORDER_HISTORY}
+      />
+      <Route
+        component={OrderList}
+        exact
+        path={PathConstant.CUSTOMER_ORDER_LIST}
       />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       <Redirect to={PathConstant.NOT_FOUND} />
