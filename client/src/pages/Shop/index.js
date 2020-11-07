@@ -5,6 +5,7 @@ import TranferLanguage from "./TranferLanguage";
 import ContractInformation from "./ContractInformation";
 import QRCodeShop from "./QRCodeShop";
 import ShopInformation from "./ShopInformation";
+import OrderHistoryShop from "./OrderHistoryShop";
 
 export {
   LoginShop,
@@ -13,5 +14,6 @@ export {
   TranferLanguage,
   ContractInformation,
   QRCodeShop,
-  ShopInformation
+  ShopInformation,
+  OrderHistoryShop,
 };

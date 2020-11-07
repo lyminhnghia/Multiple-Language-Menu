@@ -32,7 +32,7 @@ const MultipleChoice = ({
   };
 
   useEffect(() => {
-    if (defaultValue !== 0) {
+    if (defaultValue) {
       setSelectedIndex(defaultValue);
     }
   }, [defaultValue]);

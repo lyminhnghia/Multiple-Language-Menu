@@ -18,7 +18,8 @@ import {
   TranferLanguage,
   ContractInformation,
   QRCodeShop,
-  ShopInformation
+  ShopInformation,
+  OrderHistoryShop,
 } from "../pages/Shop";
 
 import {
@@ -96,15 +97,16 @@ const Routes = () => {
         exact
         path={PathConstant.SHOP_CONTRACT}
       />
-      <Route 
-        component={QRCodeShop} 
-        exact 
-        path={PathConstant.SHOP_QR_CODE} 
-      />
+      <Route component={QRCodeShop} exact path={PathConstant.SHOP_QR_CODE} />
       <Route
         component={ShopInformation}
         exact
         path={PathConstant.SHOP_INFORMATION}
+      />
+      <Route
+        component={OrderHistoryShop}
+        exact
+        path={PathConstant.SHOP_ORDER_HISTORY}
       />
       <Route
         component={OrderHistory}

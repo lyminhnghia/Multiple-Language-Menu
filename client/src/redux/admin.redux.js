@@ -18,6 +18,10 @@ const { Types, Creators } = createActions({
   updateShopSuccess: ["data"],
   updateShopFailure: ["error"],
 
+  deleteShop: ["data"],
+  deleteShopSuccess: ["data"],
+  deleteShopFailure: ["error"],
+
   getProfileAdmin: ["data"],
   getProfileAdminSuccess: ["data"],
   getProfileAdminFailure: ["error"],
@@ -49,6 +53,11 @@ export const INITIAL_STATE = {
   errorUpdate: null,
   isUpdateSuccess: false,
   dataUpdate: null,
+
+  isFetchingDelete: false,
+  errorDelete: null,
+  isDeleteSuccess: false,
+  dataDelete: null,
 
   isFetchingProfile: false,
   errorProfile: null,
@@ -133,6 +142,25 @@ export const updateShopFailure = (state = INITIAL_STATE, action) => ({
   errorUpdate: action.error,
 });
 
+/* ------------- delete Shop ------------- */
+export const deleteShop = (state = INITIAL_STATE) => ({
+  ...state,
+  isFetchingDelete: true,
+});
+
+export const deleteShopSuccess = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isFetchingDelete: false,
+  isDeleteSuccess: true,
+  dataDelete: action.data,
+});
+
+export const deleteShopFailure = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isFetchingDelete: false,
+  errorDelete: action.error,
+});
+
 /* ------------- profile Admin ------------- */
 export const getProfileAdmin = (state = INITIAL_STATE) => ({
   ...state,
@@ -159,6 +187,7 @@ export const resetAdmin = (state = INITIAL_STATE) => ({
   isCreateSuccess: false,
   isGetSuccess: false,
   isUpdateSuccess: false,
+  isDeleteSuccess: false,
   isProfileSuccess: false,
 });
 
@@ -180,6 +209,10 @@ export const HANDLERS = {
   [Types.UPDATE_SHOP]: updateShop,
   [Types.UPDATE_SHOP_SUCCESS]: updateShopSuccess,
   [Types.UPDATE_SHOP_FAILURE]: updateShopFailure,
+  // delete Shop
+  [Types.DELETE_SHOP]: deleteShop,
+  [Types.DELETE_SHOP_SUCCESS]: deleteShopSuccess,
+  [Types.DELETE_SHOP_FAILURE]: deleteShopFailure,
   // profile Admin
   [Types.GET_PROFILE_ADMIN]: getProfileAdmin,
   [Types.GET_PROFILE_ADMIN_SUCCESS]: getProfileAdminSuccess,

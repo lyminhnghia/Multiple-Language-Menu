@@ -63,6 +63,21 @@ export function* updateShopAdmin(action) {
   }
 }
 
+export function* deleteShopAdmin(action) {
+  try {
+    const { data } = action;
+    let response = yield call(AdminService.deleteShopAdmin, data);
+    if (response.status == ApiConstant.STT_OK) {
+      let responseData = response.data.data;
+      yield put(AdminAction.deleteShopSuccess(responseData));
+    } else {
+      yield put(AdminAction.deleteShopFailure(response.data.error));
+    }
+  } catch (error) {
+    yield put(AdminAction.deleteShopFailure(error));
+  }
+}
+
 export function* getProfileAdmin() {
   try {
     let response = yield call(AdminService.getProfileAdmin, {});
