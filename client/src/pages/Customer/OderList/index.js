@@ -1,6 +1,6 @@
 import React, {useState, memo } from "react"
 import { LangConstant } from "../../../const";
-
+import {CustomerLayout} from "../../../layouts"
 import {
     makeStyles,
     Box,
@@ -46,50 +46,52 @@ const OrderList = () =>{
     }
 
     return(
-        <Box className={classes.boxBorder}>
-            <Box className={classes.boxHeader}>Order List</Box>           
-            <Box className={classes.boxBody}>
-                {
-                    listItems.map((data,index) =>(
-                        <Box className={classes.boxContent} key={"b"+index}>
-                            <Box className={classes.boxRemoveItem}>
-                                <Box style={{lineHeight: "25px",paddingLeft: "10px"}}>{element.id}</Box>
-                                <IconButton 
-                                    // className={classes.boxIconButton}
-                                    onClick={e=>removeItem(index)}
-                                >
-                                    <ClearIcon/>
-                                </IconButton>
-                            </Box>                          
-                            <Box className={classes.boxLeft}>
-                                <Box className={classes.boxDataName} >{data.name}</Box>
-                                <Box className={classes.boxDataPrice} >{element.price}: {data.price}</Box>                               
+        <CustomerLayout>
+            <Box className={classes.boxBorder}>
+                <Box className={classes.boxHeader}>Order List</Box>           
+                <Box className={classes.boxBody}>
+                    {
+                        listItems.map((data,index) =>(
+                            <Box className={classes.boxContent} key={"b"+index}>
+                                <Box className={classes.boxRemoveItem}>
+                                    <Box style={{lineHeight: "25px",paddingLeft: "10px"}}>{element.id}</Box>
+                                    <IconButton 
+                                        // className={classes.boxIconButton}
+                                        onClick={e=>removeItem(index)}
+                                    >
+                                        <ClearIcon/>
+                                    </IconButton>
+                                </Box>                          
+                                <Box className={classes.boxLeft}>
+                                    <Box className={classes.boxDataName} >{data.name}</Box>
+                                    <Box className={classes.boxDataPrice} >{element.price}: {data.price}</Box>                               
+                                </Box>
+                                <Box className={classes.boxRight}>
+                                    <IconButton 
+                                        className={classes.boxIconButton}
+                                        onClick={e=>addQuantity(index)}
+                                    >
+                                        <AddCircleIcon/>
+                                    </IconButton>                           
+                                    <Box className={classes.boxDataTotal} >{data.total}</Box>
+                                    <IconButton
+                                        className={classes.boxIconButton}
+                                        onClick={e=>removeQuantity(index)}
+                                    >
+                                        <RemoveCircleIcon/>
+                                    </IconButton>
+                                </Box>
                             </Box>
-                            <Box className={classes.boxRight}>
-                                <IconButton 
-                                    className={classes.boxIconButton}
-                                    onClick={e=>addQuantity(index)}
-                                >
-                                    <AddCircleIcon/>
-                                </IconButton>                           
-                                <Box className={classes.boxDataTotal} >{data.total}</Box>
-                                <IconButton
-                                    className={classes.boxIconButton}
-                                    onClick={e=>removeQuantity(index)}
-                                >
-                                    <RemoveCircleIcon/>
-                                </IconButton>
-                            </Box>
-                        </Box>
-                    ))
-                }
+                        ))
+                    }
+                </Box>
+                <Box className={classes.boxFooter}>
+                    <Box style={{fontWeight: "500"}} >{element.total}</Box>
+                    <Box className={classes.boxDataTotal} >{totalItems}</Box>
+                    <Box className={classes.boxDataPrice} >{totalPrice}</Box>
+                </Box>          
             </Box>
-            <Box className={classes.boxFooter}>
-                <Box style={{fontWeight: "500"}} >{element.total}</Box>
-                <Box className={classes.boxDataTotal} >{totalItems}</Box>
-                <Box className={classes.boxDataPrice} >{totalPrice}</Box>
-            </Box>          
-        </Box>
+        </CustomerLayout>
     )
 }
 const element = {
