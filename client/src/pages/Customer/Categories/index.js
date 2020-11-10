@@ -223,7 +223,7 @@ const useStyles = makeStyles({
         "&::-webkit-scrollbar": {
             height: "0px"
         },
-        
+        zIndex: "100"
     },
     boxChild: {
 
