@@ -3,7 +3,7 @@ import {
     makeStyles,
     Box,
   } from "@material-ui/core";
-
+import DialogIteam from "./dialogItem"
 import { useTranslation } from "react-i18next";
 // import InputText from "../../../components/inputText";
 // import ButtonBox from "../../../components/buttonBox";
@@ -26,6 +26,7 @@ const CategoryBox = ({idItem,name,categories}) =>{
                                     </Box>                                  
                                     <Box style={{flexGrow: 10}}>{category.name}</Box>
                                     <Box style={{maxWidth: "65px", fontWeight: 600}}>{category.price}</Box>
+                                    <DialogIteam nameCategory={category.name} priceCategory={category.price}/>
                                 </Box>
                             ))
                         }
