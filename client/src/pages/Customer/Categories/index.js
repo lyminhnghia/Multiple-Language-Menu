@@ -6,7 +6,7 @@ import {
     Box,
     IconButton 
   } from "@material-ui/core";
-
+import './style.scss'
 import { useTranslation } from "react-i18next";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
@@ -45,7 +45,16 @@ const CategoriesCus = () =>{
     //         newList.splice(index, 1)
     //         setChangeListItems(newList); 
     // }
-
+    // const [checked, setChecked] = useState("")
+    const setChange = (id) =>{
+        const classNames = document.getElementsByClassName("box-a");
+        for (let i = 0; i < classNames.length; i++) {
+            if(classNames[i].classList[1] == "box-change"){
+                classNames[i].classList.remove("box-change")
+            }
+        }
+        document.getElementById(id).classList.toggle("box-change")
+    }
     return(
         <CustomerLayout>
             <Box className={classes.boxBorder}>
@@ -53,8 +62,21 @@ const CategoriesCus = () =>{
                     <Box className={classes.boxScroll}>
                     {
                         listItems.map((category,index)=>(
-                            <Box component="div" display="inline" key = {"category"+index} className={classes.boxChild}>
-                                <a className={classes.boxA} href={category.id}>{category.name}</a>
+                            <Box 
+                                component="div"
+                                display="inline"
+                                key = {"category"+index}
+                                id={"category"+index}
+                                className={classes.boxChild}
+                            >
+                                <a
+                                    id={"a"+index}
+                                    className= "box-a"
+                                    href={category.id}
+                                    onClick={e=>setChange(e.target.id)}
+                                >
+                                    {category.name}
+                                </a>
                             </Box>
                         ))
                     }
@@ -67,7 +89,10 @@ const CategoriesCus = () =>{
                     {
                         data.map((data,index)=>(
                             <Box key={"c" + index}>
-                                <CategoryBox idItem={data.id} name={data.name}  categories={data.category}/>
+                                <CategoryBox 
+                                    idItem={data.id}
+                                    name={data.name}
+                                    categories={data.category}/>
                             </Box>
                             
                         ))
@@ -189,19 +214,18 @@ const useStyles = makeStyles({
     boxHeader: {
         display: "flex",
         overflowX: "scroll",
-        height: "50px",
+        height: "39px",
         backgroundColor: "#ffffff",
-        paddingTop: "15px",
+        paddingTop: "10px",
         position: "sticky",
         top: 0,
-        borderBottom: "2px solid rgb(0 0 0 / 0.1)",
+        borderBottom: "1px solid rgb(0 0 0 / 0.1)",
         "&::-webkit-scrollbar": {
             height: "0px"
         },
         
     },
     boxChild: {
-        margin: "0px 10px",
 
     },
     boxScroll: {
