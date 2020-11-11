@@ -1,6 +1,5 @@
 import React, {useState, memo } from "react"
 import { LangConstant } from "../../../const";
-import {CustomerLayout} from "../../../layouts"
 import {
     makeStyles,
     Box,
@@ -8,44 +7,14 @@ import {
   } from "@material-ui/core";
 import './style.scss'
 import { useTranslation } from "react-i18next";
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import ClearIcon from '@material-ui/icons/Clear';
-// import InputText from "../../../components/inputText";
-// import ButtonBox from "../../../components/buttonBox";
+import TranslateIcon from '@material-ui/icons/Translate';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import CategoryBox from "./Components/category"
-
+import OderList from "./Components/orderList"
 const CategoriesCus = () =>{
     const classes = useStyles();
     const { t: getLabel } = useTranslation();
     const [listItems, setChangeListItems] = useState(categories)
-    // let totalItems = 0;
-    // let totalPrice = 0;
-    // listItems.forEach(element => {
-    //     totalItems += element.total
-    //     totalPrice += element.price * element.total
-    // });
-    // const addQuantity = (index) =>{
-    //     let newList = [...listItems]
-    //     if(newList[index].total < 99){
-    //         newList[index].total += 1
-    //         setChangeListItems(newList);
-    //     }
-        
-    // }
-    // const removeQuantity = (index) =>{
-    //     let newList = [...listItems]
-    //     if(newList[index].total > 1){
-    //         newList[index].total -= 1
-    //         setChangeListItems(newList);
-    //     }      
-    // }
-    // const removeItem = (index) =>{
-    //     let newList = [...listItems]
-    //         newList.splice(index, 1)
-    //         setChangeListItems(newList); 
-    // }
-    // const [checked, setChecked] = useState("")
     const setChange = (id) =>{
         const classNames = document.getElementsByClassName("box-a");
         for (let i = 0; i < classNames.length; i++) {
@@ -55,53 +24,70 @@ const CategoriesCus = () =>{
         }
         document.getElementById(id).classList.toggle("box-change")
     }
-    return(
-        <CustomerLayout>
-            <Box className={classes.boxBorder}>
-                <Box className={classes.boxHeader}>
+    return(        
+        <Box className={classes.boxBorder}>
+            <Box className={classes.boxHeader}>
+                <Box className={classes.boxTitle}>
+                    <IconButton
+                        className={classes.IconButton}
+                        // onClick={() => onOpenSidebar()}
+                        >
+                        {<TranslateIcon />}
+                    </IconButton>
+                    <Box className={classes.boxContent}>
+                        {element.menuuu}
+                    </Box>
+                    {/* <IconButton
+                        className={classes.IconButton}
+                        // onClick={() => onOpenSidebar()}
+                        >
+                        {<ShoppingCartIcon />}
+                    </IconButton> */}
+                    <OderList/>
+                </Box>
+                <Box className={classes.boxMenu}>
                     <Box className={classes.boxScroll}>
-                    {
-                        listItems.map((category,index)=>(
-                            <Box 
-                                component="div"
-                                display="inline"
-                                key = {"category"+index}
-                                id={"category"+index}
-                                className={classes.boxChild}
-                            >
-                                <a
-                                    id={"a"+index}
-                                    className= "box-a"
-                                    href={category.id}
-                                    onClick={e=>setChange(e.target.id)}
+                        {
+                            listItems.map((category,index)=>(
+                                <Box 
+                                    component="div"
+                                    display="inline"
+                                    key = {"category"+index}
+                                    id={"category"+index}
+                                    className={classes.boxChild}
                                 >
-                                    {category.name}
-                                </a>
-                            </Box>
-                        ))
-                    }
-                    </Box>
-                    <Box>
-
+                                    <a
+                                        id={"a"+index}
+                                        className= "box-a"
+                                        href={category.id}
+                                        onClick={e=>setChange(e.target.id)}
+                                    >
+                                        {category.name}
+                                    </a>
+                                </Box>
+                            ))
+                        }
                     </Box>
                 </Box>
-                <Box className={classes.boxBody}>
-                    {
-                        data.map((data,index)=>(
-                            <Box key={"c" + index}>
-                                <CategoryBox 
-                                    idItem={data.id}
-                                    name={data.name}
-                                    categories={data.category}/>
-                            </Box>
-                            
-                        ))
-                    }
-                    
-                </Box>
-            </Box>          
-        </CustomerLayout>
+            </Box>             
+            <Box className={classes.boxBody}>
+                {
+                    data.map((data,index)=>(
+                        <Box key={"c" + index}>
+                            <CategoryBox 
+                                idItem={data.id}
+                                name={data.name}
+                                categories={data.category}/>
+                        </Box>
+                        
+                    ))
+                }                   
+            </Box>
+        </Box>         
     )
+}
+const element = {
+    menuuu: "Thực đơn",
 }
 const categories = [
     {
@@ -211,19 +197,19 @@ const useStyles = makeStyles({
         width: "100%",
         backgroundColor: "rgb(0 0 0 / 0.1)",
     },
-    boxHeader: {
+    boxMenu: {
         display: "flex",
         overflowX: "scroll",
         height: "39px",
         backgroundColor: "#ffffff",
         paddingTop: "10px",
-        position: "sticky",
-        top: 0,
-        borderBottom: "1px solid rgb(0 0 0 / 0.1)",
+        // position: "sticky",
+        // top: 0,
+        // borderBottom: "1px solid rgb(0 0 0 / 0.1)",
         "&::-webkit-scrollbar": {
             height: "0px"
         },
-        zIndex: "100"
+        // zIndex: "100"
     },
     boxChild: {
 
@@ -237,6 +223,22 @@ const useStyles = makeStyles({
     boxA:{
         textDecoration: "none",
         color: "black"
+    },
+    boxTitle: {
+        display: "flex",
+        justifyContent: "space-between",
+        backgroundColor: "rgb(255 255 255)"
+    },
+    boxContent: {
+        fontSize: "18px",
+        lineHeight: "48px",
+        fontWeight: "500"
+    },
+    boxHeader: {
+        position: "sticky",
+        top: 0,
+        zIndex: "100",
+        borderBottom: "2px solid rgb(0 0 0 / 0.1)",
     }
 });
 export default memo(CategoriesCus);

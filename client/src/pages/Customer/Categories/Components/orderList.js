@@ -1,21 +1,21 @@
-import React, {useState, memo } from "react"
-import { LangConstant } from "../../../const";
-import {CustomerLayout} from "../../../layouts"
+import React, { memo, useState } from "react";
+import { LangConstant } from "../../../../const";
 import {
-    makeStyles,
-    Box,
-    IconButton 
-  } from "@material-ui/core";
-
+  Button,
+  makeStyles,
+  Dialog,
+  IconButton,
+  Box,
+} from "@material-ui/core";
 import { useTranslation } from "react-i18next";
+import ClearIcon from '@material-ui/icons/Clear';
+// import { useDispatch } from "react-redux";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import ClearIcon from '@material-ui/icons/Clear';
-// import InputText from "../../../components/inputText";
-// import ButtonBox from "../../../components/buttonBox";
-
-const OrderList = () =>{
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+const OderList = () => {
     const classes = useStyles();
+    const [open, setOpen] = useState(false);
     const { t: getLabel } = useTranslation();
     const [listItems, setChangeListItems] = useState(data)
     let totalItems = 0;
@@ -45,8 +45,28 @@ const OrderList = () =>{
             setChangeListItems(newList); 
     }
 
-    return(
-        <CustomerLayout>
+    const onClickOpen = () => {
+        setOpen(true);
+    };
+
+    const onClose = () => {
+        setOpen(false);
+    };
+  return (
+    <Box>
+        <IconButton
+            className={classes.IconButton}
+            onClick={onClickOpen}
+        >
+            {<ShoppingCartIcon />}
+        </IconButton>
+        <Dialog
+            open={open}
+            onClose={onClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            className={classes.dialogBox}
+        >
             <Box className={classes.boxBorder}>
                 <Box className={classes.boxHeader}>Order List</Box>           
                 <Box className={classes.boxBody}>
@@ -56,7 +76,6 @@ const OrderList = () =>{
                                 <Box className={classes.boxRemoveItem}>
                                     <Box style={{lineHeight: "25px",paddingLeft: "10px"}}>{element.id}</Box>
                                     <IconButton 
-                                        // className={classes.boxIconButton}
                                         onClick={e=>removeItem(index)}
                                     >
                                         <ClearIcon/>
@@ -91,9 +110,10 @@ const OrderList = () =>{
                     <Box className={classes.boxDataPrice} >{totalPrice}</Box>
                 </Box>          
             </Box>
-        </CustomerLayout>
-    )
-}
+        </Dialog>
+    </Box>
+  );
+};
 const element = {
     id: "ID",
     total: "Tổng",
@@ -101,7 +121,7 @@ const element = {
 }
 const data = [
     { 
-        name: "my tom mmmmmmmmmm mmmmmmmmmmmmmm mmmmmmmmm mmmmmmmmmm mmmmmmmmmmmm mmmmmmmmm",
+        name: "my tom",
         total: 2, 
         price: 2000
     },
@@ -116,11 +136,25 @@ const data = [
         price: 2000000
     }
 ]
-
 const useStyles = makeStyles({
+    iconButton: {
+        padding: "9px",
+        color: "#305C8B",
+    },
+    dialogBox: {
+        "& .MuiDialog-container .MuiDialog-paperWidthSm ": {
+        width: "600px",
+        margin: "0px",
+        },
+        // "& .makeStyles-dialogBox-15 .MuiDialog-container .MuiDialog-paperWidthSm"
+    },
     boxBorder: {
         width: "100%",
-        height:"100%",
+        height:"80%",
+        position: "fixed",
+        bottom: "0",
+        backgroundColor: "#ffffff",
+        color: "#000000",
     },
     boxHeader: {
         width: "100%",
@@ -197,11 +231,10 @@ const useStyles = makeStyles({
         borderBottom: "1px solid rgb(0 0 0 / 0.2)",
         "& .MuiButtonBase-root" :{
             padding: 0,
-            // marginTop: "5px",
             borderRadius: "0px",
             backgroundColor: "#ff4d4d",
             color: "white",
         }
     },
 });
-export default memo(OrderList);
+export default memo(OderList);

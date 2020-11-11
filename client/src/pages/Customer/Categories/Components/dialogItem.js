@@ -14,7 +14,7 @@ import InputText from "../../../../components/inputText";
 import { useDispatch } from "react-redux";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import ButtonBox from "../../../../components/buttonBox"
+import ButtonBox from "../../../../components/buttonBox";
 const DialogIteam = ({ id, nameCategory, descriptionCategory, priceCategory, srcCategory }) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
@@ -113,7 +113,7 @@ const DialogIteam = ({ id, nameCategory, descriptionCategory, priceCategory, src
 const useStyles = makeStyles({
     boxPara: {
         position: "absolute",
-        width: "100%",
+        width: "96%",
         height: "115px",
     },
     iconButton: {
