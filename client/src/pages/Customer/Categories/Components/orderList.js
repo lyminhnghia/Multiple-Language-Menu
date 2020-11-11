@@ -68,7 +68,15 @@ const OderList = () => {
             className={classes.dialogBox}
         >
             <Box className={classes.boxBorder}>
-                <Box className={classes.boxHeader}>Order List</Box>           
+                <Box className={classes.boxHeader}>
+                <Box >Order List</Box>
+                    {/* Order List */}
+                    <IconButton 
+                    // onClick={e=>removeItem(index)}
+                >
+                    <ClearIcon/>
+                </IconButton>    
+                </Box>           
                 <Box className={classes.boxBody}>
                     {
                         listItems.map((data,index) =>(
@@ -106,7 +114,7 @@ const OderList = () => {
                 </Box>
                 <Box className={classes.boxFooter}>
                     <Box style={{fontWeight: "500"}} >{element.total}</Box>
-                    <Box className={classes.boxDataTotal} >{totalItems}</Box>
+                    <Box className={classes.boxDataTotal} style={{border: "1px solid #ffffff",}} >{totalItems}</Box>
                     <Box className={classes.boxDataPrice} >{totalPrice}</Box>
                 </Box>          
             </Box>
@@ -146,7 +154,6 @@ const useStyles = makeStyles({
         width: "600px",
         margin: "0px",
         },
-        // "& .makeStyles-dialogBox-15 .MuiDialog-container .MuiDialog-paperWidthSm"
     },
     boxBorder: {
         width: "100%",
@@ -161,8 +168,17 @@ const useStyles = makeStyles({
         height: "50px",
         backgroundColor: "#F2F3F5",
         lineHeight: "50px",
-        paddingLeft: "20px",
         fontSize: "18px",
+        display: "flex",
+        justifyContent: "space-between",
+        padding: "0px 8px",
+        "& .MuiButtonBase-root" :{
+            margin: "7px 0px",
+            backgroundColor: "rgb(0 0 0 / 0.2)",
+            color: "white",
+            width: "35px",
+            height: "35px"
+        }
     },
     boxBody: {
         // margin: "0 auto",
@@ -212,14 +228,15 @@ const useStyles = makeStyles({
     boxFooter: {
         width: "100%",
         height: "50px",
-        backgroundColor: "#F2F3F5",
+        backgroundColor: "#305C8B",
         display: "flex",
         flexWrap: "wrap",
         alignItems: "center",
         padding: "0px 2%",
         position: "fixed",
         bottom: "0",
-        justifyContent: "space-around"
+        color: "#ffffff",
+        justifyContent: "space-around",
     },
     boxIconButton: {
         padding: "5px",
