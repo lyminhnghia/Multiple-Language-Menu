@@ -1,4 +1,4 @@
 import AdminLayout from "./AdminLayout";
 import ShopLayout from "./ShopLayout";
-
-export { AdminLayout, ShopLayout };
+import CustomerLayout from "./CustomerLayout"
+export { AdminLayout, ShopLayout, CustomerLayout };
