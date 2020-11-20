@@ -17,8 +17,8 @@ const Introduce = () => {
             </Box>
             <Box className={classes.boxBody}>
                 {
-                    data.map(Data =>(
-                        <Box className={classes.boxChild}>
+                    data.map((Data,index) =>(
+                        <Box key={"intro"+index} className={classes.boxChild}>
                             <Box className={classes.boxQrcode}>
                                 <Box className={classes.boxQr} style={{backgroundImage: `url(${Data.src})`}}>
 

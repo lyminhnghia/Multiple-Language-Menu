@@ -11,6 +11,7 @@ import TranslateIcon from '@material-ui/icons/Translate';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import CategoryBox from "./Components/category"
 import OderList from "./Components/orderList"
+import TranferLang from "./Components/tranferLang"
 const CategoriesCus = () =>{
     const classes = useStyles();
     const { t: getLabel } = useTranslation();
@@ -28,21 +29,10 @@ const CategoriesCus = () =>{
         <Box className={classes.boxBorder}>
             <Box className={classes.boxHeader}>
                 <Box className={classes.boxTitle}>
-                    <IconButton
-                        className={classes.IconButton}
-                        // onClick={() => onOpenSidebar()}
-                        >
-                        {<TranslateIcon />}
-                    </IconButton>
+                    <TranferLang/>
                     <Box className={classes.boxContent}>
                         {element.menuuu}
                     </Box>
-                    {/* <IconButton
-                        className={classes.IconButton}
-                        // onClick={() => onOpenSidebar()}
-                        >
-                        {<ShoppingCartIcon />}
-                    </IconButton> */}
                     <OderList/>
                 </Box>
                 <Box className={classes.boxMenu}>
