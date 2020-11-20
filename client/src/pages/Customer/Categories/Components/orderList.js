@@ -13,6 +13,8 @@ import ClearIcon from '@material-ui/icons/Clear';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ButtonBox from "../../../../components/buttonBox"
+import InputText from "../../../../components/inputText"
 const OderList = () => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
@@ -78,6 +80,44 @@ const OderList = () => {
                 </IconButton>    
                 </Box>           
                 <Box className={classes.boxBody}>
+                    <Box className={classes.boxInfor}>
+                        <Box style={{
+                            fontWeight: 500,
+                            borderBottom: "1px solid rgb(0 0 0 / 0.2)",
+                            height: "40px",
+                            lineHeight: "35px"
+                        }}>
+                            Thông tin người đặt
+                        </Box>
+                        <InputText
+                            nameLabel="Tên người đặt"
+                            typeInput="text"
+                            requiredInput={true}
+                            nameText="name"
+                            // onInput={(e) => onChange(e)}
+                        />
+                        <InputText
+                            nameLabel="Số điện thoại"
+                            typeInput="number"
+                            requiredInput={true}
+                            nameText="name"
+                            // onInput={(e) => onChange(e)}
+                        />
+                        <InputText
+                            nameLabel="Địa chỉ"
+                            typeInput="text"
+                            requiredInput={true}
+                            nameText="name"
+                            // onInput={(e) => onChange(e)}
+                        />
+                        <InputText
+                            nameLabel="Ghi chú"
+                            typeInput="text"
+                            requiredInput={false}
+                            nameText="name"
+                            // onInput={(e) => onChange(e)}
+                        />
+                    </Box>
                     {
                         listItems.map((data,index) =>(
                             <Box className={classes.boxContent} key={"b"+index}>
@@ -112,10 +152,17 @@ const OderList = () => {
                         ))
                     }
                 </Box>
-                <Box className={classes.boxFooter}>
-                    <Box style={{fontWeight: "500"}} >{element.total}</Box>
-                    <Box className={classes.boxDataTotal} style={{border: "1px solid #ffffff",}} >{totalItems}</Box>
-                    <Box className={classes.boxDataPrice} >{totalPrice}</Box>
+                <Box className={classes.boxFooter}>                   
+                    <Box className={classes.boxFooterTitl}>
+                        <Box style={{fontWeight: "500"}} >{element.total}</Box>
+                        <Box className={classes.boxDataTotal} style={{border: "1px solid #ffffff",}} >{totalItems}</Box>
+                        <Box className={classes.boxDataPrice} >{totalPrice}</Box>
+                    </Box>
+                    <Box className={classes.boxButton}>
+                        <ButtonBox
+                            nameButton="dat hang"
+                        />
+                    </Box>
                 </Box>          
             </Box>
         </Dialog>
@@ -186,7 +233,8 @@ const useStyles = makeStyles({
         // margin: "0 auto",
         width: "100%",
         height: "400px",
-        overflow: "auto"
+        overflow: "auto",
+        paddingBottom: "65px",
     },
     boxContent: {
         width: "96%",
@@ -228,17 +276,24 @@ const useStyles = makeStyles({
         // textAlign: "end",
     },
     boxFooter: {
+        boxShadow:" 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 6px 0 rgba(0,0,0,.19)",
+        width: "100%",
+        display: "flex",
+        flexWrap: "wrap",
+        position: "fixed",
+        bottom: "0",
+        justifyContent: "space-around",
+    },
+    boxFooterTitl: {
         width: "100%",
         height: "50px",
-        backgroundColor: "#305C8B",
+        backgroundColor: "#ffffff",
         display: "flex",
         flexWrap: "wrap",
         alignItems: "center",
         padding: "0px 2%",
-        position: "fixed",
-        bottom: "0",
-        color: "#ffffff",
         justifyContent: "space-around",
+        
     },
     boxIconButton: {
         padding: "5px",
@@ -254,6 +309,22 @@ const useStyles = makeStyles({
             backgroundColor: "#ff4d4d",
             color: "white",
         }
+    },
+    boxButton: {
+        width: "calc(100% - 40px)",
+        margin: "19px 20px",
+        height: "45px",
+        "& .MuiButton-text":{
+            borderRadius: "2px",
+        }
+    },
+    boxInfor: {
+        width: "96%",
+        margin: "0 auto",
+        marginTop: "7px",
+        marginBottom: "7px",
+        padding: "10px 5px",
+        boxShadow:" 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 6px 0 rgba(0,0,0,.19)",
     },
 });
 export default memo(OderList);
