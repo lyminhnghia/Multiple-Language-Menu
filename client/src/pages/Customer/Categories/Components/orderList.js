@@ -72,7 +72,7 @@ const OderList = () => {
                 <Box >Order List</Box>
                     {/* Order List */}
                     <IconButton 
-                    // onClick={e=>removeItem(index)}
+                    onClick={e=>setOpen(false)}
                 >
                     <ClearIcon/>
                 </IconButton>    
@@ -162,6 +162,8 @@ const useStyles = makeStyles({
         bottom: "0",
         backgroundColor: "#ffffff",
         color: "#000000",
+        left: "0",
+        right: "0",
     },
     boxHeader: {
         width: "100%",
