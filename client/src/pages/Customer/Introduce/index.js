@@ -41,30 +41,30 @@ const Introduce = () => {
 const data = [
   {
     id: "id",
-    name: "nameCategory",
-    description: "descriptionCategory",
-    number: "453456456",
-    address: "e3 Đại học công nghệ",
+    name: "Manwah",
+    description: "Nhà hàng buffet lẩu thịt",
+    number: "091328283",
+    address: "Số 16 Dương Đình Nghệ",
     src:
-      "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.0-9/20915161_840158542807659_2727648821536183204_n.jpg?_nc_cat=105&ccb=2&_nc_sid=a4a2d7&_nc_ohc=6HS9dxLoGAcAX8i6Z6d&_nc_ht=scontent.fhan4-1.fna&oh=1ea4d7872a8d2f46de23706a5f0951d3&oe=5FD58EA5",
+      "https://i.ibb.co/Gsrvfwy/qr-code-bc94057f452f4806af70fd34540f72ad.png",
   },
   {
     id: "id",
-    name: "nameCategory",
-    description: "descriptionCategory",
-    number: "456456456",
-    address: "e3 Đại học công nghệ",
+    name: "Gogi house",
+    description: "Nhà hàng buffet nướng",
+    number: "091328283",
+    address: "Vincom Nguyễn Chí Thanh - Hà Nội",
     src:
-      "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.0-9/20915161_840158542807659_2727648821536183204_n.jpg?_nc_cat=105&ccb=2&_nc_sid=a4a2d7&_nc_ohc=6HS9dxLoGAcAX8i6Z6d&_nc_ht=scontent.fhan4-1.fna&oh=1ea4d7872a8d2f46de23706a5f0951d3&oe=5FD58EA5",
+      "https://i.ibb.co/Gsrvfwy/qr-code-bc94057f452f4806af70fd34540f72ad.png",
   },
   {
     id: "id",
-    name: "nameCategory",
-    description: "descriptionCategory",
-    number: "78978943",
-    address: "e3 Đại học công nghệ",
+    name: "Nhất nướng",
+    description: "Buffet nướng bình dân",
+    number: "05237623323",
+    address: "Số 23 Hồ Tùng Mậu - Cầu Giấy - Hà Nội",
     src:
-      "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.0-9/20915161_840158542807659_2727648821536183204_n.jpg?_nc_cat=105&ccb=2&_nc_sid=a4a2d7&_nc_ohc=6HS9dxLoGAcAX8i6Z6d&_nc_ht=scontent.fhan4-1.fna&oh=1ea4d7872a8d2f46de23706a5f0951d3&oe=5FD58EA5",
+      "https://i.ibb.co/Gsrvfwy/qr-code-bc94057f452f4806af70fd34540f72ad.png",
   },
 ];
 
