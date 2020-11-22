@@ -9,6 +9,7 @@ export default {
   TXT_OWNER: "Chủ sở hữu",
   TXT_ADDRESS: "Địa chỉ",
   TXT_STAFF_NAME: "Tên nhân viên",
+  TXT_OWNER_NAME: "Tên chủ sở hữu",
   TXT_TELEPHONE: "Số điện thoại",
   TXT_CONTRACT_PERIOD: "Thời hạn hợp đồng",
   TXT_STATUS: "Trạng thái",
