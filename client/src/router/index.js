@@ -26,6 +26,7 @@ import {
   OrderHistory,
   OrderList,
   CategoriesCus,
+  Introduce
 } from "../pages/Customer"
 
 function AuthenticationRoute(props) {
@@ -123,6 +124,11 @@ const Routes = () => {
         component={CategoriesCus}
         exact
         path={PathConstant.CUSTOMER_CATEGORIES}
+      />
+      <Route
+        component={Introduce}
+        exact
+        path={PathConstant.ROOT}
       />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       <Redirect to={PathConstant.NOT_FOUND} />

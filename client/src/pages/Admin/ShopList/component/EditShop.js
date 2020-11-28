@@ -96,7 +96,7 @@ const EditShop = (props) => {
                 onInput={(e) => onChange(e)}
               />
               <InputText
-                nameLabel={getLabel(LangConstant.TXT_STAFF_NAME)}
+                nameLabel={getLabel(LangConstant.TXT_OWNER_NAME)}
                 typeInput="text"
                 requiredInput={true}
                 nameText="staff_name"

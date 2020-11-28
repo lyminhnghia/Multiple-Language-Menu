@@ -26,7 +26,7 @@ const ContractInformation = () => {
   }, [contract]);
 
   const rows = [
-    { name: "Tên cửa hàng", value: "Fastfood" },
+    { name: "Tên nhà hàng", value: "Fastfood" },
     { name: "Thời gian hết hạn", value: "20-5-2020" },
     { name: "Tài khoản", value: "215100002313213" },
     { name: "Tên công ty", value: "Công ty UET" },
