@@ -12,6 +12,7 @@ import {
   ArrowForward,
   ArrowBack,
   Menu,
+  Close,
   SettingsOutlined,
   DateRangeOutlined,
 } from "@material-ui/icons";
@@ -24,12 +25,12 @@ import { useLocation } from "react-router-dom";
 const Sidebar = (props) => {
   const location = useLocation();
   const classes = useStyles();
-  const { isTop } = props;
-  const [isSidebar, setIsSidebar] = useState(false);
+  const { isSidebar, setIsSidebar } = props;
   const [isHover, setIsHover] = useState(false);
   const checkDefault = [PathConstant.MANAGE_BOOKS];
+
   const SIDEBAR_DEFAULT_PATHS = {
-    books: {
+    sidebar: {
       id: "books",
       IconComponent: <DateRangeOutlined />,
       text: "Đặt chỗ",
@@ -37,18 +38,10 @@ const Sidebar = (props) => {
       allPath: [PathConstant.CUSTOMER_CATEGORY],
       isNewTab: false,
     },
-    news: {
-      id: "news",
-      IconComponent: <SettingsOutlined />,
-      text: "Quản lý",
-      path: PathConstant.CUSTOMER_CATEGORY,
-      isNewTab: false,
-      allPath: [PathConstant.CUSTOMER_CATEGORY],
-    },
   };
 
   const [openChild, setOpenChild] = useState({
-    books: SIDEBAR_DEFAULT_PATHS.books.allPath.includes(location.pathname),
+    books: SIDEBAR_DEFAULT_PATHS.sidebar.allPath.includes(location.pathname),
   });
 
   const onClick = (id) => {
@@ -65,69 +58,21 @@ const Sidebar = (props) => {
     setIsHover(true);
   };
 
-  useEffect(() => {
-    if (isSidebar) {
-      if (Boolean(sidebarTimeout)) {
-        clearSidebarTimeout();
-      }
-      sidebarTimeout = setTimeout(() => {
-        setIsSidebar(false);
-      }, SIDEBAR_TIMEOUT);
-    }
-  }, [isSidebar, setIsSidebar]);
-
   const renderBar = (sideBarElements) => {
     return (
       <List className={classes.list}>
-        {Object.keys(sideBarElements).map((key) => {
-          return !sideBarElements[key].children ? (
-            <SidebarItem
-              item={sideBarElements[key]}
-              isSelected={sideBarElements[key].path === location.pathname}
-              key={uuid()}
-              openChild={null}
-            />
-          ) : (
-            <React.Fragment key={uuid()}>
-              <div onClick={() => onClick(key)}>
-                <SidebarItem
-                  item={sideBarElements[key]}
-                  id={key}
-                  isSelected={
-                    sideBarElements[key].path === location.pathname ||
-                    (sideBarElements[key].allPath &&
-                      sideBarElements[key].allPath.includes(location.pathname))
-                  }
-                  key={uuid()}
-                  openChild={
-                    sideBarElements[key].allPath.length > 1
-                      ? openChild[key]
-                      : null
-                  }
-                />
-              </div>
-              {isSidebar === true ? (
-                <Collapse
-                  in={openChild[key]}
-                  timeout="auto"
-                  key={uuid()}
-                  unmountOnExit
-                >
-                  {sideBarElements[key].children.map((child) => (
-                    <SidebarItem
-                      item={child}
-                      key={uuid()}
-                      openChild={null}
-                      isSubItem={child.path.includes(location.pathname)}
-                    />
-                  ))}
-                </Collapse>
-              ) : (
-                ""
-              )}
-            </React.Fragment>
-          );
-        })}
+        <div onClick={() => onClick(0)}>
+          <SidebarItem
+            item={sideBarElements}
+            id={0}
+            // isSelected={
+            //   sideBarElements[0].path === location.pathname ||
+            //   (sideBarElements[0].allPath &&
+            //     sideBarElements[0].allPath.includes(location.pathname))
+            // }
+            key={uuid()}
+          />
+        </div>
       </List>
     );
   };
@@ -141,35 +86,23 @@ const Sidebar = (props) => {
       square
     >
       <ListItem className={`center-root ${classes.sidebarAction}`} key={uuid()}>
-        {isSidebar && <Box flexGrow={1} />}
-
         <IconButton
-          edge={isSidebar ? "end" : "start"}
           onClick={() => setIsSidebar(!isSidebar)}
           onMouseEnter={handleEnter}
           onMouseLeave={() => setIsHover(false)}
+          className={classes.iconButtonClose}
         >
-          {isHover ? isSidebar ? <ArrowBack /> : <ArrowForward /> : <Menu />}
+          <Close className={classes.iconClose} />
         </IconButton>
       </ListItem>
       {checkDefault.includes(location.pathname) &&
-        renderBar(SIDEBAR_DEFAULT_PATHS)}
+        renderBar(SIDEBAR_DEFAULT_PATHS.sidebar)}
     </Paper>
   );
 };
 
-Sidebar.propTypes = {};
-Sidebar.defaultProps = {};
-
-var sidebarTimeout = null;
-const clearSidebarTimeout = () => {
-  clearTimeout(sidebarTimeout);
-  sidebarTimeout = null;
-};
-
-export const SIDEBAR_WIDTH_OPEN = 240;
-export const SIDEBAR_WIDTH_CLOSE = 64;
-export const SIDEBAR_TIMEOUT = 50000;
+export const SIDEBAR_WIDTH_OPEN = 190;
+export const SIDEBAR_WIDTH_CLOSE = 0;
 
 const useStyles = makeStyles((theme) => ({
   sidebar: {
@@ -177,10 +110,15 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     flexShrink: 0,
     whiteSpace: "nowrap",
-    overflow: "auto",
   },
   sidebarOpen: {
     width: SIDEBAR_WIDTH_OPEN,
+    height: "100%",
+    position: "fixed",
+    zIndex: 1,
+    top: 0,
+    left: 0,
+    overflowX: "hidden",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -194,15 +132,21 @@ const useStyles = makeStyles((theme) => ({
     overflowX: "hidden",
     width: SIDEBAR_WIDTH_CLOSE,
   },
-  sidebarAction: { minHeight: "60px", padding: "0 20px", marginBottom: "-7px" },
-  list: { padding: 0 },
+  sidebarAction: {
+    height: 48,
+    minHeight: 48,
+    padding: 0,
+  },
+  list: {
+    padding: 0,
+  },
+  iconButtonClose: {
+    padding: 10,
+  },
+  iconClose: { width: 28, height: 28 },
 }));
 
-Sidebar.propTypes = {
-  data: PropTypes.bool,
-};
+Sidebar.propTypes = {};
+Sidebar.defaultProps = {};
 
-Sidebar.defaultProps = {
-  isTop: false,
-};
 export default memo(Sidebar);

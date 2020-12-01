@@ -7,14 +7,12 @@ import {
   ListItemIcon,
   Typography,
 } from "@material-ui/core";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 
 const SidebarItem = ({
   item: { IconComponent, text, path, isNewTab },
   isSelected,
   isSubItem,
-  openChild,
 }) => {
   const classes = useStyles();
   const history = useHistory();
@@ -45,7 +43,6 @@ const SidebarItem = ({
         }
         className={classes.itemText}
       />
-      {openChild === null ? "" : openChild ? <ExpandLess /> : <ExpandMore />}
     </ListItem>
   );
 };
