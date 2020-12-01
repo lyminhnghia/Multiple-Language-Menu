@@ -1,13 +1,13 @@
 import LoginAdminPage from "./Login";
-import ShopListAdmin from "./ShopList";
-import ShopRegisterAdmin from "./ShopRegister";
+import RestaurantListAdmin from "./RestaurantList";
+import RestaurantRegisterAdmin from "./RestaurantRegister";
 import ProfileAdmin from "./Profile";
 import AdminNotFound from "./NotFound";
 
 export {
   LoginAdminPage,
-  ShopListAdmin,
-  ShopRegisterAdmin,
+  RestaurantListAdmin,
+  RestaurantRegisterAdmin,
   ProfileAdmin,
   AdminNotFound,
 };

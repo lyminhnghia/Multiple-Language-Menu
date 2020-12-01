@@ -7,10 +7,14 @@ import {
   Box,
 } from "@material-ui/core";
 import {
+  CropFree,
   Store,
-  AddCircle,
+  Language,
   Menu,
-  AccountBox,
+  Create,
+  AddCircle,
+  FormatListBulleted,
+  History,
   ExitToApp,
 } from "@material-ui/icons";
 import { LangConstant, PathConstant } from "../../const";
@@ -18,7 +22,7 @@ import { Sidebar } from "../../components";
 import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 
-const AdminLayout = (props) => {
+const RestaurantLayout = (props) => {
   const { children, mainClass } = props;
   const { t: getLabel } = useTranslation();
   const classes = useStyles();
@@ -31,28 +35,52 @@ const AdminLayout = (props) => {
   };
   const listSidebar = [
     {
-      text: getLabel(LangConstant.TXT_RESTAURANT_LIST),
+      text: getLabel(LangConstant.TXT_QR_CODE),
+      IconComponent: <CropFree />,
+      isNewTab: false,
+      path: PathConstant.RESTAURANT_QR_CODE,
+    },
+    {
+      text: getLabel(LangConstant.TXT_RESTAURANT_INFORMATION),
       IconComponent: <Store />,
       isNewTab: false,
-      path: PathConstant.ADMIN_RESTAURANT_LIST,
+      path: PathConstant.RESTAURANT_INFORMATION,
     },
     {
-      text: getLabel(LangConstant.TXT_REGISTER_RESTAURANT),
+      text: getLabel(LangConstant.TXT_SORT_LANGUAGE),
+      IconComponent: <Language />,
+      isNewTab: false,
+      path: PathConstant.RESTAURANT_TRANFER_LANGUAGE,
+    },
+    {
+      text: getLabel(LangConstant.TXT_ADD_CATEGORY),
       IconComponent: <AddCircle />,
       isNewTab: false,
-      path: PathConstant.ADMIN_REGISTER_RESTAURANT,
+      path: PathConstant.RESTAURANT_ADD_CATEGORY,
     },
     {
-      text: getLabel(LangConstant.TXT_PROFILE),
-      IconComponent: <AccountBox />,
+      text: getLabel(LangConstant.TXT_CATEGORY_PRODUCT),
+      IconComponent: <FormatListBulleted />,
       isNewTab: false,
-      path: PathConstant.ADMIN_PROFILE,
+      path: PathConstant.RESTAURANT_CATEGORY_TABLE,
+    },
+    {
+      text: getLabel(LangConstant.TXT_CONTRACT_INFO),
+      IconComponent: <Create />,
+      isNewTab: false,
+      path: PathConstant.RESTAURANT_CONTRACT,
+    },
+    {
+      text: getLabel(LangConstant.TXT_ORDER_HISTORY),
+      IconComponent: <History />,
+      isNewTab: false,
+      path: PathConstant.RESTAURANT_ORDER_HISTORY,
     },
     {
       text: getLabel(LangConstant.TXT_LOGOUT),
       IconComponent: <ExitToApp />,
       isNewTab: false,
-      path: PathConstant.LOGIN_ADMIN,
+      path: PathConstant.LOGIN_RESTAURANT,
     },
   ];
   return (
@@ -96,13 +124,13 @@ const useStyles = makeStyles((theme) => ({
   container: {
     flexGrow: 1,
     height: "100%",
-    margin: "0 10px",
+    margin: "0 auto",
     overflow: "auto",
   },
 }));
 
-AdminLayout.propTypes = {
+RestaurantLayout.propTypes = {
   children: PropTypes.node,
 };
 
-export default memo(AdminLayout);
+export default memo(RestaurantLayout);

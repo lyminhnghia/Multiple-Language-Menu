@@ -2,20 +2,29 @@ import { ApiConstant } from "../const";
 import { createApiRegistration } from "../api";
 import { format } from "react-string-format";
 
-export const getListShopAdmin = (data) =>
-  createApiRegistration().get(ApiConstant.GET_LIST_SHOP_ADMIN, data);
+export const getListRestaurantAdmin = (data) =>
+  createApiRegistration().get(ApiConstant.GET_LIST_RESTAURANT_ADMIN, data);
 
-export const getShopAdmin = (data) =>
-  createApiRegistration().get(format(ApiConstant.SHOP_ADMIN, data.id), {});
+export const getRestaurantAdmin = (data) =>
+  createApiRegistration().get(
+    format(ApiConstant.RESTAURANT_ADMIN, data.id),
+    {}
+  );
 
-export const createShopAdmin = (data) =>
-  createApiRegistration().post(ApiConstant.CREATE_SHOP_ADMIN, data);
+export const createRestaurantAdmin = (data) =>
+  createApiRegistration().post(ApiConstant.CREATE_RESTAURANT_ADMIN, data);
 
-export const updateShopAdmin = (data) =>
-  createApiRegistration().put(format(ApiConstant.SHOP_ADMIN, data.id), data);
+export const updateRestaurantAdmin = (data) =>
+  createApiRegistration().put(
+    format(ApiConstant.RESTAURANT_ADMIN, data.id),
+    data
+  );
 
-export const deleteShopAdmin = (data) =>
-  createApiRegistration().delete(format(ApiConstant.SHOP_ADMIN, data.id), data);
+export const deleteRestaurantAdmin = (data) =>
+  createApiRegistration().delete(
+    format(ApiConstant.RESTAURANT_ADMIN, data.id),
+    data
+  );
 
 export const getProfileAdmin = (data) =>
   createApiRegistration().get(ApiConstant.PROFILE_ADMIN, data);

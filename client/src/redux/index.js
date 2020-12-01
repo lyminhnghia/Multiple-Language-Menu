@@ -3,19 +3,19 @@ import createSagaMiddleware from "redux-saga";
 import rootSaga from "../sagas";
 import * as AuthRedux from "./auth.redux";
 import * as AdminRedux from "./admin.redux";
-import * as CategoryShopRedux from "./categoryShop.redux";
-import * as ShopInfoRedux from "./shopInfo.redux";
-import * as ItemShopRedux from "./itemShop.redux";
-import * as LanguageShopRedux from "./languageShop.redux";
+import * as CategoryRestaurantRedux from "./categoryRestaurant.redux";
+import * as RestaurantInfoRedux from "./restaurantInfo.redux";
+import * as ItemRestaurantRedux from "./itemRestaurant.redux";
+import * as LanguageRestaurantRedux from "./languageRestaurant.redux";
 
 /* ------------- Assemble The Reducers ------------- */
 export const appReducer = combineReducers({
   authRedux: AuthRedux.reducer,
   adminRedux: AdminRedux.reducer,
-  categoryShopRedux: CategoryShopRedux.reducer,
-  shopInfoRedux: ShopInfoRedux.reducer,
-  itemShopRedux: ItemShopRedux.reducer,
-  languageShopRedux: LanguageShopRedux.reducer,
+  categoryRestaurantRedux: CategoryRestaurantRedux.reducer,
+  restaurantInfoRedux: RestaurantInfoRedux.reducer,
+  itemRestaurantRedux: ItemRestaurantRedux.reducer,
+  languageRestaurantRedux: LanguageRestaurantRedux.reducer,
 });
 
 export const rootReducer = (state, action) => {

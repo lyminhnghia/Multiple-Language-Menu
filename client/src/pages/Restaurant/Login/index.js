@@ -7,11 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { BoxButton, InputText } from "../../../components";
 
-const LoginAdminPage = () => {
+const LoginRestaurantPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { t: getLabel } = useTranslation();
-  const isLogin = useSelector((state) => state.authRedux.isLogin);
+  const isLogin = useSelector((state) => state.authRedux.isLoginRestaurant);
   const [data, setData] = useState({});
 
   const onChange = (event) => {
@@ -19,14 +19,14 @@ const LoginAdminPage = () => {
   };
 
   const onLogin = () => {
-    dispatch(AuthAction.requestLogin(data));
+    dispatch(AuthAction.requestLoginRestaurant(data));
   };
 
   if (isLogin) {
     return (
       <Redirect
         to={{
-          pathname: PathConstant.ADMIN_RESTAURANT_LIST,
+          pathname: PathConstant.RESTAURANT_TRANFER_LANGUAGE,
         }}
       />
     );
@@ -36,7 +36,7 @@ const LoginAdminPage = () => {
     <Box className={classes.boxParent}>
       <Box className={classes.box1}>
         <Box className={classes.box2}>
-          <h1 className={classes.h1}>Admin Page</h1>
+          <h1 className={classes.h1}>Restaurant Page</h1>
         </Box>
         <Box className={classes.box3}>
           <form>
@@ -111,4 +111,4 @@ const useStyles = makeStyles({
   },
 });
 
-export default memo(LoginAdminPage);
+export default memo(LoginRestaurantPage);

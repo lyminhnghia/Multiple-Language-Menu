@@ -4,23 +4,23 @@ import { PathConstant } from "../const";
 import PropTypes from "prop-types";
 import {
   LoginAdminPage,
-  ShopListAdmin,
-  ShopRegisterAdmin,
+  RestaurantListAdmin,
+  RestaurantRegisterAdmin,
   ProfileAdmin,
   AdminNotFound,
 } from "../pages/Admin";
 import DashboardPage from "../pages/Dashboard";
 import NotFoundPage from "../pages/NotFound";
 import {
-  LoginShop,
-  ShopAddCategory,
+  LoginRestaurant,
+  RestaurantAddCategory,
   CategoryTable,
   TranferLanguage,
   ContractInformation,
-  QRCodeShop,
-  ShopInformation,
-  OrderHistoryShop,
-} from "../pages/Shop";
+  QRCodeRestaurant,
+  RestaurantInformation,
+  OrderHistoryRestaurant,
+} from "../pages/Restaurant";
 
 import { Introduce, Category } from "../pages/Customer";
 
@@ -28,7 +28,7 @@ function AuthenticationRoute(props) {
   const { component: Component, ...rest } = props;
   // Check authentication with the page need to be protected
   const isCheckedAdmin = window.isCheckedAdmin;
-  const isCheckedShop = window.isCheckedShop;
+  const isCheckedRestaurant = window.isCheckedRestaurant;
 
   return isCheckedAdmin ? (
     <Route {...rest} render={(matchProps) => <Component {...matchProps} />} />
@@ -55,15 +55,15 @@ const Routes = () => {
       {/* <Redirect exact from={PathConstant.ROOT} to={PathConstant.DASHBOARD} /> */}
       {/* <AuthenticationRoute component={DashboardPage} exact path={PathConstant.DASHBOARD} /> */}
       <Route
-        component={ShopListAdmin}
+        component={RestaurantListAdmin}
         exact
-        path={PathConstant.ADMIN_SHOP_LIST}
+        path={PathConstant.ADMIN_RESTAURANT_LIST}
       />
       <Route component={LoginAdminPage} exact path={PathConstant.LOGIN_ADMIN} />
       <Route
-        component={ShopRegisterAdmin}
+        component={RestaurantRegisterAdmin}
         exact
-        path={PathConstant.ADMIN_REGISTER_SHOP}
+        path={PathConstant.ADMIN_REGISTER_RESTAURANT}
       />
       <Route component={ProfileAdmin} exact path={PathConstant.ADMIN_PROFILE} />
       <Route
@@ -73,37 +73,45 @@ const Routes = () => {
       />
       {/* <Redirect to={PathConstant.ADMIN_NOT_FOUND} /> */}
 
-      <Route component={LoginShop} exact path={PathConstant.LOGIN_SHOP} />
       <Route
-        component={ShopAddCategory}
+        component={LoginRestaurant}
         exact
-        path={PathConstant.SHOP_ADD_CATEGORY}
+        path={PathConstant.LOGIN_RESTAURANT}
+      />
+      <Route
+        component={RestaurantAddCategory}
+        exact
+        path={PathConstant.RESTAURANT_ADD_CATEGORY}
       />
       <Route
         component={CategoryTable}
         exact
-        path={PathConstant.SHOP_CATEGORY_TABLE}
+        path={PathConstant.RESTAURANT_CATEGORY_TABLE}
       />
       <Route
         component={TranferLanguage}
         exact
-        path={PathConstant.SHOP_TRANFER_LANGUAGE}
+        path={PathConstant.RESTAURANT_TRANFER_LANGUAGE}
       />
       <Route
         component={ContractInformation}
         exact
-        path={PathConstant.SHOP_CONTRACT}
-      />
-      <Route component={QRCodeShop} exact path={PathConstant.SHOP_QR_CODE} />
-      <Route
-        component={ShopInformation}
-        exact
-        path={PathConstant.SHOP_INFORMATION}
+        path={PathConstant.RESTAURANT_CONTRACT}
       />
       <Route
-        component={OrderHistoryShop}
+        component={QRCodeRestaurant}
         exact
-        path={PathConstant.SHOP_ORDER_HISTORY}
+        path={PathConstant.RESTAURANT_QR_CODE}
+      />
+      <Route
+        component={RestaurantInformation}
+        exact
+        path={PathConstant.RESTAURANT_INFORMATION}
+      />
+      <Route
+        component={OrderHistoryRestaurant}
+        exact
+        path={PathConstant.RESTAURANT_ORDER_HISTORY}
       />
 
       {/* Customer */}

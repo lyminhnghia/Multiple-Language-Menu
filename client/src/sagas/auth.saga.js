@@ -27,10 +27,10 @@ export function* requestLogin(action) {
   }
 }
 
-export function* requestLoginShop(action) {
+export function* requestLoginRestaurant(action) {
   try {
     const { data } = action;
-    let response = yield call(AuthService.loginShop, data);
+    let response = yield call(AuthService.loginRestaurant, data);
     if (response.status == ApiConstant.STT_OK) {
       let responseData = response.data.data;
       Cookie.set(AppConstant.KEY_TOKEN, responseData.token, {
@@ -40,13 +40,15 @@ export function* requestLoginShop(action) {
         expires: AppConstant.EXPIRES_TOKEN,
       });
       if (!responseData.role) {
-        yield put(AuthAction.loginShopSuccess({ isLoginShop: true }));
+        yield put(
+          AuthAction.loginRestaurantSuccess({ isLoginRestaurant: true })
+        );
       }
     } else {
-      yield put(AuthAction.loginShopFailure(response.data.error));
+      yield put(AuthAction.loginRestaurantFailure(response.data.error));
     }
   } catch (error) {
-    yield put(AuthAction.loginShopFailure(error));
+    yield put(AuthAction.loginRestaurantFailure(error));
   }
 }
 
