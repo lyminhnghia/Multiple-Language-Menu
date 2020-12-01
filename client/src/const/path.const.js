@@ -19,6 +19,6 @@ export const SHOP_TRANFER_LANGUAGE = "/shop/tranfer-language";
 export const SHOP_CONTRACT = "/shop/contract-info";
 export const SHOP_ORDER_HISTORY = "/shop/order-history";
 // Consumer
-export const CUSTOMER_ORDER_HISTORY = "/oder-history";
-export const CUSTOMER_ORDER_LIST = "/order-list";
-export const CUSTOMER_CATEGORIES = "/Categories";
+export const CUSTOMER_CATEGORY = "/{id}/categories";
+export const CUSTOMER_LANGUAGE = "/{id}/languages";
+export const CUSTOMER_INFO = "/{id}/info";

@@ -81,7 +81,7 @@ const CategoryTable = () => {
               <TableCell />
               <TableCell>{getLabel(LangConstant.TXT_NAME_CATEGORY)}</TableCell>
               <TableCell align="center">
-                {getLabel(LangConstant.TXT_AMOUNT_ITEAM)}
+                {getLabel(LangConstant.TXT_AMOUNT_ITEM)}
               </TableCell>
               <TableCell align="right">
                 {getLabel(LangConstant.TXT_DESCRIPTION_CATEGORY)}

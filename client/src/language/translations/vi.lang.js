@@ -48,7 +48,7 @@ export default {
   TXT_FROM: "Từ:",
   TXT_TO: "Đến:",
   TXT_NAME_CATEGORY: "Tên danh mục",
-  TXT_AMOUNT_ITEAM: "Số lượng",
+  TXT_AMOUNT_ITEM: "Số lượng",
   TXT_DESCRIPTION_CATEGORY: "Mô tả danh mục",
   TXT_EDIT: "Chỉnh sửa",
   TXT_IMAGE: "Ảnh",
@@ -85,6 +85,13 @@ export default {
   TXT_SHOP_ADMIN: "Quản lý nhà hàng",
   TXT_CREATE_SUCCESS: "Tạo thành công!",
   TXT_CREATE_FAILED: "Tạo không thành công!",
+  TXT_TABLE: "Bàn",
+  TXT_TIME_BOOKS: "Thời gian đặt",
+  TXT_NAME_ITEM: "Tên sản phẩm",
+  TXT_PENDING: "Chờ xử lý",
+  TXT_DOING: "Đang làm",
+  TXT_SUCCESS: "Hoàn thành",
+  TXT_CANCEL: "Hủy món",
 
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,

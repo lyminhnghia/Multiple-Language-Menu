@@ -1,24 +1,16 @@
 import React, { memo, useState } from "react";
+import PropTypes from "prop-types";
 import {
   makeStyles,
-  useTheme,
-  useMediaQuery,
-  IconButton,
   Box,
+  useMediaQuery,
+  useTheme,
+  IconButton,
 } from "@material-ui/core";
-import {
-  Menu,
-} from "@material-ui/icons";
-import { LangConstant, PathConstant } from "../../const";
-import TranslateIcon from '@material-ui/icons/Translate';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { Sidebar } from "../../components";
-import { useTranslation } from "react-i18next";
-import PropTypes from "prop-types";
+import { Menu, ShoppingCart } from "@material-ui/icons";
+import { SideBar } from "./components";
 
-const CustomerLayout = (props) => {
-  const { children, mainClass } = props;
-  const { t: getLabel } = useTranslation();
+const CustomerLayout = ({ mainClass, children }) => {
   const classes = useStyles();
   const isBreakPoint = useMediaQuery(useTheme().breakpoints.up("md"), {
     defaultMatches: true,
@@ -27,78 +19,68 @@ const CustomerLayout = (props) => {
   const onOpenSidebar = () => {
     setIsBar(!isBar);
   };
+
   return (
-    <div>
-      {!isBreakPoint && (
-        <Box className={classes.boxHeader}>
-            <IconButton
-                className={classes.IconButton}
-                onClick={() => onOpenSidebar()}
-                >
-                {<TranslateIcon />}
-            </IconButton>
-            <Box className={classes.boxContent}>
-                {element.menuuu}
-            </Box>
-            <IconButton
-                className={classes.IconButton}
-                onClick={() => onOpenSidebar()}
-                >
-                {<ShoppingCartIcon />}
-            </IconButton>
-        </Box>
-        
-      )}
-
+    <>
       <main className={classes.main}>
-        {/* {isBreakPoint ? (
-          <Sidebar listSidebar={listSidebar} children={children} />
-        ) : (
-          isBar && (
-            <Sidebar
-              listSidebar={listSidebar}
-              children={children}
-              isTop={true}
-            />
-          )
-        )} */}
-
-        <Box className={`${classes.container} ${mainClass}`}>{children}</Box>
+        <SideBar />
+        <Box className={`${classes.container} ${mainClass}`}>
+          {!isBreakPoint && (
+            <Box className={classes.boxHeader}>
+              <IconButton
+                className={classes.IconButton}
+                onClick={() => onOpenSidebar()}
+              >
+                {<Menu />}
+              </IconButton>
+              <Box className={classes.boxContent}>menuuu</Box>
+              <IconButton
+                className={classes.IconButton}
+                // onClick={() => onOpenSidebar()}
+              >
+                {<ShoppingCart />}
+              </IconButton>
+            </Box>
+          )}
+          {children}
+        </Box>
       </main>
-    </div>
+    </>
   );
 };
 
-export const CONTAINER_SPACE = 10;
-const element = {
-    menuuu: "Thực đơn",
-}
-const useStyles = makeStyles((theme) => ({
-    main: {
-        display: "flex",
-        height: `calc(100vh - ${CONTAINER_SPACE}px)`,
-        padding: 0,
-    },
-    container: {
-        flexGrow: 1,
-        width: "100%",
-        // height: "100%",
-        // margin: "0 auto",
-        // overflow: "auto",
-    },
-    boxHeader: {
-        display: "flex",
-        justifyContent: "space-between",
-    },
-    boxContent: {
-        fontSize: "18px",
-        lineHeight: "48px",
-        fontWeight: "500"
-    }
-}));
-
 CustomerLayout.propTypes = {
   children: PropTypes.node,
+  mainClass: PropTypes.string,
 };
+
+CustomerLayout.defaultProps = {};
+
+export const CONTAINER_SPACE = 10;
+
+const useStyles = makeStyles((theme) => ({
+  main: {
+    height: `calc(100vh - ${CONTAINER_SPACE}px)`,
+    padding: 0,
+    display: "flex",
+  },
+  container: {
+    flexGrow: 1,
+    height: "100%",
+    margin: "0 10px",
+    overflow: "auto",
+  },
+  boxHeader: {
+    height: 50,
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  boxContent: {
+    fontSize: "18px",
+    lineHeight: "48px",
+    fontWeight: "500",
+  },
+}));
 
 export default memo(CustomerLayout);

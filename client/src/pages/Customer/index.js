@@ -1,10 +1,3 @@
-import OrderHistory from "./OrderHistory"
-import OrderList from "./OderList"
-import CategoriesCus from "./Categories"
-import Introduce from "./Introduce"
-export{
-    OrderHistory,
-    OrderList,
-    CategoriesCus,
-    Introduce
-}
+import Introduce from "./Introduce";
+import Category from "./Category";
+export { Introduce, Category };
