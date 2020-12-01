@@ -8,29 +8,29 @@ const googleTranslate = new Translate({
 const language = require("../configs/language");
 const db = require("../models/index");
 const Account = db.account;
-const Shop = db.shop;
+const Restaurant = db.restaurant;
 const Address = db.address;
 const Category = db.category;
 const Item = db.item;
 const AddressLanguage = db.address_language;
-const ShopInfo = db.shop_information;
+const RestaurantInfo = db.restaurant_information;
 const CategoryLanguage = db.category_language;
 const ItemLanguage = db.item_language;
 
 exports.UpdateState = async () => {
   try {
-    let shops = await Shop.findAll({
+    let restaurants = await Restaurant.findAll({
       attributes: ["id", "end_contract"],
     });
-    for (let i = 0; i < shops.length; i++) {
-      if (Date.now() / 1000 > shops[i].end_contract) {
+    for (let i = 0; i < restaurants.length; i++) {
+      if (Date.now() / 1000 > restaurants[i].end_contract) {
         Account.update(
           {
             state: 3,
           },
           {
             where: {
-              shopId: shops[i].id,
+              restaurantId: restaurants[i].id,
             },
           }
         );
@@ -41,57 +41,57 @@ exports.UpdateState = async () => {
   }
 };
 
-exports.ShopInfoSchedule = async () => {
+exports.RestaurantInfoSchedule = async () => {
   try {
-    let shops = await Shop.findAll({
+    let shorestaurants = await Restaurant.findAll({
       where: {
         status_change: true,
       },
     });
-    for (let i = 0; i < shops.length; i++) {
+    for (let i = 0; i < restaurants.length; i++) {
       for (let j = 1; j < 30; j++) {
-        let shopInfos = await ShopInfo.findOne({
+        let restaurantInfos = await RestaurantInfo.findOne({
           where: {
             languageId: j,
-            shopId: shops[i].id,
+            restaurantId: restaurants[i].id,
           },
         });
-        let [newShopType] = await googleTranslate.translate(
-          shops[i].shop_type,
+        let [newRestaurantType] = await googleTranslate.translate(
+          restaurants[i].restaurant_type,
           language[j - 1].lang_code
         );
-        let [newShopName] = await googleTranslate.translate(
-          shops[i].shop_name,
+        let [newRestaurantName] = await googleTranslate.translate(
+          restaurants[i].shop_name,
           language[j - 1].lang_code
         );
-        if (shopInfos) {
-          ShopInfo.update(
+        if (restaurantInfos) {
+          RestaurantInfo.update(
             {
-              shop_type: newShopType,
-              shop_name: newShopName,
+              restaurant_type: newRestaurantType,
+              restaurant_name: newRestaurantName,
             },
             {
               where: {
-                id: shopInfos[i].id,
+                id: restaurantInfos[i].id,
               },
             }
           );
         } else {
-          ShopInfo.create({
-            shop_type: newShopType,
-            shop_name: newShopName,
+          RestaurantInfo.create({
+            restaurant_type: newRestaurantType,
+            restaurant_name: newRestaurantName,
             languageId: j,
-            shopId: shops[i].id,
+            restaurantId: restaurants[i].id,
           });
         }
       }
-      Shop.update(
+      Restaurant.update(
         {
           status_change: false,
         },
         {
           where: {
-            id: shops[i].id,
+            id: restaurants[i].id,
           },
         }
       );
@@ -110,15 +110,15 @@ exports.AddressSchedule = async () => {
     });
     for (let i = 0; i < addresses.length; i++) {
       for (let j = 1; j < 30; j++) {
-        let shopInfo = await ShopInfo.findOne({
+        let restaurantInfo = await RestaurantInfo.findOne({
           where: {
-            shopId: addresses[i].id,
+            restaurantId: addresses[i].id,
             languageId: j,
           },
         });
         let addressLanguage = await AddressLanguage.findOne({
           where: {
-            shopInformationId: shopInfo.id,
+            restaurantInformationId: restaurantInfo.id,
           },
         });
         let newPortNumber = addresses[i].port_number;
@@ -144,7 +144,7 @@ exports.AddressSchedule = async () => {
             },
             {
               where: {
-                shopInformationId: shopInfo.id,
+                restaurantInformationId: restaurantInfo.id,
               },
             }
           );
@@ -154,7 +154,7 @@ exports.AddressSchedule = async () => {
             city: newCity,
             address: newAddress,
             building: newBuilding,
-            shopInformationId: shopInfo.id,
+            restaurantInformationId: restaurantInfo.id,
           });
         }
       }
@@ -254,6 +254,7 @@ exports.ItemSchedule = async () => {
         );
         let newCode = items[i].code;
         let newPrice = items[i].price;
+        let newCurrencyUnit = items[i].currency_unit;
         let [newDescription] = await googleTranslate.translate(
           items[i].description,
           language[j - 1].lang_code
@@ -265,6 +266,7 @@ exports.ItemSchedule = async () => {
               name: newName,
               code: newCode,
               price: newPrice,
+              currency_unit: newCurrencyUnit,
               description: newDescription,
             },
             {
@@ -284,6 +286,7 @@ exports.ItemSchedule = async () => {
             name: newName,
             code: newCode,
             price: newPrice,
+            currency_unit: newCurrencyUnit,
             description: newDescription,
             itemId: items[i].id,
             languageId: j,

@@ -1,6 +1,6 @@
 const QRcode = require("qrcode");
 const db = require("../../models/index");
-const Shop = db.shop;
+const Restaurant = db.restaurant;
 const Account = db.account;
 const Owner = db.owner;
 const Language = db.language;
@@ -9,15 +9,15 @@ const SortLanguage = db.sort_language;
 const WorkingShift = db.working_shift;
 const Address = db.address;
 
-exports.getProfilebyShop = async (req, res) => {
+exports.getProfilebyRestaurant = async (req, res) => {
   try {
-    let shop = await Shop.findOne({
+    let restaurant = await Restaurant.findOne({
       where: {
-        id: req.shopId,
+        id: req.restaurantId,
       },
       attributes: [
-        "shop_type",
-        "shop_name",
+        "restaurant_type",
+        "restaurant_name",
         "email",
         "telephone",
         "name_wifi",
@@ -37,30 +37,32 @@ exports.getProfilebyShop = async (req, res) => {
         },
       ],
     });
-    res.status(200).send({ success: true, data: shop });
+    res.status(200).send({ success: true, data: restaurant });
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
   }
 };
 
-exports.updateProfilebyShop = async (req, res) => {
+exports.updateProfilebyRestaurant = async (req, res) => {
   try {
-    let shop = await Shop.findOne({
+    let restaurant = await Restaurant.findOne({
       where: {
-        shop_name: req.body.shop_name,
+        restaurant_name: req.body.restaurant_name,
       },
     });
-    if (shop) {
+    if (restaurant) {
       return res.status(400).send({
         success: false,
-        error: "Shop name already exist!",
+        error: "Restaurant name already exist!",
       });
     }
-    res.status(200).send({ success: true, data: "Updated shop successful!" });
-    Shop.update(
+    res
+      .status(200)
+      .send({ success: true, data: "Updated restaurant successful!" });
+    Restaurant.update(
       {
-        shop_type: req.body.shop_type,
-        shop_name: req.body.shop_name,
+        restaurant_type: req.body.restaurant_type,
+        restaurant_name: req.body.restaurant_name,
         email: req.body.email,
         telephone: req.body.telephone,
         name_wifi: req.body.name_wifi,
@@ -70,7 +72,7 @@ exports.updateProfilebyShop = async (req, res) => {
       },
       {
         where: {
-          id: req.shopId,
+          id: req.restaurantId,
         },
       }
     );
@@ -79,23 +81,23 @@ exports.updateProfilebyShop = async (req, res) => {
   }
 };
 
-exports.getContractShop = async (req, res) => {
+exports.getContractRestaurant = async (req, res) => {
   try {
-    let shop = await Shop.findOne({
+    let restaurant = await Restaurant.findOne({
       where: {
-        id: req.shopId,
+        id: req.restaurantId,
       },
     });
-    if (!shop) {
+    if (!restaurant) {
       return res
         .status(400)
-        .send({ success: false, error: "Shop does not exists!" });
+        .send({ success: false, error: "Restaurant does not exists!" });
     }
-    let contract = await Shop.findOne({
+    let contract = await Restaurant.findOne({
       where: {
-        id: req.shopId,
+        id: req.restaurantId,
       },
-      attributes: ["shop_name", "end_contract"],
+      attributes: ["restaurant_name", "end_contract"],
       include: [
         {
           model: Account,
@@ -124,7 +126,7 @@ exports.getLanguage = async (req, res) => {
     let sortLanguage = await SortLanguage.findAll({
       attributes: ["sort_order"],
       where: {
-        shopId: req.shopId,
+        restaurantId: req.restaurantId,
       },
       order: [["sort_order", "ASC"]],
       include: [
@@ -159,7 +161,7 @@ exports.sortLanguage = async (req, res) => {
         {
           where: {
             languageId: sortLanguage[i].languageId,
-            shopId: req.shopId,
+            restaurantId: req.restaurantId,
           },
         }
       );
@@ -178,13 +180,13 @@ exports.createQRCode = async (req, res) => {
       async (error, url) => {
         if (!error) {
           res.status(200).send(url);
-          let qrcode = await Shop.update(
+          let qrcode = await Restaurant.update(
             {
               url_qrcode: url,
             },
             {
               where: {
-                id: req.shopId,
+                id: req.restaurantId,
               },
             }
           );
@@ -201,9 +203,9 @@ exports.createQRCode = async (req, res) => {
 
 exports.getQRCode = async (req, res) => {
   try {
-    let QRCode = await Shop.findOne({
+    let QRCode = await Restaurant.findOne({
       where: {
-        id: req.shopId,
+        id: req.restaurantId,
       },
       attributes: ["url_qrcode"],
     });

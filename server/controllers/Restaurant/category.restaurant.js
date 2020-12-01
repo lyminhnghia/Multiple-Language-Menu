@@ -7,7 +7,7 @@ exports.createCategory = async (req, res) => {
     let category = await Category.findOne({
       where: {
         name: req.body.name,
-        shopId: req.shopId,
+        restaurantId: req.restaurantId,
       },
     });
     if (category) {
@@ -19,7 +19,7 @@ exports.createCategory = async (req, res) => {
       name: req.body.name,
       description: req.body.description,
       status_change: true,
-      shopId: req.shopId,
+      restaurantId: req.restaurantId,
     });
 
     res.status(200).send({ success: true, data: newCategory });
@@ -33,7 +33,7 @@ exports.updateCategory = async (req, res) => {
     let category = await Category.findOne({
       where: {
         name: req.body.name,
-        shopId: req.shopId,
+        restaurantId: req.restaurantId,
       },
     });
     if (category && category.id != req.params.id) {
@@ -82,7 +82,7 @@ exports.getListCategory = async (req, res) => {
   try {
     let listCategory = await Category.findAll({
       where: {
-        shopId: req.shopId,
+        restaurantId: req.restaurantId,
       },
       include: [
         {
@@ -104,7 +104,7 @@ exports.deleteCategory = async (req, res) => {
     let category = await Category.findOne({
       where: {
         id: req.params.id,
-        shopId: req.shopId,
+        restaurantId: req.restaurantId,
       },
     });
     if (!category) {
@@ -115,7 +115,7 @@ exports.deleteCategory = async (req, res) => {
     await Category.destroy({
       where: {
         id: req.params.id,
-        shopId: req.shopId,
+        restaurantId: req.restaurantId,
       },
     });
     res.status(200).send({ success: true, data: "Deleted is successful!" });

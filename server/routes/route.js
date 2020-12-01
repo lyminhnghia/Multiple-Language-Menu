@@ -5,11 +5,11 @@ const path = require("path");
 module.exports = (app) => {
   const middleware = require("../middleware/middleware");
   const global = require("../controllers/global");
-  const shopAdmin = require("../controllers/Admin/shop.admin");
+  const restaurantAdmin = require("../controllers/Admin/restaurant.admin");
   const profileAdmin = require("../controllers/Admin/profile.admin");
-  const profileShop = require("../controllers/Shop/profile.shop");
-  const CategoryShop = require("../controllers/Shop/category.shop");
-  const ItemShop = require("../controllers/Shop/item.shop");
+  const profileRestaurant = require("../controllers/Restaurant/profile.restaurant");
+  const categoryRestaurant = require("../controllers/Restaurant/category.restaurant");
+  const itemRestaurant = require("../controllers/Restaurant/item.restaurant");
   const limiter = rateLimit({
     windowMs: 15 * 1000,
     max: 15,
@@ -24,141 +24,145 @@ module.exports = (app) => {
     [middleware.verifyTokenAdmin, middleware.checkPasswordEdit],
     global.editPassword
   );
-  // Create shop
+  // Create restaurant
   app.post(
-    "/api/admin/create-shop",
+    "/api/admin/create-restaurant",
     limiter,
-    [middleware.verifyTokenAdmin, middleware.checkCreateShop],
-    shopAdmin.createShop
+    [middleware.verifyTokenAdmin, middleware.checkCreateRestaurant],
+    restaurantAdmin.createRestaurant
   );
-  // Update shop
+  // Update restaurant
   app.put(
-    "/api/admin/shop/:id",
+    "/api/admin/restaurant/:id",
     limiter,
-    [middleware.verifyTokenAdmin, middleware.checkUpdateShop],
-    shopAdmin.editShop
+    [middleware.verifyTokenAdmin, middleware.checkUpdateRestaurant],
+    restaurantAdmin.editRestaurant
   );
-  // Get list shop
+  // Get list restaurant
   app.get(
-    "/api/admin/shop",
+    "/api/admin/restaurant",
     [middleware.verifyTokenAdmin],
-    shopAdmin.getListShop
+    restaurantAdmin.getListRestaurant
   );
-  // Get shop by Id
+  // Get restaurant by Id
   app.get(
-    "/api/admin/shop/:id",
+    "/api/admin/restaurant/:id",
     [middleware.verifyTokenAdmin],
-    shopAdmin.getShopById
+    restaurantAdmin.getRestaurantById
   );
-  // Delete shop
+  // Delete restaurant
   app.delete(
-    "/api/admin/shop/:id",
+    "/api/admin/restaurant/:id",
     [middleware.verifyTokenAdmin],
-    shopAdmin.deleteShop
+    restaurantAdmin.deleteRestaurant
   );
   app.get(
     "/api/admin/profile",
     [middleware.verifyTokenAdmin],
     profileAdmin.readProfile
   );
-  // ROLE SHOP
+  // ROLE RESTAURANT
   // Login
-  app.post("/api/shop/login", limiter, global.LoginShop);
+  app.post("/api/restaurant/login", limiter, global.LoginRestaurant);
   // Edit password
   app.put(
-    "/api/shop/edit-password",
+    "/api/restaurant/edit-password",
     limiter,
-    [middleware.verifyTokenShop, middleware.checkPasswordEdit],
+    [middleware.verifyTokenRestaurant, middleware.checkPasswordEdit],
     global.editPassword
   );
 
-  // get Contract Shop
+  // get Contract Restaurant
   app.get(
-    "/api/shop/contract",
-    [middleware.verifyTokenShop],
-    profileShop.getContractShop
+    "/api/restaurant/contract",
+    [middleware.verifyTokenRestaurant],
+    profileRestaurant.getContractRestaurant
   );
   // get list language
   app.get(
-    "/api/shop/list-language",
-    [middleware.verifyTokenShop],
-    profileShop.getLanguage
+    "/api/restaurant/list-language",
+    [middleware.verifyTokenRestaurant],
+    profileRestaurant.getLanguage
   );
   // sort Language
   app.put(
-    "/api/shop/sort-language",
-    [middleware.verifyTokenShop],
-    profileShop.sortLanguage
+    "/api/restaurant/sort-language",
+    [middleware.verifyTokenRestaurant],
+    profileRestaurant.sortLanguage
   );
-  // get Profile Shop
+  // get Profile Restaurant
   app.get(
-    "/api/shop/profile",
-    [middleware.verifyTokenShop],
-    profileShop.getProfilebyShop
+    "/api/restaurant/profile",
+    [middleware.verifyTokenRestaurant],
+    profileRestaurant.getProfilebyRestaurant
   );
-  // update Profile Shop
+  // update Profile Restaurant
   app.put(
-    "/api/shop/update-shop",
-    [middleware.verifyTokenShop],
-    profileShop.updateProfilebyShop
+    "/api/restaurant/update-restaurant",
+    [middleware.verifyTokenRestaurant],
+    profileRestaurant.updateProfilebyRestaurant
   );
   // Create Category
   app.post(
-    "/api/shop/create-category",
-    [middleware.checkCategory, middleware.verifyTokenShop],
-    CategoryShop.createCategory
+    "/api/restaurant/create-category",
+    [middleware.checkCategory, middleware.verifyTokenRestaurant],
+    categoryRestaurant.createCategory
   );
   // Update Category
   app.put(
-    "/api/shop/category/:id",
-    [middleware.checkCategory, middleware.verifyTokenShop],
-    CategoryShop.updateCategory
+    "/api/restaurant/category/:id",
+    [middleware.checkCategory, middleware.verifyTokenRestaurant],
+    categoryRestaurant.updateCategory
   );
   // Get list Category
   app.get(
-    "/api/shop/category",
-    [middleware.verifyTokenShop],
-    CategoryShop.getListCategory
+    "/api/restaurant/category",
+    [middleware.verifyTokenRestaurant],
+    categoryRestaurant.getListCategory
   );
   // Get Category by Id
   app.get(
-    "/api/shop/category/:id",
-    [middleware.verifyTokenShop],
-    CategoryShop.getCategory
+    "/api/restaurant/category/:id",
+    [middleware.verifyTokenRestaurant],
+    categoryRestaurant.getCategory
   );
   // Delete Category
   app.delete(
-    "/api/shop/category/:id",
-    [middleware.verifyTokenShop],
-    CategoryShop.deleteCategory
+    "/api/restaurant/category/:id",
+    [middleware.verifyTokenRestaurant],
+    categoryRestaurant.deleteCategory
   );
   // Create Item
   app.post(
-    "/api/shop/create-item",
-    [middleware.checkItem, middleware.verifyTokenShop],
-    ItemShop.createItem
+    "/api/restaurant/create-item",
+    [middleware.checkItem, middleware.verifyTokenRestaurant],
+    itemRestaurant.createItem
   );
   // Update Item
   app.put(
-    "/api/shop/item/:id",
-    [middleware.verifyTokenShop],
-    ItemShop.updateItem
+    "/api/restaurant/item/:id",
+    [middleware.verifyTokenRestaurant],
+    itemRestaurant.updateItem
   );
   // Get Item by Id
-  app.get("/api/shop/item/:id", [middleware.verifyTokenShop], ItemShop.getItem);
+  app.get(
+    "/api/restaurant/item/:id",
+    [middleware.verifyTokenRestaurant],
+    itemRestaurant.getItem
+  );
   // Delete Item
   app.delete(
-    "/api/shop/item/:id",
-    [middleware.verifyTokenShop],
-    ItemShop.deleteItem
+    "/api/restaurant/item/:id",
+    [middleware.verifyTokenRestaurant],
+    itemRestaurant.deleteItem
   );
   // Create QRCode
-  app.post("/api/shop/create-qrcode", profileShop.createQRCode);
+  app.post("/api/restaurant/create-qrcode", profileRestaurant.createQRCode);
   // Get QRCode
   app.get(
-    "/api/shop/qrcode",
-    [middleware.verifyTokenShop],
-    profileShop.getQRCode
+    "/api/restaurant/qrcode",
+    [middleware.verifyTokenRestaurant],
+    profileRestaurant.getQRCode
   );
   // Post Image
   app.post("/api/upload", [imageUploader.single("file")], global.UploadImage);
@@ -179,8 +183,8 @@ module.exports = (app) => {
   const StateInterval = () => {
     LanguageSchedule.UpdateState();
   };
-  const ShopInterval = () => {
-    LanguageSchedule.ShopInfoSchedule();
+  const RestaurantInterval = () => {
+    LanguageSchedule.RestaurantInfoSchedule();
   };
   const AddressInterval = () => {
     LanguageSchedule.AddressSchedule();
@@ -192,7 +196,7 @@ module.exports = (app) => {
     LanguageSchedule.ItemSchedule();
   };
   setInterval(StateInterval, 1000 * 60 * 10);
-  setInterval(ShopInterval, 1000 * 60 * 60 * 24);
+  setInterval(RestaurantInterval, 1000 * 60 * 60 * 24);
   setInterval(AddressInterval, 1000 * 60 * 60 * 24);
   setInterval(CategoryInterval, 1000 * 60 * 60 * 24);
   setInterval(ItemInterval, 1000 * 60 * 60 * 24);

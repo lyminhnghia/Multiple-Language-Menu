@@ -20,7 +20,7 @@ exports.verifyTokenAdmin = (req, res, next) => {
 
     req.userId = decoded.id;
     req.role = decoded.role;
-    req.shopId = decoded.shopId;
+    req.restaurantId = decoded.restaurantId;
 
     if (req.role) {
       next();
@@ -33,7 +33,7 @@ exports.verifyTokenAdmin = (req, res, next) => {
   });
 };
 
-exports.verifyTokenShop = (req, res, next) => {
+exports.verifyTokenRestaurant = (req, res, next) => {
   let token = req.headers["accesstoken"];
   if (!token) {
     return res.status(401).send({
@@ -52,14 +52,14 @@ exports.verifyTokenShop = (req, res, next) => {
 
     req.userId = decoded.id;
     req.role = decoded.role;
-    req.shopId = decoded.shopId;
+    req.restaurantId = decoded.restaurantId;
 
     if (!req.role) {
       next();
     } else {
       return res.status(401).send({
         success: false,
-        error: "Fail to Authentication. Error -> required role shop!!!!",
+        error: "Fail to Authentication. Error -> required role restaurant!!!!",
       });
     }
   });
@@ -85,16 +85,18 @@ exports.checkPasswordEdit = (req, res, next) => {
   next();
 };
 
-exports.checkCreateShop = (req, res, next) => {
+exports.checkCreateRestaurant = (req, res, next) => {
   let errors = "";
-  if (!req.body.shop_type) errors = errors + "Required shop type, ";
-  if (!req.body.shop_name) errors = errors + "Required shop name, ";
+  if (!req.body.restaurant_type) errors = errors + "Required restaurant type, ";
+  if (!req.body.restaurant_name) errors = errors + "Required restaurant name, ";
   if (!req.body.start_contract) errors = errors + "Required start contract, ";
   if (!req.body.end_contract) errors = errors + "Required end contract, ";
-  if (!req.body.email_shop) errors = errors + "Required email shop, ";
-  if (!req.body.telephone_shop) errors = errors + "Required host line shop, ";
+  if (!req.body.email_restaurant)
+    errors = errors + "Required email restaurant, ";
+  if (!req.body.telephone_restaurant)
+    errors = errors + "Required host line restaurant, ";
 
-  if (!req.body.shopID) errors = errors + "Required username, ";
+  if (!req.body.restaurantID) errors = errors + "Required username, ";
   if (!req.body.password) errors = errors + "Required password, ";
   if (!req.body.confirm_password)
     errors = errors + "Required confirm password, ";
@@ -107,7 +109,8 @@ exports.checkCreateShop = (req, res, next) => {
 
   if (!req.body.port_number) errors = errors + "Required port number, ";
   if (!req.body.city) errors = errors + "Required city, ";
-  if (!req.body.address_shop) errors = errors + "Required address shop, ";
+  if (!req.body.address_restaurant)
+    errors = errors + "Required address restaurant, ";
   if (!req.body.building) errors = errors + "Required building";
 
   if (errors !== "") {
@@ -144,14 +147,16 @@ exports.checkCreateShop = (req, res, next) => {
   next();
 };
 
-exports.checkUpdateShop = (req, res, next) => {
+exports.checkUpdateRestaurant = (req, res, next) => {
   let errors = "";
-  if (!req.body.shop_type) errors = errors + "Required shop type, ";
-  if (!req.body.shop_name) errors = errors + "Required shop name, ";
+  if (!req.body.restaurant_type) errors = errors + "Required restaurant type, ";
+  if (!req.body.restaurant_name) errors = errors + "Required restaurant name, ";
   if (!req.body.start_contract) errors = errors + "Required start contract, ";
   if (!req.body.end_contract) errors = errors + "Required end contract, ";
-  if (!req.body.email_shop) errors = errors + "Required email shop, ";
-  if (!req.body.telephone_shop) errors = errors + "Required host line shop, ";
+  if (!req.body.email_restaurant)
+    errors = errors + "Required email restaurant, ";
+  if (!req.body.telephone_restaurant)
+    errors = errors + "Required host line restaurant, ";
 
   if (!req.body.state) errors = errors + "Required state, ";
   if (!req.body.company_name) errors = errors + "Required company name, ";
@@ -162,7 +167,8 @@ exports.checkUpdateShop = (req, res, next) => {
 
   if (!req.body.port_number) errors = errors + "Required port number, ";
   if (!req.body.city) errors = errors + "Required city, ";
-  if (!req.body.address_shop) errors = errors + "Required address shop, ";
+  if (!req.body.address_restaurant)
+    errors = errors + "Required address restaurant, ";
   if (!req.body.building) errors = errors + "Required building";
 
   if (errors !== "") {
