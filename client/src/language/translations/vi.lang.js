@@ -29,6 +29,7 @@ export default {
   TXT_RESTAURANT_INFORMATION: "Thông tin nhà hàng",
   TXT_CONFIRMATION: "Thêm mới",
   TXT_CONFIRM_PASSWORD: "Xác nhận mật khẩu",
+  TXT_CONFIRM: "Xác nhận",
   TXT_USER_NAME: "Tài khoản",
   TXT_STATE: "Trạng thái",
   TXT_ROLE: "Quyền",
@@ -92,6 +93,7 @@ export default {
   TXT_DOING: "Đang làm",
   TXT_SUCCESS: "Hoàn thành",
   TXT_CANCEL: "Hủy món",
+  TXT_NOTIFICATION_LOGOUT: "Bạn có chắc chắn muốn đăng xuất không?",
 
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,

@@ -17,22 +17,38 @@ import {
   History,
   ExitToApp,
 } from "@material-ui/icons";
-import { LangConstant, PathConstant } from "../../const";
-import { Sidebar } from "../../components";
+import { LangConstant, PathConstant, AppConstant } from "../../const";
+import { Sidebar, Logout } from "../../components";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
+import Cookie from "js-cookie";
 import PropTypes from "prop-types";
 
 const RestaurantLayout = (props) => {
   const { children, mainClass } = props;
   const { t: getLabel } = useTranslation();
   const classes = useStyles();
+  const history = useHistory();
+
   const isBreakPoint = useMediaQuery(useTheme().breakpoints.up("md"), {
     defaultMatches: true,
   });
+
   const [isBar, setIsBar] = useState(false);
+  const [isOpenLogout, setIsOpenLogout] = useState(false);
+
   const onOpenSidebar = () => {
     setIsBar(!isBar);
   };
+
+  const onLogout = () => {
+    setIsOpenLogout(!isOpenLogout);
+    Cookie.remove(AppConstant.KEY_TOKEN);
+    Cookie.remove(AppConstant.KEY_ROLE);
+    history.push(PathConstant.LOGIN_RESTAURANT);
+    window.location.reload(true);
+  };
+
   const listSidebar = [
     {
       text: getLabel(LangConstant.TXT_QR_CODE),
@@ -80,7 +96,6 @@ const RestaurantLayout = (props) => {
       text: getLabel(LangConstant.TXT_LOGOUT),
       IconComponent: <ExitToApp />,
       isNewTab: false,
-      path: PathConstant.LOGIN_RESTAURANT,
     },
   ];
   return (
@@ -96,17 +111,26 @@ const RestaurantLayout = (props) => {
 
       <main className={classes.main}>
         {isBreakPoint ? (
-          <Sidebar listSidebar={listSidebar} children={children} />
+          <Sidebar
+            listSidebar={listSidebar}
+            children={children}
+            setIsOpenLogout={setIsOpenLogout}
+          />
         ) : (
           isBar && (
             <Sidebar
               listSidebar={listSidebar}
               children={children}
               isTop={true}
+              setIsOpenLogout={setIsOpenLogout}
             />
           )
         )}
-
+        <Logout
+          isOpen={isOpenLogout}
+          setIsOpen={setIsOpenLogout}
+          onSubmit={onLogout}
+        />
         <Box className={`${classes.container} ${mainClass}`}>{children}</Box>
       </main>
     </div>

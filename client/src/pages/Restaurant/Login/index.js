@@ -26,7 +26,7 @@ const LoginRestaurantPage = () => {
     return (
       <Redirect
         to={{
-          pathname: PathConstant.RESTAURANT_TRANFER_LANGUAGE,
+          pathname: PathConstant.RESTAURANT_QR_CODE,
         }}
       />
     );

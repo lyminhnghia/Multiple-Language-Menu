@@ -1,7 +1,6 @@
 import React from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 import { PathConstant } from "../const";
-import PropTypes from "prop-types";
 import {
   LoginAdminPage,
   RestaurantListAdmin,
@@ -9,7 +8,6 @@ import {
   ProfileAdmin,
   AdminNotFound,
 } from "../pages/Admin";
-import DashboardPage from "../pages/Dashboard";
 import NotFoundPage from "../pages/NotFound";
 import {
   LoginRestaurant,
@@ -44,22 +42,17 @@ function AuthenticationRoute(props) {
   );
 }
 
-AuthenticationRoute.propTypes = {
-  component: PropTypes.any.isRequired,
-  path: PropTypes.string.isRequired,
-};
-
 const Routes = () => {
   return (
     <Switch>
       {/* <Redirect exact from={PathConstant.ROOT} to={PathConstant.DASHBOARD} /> */}
       {/* <AuthenticationRoute component={DashboardPage} exact path={PathConstant.DASHBOARD} /> */}
+      <Route component={LoginAdminPage} exact path={PathConstant.LOGIN_ADMIN} />
       <Route
         component={RestaurantListAdmin}
         exact
         path={PathConstant.ADMIN_RESTAURANT_LIST}
       />
-      <Route component={LoginAdminPage} exact path={PathConstant.LOGIN_ADMIN} />
       <Route
         component={RestaurantRegisterAdmin}
         exact
@@ -119,7 +112,7 @@ const Routes = () => {
 
       <Route component={Introduce} exact path={PathConstant.ROOT} />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
-      <Redirect to={PathConstant.NOT_FOUND} />
+      {/* <Redirect to={PathConstant.NOT_FOUND} /> */}
     </Switch>
   );
 };

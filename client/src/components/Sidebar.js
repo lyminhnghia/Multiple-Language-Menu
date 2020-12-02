@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from "react";
+import React, { memo, useState } from "react";
 import {
   makeStyles,
   Paper,
@@ -15,7 +15,7 @@ import SidebarItem from "./SidebarItem";
 import { useLocation } from "react-router-dom";
 
 const Sidebar = (props) => {
-  const { listSidebar, isTop } = props;
+  const { listSidebar, isTop, setIsOpenLogout } = props;
   const classes = useStyles();
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -29,16 +29,9 @@ const Sidebar = (props) => {
     }
   };
 
-  useEffect(() => {
-    if (isSidebar) {
-      if (Boolean(sidebarTimeout)) {
-        clearSidebarTimeout();
-      }
-      sidebarTimeout = setTimeout(() => {
-        setIsSidebar(false);
-      }, SIDEBAR_TIMEOUT);
-    }
-  }, [isSidebar, setIsSidebar]);
+  const onOpenLogout = () => {
+    setIsOpenLogout(true);
+  };
 
   return (
     <Paper
@@ -63,7 +56,7 @@ const Sidebar = (props) => {
       <Divider />
       <List className={classes.list}>
         {listSidebar.map((item, index) => (
-          <div onClick={onClick} key={uuid()}>
+          <div onClick={item.path ? onClick : onOpenLogout} key={uuid()}>
             <SidebarItem
               item={item}
               key={uuid()}
@@ -76,15 +69,8 @@ const Sidebar = (props) => {
   );
 };
 
-var sidebarTimeout = null;
-const clearSidebarTimeout = () => {
-  clearTimeout(sidebarTimeout);
-  sidebarTimeout = null;
-};
-
 export const SIDEBAR_WIDTH_OPEN = 240;
 export const SIDEBAR_WIDTH_CLOSE = 64;
-export const SIDEBAR_TIMEOUT = 50000;
 
 const useStyles = makeStyles((theme) => ({
   sidebar: {
