@@ -1,93 +1,218 @@
 import React, { memo, useState } from "react";
-import PropTypes from "prop-types";
+import clsx from "clsx";
 import {
   makeStyles,
-  Box,
-  useMediaQuery,
-  useTheme,
+  Drawer,
+  AppBar,
+  Toolbar,
+  List,
+  Typography,
   IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from "@material-ui/core";
-import { Menu, ShoppingCart } from "@material-ui/icons";
-import { SideBar } from "./components";
+import {
+  Menu,
+  Restaurant,
+  Close,
+  Translate,
+  Storefront,
+  RoomService,
+} from "@material-ui/icons";
+import { LangConstant, PathConstant } from "../../const";
+import { useTranslation } from "react-i18next";
 
-const CustomerLayout = ({ mainClass, children }) => {
+const CustomerLayout = ({ children }) => {
   const classes = useStyles();
-  const isBreakPoint = useMediaQuery(useTheme().breakpoints.up("md"), {
-    defaultMatches: true,
-  });
+  const { t: getLabel } = useTranslation();
 
-  const [isSidebar, setIsSidebar] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  const onOpenSidebar = () => {
-    setIsSidebar(!isSidebar);
+  const handleDrawerOpen = () => {
+    setOpen(true);
   };
 
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const listSidebar = [
+    {
+      text: "Đặt món ăn",
+      IconComponent: <Restaurant />,
+      isNewTab: false,
+      // path: PathConstant.,
+    },
+    {
+      text: "Lịch sử",
+      IconComponent: <RoomService />,
+      isNewTab: false,
+      // path: PathConstant.,
+    },
+    {
+      text: "Nhà hàng",
+      IconComponent: <Storefront />,
+      isNewTab: false,
+      // path: PathConstant.,
+    },
+    {
+      text: "Language",
+      IconComponent: <Translate />,
+      isNewTab: false,
+      // path: PathConstant.,
+    },
+  ];
+
   return (
-    <>
-      <main className={classes.main}>
-        <SideBar isSidebar={isSidebar} setIsSidebar={setIsSidebar} />
-        <Box
-          className={`${
-            isSidebar ? classes.containerOpen : classes.containerClose
-          } ${mainClass}`}
-        >
-          <Box className={classes.boxHeader}>
-            <IconButton
-              className={classes.IconButton}
-              onClick={() => onOpenSidebar()}
-            >
-              {<Menu />}
-            </IconButton>
-            <Box className={classes.boxContent}>menuuu</Box>
-            <IconButton
-              className={classes.IconButton}
-              // onClick={() => onOpenSidebar()}
-            >
-              {<ShoppingCart />}
-            </IconButton>
-          </Box>
-          {children}
-        </Box>
+    <div className={classes.root}>
+      <AppBar
+        position="fixed"
+        elevation={0}
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
+        <Toolbar>
+          <IconButton
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={classes.menuButton}
+          >
+            <Menu />
+          </IconButton>
+          <Typography
+            variant="h3"
+            noWrap
+            style={{ width: "100%", textAlign: "center", color: "#000000" }}
+          >
+            MENUUU
+          </Typography>
+          <IconButton
+            className={classes.orderButton}
+            onClick={handleDrawerOpen}
+          >
+            <Restaurant />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        variant="permanent"
+        className={clsx(classes.drawer, {
+          [classes.drawerOpen]: open,
+          [classes.drawerClose]: !open,
+        })}
+        classes={{
+          paper: clsx({
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
+          }),
+        }}
+      >
+        <div className={classes.toolbar}>
+          <IconButton onClick={handleDrawerClose}>
+            <Close />
+          </IconButton>
+        </div>
+        <List>
+          {listSidebar.map((data) => (
+            <ListItem button key={data.text} className={classes.parentItem}>
+              <ListItemIcon className={classes.itemIcon}>
+                {data.IconComponent}
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Typography className={classes.text}>{data.text}</Typography>
+                }
+              />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        {children}
       </main>
-    </>
+    </div>
   );
 };
 
-CustomerLayout.propTypes = {
-  children: PropTypes.node,
-  mainClass: PropTypes.string,
-};
-
-CustomerLayout.defaultProps = {};
+const drawerWidth = 190;
 
 const useStyles = makeStyles((theme) => ({
-  main: {
-    height: "100vh",
-    padding: 0,
+  root: {
     display: "flex",
   },
-  containerClose: {
-    flexGrow: 1,
-    height: "100%",
-    margin: "0 10px",
-    minWidth: 290,
+  appBar: {
+    backgroundColor: "#ffffff",
+    zIndex: theme.zIndex.drawer + 1,
+    borderBottom: "1px solid #bdbdbd",
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
-  containerOpen: {
-    flexGrow: 1,
-    height: "100%",
-    margin: "0 10px 0 200px",
-    minWidth: 290,
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    borderBottom: "1px solid #bdbdbd",
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
-  boxHeader: {
-    height: 50,
-    width: "100%",
+  menuButton: {
+    margin: "0 36px 0 0",
+  },
+  orderButton: {
+    marginLeft: 36,
+  },
+  hide: {
+    display: "none",
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: "nowrap",
+  },
+  drawerOpen: {
+    width: drawerWidth,
+    borderRight: "1px solid #bdbdbd",
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerClose: {
+    display: "none",
+  },
+  toolbar: {
     display: "flex",
-    justifyContent: "space-between",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
   },
-  boxContent: {
-    fontSize: "18px",
-    lineHeight: "48px",
-    fontWeight: "500",
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+  itemIcon: {
+    minWidth: 38,
+    color: "inherit",
+  },
+  text: {
+    fontSize: 16,
+    color: "inherit",
+  },
+  parentItem: {
+    color: "#000000",
+    "&:hover": {
+      color: "rgb(48, 92, 139)",
+    },
+    "&:selected": {
+      color: "rgb(48, 92, 139)",
+    },
   },
 }));
 

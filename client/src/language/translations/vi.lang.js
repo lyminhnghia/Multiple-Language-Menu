@@ -64,6 +64,7 @@ export default {
   TXT_START: "Bắt đầu",
   TXT_STOP: "Dừng lại",
   TXT_SORT_LANGUAGE: "Sắp xếp ngôn ngữ",
+  TXT_LANGUAGE: "Ngôn ngữ",
   TXT_QR_CODE: "QR code",
   TXT_CONTRACT_INFO: "Thông tin hợp đồng",
   TXT_ORDER_HISTORY: "Lịch sử đặt hàng",
@@ -94,6 +95,7 @@ export default {
   TXT_SUCCESS: "Hoàn thành",
   TXT_CANCEL: "Hủy món",
   TXT_NOTIFICATION_LOGOUT: "Bạn có chắc chắn muốn đăng xuất không?",
+  TXT_RESTAURANT: "Nhà hàng",
 
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,

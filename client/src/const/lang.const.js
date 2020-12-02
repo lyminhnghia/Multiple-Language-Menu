@@ -108,6 +108,8 @@ export const TXT_DOING = "TXT_DOING";
 export const TXT_SUCCESS = "TXT_SUCCESS";
 export const TXT_CANCEL = "TXT_CANCEL";
 export const TXT_NOTIFICATION_LOGOUT = "TXT_NOTIFICATION_LOGOUT";
+export const TXT_RESTAURANT = "TXT_RESTAURANT";
+export const TXT_LANGUAGE = "TXT_LANGUAGE";
 
 export const ARR_RESTAURANT_LIST = [
   TXT_ID,
