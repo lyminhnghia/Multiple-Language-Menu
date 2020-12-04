@@ -4,7 +4,8 @@ export const HEADER_DEFAULT = {
   Accept: "application/json",
   "Content-Type": "application/json;charset=UTF-8",
 };
-export const TIMEOUT = 30000;
+
+export const TIMEOUT = 15000;
 
 //Fixed value
 
@@ -32,3 +33,4 @@ export const UPDATE_ITEM = "/api/restaurant/item/{0}";
 export const RESTAURANT_CONTRACT = "/api/restaurant/contract";
 export const RESTAURANT_INFO = "/api/restaurant/profile";
 export const RESTAURANT_LANGUAGE = "/api/restaurant/list-language";
+export const UPLOAD_IMAGE = "/api/upload";

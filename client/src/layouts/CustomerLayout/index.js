@@ -29,11 +29,11 @@ const CustomerLayout = ({ children }) => {
 
   const [open, setOpen] = useState(false);
 
-  const handleDrawerOpen = () => {
+  const onDrawerOpen = () => {
     setOpen(true);
   };
 
-  const handleDrawerClose = () => {
+  const onDrawerClose = () => {
     setOpen(false);
   };
 
@@ -73,25 +73,19 @@ const CustomerLayout = ({ children }) => {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar>
+        <Toolbar className={classes.toolBar}>
           <IconButton
-            onClick={handleDrawerOpen}
+            onClick={onDrawerOpen}
             edge="start"
+            disableRipple
             className={classes.menuButton}
           >
             <Menu />
           </IconButton>
-          <Typography
-            variant="h3"
-            noWrap
-            style={{ width: "100%", textAlign: "center", color: "#000000" }}
-          >
+          <Typography variant="h3" noWrap className={classes.Title}>
             MENUUU
           </Typography>
-          <IconButton
-            className={classes.orderButton}
-            onClick={handleDrawerOpen}
-          >
+          <IconButton className={classes.orderButton} disableRipple>
             <Restaurant />
           </IconButton>
         </Toolbar>
@@ -110,7 +104,7 @@ const CustomerLayout = ({ children }) => {
         }}
       >
         <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={onDrawerClose} disableRipple>
             <Close />
           </IconButton>
         </div>
@@ -163,9 +157,13 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     margin: "0 36px 0 0",
+    width: 56,
+    height: 56,
   },
   orderButton: {
     marginLeft: 36,
+    width: 56,
+    height: 56,
   },
   hide: {
     display: "none",
@@ -192,6 +190,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
+  },
+  toolBar: {
+    padding: 0,
+  },
+  Title: {
+    width: "100%",
+    textAlign: "center",
+    color: "#000000",
   },
   content: {
     flexGrow: 1,

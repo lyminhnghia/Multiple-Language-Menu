@@ -19,7 +19,7 @@ const Sidebar = (props) => {
   const classes = useStyles();
   const location = useLocation();
   const [open, setOpen] = useState(false);
-  const [isSidebar, setIsSidebar] = useState(false);
+  const [isSidebar, setIsSidebar] = useState(true);
 
   const onClick = () => {
     setOpen(!open);

@@ -16,12 +16,15 @@ import PopupBox from "./Components/popup";
 import AddImage from "../../../components/AddImage";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryRestaurantAction from "../../../redux/categoryRestaurant.redux";
+import ItemRestaurantAction from "../../../redux/itemRestaurant.redux";
+import ImageAction from "../../../redux/image.redux";
 import { uuid } from "../../../utils";
 const RestaurantAddCategory = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
-  const [formChange, setFormChange] = useState({});
   const dispatch = useDispatch();
+
+  const [formChange, setFormChange] = useState({});
   const [category, setCategory] = useState([]);
   const listCategory = useSelector(
     (state) => state.categoryRestaurantRedux.listCategory
@@ -30,21 +33,22 @@ const RestaurantAddCategory = () => {
     (state) => state.categoryRestaurantRedux.isCreateSuccess
   );
 
+  const dataURL = useSelector((state) => state.imageRedux.dataURL);
+
   if (listCategory === null) {
     dispatch(CategoryRestaurantAction.getListCategory({}));
   }
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(formChange);
+  const onSubmit = () => {
+    dispatch(ItemRestaurantAction.createItem(formChange));
   };
 
   const onChange = (e) => {
     setFormChange({ ...formChange, [e.target.name]: e.target.value });
   };
 
-  const getImgBase64 = (data) => {
-    setFormChange({ ...formChange, ["image"]: data });
+  const onGetImage = (data) => {
+    dispatch(ImageAction.requestUploadPostImage(data));
   };
 
   useEffect(() => {
@@ -60,11 +64,17 @@ const RestaurantAddCategory = () => {
     }
   }, [isCreateSuccess]);
 
+  useEffect(() => {
+    if (dataURL) {
+      setFormChange({ ...formChange, ["image_item"]: dataURL });
+    }
+  }, [dataURL]);
+
   return (
     <RestaurantLayout>
       <Box className={classes.boxParent}>
         <Box className={classes.boxBorder}>
-          <form onSubmit={onSubmit} style={{ width: "100%" }}>
+          <form style={{ width: "100%" }}>
             <Box className={classes.BoxChild}>
               <InputText
                 nameLabel={getLabel(LangConstant.TXT_NAME_PRODUCT)}
@@ -93,12 +103,20 @@ const RestaurantAddCategory = () => {
               />
             </Box>
             <Box className={classes.BoxChild}>
+              <InputText
+                nameLabel={getLabel(LangConstant.TXT_CURRENCY_UNIT)}
+                typeInput="text"
+                requiredInput={true}
+                nameText="currency_unit"
+                onInput={(e) => onChange(e)}
+              />
+            </Box>
+            <Box className={classes.BoxChild}>
               <Box className={classes.boxLabel}>
                 {getLabel(LangConstant.TXT_DESCRIPTION_PRODUCT)}
               </Box>
               <TextareaAutosize
                 style={{ width: "100%", height: 56, fontSize: "14px" }}
-                // rowsMax={10}
                 aria-label="maximum height"
                 placeholder={`${getLabel(
                   LangConstant.TXT_DESCRIPTION_PRODUCT
@@ -151,12 +169,12 @@ const RestaurantAddCategory = () => {
               <Box className={classes.boxLabel}>
                 {getLabel(LangConstant.TXT_ADD_IMAGE)}
               </Box>
-              <AddImage getData={getImgBase64} src={null} />
+              <AddImage onChooseFile={onGetImage} src={null} />
             </Box>
             <Box className={classes.boxButton}>
               <ButtonBox
                 nameButton={getLabel(LangConstant.TXT_CONFIRMATION)}
-                typeButton="submit"
+                onClick={() => onSubmit()}
               />
             </Box>
           </form>

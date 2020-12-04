@@ -7,7 +7,11 @@ const Category = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
 
-  return <CustomerLayout>nghia</CustomerLayout>;
+  return (
+    <CustomerLayout>
+      <Box></Box>
+    </CustomerLayout>
+  );
 };
 
 const useStyles = makeStyles({});

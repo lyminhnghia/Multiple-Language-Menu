@@ -11,6 +11,7 @@ import { CategoryRestaurantTypes } from "../redux/categoryRestaurant.redux";
 import { RestaurantInfoTypes } from "../redux/restaurantInfo.redux";
 import { ItemRestaurantTypes } from "../redux/itemRestaurant.redux";
 import { LanguageRestaurantTypes } from "../redux/languageRestaurant.redux";
+import { ImageTypes } from "../redux/image.redux";
 
 /* ------------- Sagas ------------- */
 import {
@@ -40,6 +41,8 @@ import {
   createItemRestaurant,
   removeItemRestaurant,
 } from "./itemRestaurant.saga";
+import { requestUploadPostImage } from "./image.saga";
+
 import { getLanguageRestaurant } from "./languageRestaurant.saga";
 
 import { raiseError, resetError } from "./error.saga";
@@ -86,6 +89,9 @@ export default function* root() {
 
     takeLatest(LanguageRestaurantTypes.GET_LANGUAGE, getLanguageRestaurant),
 
+    // Image
+    takeLatest(ImageTypes.REQUEST_UPLOAD_POST_IMAGE, requestUploadPostImage),
+
     takeLatest(
       [
         AuthTypes.REQUEST_LOGIN,
@@ -105,6 +111,7 @@ export default function* root() {
         RestaurantInfoTypes.GET_CONTRACT,
         RestaurantInfoTypes.GET_RESTAURANT_INFO,
         LanguageRestaurantTypes.GET_LANGUAGE,
+        ImageTypes.REQUEST_UPLOAD_POST_IMAGE,
       ],
       resetError
     ),
@@ -127,6 +134,7 @@ export default function* root() {
         RestaurantInfoTypes.GET_CONTRACT,
         RestaurantInfoTypes.GET_RESTAURANT_INFO,
         LanguageRestaurantTypes.GET_LANGUAGE,
+        ImageTypes.REQUEST_UPLOAD_POST_IMAGE,
       ],
       raiseError
     ),

@@ -96,6 +96,7 @@ export default {
   TXT_CANCEL: "Hủy món",
   TXT_NOTIFICATION_LOGOUT: "Bạn có chắc chắn muốn đăng xuất không?",
   TXT_RESTAURANT: "Nhà hàng",
+  TXT_CURRENCY_UNIT: "Đơn vị tiền tệ",
 
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,
