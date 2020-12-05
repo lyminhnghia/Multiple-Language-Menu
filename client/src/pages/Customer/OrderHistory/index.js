@@ -32,7 +32,7 @@ const OrderHistory = () => {
     return (
     <CustomerLayout>
       <Box className={classes.boxBorder}>
-            <Box className={classes.boxHeader}>Order history</Box>           
+            <Box className={classes.boxHeader}>Order history</Box>
             <Box className={classes.boxBody}>
                 {
                     listDate.map((data,index) =>(

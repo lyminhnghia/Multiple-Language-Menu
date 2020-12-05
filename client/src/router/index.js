@@ -20,7 +20,12 @@ import {
   OrderHistoryRestaurant,
 } from "../pages/Restaurant";
 
-import { Introduce, Category,OrderHistory } from "../pages/Customer";
+import {
+  Introduce,
+  Category,
+  OrderHistory,
+  TranferLang,
+} from "../pages/Customer";
 
 function AuthenticationRoute(props) {
   const { component: Component, ...rest } = props;
@@ -112,6 +117,7 @@ const Routes = () => {
 
       <Route component={Introduce} exact path={PathConstant.ROOT} />
       <Route component={OrderHistory} exact path={PathConstant.CUSTOMER_ORDER_HISTORY} />
+      <Route component={TranferLang} exact path={PathConstant.CUSTOMER_LANGUAGE} />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       {/* <Redirect to={PathConstant.NOT_FOUND} /> */}
     </Switch>
