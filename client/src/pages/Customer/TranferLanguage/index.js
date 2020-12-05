@@ -84,7 +84,6 @@ const useStyles = makeStyles({
     },
     boxContent:{
         padding: "10px 0px",
-
     }
 });
 

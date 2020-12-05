@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 import {
   makeStyles,
   Box,
@@ -6,18 +6,14 @@ import {
   ListItemIcon,
   ListItem
 } from "@material-ui/core";
-import { CustomerLayout } from "../../../layouts";
 import { useTranslation } from "react-i18next";
-import ButtonBox from "../../../components/buttonBox"
-import StartCategory from "./Components/startCategory"
-import ListCategory from "./Components/listCategory"
-const Category = () => {
+import ButtonBox from "../../../../components/buttonBox"
+const StartCategory = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
-  const [checked, setChecked] = useState(true)
+
   return (
-    <CustomerLayout>
-      <Box className={classes.boxPara} style={{display: checked?"flex":"none"}}>
+      <Box className={classes.boxPara}>
         <Box className={classes.boxBorder}>
           <Box className={classes.boxHeader}>
             <Box className={classes.boxContent}>
@@ -45,16 +41,11 @@ const Category = () => {
             <ButtonBox
                 nameButton="bắt đầu sử dụng"
                 // typeButton="submit"
-                onClick={e=>setChecked(false)}
+                // onClick={}
               />
           </Box>
         </Box>       
       </Box>
-      {/* <StartCategory/> */}
-      <Box style={{display: checked?"none":"block"}}>
-        <ListCategory/>
-      </Box>
-    </CustomerLayout>
   );
 };
 
@@ -62,7 +53,7 @@ const useStyles = makeStyles({
   boxPara:{
     width:"100%",
     height: "90vh",
-    // display: "flex",
+    display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -93,4 +84,4 @@ const useStyles = makeStyles({
   }
 });
 
-export default memo(Category);
+export default memo(StartCategory);
