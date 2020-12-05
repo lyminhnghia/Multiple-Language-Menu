@@ -19,6 +19,7 @@ import CategoryRestaurantAction from "../../../redux/categoryRestaurant.redux";
 import ItemRestaurantAction from "../../../redux/itemRestaurant.redux";
 import ImageAction from "../../../redux/image.redux";
 import { uuid } from "../../../utils";
+
 const RestaurantAddCategory = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();

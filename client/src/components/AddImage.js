@@ -1,19 +1,14 @@
 import React, { memo, useState } from "react";
 import { makeStyles, Box, Avatar, Fab } from "@material-ui/core";
 import { AddPhotoAlternate, PhotoCamera } from "@material-ui/icons";
-// import { useDispatch, useSelector } from "react-redux";
-// import ImageAction from "../redux/image.redux";
 
 const UploadImage = ({ onChooseFile }) => {
-  // const dispatch = useDispatch();
-
   const [selectedFile, setSelectedFile] = useState(null);
 
   const onClickUpload = (event) => {
     let file = event.target.files[0];
     if (file.size <= 2097152) {
       onChooseFile(file);
-      // dispatch(ImageAction.requestUploadPostImage(file));
       setSelectedFile(URL.createObjectURL(file));
     }
   };
