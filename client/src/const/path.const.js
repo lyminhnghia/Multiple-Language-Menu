@@ -22,3 +22,4 @@ export const RESTAURANT_ORDER_HISTORY = "/restaurant/order-history";
 export const CUSTOMER_CATEGORY = "/{id}/categories";
 export const CUSTOMER_LANGUAGE = "/{id}/languages";
 export const CUSTOMER_INFO = "/{id}/info";
+export const CUSTOMER_ORDER_HISTORY = "/order-history";
