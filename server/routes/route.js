@@ -157,7 +157,11 @@ module.exports = (app) => {
     itemRestaurant.deleteItem
   );
   // Create QRCode
-  app.post("/api/restaurant/create-qrcode", profileRestaurant.createQRCode);
+  app.post(
+    "/api/restaurant/create-qrcode",
+    [middleware.verifyTokenRestaurant],
+    profileRestaurant.createQRCode
+  );
   // Get QRCode
   app.get(
     "/api/restaurant/qrcode",

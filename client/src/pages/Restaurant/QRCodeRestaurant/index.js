@@ -1,40 +1,32 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { RestaurantLayout } from "../../../layouts";
-import { LangConstant } from "../../../const";
-import {
-  makeStyles,
-  Box,
-  //   InputLabel,
-  //   TextareaAutosize,
-  //   Select,
-  //   FormControl,
-} from "@material-ui/core";
+import { LangConstant, PathConstant } from "../../../const";
+import { makeStyles, Box } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-// import InputText from "../../../components/inputText";
 import ButtonBox from "../../../components/buttonBox";
-// import PopupBox from "./Components/popup";
-// import AddImage from "../../../components/AddImage";
+import { useDispatch, useSelector } from "react-redux";
+import QRCodeAction from "../../../redux/qrcode.redux";
+
 const QRcodeRestaurant = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const { t: getLabel } = useTranslation();
+
+  const dataSrc = useSelector((state) => state.qrCodeRedux.dataGet);
+  const create = useSelector((state) => state.qrCodeRedux.dataCreate);
+
   const [changeSize, setChangeSize] = useState({
     buttonSmall: false,
     buttonMiddle: true,
     buttonLarge: false,
   });
 
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     console.log(formChange);
-  //   };
+  const [imageSrc, setImageSrc] = useState("");
 
-  //   const onChange = (e) => {
-  //     setFormChange({ ...formChange, [e.target.name]: e.target.value });
-  //     console.log(e.target.value, e.target.name);
-  //   };
-  //   const getImgBase64 = (data) => {
-  //     setFormChange({ ...formChange, ["base-64"]: data });
-  //   };
+  if (dataSrc === null) {
+    dispatch(QRCodeAction.getQrCode({}));
+  }
+
   const onChange = (e) => {
     if (e === "1") {
       setChangeSize({
@@ -56,70 +48,108 @@ const QRcodeRestaurant = () => {
       });
     }
   };
+
+  const onCreateQR = () => {
+    dispatch(
+      QRCodeAction.createQrCode({
+        url: PathConstant.ROOT_URL + PathConstant.CUSTOMER_CATEGORY,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (dataSrc && dataSrc.url) {
+      setImageSrc(dataSrc.url);
+    }
+  }, [dataSrc]);
+
+  useEffect(() => {
+    if (create) {
+      setImageSrc(create);
+    }
+  }, [create]);
+
   return (
     <RestaurantLayout>
       <Box className={classes.boxParent}>
-        <Box></Box>
         <Box className={classes.boxBody}>
-          <Box className={classes.boxP}>Please download QR code as image</Box>
-          <Box className={classes.boxImg}>
-            <img
-              style={{
-                display: changeSize.buttonSmall ? "block" : "none",
-                width: "200px",
-                height: "200px",
-              }}
-            />
-            <img
-              style={{
-                display: changeSize.buttonMiddle ? "block" : "none",
-                width: "300px",
-                height: "300px",
-              }}
-            />
-            <img
-              style={{
-                display: changeSize.buttonLarge ? "block" : "none",
-                width: "400px",
-                height: "400px",
-              }}
-            />
-          </Box>
-          <Box className={classes.boxPButton}>
-            <Box
-              className={`${classes.boxButton} ${
-                changeSize.buttonSmall ? classes.boxChange : ""
-              }`}
-            >
+          {!imageSrc ? (
+            <Box style={{ textAlign: "center" }}>
+              <Box className={classes.boxP}>
+                Bạn chưa có mã QR hãy tạo mã QR mới
+              </Box>
               <ButtonBox
-                nameButton={getLabel(LangConstant.TXT_SMALL)}
-                onClick={(e) => onChange("1")}
-              ></ButtonBox>
+                className={classes.buttonCreate}
+                nameButton={getLabel(LangConstant.TXT_CREATED)}
+                onClick={(e) => onCreateQR()}
+              />
             </Box>
-            <Box
-              className={`${classes.boxButton} ${
-                changeSize.buttonMiddle ? classes.boxChange : ""
-              }`}
-            >
-              <ButtonBox
-                nameButton={getLabel(LangConstant.TXT_MIDDLE)}
-                onClick={(e) => onChange("2")}
-              ></ButtonBox>
-            </Box>
-            <Box
-              className={`${classes.boxButton} ${
-                changeSize.buttonLarge ? classes.boxChange : ""
-              }`}
-            >
-              <ButtonBox
-                nameButton={getLabel(LangConstant.TXT_LARGE)}
-                onClick={(e) => onChange("3")}
-              ></ButtonBox>
-            </Box>
-          </Box>
-          <Box className={classes.boxButton1}>
-            <ButtonBox nameButton={getLabel(LangConstant.TXT_DOWNLOAD)} />
-          </Box>
+          ) : (
+            <>
+              <Box className={classes.boxP}>Tải mã QR</Box>
+              <Box className={classes.boxImg}>
+                <img
+                  src={imageSrc}
+                  style={{
+                    display: changeSize.buttonSmall ? "block" : "none",
+                    width: "200px",
+                    height: "200px",
+                  }}
+                />
+                <img
+                  src={imageSrc}
+                  style={{
+                    display: changeSize.buttonMiddle ? "block" : "none",
+                    width: "300px",
+                    height: "300px",
+                  }}
+                />
+                <img
+                  src={imageSrc}
+                  style={{
+                    display: changeSize.buttonLarge ? "block" : "none",
+                    width: "400px",
+                    height: "400px",
+                  }}
+                />
+              </Box>
+              <Box className={classes.boxPButton}>
+                <Box
+                  className={`${classes.boxButton} ${
+                    changeSize.buttonSmall ? classes.boxChange : ""
+                  }`}
+                >
+                  <ButtonBox
+                    nameButton={getLabel(LangConstant.TXT_SMALL)}
+                    onClick={(e) => onChange("1")}
+                  ></ButtonBox>
+                </Box>
+                <Box
+                  className={`${classes.boxButton} ${
+                    changeSize.buttonMiddle ? classes.boxChange : ""
+                  }`}
+                >
+                  <ButtonBox
+                    nameButton={getLabel(LangConstant.TXT_MIDDLE)}
+                    onClick={(e) => onChange("2")}
+                  ></ButtonBox>
+                </Box>
+                <Box
+                  className={`${classes.boxButton} ${
+                    changeSize.buttonLarge ? classes.boxChange : ""
+                  }`}
+                >
+                  <ButtonBox
+                    nameButton={getLabel(LangConstant.TXT_LARGE)}
+                    onClick={(e) => onChange("3")}
+                  ></ButtonBox>
+                </Box>
+              </Box>
+              <Box className={classes.boxButton1}>
+                <ButtonBox nameButton={getLabel(LangConstant.TXT_DOWNLOAD)} />
+              </Box>
+            </>
+          )}
         </Box>
       </Box>
     </RestaurantLayout>
@@ -161,13 +191,18 @@ const useStyles = makeStyles({
   },
   boxP: {
     textAlign: "center",
-    fontSize: "18px",
+    fontSize: 24,
   },
   boxButton1: {
     width: "140px",
     margin: "0 auto",
     height: "40px",
     marginTop: "20px",
+  },
+  buttonCreate: {
+    width: 150,
+    height: 40,
+    marginTop: 50,
   },
 });
 
