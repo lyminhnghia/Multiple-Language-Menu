@@ -57,6 +57,14 @@ const QRcodeRestaurant = () => {
     );
   };
 
+  const onDownload = () => {
+    const downloadLink = document.createElement("a");
+    downloadLink.href = imageSrc;
+    downloadLink.download = "QrCode.png";
+    downloadLink.click();
+    downloadLink.remove();
+  };
+
   useEffect(() => {
     if (dataSrc && dataSrc.url) {
       setImageSrc(dataSrc.url);
@@ -146,7 +154,10 @@ const QRcodeRestaurant = () => {
                 </Box>
               </Box>
               <Box className={classes.boxButton1}>
-                <ButtonBox nameButton={getLabel(LangConstant.TXT_DOWNLOAD)} />
+                <ButtonBox
+                  nameButton={getLabel(LangConstant.TXT_DOWNLOAD)}
+                  onClick={() => onDownload()}
+                />
               </Box>
             </>
           )}
