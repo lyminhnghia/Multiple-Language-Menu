@@ -6,9 +6,9 @@ const { Types, Creators } = createActions({
   loginSuccess: ["data"],
   loginFailure: ["error"],
 
-  requestLoginShop: ["data"],
-  loginShopSuccess: ["data"],
-  loginShopFailure: ["error"],
+  requestLoginRestaurant: ["data"],
+  loginRestaurantSuccess: ["data"],
+  loginRestaurantFailure: ["error"],
 
   requestChangePassword: ["data"],
   changePasswordSuccess: ["data"],
@@ -26,9 +26,9 @@ export const INITIAL_STATE = {
   error: null,
   isLogin: false,
 
-  isFetchingShop: false,
-  errorShop: null,
-  isLoginShop: false,
+  isFetchingRestaurant: false,
+  errorRestaurant: null,
+  isLoginRestaurant: false,
 
   isFetchingPassword: false,
   errorPassword: null,
@@ -59,26 +59,26 @@ export const loginFailure = (state = INITIAL_STATE, action) => ({
   error: action.error,
 });
 
-/* ------------- Login Shop ------------- */
-export const requestLoginShop = (state = INITIAL_STATE) => ({
+/* ------------- Login Restaurant ------------- */
+export const requestLoginRestaurant = (state = INITIAL_STATE) => ({
   ...state,
-  isFetchingShop: true,
-  isLoginShop: null,
+  isFetchingRestaurant: true,
+  isLoginRestaurant: null,
 });
 
-export const loginShopSuccess = (state = INITIAL_STATE, action) => {
-  window.isCheckedShop = true;
+export const loginRestaurantSuccess = (state = INITIAL_STATE, action) => {
+  window.isCheckedRestaurant = true;
   return {
     ...state,
-    isFetchingShop: false,
-    isLoginShop: action.data.isLoginShop,
+    isFetchingRestaurant: false,
+    isLoginRestaurant: action.data.isLoginRestaurant,
   };
 };
 
-export const loginShopFailure = (state = INITIAL_STATE, action) => ({
+export const loginRestaurantFailure = (state = INITIAL_STATE, action) => ({
   ...state,
-  isFetchingShop: false,
-  errorShop: action.error,
+  isFetchingRestaurant: false,
+  errorRestaurant: action.error,
 });
 
 /* ------------- Change Password ------------- */
@@ -107,9 +107,9 @@ export const HANDLERS = {
   [Types.LOGIN_SUCCESS]: loginSuccess,
   [Types.LOGIN_FAILURE]: loginFailure,
 
-  [Types.REQUEST_LOGIN_SHOP]: requestLoginShop,
-  [Types.LOGIN_SHOP_SUCCESS]: loginShopSuccess,
-  [Types.LOGIN_SHOP_FAILURE]: loginShopFailure,
+  [Types.REQUEST_LOGIN_RESTAURANT]: requestLoginRestaurant,
+  [Types.LOGIN_RESTAURANT_SUCCESS]: loginRestaurantSuccess,
+  [Types.LOGIN_RESTAURANT_FAILURE]: loginRestaurantFailure,
 
   [Types.REQUEST_CHANGE_PASSWORD]: requestChangePassword,
   [Types.CHANGE_PASSWORD_SUCCESS]: changePasswordSuccess,

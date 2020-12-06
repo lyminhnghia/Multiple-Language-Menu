@@ -26,7 +26,7 @@ const LoginAdminPage = () => {
     return (
       <Redirect
         to={{
-          pathname: PathConstant.ADMIN_SHOP_LIST,
+          pathname: PathConstant.ADMIN_RESTAURANT_LIST,
         }}
       />
     );

@@ -7,30 +7,43 @@ import { takeLatest, all } from "redux-saga/effects";
 /* ------------- Types ------------- */
 import { AuthTypes } from "../redux/auth.redux";
 import { AdminTypes } from "../redux/admin.redux";
-import { CategoryShopTypes } from "../redux/categoryShop.redux";
-import { ShopInfoTypes } from "../redux/shopInfo.redux";
-import { ItemShopTypes } from "../redux/itemShop.redux";
-import { LanguageShopTypes } from "../redux/languageShop.redux";
+import { CategoryRestaurantTypes } from "../redux/categoryRestaurant.redux";
+import { RestaurantInfoTypes } from "../redux/restaurantInfo.redux";
+import { ItemRestaurantTypes } from "../redux/itemRestaurant.redux";
+import { LanguageRestaurantTypes } from "../redux/languageRestaurant.redux";
+import { ImageTypes } from "../redux/image.redux";
 
 /* ------------- Sagas ------------- */
-import { requestLogin, requestLoginShop, changePassword } from "./auth.saga";
 import {
-  getListShopAdmin,
-  createShopAdmin,
-  getShopAdmin,
-  updateShopAdmin,
-  deleteShopAdmin,
+  requestLogin,
+  requestLoginRestaurant,
+  changePassword,
+} from "./auth.saga";
+import {
+  getListRestaurantAdmin,
+  createRestaurantAdmin,
+  getRestaurantAdmin,
+  updateRestaurantAdmin,
+  deleteRestaurantAdmin,
   getProfileAdmin,
 } from "./admin.saga";
 import {
-  getListCategoryShop,
-  createCategoryShop,
-  updateCategoryShop,
-  removeCategoryShop,
-} from "./categoryShop.saga";
-import { getShopContract, getShopInfo } from "./shopInfo.saga";
-import { createItemShop, removeItemShop } from "./itemShop.saga";
-import { getLanguageShop } from "./languageShop.saga";
+  getListCategoryRestaurant,
+  createCategoryRestaurant,
+  updateCategoryRestaurant,
+  removeCategoryRestaurant,
+} from "./categoryRestaurant.saga";
+import {
+  getRestaurantContract,
+  getRestaurantInfo,
+} from "./restaurantInfo.saga";
+import {
+  createItemRestaurant,
+  removeItemRestaurant,
+} from "./itemRestaurant.saga";
+import { requestUploadPostImage } from "./image.saga";
+
+import { getLanguageRestaurant } from "./languageRestaurant.saga";
 
 import { raiseError, resetError } from "./error.saga";
 
@@ -39,72 +52,89 @@ export default function* root() {
   yield all([
     // authentication
     takeLatest(AuthTypes.REQUEST_LOGIN, requestLogin),
-    takeLatest(AuthTypes.REQUEST_LOGIN_SHOP, requestLoginShop),
+    takeLatest(AuthTypes.REQUEST_LOGIN_RESTAURANT, requestLoginRestaurant),
     takeLatest(AuthTypes.REQUEST_CHANGE_PASSWORD, changePassword),
 
     // admin
-    takeLatest(AdminTypes.GET_LIST_SHOP, getListShopAdmin),
-    takeLatest(AdminTypes.CREATE_SHOP, createShopAdmin),
-    takeLatest(AdminTypes.GET_SHOP, getShopAdmin),
-    takeLatest(AdminTypes.UPDATE_SHOP, updateShopAdmin),
-    takeLatest(AdminTypes.DELETE_SHOP, deleteShopAdmin),
+    takeLatest(AdminTypes.GET_LIST_RESTAURANT, getListRestaurantAdmin),
+    takeLatest(AdminTypes.CREATE_RESTAURANT, createRestaurantAdmin),
+    takeLatest(AdminTypes.GET_RESTAURANT, getRestaurantAdmin),
+    takeLatest(AdminTypes.UPDATE_RESTAURANT, updateRestaurantAdmin),
+    takeLatest(AdminTypes.DELETE_RESTAURANT, deleteRestaurantAdmin),
     takeLatest(AdminTypes.GET_PROFILE_ADMIN, getProfileAdmin),
 
-    // shop
-    takeLatest(CategoryShopTypes.GET_LIST_CATEGORY, getListCategoryShop),
+    // Restaurant
+    takeLatest(
+      CategoryRestaurantTypes.GET_LIST_CATEGORY,
+      getListCategoryRestaurant
+    ),
 
-    takeLatest(CategoryShopTypes.CREATE_CATEGORY, createCategoryShop),
-    takeLatest(CategoryShopTypes.UPDATE_CATEGORY, updateCategoryShop),
-    takeLatest(CategoryShopTypes.REMOVE_CATEGORY, removeCategoryShop),
+    takeLatest(
+      CategoryRestaurantTypes.CREATE_CATEGORY,
+      createCategoryRestaurant
+    ),
+    takeLatest(
+      CategoryRestaurantTypes.UPDATE_CATEGORY,
+      updateCategoryRestaurant
+    ),
+    takeLatest(
+      CategoryRestaurantTypes.REMOVE_CATEGORY,
+      removeCategoryRestaurant
+    ),
 
-    takeLatest(ItemShopTypes.REMOVE_ITEM, removeItemShop),
+    takeLatest(ItemRestaurantTypes.REMOVE_ITEM, removeItemRestaurant),
 
-    takeLatest(ShopInfoTypes.GET_CONTRACT, getShopContract),
-    takeLatest(ShopInfoTypes.GET_SHOP_INFO, getShopInfo),
+    takeLatest(RestaurantInfoTypes.GET_CONTRACT, getRestaurantContract),
+    takeLatest(RestaurantInfoTypes.GET_RESTAURANT_INFO, getRestaurantInfo),
 
-    takeLatest(LanguageShopTypes.GET_LANGUAGE, getLanguageShop),
+    takeLatest(LanguageRestaurantTypes.GET_LANGUAGE, getLanguageRestaurant),
+
+    // Image
+    takeLatest(ImageTypes.REQUEST_UPLOAD_POST_IMAGE, requestUploadPostImage),
 
     takeLatest(
       [
         AuthTypes.REQUEST_LOGIN,
-        AuthTypes.REQUEST_LOGIN_SHOP,
+        AuthTypes.REQUEST_LOGIN_RESTAURANT,
         AuthTypes.REQUEST_CHANGE_PASSWORD,
-        AdminTypes.GET_LIST_SHOP,
-        AdminTypes.CREATE_SHOP,
-        AdminTypes.GET_SHOP,
-        AdminTypes.UPDATE_SHOP,
-        AdminTypes.DELETE_SHOP,
+        AdminTypes.GET_LIST_RESTAURANT,
+        AdminTypes.CREATE_RESTAURANT,
+        AdminTypes.GET_RESTAURANT,
+        AdminTypes.UPDATE_RESTAURANT,
+        AdminTypes.DELETE_RESTAURANT,
         AdminTypes.GET_PROFILE_ADMIN,
-        CategoryShopTypes.GET_LIST_CATEGORY,
-        CategoryShopTypes.CREATE_CATEGORY,
-        CategoryShopTypes.UPDATE_CATEGORY,
-        CategoryShopTypes.REMOVE_CATEGORY,
-        ItemShopTypes.REMOVE_ITEM,
-        ShopInfoTypes.GET_CONTRACT,
-        ShopInfoTypes.GET_SHOP_INFO,
-        LanguageShopTypes.GET_LANGUAGE,
+        CategoryRestaurantTypes.GET_LIST_CATEGORY,
+        CategoryRestaurantTypes.CREATE_CATEGORY,
+        CategoryRestaurantTypes.UPDATE_CATEGORY,
+        CategoryRestaurantTypes.REMOVE_CATEGORY,
+        ItemRestaurantTypes.REMOVE_ITEM,
+        RestaurantInfoTypes.GET_CONTRACT,
+        RestaurantInfoTypes.GET_RESTAURANT_INFO,
+        LanguageRestaurantTypes.GET_LANGUAGE,
+        ImageTypes.REQUEST_UPLOAD_POST_IMAGE,
       ],
       resetError
     ),
     takeLatest(
       [
         AuthTypes.REQUEST_LOGIN,
-        AuthTypes.REQUEST_LOGIN_SHOP,
+        AuthTypes.REQUEST_LOGIN_RESTAURANT,
         AuthTypes.REQUEST_CHANGE_PASSWORD,
-        AdminTypes.GET_LIST_SHOP,
-        AdminTypes.CREATE_SHOP,
-        AdminTypes.GET_SHOP,
-        AdminTypes.UPDATE_SHOP,
-        AdminTypes.DELETE_SHOP,
+        AdminTypes.GET_LIST_RESTAURANT,
+        AdminTypes.CREATE_RESTAURANT,
+        AdminTypes.GET_RESTAURANT,
+        AdminTypes.UPDATE_RESTAURANT,
+        AdminTypes.DELETE_RESTAURANT,
         AdminTypes.GET_PROFILE_ADMIN,
-        CategoryShopTypes.GET_LIST_CATEGORY,
-        CategoryShopTypes.CREATE_CATEGORY,
-        CategoryShopTypes.UPDATE_CATEGORY,
-        CategoryShopTypes.REMOVE_CATEGORY,
-        ItemShopTypes.REMOVE_ITEM,
-        ShopInfoTypes.GET_CONTRACT,
-        ShopInfoTypes.GET_SHOP_INFO,
-        LanguageShopTypes.GET_LANGUAGE,
+        CategoryRestaurantTypes.GET_LIST_CATEGORY,
+        CategoryRestaurantTypes.CREATE_CATEGORY,
+        CategoryRestaurantTypes.UPDATE_CATEGORY,
+        CategoryRestaurantTypes.REMOVE_CATEGORY,
+        ItemRestaurantTypes.REMOVE_ITEM,
+        RestaurantInfoTypes.GET_CONTRACT,
+        RestaurantInfoTypes.GET_RESTAURANT_INFO,
+        LanguageRestaurantTypes.GET_LANGUAGE,
+        ImageTypes.REQUEST_UPLOAD_POST_IMAGE,
       ],
       raiseError
     ),
