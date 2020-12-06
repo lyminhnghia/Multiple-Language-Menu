@@ -25,7 +25,8 @@ import {
   Category,
   OrderHistory,
   TranferLang,
-  OrderItems
+  OrderItems,
+  PayItems
 } from "../pages/Customer";
 
 function AuthenticationRoute(props) {
@@ -120,6 +121,7 @@ const Routes = () => {
       <Route component={OrderHistory} exact path={PathConstant.CUSTOMER_ORDER_HISTORY} />
       <Route component={TranferLang} exact path={PathConstant.CUSTOMER_LANGUAGE} />
       <Route component={OrderItems} exact path={PathConstant.CUSTOMER_ITEM_CATEGORY} />
+      <Route component={PayItems} exact path={PathConstant.CUSTOMER_PAY} />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       {/* <Redirect to={PathConstant.NOT_FOUND} /> */}
     </Switch>

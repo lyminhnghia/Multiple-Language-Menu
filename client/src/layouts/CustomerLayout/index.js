@@ -1,4 +1,5 @@
 import React, { memo, useState } from "react";
+import {Link} from "react-router-dom"
 import clsx from "clsx";
 import {
   makeStyles,
@@ -77,7 +78,7 @@ const CustomerLayout = ({ children }) => {
           <IconButton
             onClick={onDrawerOpen}
             edge="start"
-            disableRipple
+            // disableRipple
             className={classes.menuButton}
           >
             <Menu />
@@ -85,8 +86,13 @@ const CustomerLayout = ({ children }) => {
           <Typography variant="h3" noWrap className={classes.Title}>
             MENUUU
           </Typography>
-          <IconButton className={classes.orderButton} disableRipple>
-            <Restaurant />
+          <IconButton 
+            className={classes.orderButton}
+            // disableRipple
+          >
+            <Link to={`/{id}/pay`} activeClassName="active" style={{textDecoration: "none", color:"black"}}>
+              <Restaurant />
+            </Link>            
           </IconButton>
         </Toolbar>
       </AppBar>

@@ -3,10 +3,12 @@ import Category from "./Category";
 import OrderHistory from "./OrderHistory";
 import TranferLang from "./TranferLanguage";
 import OrderItems from "./OrderItems"
+import PayItems from "./PayItems"
 export 
 {   Introduce,
     Category,
     OrderHistory,
     TranferLang,
-    OrderItems
+    OrderItems,
+    PayItems
 };

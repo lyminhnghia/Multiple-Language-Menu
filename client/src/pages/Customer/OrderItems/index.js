@@ -10,6 +10,8 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ButtonBox from "../../../components/buttonBox"
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import PopupListItems from "./Components/popupListItems";
+
 const OrderItems = () => {
     const classes = useStyles();
     const { t: getLabel } = useTranslation();
@@ -79,9 +81,7 @@ const OrderItems = () => {
                     ))
                 }
                 <Box className={classes.boxFooter}>
-                    <Box style={{fontWeight: "500"}} >{element.total}</Box>
-                    <Box className={classes.boxDataTotal} >{totalItems}</Box>
-                    <Box className={classes.boxDataPrice} >{totalPrice}</Box>
+                    <PopupListItems/>
                 </Box>        
             </Box>
         </CustomerLayout>
@@ -165,13 +165,8 @@ const useStyles = makeStyles({
         width: "100%",
         height: "50px",
         backgroundColor: "rgb(48, 92, 139)",
-        display: "flex",
-        flexWrap: "wrap",
-        alignItems: "center",
-        padding: "0px 2%",
         position: "fixed",
         bottom: "0",
-        justifyContent: "space-around",
         left: "0",
         color: "white",
     },
