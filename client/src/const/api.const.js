@@ -34,3 +34,5 @@ export const RESTAURANT_CONTRACT = "/api/restaurant/contract";
 export const RESTAURANT_INFO = "/api/restaurant/profile";
 export const RESTAURANT_LANGUAGE = "/api/restaurant/list-language";
 export const UPLOAD_IMAGE = "/api/upload";
+export const CREATE_QRCODE = "/api/restaurant/create-qrcode";
+export const GET_QRCODE = "/api/restaurant/qrcode";

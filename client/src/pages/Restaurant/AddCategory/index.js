@@ -67,7 +67,7 @@ const RestaurantAddCategory = () => {
 
   useEffect(() => {
     if (dataURL) {
-      setFormChange({ ...formChange, ["image_item"]: dataURL });
+      setFormChange({ ...formChange, ["image"]: dataURL });
     }
   }, [dataURL]);
 

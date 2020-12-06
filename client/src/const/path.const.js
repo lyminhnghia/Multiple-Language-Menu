@@ -1,3 +1,4 @@
+export const ROOT_URL = "http://localhost:3000";
 export const ROOT = "/";
 export const DASHBOARD = "/dashboard";
 export const NOT_FOUND = "/not-found";

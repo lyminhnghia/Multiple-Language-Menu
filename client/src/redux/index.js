@@ -8,6 +8,7 @@ import * as RestaurantInfoRedux from "./restaurantInfo.redux";
 import * as ItemRestaurantRedux from "./itemRestaurant.redux";
 import * as LanguageRestaurantRedux from "./languageRestaurant.redux";
 import * as ImageRedux from "./image.redux";
+import * as QRCodeRedux from "./qrcode.redux";
 
 /* ------------- Assemble The Reducers ------------- */
 export const appReducer = combineReducers({
@@ -18,6 +19,7 @@ export const appReducer = combineReducers({
   itemRestaurantRedux: ItemRestaurantRedux.reducer,
   languageRestaurantRedux: LanguageRestaurantRedux.reducer,
   imageRedux: ImageRedux.reducer,
+  qrCodeRedux: QRCodeRedux.reducer,
 });
 
 export const rootReducer = (state, action) => {

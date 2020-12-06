@@ -179,10 +179,10 @@ exports.createQRCode = async (req, res) => {
       { errorCorrectionLevel: "H" },
       async (error, url) => {
         if (!error) {
-          res.status(200).send(url);
-          let qrcode = await Restaurant.update(
+          res.status(200).send({ success: true, data: url });
+          await Restaurant.update(
             {
-              url_qrcode: url,
+              url_qrcode: temp,
             },
             {
               where: {
@@ -190,7 +190,6 @@ exports.createQRCode = async (req, res) => {
               },
             }
           );
-          res.status(200).send({ success: true, data: qrcode });
         } else {
           res.status(500).send({ success: false, error: error });
         }
@@ -203,13 +202,33 @@ exports.createQRCode = async (req, res) => {
 
 exports.getQRCode = async (req, res) => {
   try {
-    let QRCode = await Restaurant.findOne({
+    let infoCode = await Restaurant.findOne({
       where: {
         id: req.restaurantId,
       },
       attributes: ["url_qrcode"],
     });
-    res.status(200).send({ success: true, data: QRCode });
+    if (infoCode.url_qrcode) {
+      QRcode.toDataURL(
+        infoCode.url_qrcode,
+        { errorCorrectionLevel: "H" },
+        (error, url) => {
+          if (!error) {
+            res.status(200).send({
+              success: true,
+              data: { url: url, id: req.restaurantId },
+            });
+          } else {
+            res.status(500).send({ success: false, error: error });
+          }
+        }
+      );
+    } else {
+      res.status(200).send({
+        success: true,
+        data: { id: req.restaurantId },
+      });
+    }
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
   }

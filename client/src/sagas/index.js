@@ -12,6 +12,7 @@ import { RestaurantInfoTypes } from "../redux/restaurantInfo.redux";
 import { ItemRestaurantTypes } from "../redux/itemRestaurant.redux";
 import { LanguageRestaurantTypes } from "../redux/languageRestaurant.redux";
 import { ImageTypes } from "../redux/image.redux";
+import { QRCodeTypes } from "../redux/qrcode.redux";
 
 /* ------------- Sagas ------------- */
 import {
@@ -41,6 +42,8 @@ import {
   createItemRestaurant,
   removeItemRestaurant,
 } from "./itemRestaurant.saga";
+import { createQRCode, getQRCode } from "./qrcode.saga";
+
 import { requestUploadPostImage } from "./image.saga";
 
 import { getLanguageRestaurant } from "./languageRestaurant.saga";
@@ -82,12 +85,16 @@ export default function* root() {
       removeCategoryRestaurant
     ),
 
+    takeLatest(ItemRestaurantTypes.CREATE_ITEM, createItemRestaurant),
     takeLatest(ItemRestaurantTypes.REMOVE_ITEM, removeItemRestaurant),
 
     takeLatest(RestaurantInfoTypes.GET_CONTRACT, getRestaurantContract),
     takeLatest(RestaurantInfoTypes.GET_RESTAURANT_INFO, getRestaurantInfo),
 
     takeLatest(LanguageRestaurantTypes.GET_LANGUAGE, getLanguageRestaurant),
+
+    takeLatest(QRCodeTypes.CREATE_QR_CODE, createQRCode),
+    takeLatest(QRCodeTypes.GET_QR_CODE, getQRCode),
 
     // Image
     takeLatest(ImageTypes.REQUEST_UPLOAD_POST_IMAGE, requestUploadPostImage),
@@ -107,11 +114,14 @@ export default function* root() {
         CategoryRestaurantTypes.CREATE_CATEGORY,
         CategoryRestaurantTypes.UPDATE_CATEGORY,
         CategoryRestaurantTypes.REMOVE_CATEGORY,
+        ItemRestaurantTypes.CREATE_ITEM,
         ItemRestaurantTypes.REMOVE_ITEM,
         RestaurantInfoTypes.GET_CONTRACT,
         RestaurantInfoTypes.GET_RESTAURANT_INFO,
         LanguageRestaurantTypes.GET_LANGUAGE,
         ImageTypes.REQUEST_UPLOAD_POST_IMAGE,
+        QRCodeTypes.CREATE_QR_CODE,
+        QRCodeTypes.GET_QR_CODE,
       ],
       resetError
     ),
@@ -130,11 +140,14 @@ export default function* root() {
         CategoryRestaurantTypes.CREATE_CATEGORY,
         CategoryRestaurantTypes.UPDATE_CATEGORY,
         CategoryRestaurantTypes.REMOVE_CATEGORY,
+        ItemRestaurantTypes.CREATE_ITEM,
         ItemRestaurantTypes.REMOVE_ITEM,
         RestaurantInfoTypes.GET_CONTRACT,
         RestaurantInfoTypes.GET_RESTAURANT_INFO,
         LanguageRestaurantTypes.GET_LANGUAGE,
         ImageTypes.REQUEST_UPLOAD_POST_IMAGE,
+        QRCodeTypes.CREATE_QR_CODE,
+        QRCodeTypes.GET_QR_CODE,
       ],
       raiseError
     ),
