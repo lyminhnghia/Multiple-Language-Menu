@@ -12,6 +12,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Box
 } from "@material-ui/core";
 import {
   Menu,
@@ -87,11 +88,12 @@ const CustomerLayout = ({ children }) => {
             MENUUU
           </Typography>
           <IconButton 
-            className={classes.orderButton}
+            className={`${classes.orderButton} ${classes.boxChange}`}
             // disableRipple
           >
-            <Link to={`/{id}/pay`} activeClassName="active" style={{textDecoration: "none", color:"black"}}>
+            <Link to={`/{id}/pay`} activeClassName="active" style={{textDecoration: "none",color:"white"}}>
               <Restaurant />
+              <Box className={classes.boxPosition}>1</Box>
             </Link>            
           </IconButton>
         </Toolbar>
@@ -226,6 +228,23 @@ const useStyles = makeStyles((theme) => ({
       color: "rgb(48, 92, 139)",
     },
   },
+  boxPosition:{
+    position: "fixed",
+    top: 4,
+    right: 4,
+    backgroundColor: "white",
+    width: "20px",
+    height: "20px",
+    borderRadius: "50%",
+    color: "rgb(48, 92, 139)",
+    fontSize: "14px",
+    lineHeight: "20px",
+    textAlign: "center"
+  },
+  boxChange:{
+    borderRadius: "0",
+    backgroundColor: "rgb(48, 92, 139)",
+  }
 }));
 
 export default memo(CustomerLayout);

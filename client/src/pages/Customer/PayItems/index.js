@@ -88,7 +88,7 @@ const PayItems = () => {
                     <Box className={classes.boxDataPrice}>{totalPrice}</Box>
                     </Box>
                     <Box className={classes.boxButton}>
-                    <ButtonBox nameButton="Đặt hàng" />
+                        <ButtonBox nameButton="Đặt hàng" />
                     </Box>
                 </Box>
             </Box>
