@@ -107,7 +107,6 @@ const RestaurantInformation = () => {
               <InputText
                 nameLabel={getLabel(LangConstant.TXT_WIFI)}
                 typeInput="text"
-                requiredInput={true}
                 nameText="name_wifi"
                 value={formChange.name_wifi ? formChange.name_wifi : ""}
                 onInput={(e) => onChange(e)}
@@ -115,7 +114,6 @@ const RestaurantInformation = () => {
               <InputText
                 nameLabel={getLabel(LangConstant.TXT_PASS_WIFI)}
                 typeInput="text"
-                requiredInput={true}
                 nameText="password_wifi"
                 value={formChange.password_wifi ? formChange.password_wifi : ""}
                 onInput={(e) => onChange(e)}
@@ -123,7 +121,6 @@ const RestaurantInformation = () => {
               <InputText
                 nameLabel={getLabel(LangConstant.TXT_LINK_WEBSITE)}
                 typeInput="text"
-                requiredInput={true}
                 nameText="url_website"
                 value={formChange.url_website ? formChange.url_website : ""}
                 onInput={(e) => onChange(e)}
@@ -131,7 +128,6 @@ const RestaurantInformation = () => {
               <InputText
                 nameLabel={getLabel(LangConstant.TXT_PAYMENTS)}
                 typeInput="text"
-                requiredInput={true}
                 nameText="payment_method"
                 defaultValueInput={formChange.payments}
                 onInput={(e) => onChange(e)}
@@ -139,7 +135,6 @@ const RestaurantInformation = () => {
               <InputText
                 nameLabel={getLabel(LangConstant.TXT_TIME_WORK)}
                 typeInput="text"
-                requiredInput={true}
                 nameText="time_work"
                 defaultValueInput={formChange.time_work}
                 onInput={(e) => onChange(e)}
