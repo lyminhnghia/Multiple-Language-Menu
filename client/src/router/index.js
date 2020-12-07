@@ -1,35 +1,40 @@
 import React from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 import { PathConstant } from "../const";
-import PropTypes from "prop-types";
 import {
   LoginAdminPage,
-  ShopListAdmin,
-  ShopRegisterAdmin,
+  RestaurantListAdmin,
+  RestaurantRegisterAdmin,
   ProfileAdmin,
   AdminNotFound,
 } from "../pages/Admin";
-import DashboardPage from "../pages/Dashboard";
 import NotFoundPage from "../pages/NotFound";
 import {
-  LoginShop,
-  ShopAddCategory,
+  LoginRestaurant,
+  RestaurantAddCategory,
   CategoryTable,
   TranferLanguage,
   ContractInformation,
-  QRCodeShop,
-  ShopInformation
-} from "../pages/Shop";
+  QRCodeRestaurant,
+  RestaurantInformation,
+  OrderHistoryRestaurant,
+} from "../pages/Restaurant";
 
 import {
-  OrderHistory 
-} from "../pages/Customer"
+  Introduce,
+  Category,
+  OrderHistory,
+  TranferLang,
+  OrderItems,
+  PayItems,
+  ConfirmPay
+} from "../pages/Customer";
 
 function AuthenticationRoute(props) {
   const { component: Component, ...rest } = props;
   // Check authentication with the page need to be protected
   const isCheckedAdmin = window.isCheckedAdmin;
-  const isCheckedShop = window.isCheckedShop;
+  const isCheckedRestaurant = window.isCheckedRestaurant;
 
   return isCheckedAdmin ? (
     <Route {...rest} render={(matchProps) => <Component {...matchProps} />} />
@@ -45,26 +50,21 @@ function AuthenticationRoute(props) {
   );
 }
 
-AuthenticationRoute.propTypes = {
-  component: PropTypes.any.isRequired,
-  path: PropTypes.string.isRequired,
-};
-
 const Routes = () => {
   return (
     <Switch>
       {/* <Redirect exact from={PathConstant.ROOT} to={PathConstant.DASHBOARD} /> */}
       {/* <AuthenticationRoute component={DashboardPage} exact path={PathConstant.DASHBOARD} /> */}
-      <Route
-        component={ShopListAdmin}
-        exact
-        path={PathConstant.ADMIN_SHOP_LIST}
-      />
       <Route component={LoginAdminPage} exact path={PathConstant.LOGIN_ADMIN} />
       <Route
-        component={ShopRegisterAdmin}
+        component={RestaurantListAdmin}
         exact
-        path={PathConstant.ADMIN_REGISTER_SHOP}
+        path={PathConstant.ADMIN_RESTAURANT_LIST}
+      />
+      <Route
+        component={RestaurantRegisterAdmin}
+        exact
+        path={PathConstant.ADMIN_REGISTER_RESTAURANT}
       />
       <Route component={ProfileAdmin} exact path={PathConstant.ADMIN_PROFILE} />
       <Route
@@ -74,44 +74,58 @@ const Routes = () => {
       />
       {/* <Redirect to={PathConstant.ADMIN_NOT_FOUND} /> */}
 
-      <Route component={LoginShop} exact path={PathConstant.LOGIN_SHOP} />
       <Route
-        component={ShopAddCategory}
+        component={LoginRestaurant}
         exact
-        path={PathConstant.SHOP_ADD_CATEGORY}
+        path={PathConstant.LOGIN_RESTAURANT}
+      />
+      <Route
+        component={RestaurantAddCategory}
+        exact
+        path={PathConstant.RESTAURANT_ADD_CATEGORY}
       />
       <Route
         component={CategoryTable}
         exact
-        path={PathConstant.SHOP_CATEGORY_TABLE}
+        path={PathConstant.RESTAURANT_CATEGORY_TABLE}
       />
       <Route
         component={TranferLanguage}
         exact
-        path={PathConstant.SHOP_TRANFER_LANGUAGE}
+        path={PathConstant.RESTAURANT_TRANFER_LANGUAGE}
       />
       <Route
         component={ContractInformation}
         exact
-        path={PathConstant.SHOP_CONTRACT}
-      />
-      <Route 
-        component={QRCodeShop} 
-        exact 
-        path={PathConstant.SHOP_QR_CODE} 
+        path={PathConstant.RESTAURANT_CONTRACT}
       />
       <Route
-        component={ShopInformation}
+        component={QRCodeRestaurant}
         exact
-        path={PathConstant.SHOP_INFORMATION}
+        path={PathConstant.RESTAURANT_QR_CODE}
       />
       <Route
-        component={OrderHistory}
+        component={RestaurantInformation}
         exact
-        path={PathConstant.CUSTOMER_ORDER_HISTORY}
+        path={PathConstant.RESTAURANT_INFORMATION}
       />
+      <Route
+        component={OrderHistoryRestaurant}
+        exact
+        path={PathConstant.RESTAURANT_ORDER_HISTORY}
+      />
+
+      {/* Customer */}
+      <Route component={Category} exact path={PathConstant.CUSTOMER_CATEGORY} />
+
+      <Route component={Introduce} exact path={PathConstant.ROOT} />
+      <Route component={OrderHistory} exact path={PathConstant.CUSTOMER_ORDER_HISTORY} />
+      <Route component={TranferLang} exact path={PathConstant.CUSTOMER_LANGUAGE} />
+      <Route component={OrderItems} exact path={PathConstant.CUSTOMER_ITEM_CATEGORY} />
+      <Route component={PayItems} exact path={PathConstant.CUSTOMER_PAY} />
+      <Route component={ConfirmPay} exact path={PathConstant.CUSTOMER_CONFIRM_PAY} />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
-      <Redirect to={PathConstant.NOT_FOUND} />
+      {/* <Redirect to={PathConstant.NOT_FOUND} /> */}
     </Switch>
   );
 };

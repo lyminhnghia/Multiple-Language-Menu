@@ -2,25 +2,25 @@ import { createReducer, createActions } from "reduxsauce";
 
 /* ------------- Types and Action Creators ------------- */
 const { Types, Creators } = createActions({
-  getListShop: ["data"],
-  getListShopSuccess: ["data"],
-  getListShopFailure: ["error"],
+  getListRestaurant: ["data"],
+  getListRestaurantSuccess: ["data"],
+  getListRestaurantFailure: ["error"],
 
-  createShop: ["data"],
-  createShopSuccess: ["data"],
-  createShopFailure: ["error"],
+  createRestaurant: ["data"],
+  createRestaurantSuccess: ["data"],
+  createRestaurantFailure: ["error"],
 
-  getShop: ["data"],
-  getShopSuccess: ["data"],
-  getShopFailure: ["error"],
+  getRestaurant: ["data"],
+  getRestaurantSuccess: ["data"],
+  getRestaurantFailure: ["error"],
 
-  updateShop: ["data"],
-  updateShopSuccess: ["data"],
-  updateShopFailure: ["error"],
+  updateRestaurant: ["data"],
+  updateRestaurantSuccess: ["data"],
+  updateRestaurantFailure: ["error"],
 
-  deleteShop: ["data"],
-  deleteShopSuccess: ["data"],
-  deleteShopFailure: ["error"],
+  deleteRestaurant: ["data"],
+  deleteRestaurantSuccess: ["data"],
+  deleteRestaurantFailure: ["error"],
 
   getProfileAdmin: ["data"],
   getProfileAdminSuccess: ["data"],
@@ -66,96 +66,96 @@ export const INITIAL_STATE = {
 };
 
 /* ------------- Reducers ------------- */
-/* ------------- get List Shop ------------- */
-export const getListShop = (state = INITIAL_STATE) => ({
+/* ------------- get List Restaurant ------------- */
+export const getListRestaurant = (state = INITIAL_STATE) => ({
   ...state,
   isFetching: true,
 });
 
-export const getListShopSuccess = (state = INITIAL_STATE, action) => ({
+export const getListRestaurantSuccess = (state = INITIAL_STATE, action) => ({
   ...state,
   isFetching: false,
   isSuccess: true,
   data: action.data,
 });
 
-export const getListShopFailure = (state = INITIAL_STATE, action) => ({
+export const getListRestaurantFailure = (state = INITIAL_STATE, action) => ({
   ...state,
   isFetching: false,
   error: action.error,
 });
 
-/* ------------- create Shop ------------- */
-export const createShop = (state = INITIAL_STATE) => ({
+/* ------------- create Restaurant ------------- */
+export const createRestaurant = (state = INITIAL_STATE) => ({
   ...state,
   isFetchingCreate: true,
 });
 
-export const createShopSuccess = (state = INITIAL_STATE, action) => ({
+export const createRestaurantSuccess = (state = INITIAL_STATE, action) => ({
   ...state,
   isFetchingCreate: false,
   isCreateSuccess: true,
   dataCreate: action.data,
 });
 
-export const createShopFailure = (state = INITIAL_STATE, action) => ({
+export const createRestaurantFailure = (state = INITIAL_STATE, action) => ({
   ...state,
   isFetchingCreate: false,
   errorCreate: action.error,
 });
 
-/* ------------- get Shop ------------- */
-export const getShop = (state = INITIAL_STATE) => ({
+/* ------------- get Restaurant ------------- */
+export const getRestaurant = (state = INITIAL_STATE) => ({
   ...state,
   isFetchingGet: true,
 });
 
-export const getShopSuccess = (state = INITIAL_STATE, action) => ({
+export const getRestaurantSuccess = (state = INITIAL_STATE, action) => ({
   ...state,
   isFetchingGet: false,
   isGetSuccess: true,
   dataGet: action.data,
 });
 
-export const getShopFailure = (state = INITIAL_STATE, action) => ({
+export const getRestaurantFailure = (state = INITIAL_STATE, action) => ({
   ...state,
   isFetchingGet: false,
   errorGet: action.error,
 });
 
-/* ------------- update Shop ------------- */
-export const updateShop = (state = INITIAL_STATE) => ({
+/* ------------- update Restaurant ------------- */
+export const updateRestaurant = (state = INITIAL_STATE) => ({
   ...state,
   isFetchingUpdate: true,
 });
 
-export const updateShopSuccess = (state = INITIAL_STATE, action) => ({
+export const updateRestaurantSuccess = (state = INITIAL_STATE, action) => ({
   ...state,
   isFetchingUpdate: false,
   isUpdateSuccess: true,
   dataUpdate: action.data,
 });
 
-export const updateShopFailure = (state = INITIAL_STATE, action) => ({
+export const updateRestaurantFailure = (state = INITIAL_STATE, action) => ({
   ...state,
   isFetchingUpdate: false,
   errorUpdate: action.error,
 });
 
-/* ------------- delete Shop ------------- */
-export const deleteShop = (state = INITIAL_STATE) => ({
+/* ------------- delete Restaurant ------------- */
+export const deleteRestaurant = (state = INITIAL_STATE) => ({
   ...state,
   isFetchingDelete: true,
 });
 
-export const deleteShopSuccess = (state = INITIAL_STATE, action) => ({
+export const deleteRestaurantSuccess = (state = INITIAL_STATE, action) => ({
   ...state,
   isFetchingDelete: false,
   isDeleteSuccess: true,
   dataDelete: action.data,
 });
 
-export const deleteShopFailure = (state = INITIAL_STATE, action) => ({
+export const deleteRestaurantFailure = (state = INITIAL_STATE, action) => ({
   ...state,
   isFetchingDelete: false,
   errorDelete: action.error,
@@ -193,26 +193,26 @@ export const resetAdmin = (state = INITIAL_STATE) => ({
 
 /* ------------- Mapping ------------- */
 export const HANDLERS = {
-  // get List Shop
-  [Types.GET_LIST_SHOP]: getListShop,
-  [Types.GET_LIST_SHOP_SUCCESS]: getListShopSuccess,
-  [Types.GET_LIST_SHOP_FAILURE]: getListShopFailure,
-  // create Shop
-  [Types.CREATE_SHOP]: createShop,
-  [Types.CREATE_SHOP_SUCCESS]: createShopSuccess,
-  [Types.CREATE_SHOP_FAILURE]: createShopFailure,
-  // get Shop
-  [Types.GET_SHOP]: getShop,
-  [Types.GET_SHOP_SUCCESS]: getShopSuccess,
-  [Types.GET_SHOP_FAILURE]: getShopFailure,
-  // update Shop
-  [Types.UPDATE_SHOP]: updateShop,
-  [Types.UPDATE_SHOP_SUCCESS]: updateShopSuccess,
-  [Types.UPDATE_SHOP_FAILURE]: updateShopFailure,
-  // delete Shop
-  [Types.DELETE_SHOP]: deleteShop,
-  [Types.DELETE_SHOP_SUCCESS]: deleteShopSuccess,
-  [Types.DELETE_SHOP_FAILURE]: deleteShopFailure,
+  // get List Restaurant
+  [Types.GET_LIST_RESTAURANT]: getListRestaurant,
+  [Types.GET_LIST_RESTAURANT_SUCCESS]: getListRestaurantSuccess,
+  [Types.GET_LIST_RESTAURANT_FAILURE]: getListRestaurantFailure,
+  // create Restaurant
+  [Types.CREATE_RESTAURANT]: createRestaurant,
+  [Types.CREATE_RESTAURANT_SUCCESS]: createRestaurantSuccess,
+  [Types.CREATE_RESTAURANT_FAILURE]: createRestaurantFailure,
+  // get Restaurant
+  [Types.GET_RESTAURANT]: getRestaurant,
+  [Types.GET_RESTAURANT_SUCCESS]: getRestaurantSuccess,
+  [Types.GET_RESTAURANT_FAILURE]: getRestaurantFailure,
+  // update Restaurant
+  [Types.UPDATE_RESTAURANT]: updateRestaurant,
+  [Types.UPDATE_RESTAURANT_SUCCESS]: updateRestaurantSuccess,
+  [Types.UPDATE_RESTAURANT_FAILURE]: updateRestaurantFailure,
+  // delete Restaurant
+  [Types.DELETE_RESTAURANT]: deleteRestaurant,
+  [Types.DELETE_RESTAURANT_SUCCESS]: deleteRestaurantSuccess,
+  [Types.DELETE_RESTAURANT_FAILURE]: deleteRestaurantFailure,
   // profile Admin
   [Types.GET_PROFILE_ADMIN]: getProfileAdmin,
   [Types.GET_PROFILE_ADMIN_SUCCESS]: getProfileAdminSuccess,

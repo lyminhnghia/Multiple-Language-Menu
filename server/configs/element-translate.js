@@ -1,5 +1,5 @@
 module.exports = {
-  menu: "Danh mục sản phẩm",
+  menu: "Thực đơn",
   history: "Lịch sử",
   shop_info: "Thông tin cửa hàng",
   guide_welcome: "Chào mừng bạn đã đến với cửa hàng của chúng tôi!",

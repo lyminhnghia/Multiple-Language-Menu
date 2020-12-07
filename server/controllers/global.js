@@ -33,7 +33,7 @@ exports.LoginAdmin = async (req, res) => {
     }
 
     let JWToken = jwt.sign(
-      { id: user.id, role: user.role, shopId: user.shopId },
+      { id: user.id, role: user.role, restaurantId: user.restaurantId },
       config.secret,
       {
         expiresIn: 86400,
@@ -48,7 +48,7 @@ exports.LoginAdmin = async (req, res) => {
   }
 };
 
-exports.LoginShop = async (req, res) => {
+exports.LoginRestaurant = async (req, res) => {
   try {
     let user = await Account.findOne({
       where: {
@@ -73,7 +73,7 @@ exports.LoginShop = async (req, res) => {
     }
 
     let JWToken = jwt.sign(
-      { id: user.id, role: user.role, shopId: user.shopId },
+      { id: user.id, role: user.role, restaurantId: user.restaurantId },
       config.secret,
       {
         expiresIn: 86400,

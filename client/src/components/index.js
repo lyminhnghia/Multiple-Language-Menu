@@ -8,6 +8,7 @@ import BoxButton from "./buttonBox";
 import InputText from "./inputText";
 import Notify from "./Validate/Notify";
 import MultipleChoice from "./OptionBar/MultipleChoice";
+import Logout from "./Dialog/logout";
 export {
   Sidebar,
   CellBody,
@@ -19,4 +20,5 @@ export {
   InputText,
   Notify,
   MultipleChoice,
+  Logout,
 };

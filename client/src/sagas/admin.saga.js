@@ -3,78 +3,78 @@ import { ApiConstant } from "../const";
 import AdminAction from "../redux/admin.redux";
 import { AdminService } from "../services";
 
-export function* getListShopAdmin(action) {
+export function* getListRestaurantAdmin(action) {
   try {
     const { data } = action;
-    let response = yield call(AdminService.getListShopAdmin, data);
+    let response = yield call(AdminService.getListRestaurantAdmin, data);
     if (response.status == ApiConstant.STT_OK) {
       let responseData = response.data;
-      yield put(AdminAction.getListShopSuccess(responseData));
+      yield put(AdminAction.getListRestaurantSuccess(responseData));
     } else {
-      yield put(AdminAction.getListShopFailure(response.data.error));
+      yield put(AdminAction.getListRestaurantFailure(response.data.error));
     }
   } catch (error) {
-    yield put(AdminAction.getListShopFailure(error));
+    yield put(AdminAction.getListRestaurantFailure(error));
   }
 }
 
-export function* createShopAdmin(action) {
+export function* createRestaurantAdmin(action) {
   try {
     const { data } = action;
-    let response = yield call(AdminService.createShopAdmin, data);
+    let response = yield call(AdminService.createRestaurantAdmin, data);
     if (response.status == ApiConstant.STT_OK) {
       let responseData = response.data.data;
-      yield put(AdminAction.createShopSuccess(responseData));
+      yield put(AdminAction.createRestaurantSuccess(responseData));
     } else {
-      yield put(AdminAction.createShopFailure(response.data.error));
+      yield put(AdminAction.createRestaurantFailure(response.data.error));
     }
   } catch (error) {
-    yield put(AdminAction.createShopFailure(error));
+    yield put(AdminAction.createRestaurantFailure(error));
   }
 }
 
-export function* getShopAdmin(action) {
+export function* getRestaurantAdmin(action) {
   try {
     const { data } = action;
-    let response = yield call(AdminService.getShopAdmin, data);
+    let response = yield call(AdminService.getRestaurantAdmin, data);
     if (response.status == ApiConstant.STT_OK) {
       let responseData = response.data.data;
-      yield put(AdminAction.getShopSuccess(responseData));
+      yield put(AdminAction.getRestaurantSuccess(responseData));
     } else {
-      yield put(AdminAction.getShopFailure(response.data.error));
+      yield put(AdminAction.getRestaurantFailure(response.data.error));
     }
   } catch (error) {
-    yield put(AdminAction.getShopFailure(error));
+    yield put(AdminAction.getRestaurantFailure(error));
   }
 }
 
-export function* updateShopAdmin(action) {
+export function* updateRestaurantAdmin(action) {
   try {
     const { data } = action;
-    let response = yield call(AdminService.updateShopAdmin, data);
+    let response = yield call(AdminService.updateRestaurantAdmin, data);
     if (response.status == ApiConstant.STT_OK) {
       let responseData = response.data.data;
-      yield put(AdminAction.updateShopSuccess(responseData));
+      yield put(AdminAction.updateRestaurantSuccess(responseData));
     } else {
-      yield put(AdminAction.updateShopFailure(response.data.error));
+      yield put(AdminAction.updateRestaurantFailure(response.data.error));
     }
   } catch (error) {
-    yield put(AdminAction.updateShopFailure(error));
+    yield put(AdminAction.updateRestaurantFailure(error));
   }
 }
 
-export function* deleteShopAdmin(action) {
+export function* deleteRestaurantAdmin(action) {
   try {
     const { data } = action;
-    let response = yield call(AdminService.deleteShopAdmin, data);
+    let response = yield call(AdminService.deleteRestaurantAdmin, data);
     if (response.status == ApiConstant.STT_OK) {
       let responseData = response.data.data;
-      yield put(AdminAction.deleteShopSuccess(responseData));
+      yield put(AdminAction.deleteRestaurantSuccess(responseData));
     } else {
-      yield put(AdminAction.deleteShopFailure(response.data.error));
+      yield put(AdminAction.deleteRestaurantFailure(response.data.error));
     }
   } catch (error) {
-    yield put(AdminAction.deleteShopFailure(error));
+    yield put(AdminAction.deleteRestaurantFailure(error));
   }
 }
 

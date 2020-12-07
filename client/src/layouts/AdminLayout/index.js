@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import {
   makeStyles,
   useTheme,
@@ -13,34 +13,50 @@ import {
   AccountBox,
   ExitToApp,
 } from "@material-ui/icons";
-import { LangConstant, PathConstant } from "../../const";
-import { Sidebar } from "../../components";
+import { LangConstant, PathConstant, AppConstant } from "../../const";
+import { Sidebar, Logout } from "../../components";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
+import Cookie from "js-cookie";
 import PropTypes from "prop-types";
 
 const AdminLayout = (props) => {
   const { children, mainClass } = props;
   const { t: getLabel } = useTranslation();
   const classes = useStyles();
+  const history = useHistory();
+
   const isBreakPoint = useMediaQuery(useTheme().breakpoints.up("md"), {
     defaultMatches: true,
   });
+
   const [isBar, setIsBar] = useState(false);
+  const [isOpenLogout, setIsOpenLogout] = useState(false);
+
   const onOpenSidebar = () => {
     setIsBar(!isBar);
   };
+
+  const onLogout = () => {
+    setIsOpenLogout(!isOpenLogout);
+    Cookie.remove(AppConstant.KEY_TOKEN);
+    Cookie.remove(AppConstant.KEY_ROLE);
+    history.push(PathConstant.LOGIN_ADMIN);
+    window.location.reload(true);
+  };
+
   const listSidebar = [
     {
-      text: getLabel(LangConstant.TXT_SHOP_LIST),
+      text: getLabel(LangConstant.TXT_RESTAURANT_LIST),
       IconComponent: <Store />,
       isNewTab: false,
-      path: PathConstant.ADMIN_SHOP_LIST,
+      path: PathConstant.ADMIN_RESTAURANT_LIST,
     },
     {
-      text: getLabel(LangConstant.TXT_REGISTER_SHOP),
+      text: getLabel(LangConstant.TXT_REGISTER_RESTAURANT),
       IconComponent: <AddCircle />,
       isNewTab: false,
-      path: PathConstant.ADMIN_REGISTER_SHOP,
+      path: PathConstant.ADMIN_REGISTER_RESTAURANT,
     },
     {
       text: getLabel(LangConstant.TXT_PROFILE),
@@ -52,9 +68,9 @@ const AdminLayout = (props) => {
       text: getLabel(LangConstant.TXT_LOGOUT),
       IconComponent: <ExitToApp />,
       isNewTab: false,
-      path: PathConstant.LOGIN_ADMIN,
     },
   ];
+
   return (
     <div>
       {!isBreakPoint && (
@@ -68,17 +84,26 @@ const AdminLayout = (props) => {
 
       <main className={classes.main}>
         {isBreakPoint ? (
-          <Sidebar listSidebar={listSidebar} children={children} />
+          <Sidebar
+            listSidebar={listSidebar}
+            children={children}
+            setIsOpenLogout={setIsOpenLogout}
+          />
         ) : (
           isBar && (
             <Sidebar
               listSidebar={listSidebar}
               children={children}
               isTop={true}
+              setIsOpenLogout={setIsOpenLogout}
             />
           )
         )}
-
+        <Logout
+          isOpen={isOpenLogout}
+          setIsOpen={setIsOpenLogout}
+          onSubmit={onLogout}
+        />
         <Box className={`${classes.container} ${mainClass}`}>{children}</Box>
       </main>
     </div>
