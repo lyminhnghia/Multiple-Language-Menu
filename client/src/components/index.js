@@ -9,6 +9,8 @@ import InputText from "./inputText";
 import Notify from "./Validate/Notify";
 import MultipleChoice from "./OptionBar/MultipleChoice";
 import Logout from "./Dialog/logout";
+import AddImage from "./AddImage";
+
 export {
   Sidebar,
   CellBody,
@@ -21,4 +23,5 @@ export {
   Notify,
   MultipleChoice,
   Logout,
+  AddImage,
 };

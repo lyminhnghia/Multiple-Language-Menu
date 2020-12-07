@@ -9,6 +9,7 @@ const InputText = ({
   value,
   onInput,
   nameText,
+  variant,
   disabled,
 }) => {
   const classes = useStyles();
@@ -22,6 +23,7 @@ const InputText = ({
       value={value}
       onInput={onInput}
       name={nameText}
+      variant={variant}
       disabled={disabled}
     />
   );

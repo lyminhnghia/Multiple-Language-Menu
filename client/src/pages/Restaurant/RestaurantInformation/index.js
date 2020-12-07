@@ -3,9 +3,7 @@ import { RestaurantLayout } from "../../../layouts";
 import { LangConstant } from "../../../const";
 import { makeStyles, Box } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import InputText from "../../../components/inputText";
-import ButtonBox from "../../../components/buttonBox";
-import EditImage from "./Components/editImg";
+import { InputText, BoxButton, AddImage } from "../../../components";
 import { useDispatch, useSelector } from "react-redux";
 import RestaurantInfoAction from "../../../redux/restaurantInfo.redux";
 
@@ -16,23 +14,29 @@ const RestaurantInformation = () => {
   const restaurantInfo = useSelector(
     (state) => state.restaurantInfoRedux.RestaurantInfo
   );
+
+  const [isEditing, setIsEditing] = useState(false);
   const [formChange, setFormChange] = useState({});
 
   if (restaurantInfo === null) {
     dispatch(RestaurantInfoAction.getRestaurantInfo({}));
   }
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     console.log(formChange);
   };
 
   const onChange = (e) => {
     setFormChange({ ...formChange, [e.target.name]: e.target.value });
-    console.log(e.target.value, e.target.name);
   };
-  const getImgBase64 = (data) => {
-    setFormChange({ ...formChange, ["base-64"]: data });
+  const getImage = (data) => {
+    setFormChange({ ...formChange, ["url_image"]: data });
+  };
+
+  const getDefaultsValue = () => {
+    setFormChange(restaurantInfo);
+    setIsEditing(!isEditing);
   };
 
   useEffect(() => {
@@ -40,146 +44,158 @@ const RestaurantInformation = () => {
       setFormChange(restaurantInfo);
     }
   }, [restaurantInfo]);
-  const getDefaultsValue = () => {
-    setFormChange({});
-  };
+
   return (
     <RestaurantLayout>
-      <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+      <form onSubmit={onSubmit} style={{ width: "100%" }}>
         <Box className={classes.boxParent}>
           <Box className={classes.boxHeader}>
             <Box className={classes.boxLabel}>
               {getLabel(LangConstant.TXT_RESTAURANT_INFORMATION)}
             </Box>
-            <Box style={{ display: "flex" }}>
-              <Box className={`${classes.boxButton} ${classes.boxChange}`}>
-                <ButtonBox
-                  nameButton={getLabel(LangConstant.TXT_CANCER)}
-                  onClick={(e) => getDefaultsValue()}
-                />
-              </Box>
-              <Box className={classes.boxButton}>
-                <ButtonBox
-                  nameButton={getLabel(LangConstant.TXT_SAVE)}
-                  typeButton="submit"
-                />
-              </Box>
-            </Box>
           </Box>
           <Box className={classes.boxBody}>
             <Box className={classes.boxContent}>
-              <InputText
-                nameLabel={getLabel(LangConstant.TXT_TYPE_RESTAURANT)}
-                typeInput="text"
-                requiredInput={true}
-                nameText="restaurant_type"
-                value={
-                  formChange.restaurant_type ? formChange.restaurant_type : ""
-                }
-                onInput={(e) => onChange(e)}
-              />
-              <InputText
-                nameLabel={getLabel(LangConstant.TXT_RESTAURANT_NAME)}
-                typeInput="text"
-                requiredInput={true}
-                nameText="restaurant_name"
-                value={
-                  formChange.restaurant_name ? formChange.restaurant_name : ""
-                }
-                onInput={(e) => onChange(e)}
-              />
-              <InputText
-                nameLabel={getLabel(LangConstant.TXT_EMAIL)}
-                typeInput="text"
-                requiredInput={true}
-                nameText="email"
-                value={formChange.email ? formChange.email : ""}
-                onInput={(e) => onChange(e)}
-              />
-              <InputText
-                nameLabel={getLabel(LangConstant.TXT_TELEPHONE)}
-                typeInput="number"
-                requiredInput={true}
-                nameText="telephone"
-                value={formChange.telephone ? formChange.telephone : ""}
-                onInput={(e) => onChange(e)}
-              />
-              <InputText
-                nameLabel={getLabel(LangConstant.TXT_WIFI)}
-                typeInput="text"
-                nameText="name_wifi"
-                value={formChange.name_wifi ? formChange.name_wifi : ""}
-                onInput={(e) => onChange(e)}
-              />
-              <InputText
-                nameLabel={getLabel(LangConstant.TXT_PASS_WIFI)}
-                typeInput="text"
-                nameText="password_wifi"
-                value={formChange.password_wifi ? formChange.password_wifi : ""}
-                onInput={(e) => onChange(e)}
-              />
-              <InputText
-                nameLabel={getLabel(LangConstant.TXT_LINK_WEBSITE)}
-                typeInput="text"
-                nameText="url_website"
-                value={formChange.url_website ? formChange.url_website : ""}
-                onInput={(e) => onChange(e)}
-              />
-              <InputText
-                nameLabel={getLabel(LangConstant.TXT_PAYMENTS)}
-                typeInput="text"
-                nameText="payment_method"
-                defaultValueInput={formChange.payments}
-                onInput={(e) => onChange(e)}
-              />
-              <InputText
-                nameLabel={getLabel(LangConstant.TXT_TIME_WORK)}
-                typeInput="text"
-                nameText="time_work"
-                defaultValueInput={formChange.time_work}
-                onInput={(e) => onChange(e)}
-              />
-              <InputText
-                nameLabel={getLabel(LangConstant.TXT_PORT_NUMBER)}
-                typeInput="text"
-                requiredInput={true}
-                nameText="port_number"
-                value={formChange.port_number ? formChange.port_number : ""}
-                onInput={(e) => onChange(e)}
-              />
-              <InputText
-                nameLabel={getLabel(LangConstant.TXT_CITY)}
-                typeInput="text"
-                requiredInput={true}
-                nameText="city"
-                value={formChange.city ? formChange.city : ""}
-                onInput={(e) => onChange(e)}
-              />
-              <InputText
-                nameLabel={getLabel(LangConstant.TXT_ADDRESS)}
-                typeInput="text"
-                requiredInput={true}
-                nameText="address"
-                value={formChange.address ? formChange.address : ""}
-                onInput={(e) => onChange(e)}
-              />
-              <InputText
-                nameLabel={getLabel(LangConstant.TXT_BUILDING)}
-                typeInput="text"
-                requiredInput={true}
-                nameText="building"
-                value={formChange.building ? formChange.building : ""}
-                onInput={(e) => onChange(e)}
-              />
-            </Box>
-            <Box className={classes.boxImg}>
-              <EditImage getData={getImgBase64} src={null} />
-              {/* <Box className={classes.boxButton}>
-                <ButtonBox
-                  nameButton={getLabel(LangConstant.TXT_SAVE)}
-                  typeButton="submit"
+              <Box className={classes.BoxChild}>
+                <InputText
+                  nameLabel={getLabel(LangConstant.TXT_TYPE_RESTAURANT)}
+                  typeInput="text"
+                  requiredInput={true}
+                  nameText="restaurant_type"
+                  value={
+                    formChange.restaurant_type ? formChange.restaurant_type : ""
+                  }
+                  onInput={(e) => onChange(e)}
                 />
-              </Box> */}
+                <InputText
+                  nameLabel={getLabel(LangConstant.TXT_RESTAURANT_NAME)}
+                  typeInput="text"
+                  requiredInput={true}
+                  nameText="restaurant_name"
+                  value={
+                    formChange.restaurant_name ? formChange.restaurant_name : ""
+                  }
+                  onInput={(e) => onChange(e)}
+                />
+                <InputText
+                  nameLabel={getLabel(LangConstant.TXT_EMAIL)}
+                  typeInput="text"
+                  requiredInput={true}
+                  nameText="email"
+                  value={formChange.email ? formChange.email : ""}
+                  onInput={(e) => onChange(e)}
+                />
+                <InputText
+                  nameLabel={getLabel(LangConstant.TXT_TELEPHONE)}
+                  typeInput="number"
+                  requiredInput={true}
+                  nameText="telephone"
+                  value={formChange.telephone ? formChange.telephone : ""}
+                  onInput={(e) => onChange(e)}
+                />
+
+                <Box className={classes.boxImg}>
+                  <AddImage onChooseFile={getImage} />
+                </Box>
+              </Box>
+              <Box className={classes.BoxChild}>
+                <InputText
+                  nameLabel={getLabel(LangConstant.TXT_WIFI)}
+                  typeInput="text"
+                  nameText="name_wifi"
+                  value={formChange.name_wifi ? formChange.name_wifi : ""}
+                  onInput={(e) => onChange(e)}
+                />
+                <InputText
+                  nameLabel={getLabel(LangConstant.TXT_PASS_WIFI)}
+                  typeInput="text"
+                  nameText="password_wifi"
+                  value={
+                    formChange.password_wifi ? formChange.password_wifi : ""
+                  }
+                  onInput={(e) => onChange(e)}
+                />
+                <InputText
+                  nameLabel={getLabel(LangConstant.TXT_LINK_WEBSITE)}
+                  typeInput="text"
+                  nameText="url_website"
+                  value={formChange.url_website ? formChange.url_website : ""}
+                  onInput={(e) => onChange(e)}
+                />
+                <InputText
+                  nameLabel={getLabel(LangConstant.TXT_PAYMENTS)}
+                  typeInput="text"
+                  nameText="payment_method"
+                  defaultValueInput={formChange.payments}
+                  onInput={(e) => onChange(e)}
+                />
+                <InputText
+                  nameLabel={getLabel(LangConstant.TXT_TIME_WORK)}
+                  typeInput="text"
+                  nameText="time_work"
+                  defaultValueInput={formChange.time_work}
+                  onInput={(e) => onChange(e)}
+                />
+              </Box>
+              <Box className={classes.BoxChild}>
+                <InputText
+                  nameLabel={getLabel(LangConstant.TXT_PORT_NUMBER)}
+                  typeInput="text"
+                  requiredInput={true}
+                  nameText="port_number"
+                  value={formChange.port_number ? formChange.port_number : ""}
+                  onInput={(e) => onChange(e)}
+                />
+                <InputText
+                  nameLabel={getLabel(LangConstant.TXT_CITY)}
+                  typeInput="text"
+                  requiredInput={true}
+                  nameText="city"
+                  value={formChange.city ? formChange.city : ""}
+                  onInput={(e) => onChange(e)}
+                />
+                <InputText
+                  nameLabel={getLabel(LangConstant.TXT_ADDRESS)}
+                  typeInput="text"
+                  requiredInput={true}
+                  nameText="address"
+                  value={formChange.address ? formChange.address : ""}
+                  onInput={(e) => onChange(e)}
+                />
+                <InputText
+                  nameLabel={getLabel(LangConstant.TXT_BUILDING)}
+                  typeInput="text"
+                  requiredInput={true}
+                  nameText="building"
+                  value={formChange.building ? formChange.building : ""}
+                  onInput={(e) => onChange(e)}
+                />
+              </Box>
+            </Box>
+            <Box className={classes.BoxButtonForm}>
+              {isEditing ? (
+                <>
+                  <Box className={`${classes.boxButton} ${classes.boxChange}`}>
+                    <BoxButton
+                      nameButton={getLabel(LangConstant.TXT_CANCER)}
+                      onClick={(e) => getDefaultsValue()}
+                    />
+                  </Box>
+                  <Box className={classes.boxButton}>
+                    <BoxButton
+                      nameButton={getLabel(LangConstant.TXT_SAVE)}
+                      typeButton="submit"
+                    />
+                  </Box>
+                </>
+              ) : (
+                <Box className={classes.boxButton}>
+                  <BoxButton
+                    nameButton={getLabel(LangConstant.TXT_EDIT)}
+                    onClick={() => setIsEditing(!isEditing)}
+                  />
+                </Box>
+              )}
             </Box>
           </Box>
         </Box>
@@ -196,43 +212,57 @@ const useStyles = makeStyles({
     display: "flex",
     flexWrap: "wrap",
   },
+  BoxChild: {
+    boxShadow: " 0 1px 3px 0 rgba(0,0,0,.2),0 1px 6px 0 rgba(0,0,0,.19)",
+    background: "#fff",
+    padding: "20px 50px",
+    boxSizing: "border-box",
+    display: "flex",
+    flexWrap: "wrap",
+    width: "100%",
+    margin: "10px 0px",
+  },
   boxHeader: {
     width: "100%",
     backgroundColor: "#F2F3F5",
-    height: "200px",
+    height: 200,
     display: "flex",
     alignItems: "center",
     padding: "0px 100px",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
   boxButton: {
-    width: "140px",
-    margin: "0 auto",
-    height: "40px",
-    marginLeft: "5px",
+    width: 140,
+    height: 40,
+    marginLeft: 30,
   },
   boxBody: {
-    width: "100%",
-    padding: "20px 100px",
+    width: "80%",
+    margin: "20px auto",
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "space-between",
   },
   boxContent: {
-    width: "60%",
+    width: "100%",
   },
   boxImg: {
-    marginTop: "20px",
+    margin: "20px auto",
+    width: "80%",
   },
   boxLabel: {
-    fontSize: "40px",
-    lineHeight: "200px",
-    fontWeight: "500",
+    fontSize: 60,
+    fontWeight: 500,
   },
   boxChange: {
     "& .MuiButtonBase-root": {
       backgroundColor: "#ff4d4d",
     },
+  },
+  BoxButtonForm: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: 20,
+    width: "100%",
   },
 });
 

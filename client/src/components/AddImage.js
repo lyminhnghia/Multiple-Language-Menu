@@ -1,8 +1,11 @@
 import React, { memo, useState } from "react";
-import { makeStyles, Box, Avatar, Fab } from "@material-ui/core";
-import { AddPhotoAlternate, PhotoCamera } from "@material-ui/icons";
+import { makeStyles, Box, Avatar } from "@material-ui/core";
+import { PhotoCamera } from "@material-ui/icons";
+import { LangConstant } from "../const";
+import { useTranslation } from "react-i18next";
 
 const UploadImage = ({ onChooseFile }) => {
+  const { t: getLabel } = useTranslation();
   const [selectedFile, setSelectedFile] = useState(null);
 
   const onClickUpload = (event) => {
@@ -19,9 +22,6 @@ const UploadImage = ({ onChooseFile }) => {
       <Avatar className={classes.largerImage} src={selectedFile}>
         <PhotoCamera style={{ width: "50%", height: "50%" }} />
       </Avatar>
-      <Avatar className={classes.smallImage} src={selectedFile}>
-        <PhotoCamera style={{ width: "50%", height: "50%" }} />
-      </Avatar>
       <input
         accept=".png,.jpg,.jpeg"
         className={classes.input}
@@ -30,13 +30,8 @@ const UploadImage = ({ onChooseFile }) => {
         type="file"
         onChange={onClickUpload}
       />
-      <label
-        htmlFor="contained-button-file"
-        style={{ width: "56px", height: "56px" }}
-      >
-        <Fab component="span" className={classes.button}>
-          <AddPhotoAlternate />
-        </Fab>
+      <label className={classes.boxLabel} htmlFor="contained-button-file">
+        {getLabel(LangConstant.TXT_CHANGE_IMAGE)}
       </label>
     </Box>
   );
@@ -46,20 +41,32 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     width: "100%",
-    "& > *": {
-      margin: theme.spacing(1),
-    },
+    position: "relative",
   },
   input: {
     display: "none",
   },
   largerImage: {
-    width: "350px",
-    height: "350px",
+    width: "100%",
+    height: 350,
+    borderRadius: 0,
+    position: "absolute",
   },
-  smallImage: {
-    width: "100px",
-    height: "100px",
+  boxLabel: {
+    width: "100%",
+    height: 175,
+    zIndex: 1,
+    marginTop: 175,
+    textAlign: "center",
+    paddingTop: 80,
+    fontSize: 18,
+    fontWeight: 500,
+    opacity: 0,
+    "&:hover": {
+      opacity: 1,
+      backgroundColor: "rgb(104 98 98 / 0.6)",
+      color: "white",
+    },
   },
 }));
 export default memo(UploadImage);

@@ -10,10 +10,8 @@ import {
   FormControl,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import InputText from "../../../components/inputText";
-import ButtonBox from "../../../components/buttonBox";
+import { AddImage, InputText, BoxButton } from "../../../components";
 import PopupBox from "./Components/popup";
-import AddImage from "../../../components/AddImage";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryRestaurantAction from "../../../redux/categoryRestaurant.redux";
 import ItemRestaurantAction from "../../../redux/itemRestaurant.redux";
@@ -76,6 +74,12 @@ const RestaurantAddCategory = () => {
       <Box className={classes.boxParent}>
         <Box className={classes.boxBorder}>
           <form style={{ width: "100%" }}>
+            <Box className={classes.BoxChild}>
+              <Box className={classes.boxLabel}>
+                {getLabel(LangConstant.TXT_ADD_IMAGE)}
+              </Box>
+              <AddImage onChooseFile={onGetImage} />
+            </Box>
             <Box className={classes.BoxChild}>
               <InputText
                 nameLabel={getLabel(LangConstant.TXT_NAME_PRODUCT)}
@@ -166,14 +170,9 @@ const RestaurantAddCategory = () => {
               </FormControl>
               <PopupBox />
             </Box>
-            <Box className={classes.BoxChild}>
-              <Box className={classes.boxLabel}>
-                {getLabel(LangConstant.TXT_ADD_IMAGE)}
-              </Box>
-              <AddImage onChooseFile={onGetImage} src={null} />
-            </Box>
+
             <Box className={classes.boxButton}>
-              <ButtonBox
+              <BoxButton
                 nameButton={getLabel(LangConstant.TXT_CONFIRMATION)}
                 onClick={() => onSubmit()}
               />
@@ -192,7 +191,6 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "#fafafa",
     backgroundColor: "#F2F3F5",
   },
   boxBorder: {
@@ -210,7 +208,6 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
     width: "100%",
     margin: "10px 0px",
-    // borderRadius: "20px"
   },
   boxButton: {
     width: "140px",
