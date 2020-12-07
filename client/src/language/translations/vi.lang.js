@@ -98,6 +98,10 @@ export default {
   TXT_RESTAURANT: "Nhà hàng",
   TXT_CURRENCY_UNIT: "Đơn vị tiền tệ",
   TXT_ADD_ITEM: "Thêm món ăn",
+  TXT_CASH: "Tiền mặt",
+  TXT_CREDIT_CARD: "Thẻ tín dụng",
+  TXT_APP: "Ứng dụng",
+  TXT_ETC: "Khác",
 
   FN_PAGINATION: (from, to, count) =>
     `Hiển thị kết quả từ ${from} - ${to} trên tổng ${count}`,

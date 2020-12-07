@@ -112,6 +112,10 @@ export const TXT_RESTAURANT = "TXT_RESTAURANT";
 export const TXT_LANGUAGE = "TXT_LANGUAGE";
 export const TXT_CURRENCY_UNIT = "TXT_CURRENCY_UNIT";
 export const TXT_ADD_ITEM = "TXT_ADD_ITEM";
+export const TXT_CASH = "TXT_CASH";
+export const TXT_CREDIT_CARD = "TXT_CREDIT_CARD";
+export const TXT_APP = "TXT_APP";
+export const TXT_ETC = "TXT_ETC";
 
 export const ARR_RESTAURANT_LIST = [
   TXT_ID,

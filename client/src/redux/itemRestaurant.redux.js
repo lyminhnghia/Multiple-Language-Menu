@@ -6,6 +6,10 @@ const { Types, Creators } = createActions({
   createItemSuccess: ["data"],
   createItemFailure: ["error"],
 
+  updateItem: ["data"],
+  updateItemSuccess: ["data"],
+  updateItemFailure: ["error"],
+
   removeItem: ["data"],
   removeItemSuccess: ["data"],
   removeItemFailure: ["error"],
@@ -22,6 +26,11 @@ export const INITIAL_STATE = {
   errorCreate: null,
   isCreateSuccess: false,
   dataCreate: null,
+
+  isUpdate: false,
+  errorUpdate: null,
+  isUpdateSuccess: false,
+  dataUpdate: null,
 
   isRemove: false,
   errorRemove: null,
@@ -49,6 +58,25 @@ export const createItemFailure = (state = INITIAL_STATE, action) => ({
   errorCreate: action.error,
 });
 
+/* ------------- update Item ------------- */
+export const updateItem = (state = INITIAL_STATE) => ({
+  ...state,
+  isUpdate: true,
+});
+
+export const updateItemSuccess = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isUpdate: false,
+  isUpdateSuccess: true,
+  dataUpdate: action.data,
+});
+
+export const updateItemFailure = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isUpdate: false,
+  errorUpdate: action.error,
+});
+
 /* ------------- remove Item ------------- */
 export const removeItem = (state = INITIAL_STATE) => ({
   ...state,
@@ -72,6 +100,7 @@ export const removeItemFailure = (state = INITIAL_STATE, action) => ({
 export const resetItem = (state = INITIAL_STATE) => ({
   ...state,
   isCreateSuccess: false,
+  isUpdateSuccess: false,
   isRemoveSuccess: false,
 });
 
@@ -81,6 +110,10 @@ export const HANDLERS = {
   [Types.CREATE_ITEM]: createItem,
   [Types.CREATE_ITEM_SUCCESS]: createItemSuccess,
   [Types.CREATE_ITEM_FAILURE]: createItemFailure,
+  // update Item
+  [Types.UPDATE_ITEM]: updateItem,
+  [Types.UPDATE_ITEM_SUCCESS]: updateItemSuccess,
+  [Types.UPDATE_ITEM_FAILURE]: updateItemFailure,
   // remove Item
   [Types.REMOVE_ITEM]: removeItem,
   [Types.REMOVE_ITEM_SUCCESS]: removeItemSuccess,

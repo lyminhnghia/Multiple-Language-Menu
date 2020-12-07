@@ -18,6 +18,21 @@ export function* createItemRestaurant(action) {
   }
 }
 
+export function* updateItemRestaurant(action) {
+  try {
+    const { data } = action;
+    let response = yield call(ItemRestaurantService.updateItemRestaurant, data);
+    if (response.status == ApiConstant.STT_OK) {
+      let responseData = response.data.data;
+      yield put(ItemRestaurantAction.updateItemSuccess(responseData));
+    } else {
+      yield put(ItemRestaurantAction.updateItemFailure(response.data.error));
+    }
+  } catch (error) {
+    yield put(ItemRestaurantAction.updateItemFailure(error));
+  }
+}
+
 export function* removeItemRestaurant(action) {
   try {
     const { data } = action;

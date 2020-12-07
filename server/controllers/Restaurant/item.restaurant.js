@@ -52,6 +52,7 @@ exports.updateItem = async (req, res) => {
         price: req.body.price,
         currency_unit: req.body.currency_unit,
         description: req.body.description,
+        categoryId: req.body.categoryId,
         status_change: true,
       },
       {

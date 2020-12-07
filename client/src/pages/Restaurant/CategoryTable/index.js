@@ -49,6 +49,9 @@ const CategoryTable = () => {
   const isCreateItem = useSelector(
     (state) => state.itemRestaurantRedux.isCreateSuccess
   );
+  const isUpdateItem = useSelector(
+    (state) => state.itemRestaurantRedux.isUpdateSuccess
+  );
   const isRemoveItem = useSelector(
     (state) => state.itemRestaurantRedux.isRemoveSuccess
   );
@@ -68,32 +71,18 @@ const CategoryTable = () => {
   }, [listCategory]);
 
   useEffect(() => {
-    if (isUpdateCategory) {
+    if (isUpdateCategory || isRemoveCategory) {
       dispatch(CategoryRestaurantAction.resetCategory());
       dispatch(CategoryRestaurantAction.getListCategory({}));
     }
-  }, [isUpdateCategory]);
+  }, [isUpdateCategory, isRemoveCategory]);
 
   useEffect(() => {
-    if (isRemoveCategory) {
-      dispatch(CategoryRestaurantAction.resetCategory());
-      dispatch(CategoryRestaurantAction.getListCategory({}));
-    }
-  }, [isRemoveCategory]);
-
-  useEffect(() => {
-    if (isCreateItem) {
+    if (isCreateItem || isUpdateItem || isRemoveItem) {
       dispatch(ItemRestaurantAction.resetItem());
       dispatch(CategoryRestaurantAction.getListCategory({}));
     }
-  }, [isCreateItem]);
-
-  useEffect(() => {
-    if (isRemoveItem) {
-      dispatch(CategoryRestaurantAction.resetCategory());
-      dispatch(CategoryRestaurantAction.getListCategory({}));
-    }
-  }, [isRemoveItem]);
+  }, [isCreateItem, isUpdateItem, isRemoveItem]);
 
   return (
     <RestaurantLayout>
@@ -230,18 +219,16 @@ const Row = (props) => {
                         {item.name}
                       </TableCell>
                       <TableCell>{item.code}</TableCell>
-                      <TableCell>{item.price}</TableCell>
+                      <TableCell>
+                        {item.price + " " + item.currency_unit}
+                      </TableCell>
                       <TableCell>{item.description}</TableCell>
                       <TableCell>
                         <Box display="inline-flex">
                           <PopupProduct
                             key={uuid()}
-                            nameProduct={item.name}
-                            IDProduct={item.code}
-                            priceProduct={item.price}
-                            descriptionProduct={item.description}
+                            data={item}
                             categoryProduct={category}
-                            imgProduct={item.image_item}
                           />
                           <PopupRemove
                             id={item.id}

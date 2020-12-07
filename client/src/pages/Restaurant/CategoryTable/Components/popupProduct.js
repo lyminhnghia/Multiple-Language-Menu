@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { LangConstant } from "../../../../const";
 import {
   Button,
@@ -16,20 +16,30 @@ import {
 import { EditOutlined } from "@material-ui/icons";
 import { InputText, AddImage } from "../../../../components";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import ImageAction from "../../../../redux/image.redux";
+import ItemRestaurantAction from "../../../../redux/itemRestaurant.redux";
 import { uuid } from "../../../../utils";
 
-const PopupProduct = ({
-  nameProduct,
-  IDProduct,
-  priceProduct,
-  descriptionProduct,
-  categoryProduct,
-  imgProduct,
-}) => {
+const PopupProduct = ({ data, categoryProduct }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
   const { t: getLabel } = useTranslation();
-  const [formChange, setFormChange] = useState({});
+
+  const [open, setOpen] = useState(false);
+  const [formChange, setFormChange] = useState({
+    id: data.id,
+    image: data.image_item,
+    name: data.name,
+    code: data.code,
+    price: data.price,
+    currency_unit: data.currency_unit,
+    description: data.description,
+    categoryId: data.categoryId,
+  });
+
+  const dataURL = useSelector((state) => state.imageRedux.dataURL);
+
   const onClickOpen = () => {
     setOpen(true);
   };
@@ -37,18 +47,23 @@ const PopupProduct = ({
   const onClose = () => {
     setOpen(false);
   };
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(formChange);
+  const onSubmit = () => {
+    dispatch(ItemRestaurantAction.updateItem(formChange));
+    onClose();
   };
 
   const onChange = (e) => {
     setFormChange({ ...formChange, [e.target.name]: e.target.value });
-    console.log(e.target.value, e.target.name);
   };
   const onChooseFile = (data) => {
-    setFormChange({ ...formChange, ["image"]: data });
+    dispatch(ImageAction.requestUploadPostImage(data));
   };
+
+  useEffect(() => {
+    if (dataURL) {
+      setFormChange({ ...formChange, ["image"]: dataURL });
+    }
+  }, [dataURL]);
 
   return (
     <Box>
@@ -60,105 +75,107 @@ const PopupProduct = ({
         <EditOutlined />
       </IconButton>
       <Dialog open={open} onClose={onClose} className={classes.dialogBox}>
-        <form onSubmit={onSubmit}>
-          <Box className={classes.dialogTitleBox}>
-            {getLabel(LangConstant.TXT_EDIT_PRODUCT)}
+        <Box className={classes.dialogTitleBox}>
+          {getLabel(LangConstant.TXT_EDIT_PRODUCT)}
+        </Box>
+        <DialogContent>
+          <InputText
+            nameLabel={getLabel(LangConstant.TXT_NAME_PRODUCT)}
+            typeInput="text"
+            requiredInput={true}
+            nameText="name"
+            value={formChange.name}
+            onInput={(e) => onChange(e)}
+          />
+          <InputText
+            nameLabel={getLabel(LangConstant.TXT_ID_PRODUCT)}
+            typeInput="text"
+            requiredInput={true}
+            nameText="code"
+            value={formChange.code}
+            onInput={(e) => onChange(e)}
+          />
+          <InputText
+            nameLabel={getLabel(LangConstant.TXT_PRICE_PRODUCT)}
+            typeInput="number"
+            requiredInput={true}
+            nameText="price"
+            value={formChange.price}
+            onInput={(e) => onChange(e)}
+          />
+          <InputText
+            nameLabel={getLabel(LangConstant.TXT_CURRENCY_UNIT)}
+            typeInput="text"
+            requiredInput={true}
+            nameText="currency_unit"
+            value={formChange.currency_unit}
+            onInput={(e) => onChange(e)}
+          />
+          <Box className={classes.boxLabel}>
+            {getLabel(LangConstant.TXT_DESCRIPTION_PRODUCT)}
           </Box>
-
-          <DialogContent>
-            <InputText
-              nameLabel={getLabel(LangConstant.TXT_NAME_PRODUCT)}
-              typeInput="text"
-              requiredInput={true}
-              nameText="name-product"
+          <TextareaAutosize
+            style={{
+              width: "100%",
+              height: 56,
+              fontSize: "14px",
+              marginBottom: 20,
+            }}
+            aria-label="maximum height"
+            placeholder={`${getLabel(LangConstant.TXT_DESCRIPTION_PRODUCT)}...`}
+            value={formChange.description}
+            name="description"
+            onChange={(e) => onChange(e)}
+          />
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel
+              className={classes.inputBox}
+              htmlFor="outlined-age-native-simple"
+            >
+              {getLabel(LangConstant.TXT_CATEGORY_PRODUCT)}
+            </InputLabel>
+            <Select
+              native
+              value={formChange.categoryId ? formChange.categoryId : ""}
+              label="category-product"
               onInput={(e) => onChange(e)}
-              defaultValueInput={nameProduct}
-            />
-            <InputText
-              nameLabel={getLabel(LangConstant.TXT_ID_PRODUCT)}
-              typeInput="text"
-              requiredInput={true}
-              nameText="id-product"
-              onInput={(e) => onChange(e)}
-              defaultValueInput={IDProduct}
-            />
-            <InputText
-              nameLabel={getLabel(LangConstant.TXT_PRICE_PRODUCT)}
-              typeInput="number"
-              requiredInput={true}
-              nameText="price-product"
-              onInput={(e) => onChange(e)}
-              defaultValueInput={priceProduct}
-            />
-            <Box className={classes.boxLabel}>
-              {getLabel(LangConstant.TXT_DESCRIPTION_PRODUCT)}
-            </Box>
-            <TextareaAutosize
-              style={{
-                width: "100%",
-                height: 56,
-                fontSize: "14px",
-                marginBottom: "15px",
+              inputProps={{
+                name: "categoryId",
+                id: "outlined-age-native-simple",
               }}
-              aria-label="maximum height"
-              placeholder={`${getLabel(
-                LangConstant.TXT_DESCRIPTION_PRODUCT
-              )}...`}
-              defaultValue={descriptionProduct}
-              name="description-product"
-              onChange={(e) => onChange(e)}
-            />
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel
-                className={classes.inputBox}
-                htmlFor="outlined-age-native-simple"
-              >
-                {getLabel(LangConstant.TXT_CATEGORY_PRODUCT)}
-              </InputLabel>
-              <Select
-                native
-                value={formChange.categoryId ? formChange.categoryId : ""}
-                // onChange={handleChange}
-                label="category-product"
-                onInput={(e) => onChange(e)}
-                inputProps={{
-                  name: "category-product",
-                  id: "outlined-age-native-simple",
-                }}
-                className={classes.selectBox}
-              >
-                <option
-                  className={classes.optionBox}
-                  aria-label="None"
-                  value=""
-                />
-                {categoryProduct &&
-                  categoryProduct.map((data, index) => (
-                    <option
-                      className={classes.optionBox}
-                      value={data.id}
-                      key={uuid()}
-                    >
-                      {data.name}
-                    </option>
-                  ))}
-              </Select>
-            </FormControl>
-            <Box className={classes.boxLabel}>
-              {getLabel(LangConstant.TXT_ADD_IMAGE)}
-            </Box>
-            <AddImage onChooseFile={onChooseFile} src={imgProduct} />
-          </DialogContent>
+              className={classes.selectBox}
+            >
+              <option
+                className={classes.optionBox}
+                aria-label="None"
+                value=""
+              />
+              {categoryProduct &&
+                categoryProduct.map((data, index) => (
+                  <option
+                    className={classes.optionBox}
+                    value={data.id}
+                    key={uuid()}
+                  >
+                    {data.name}
+                  </option>
+                ))}
+            </Select>
+          </FormControl>
+          <Box className={classes.boxLabel}>
+            {getLabel(LangConstant.TXT_ADD_IMAGE)}
+          </Box>
+          <AddImage onChooseFile={onChooseFile} src={formChange.image} />
+        </DialogContent>
 
-          <DialogActions>
-            <Button onClick={onClose} color="primary">
-              {getLabel(LangConstant.TXT_CANCER)}
-            </Button>
-            <Button onClick={onClose} type="submit" color="primary">
-              {getLabel(LangConstant.TXT_SAVE)}
-            </Button>
-          </DialogActions>
-        </form>
+        <DialogActions>
+          <Button onClick={onClose} color="primary">
+            {getLabel(LangConstant.TXT_CANCER)}
+          </Button>
+          <Button onClick={onSubmit} color="primary">
+            {getLabel(LangConstant.TXT_SAVE)}
+          </Button>
+        </DialogActions>
       </Dialog>
     </Box>
   );

@@ -40,6 +40,7 @@ import {
 } from "./restaurantInfo.saga";
 import {
   createItemRestaurant,
+  updateItemRestaurant,
   removeItemRestaurant,
 } from "./itemRestaurant.saga";
 import { createQRCode, getQRCode } from "./qrcode.saga";
@@ -86,6 +87,7 @@ export default function* root() {
     ),
 
     takeLatest(ItemRestaurantTypes.CREATE_ITEM, createItemRestaurant),
+    takeLatest(ItemRestaurantTypes.UPDATE_ITEM, updateItemRestaurant),
     takeLatest(ItemRestaurantTypes.REMOVE_ITEM, removeItemRestaurant),
 
     takeLatest(RestaurantInfoTypes.GET_CONTRACT, getRestaurantContract),
@@ -115,6 +117,7 @@ export default function* root() {
         CategoryRestaurantTypes.UPDATE_CATEGORY,
         CategoryRestaurantTypes.REMOVE_CATEGORY,
         ItemRestaurantTypes.CREATE_ITEM,
+        ItemRestaurantTypes.UPDATE_ITEM,
         ItemRestaurantTypes.REMOVE_ITEM,
         RestaurantInfoTypes.GET_CONTRACT,
         RestaurantInfoTypes.GET_RESTAURANT_INFO,
@@ -141,6 +144,7 @@ export default function* root() {
         CategoryRestaurantTypes.UPDATE_CATEGORY,
         CategoryRestaurantTypes.REMOVE_CATEGORY,
         ItemRestaurantTypes.CREATE_ITEM,
+        ItemRestaurantTypes.UPDATE_ITEM,
         ItemRestaurantTypes.REMOVE_ITEM,
         RestaurantInfoTypes.GET_CONTRACT,
         RestaurantInfoTypes.GET_RESTAURANT_INFO,

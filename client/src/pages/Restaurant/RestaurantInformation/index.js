@@ -1,7 +1,7 @@
 import React, { memo, useState, useEffect } from "react";
 import { RestaurantLayout } from "../../../layouts";
 import { LangConstant } from "../../../const";
-import { makeStyles, Box } from "@material-ui/core";
+import { makeStyles, Box, Checkbox } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { InputText, BoxButton, AddImage } from "../../../components";
 import { useDispatch, useSelector } from "react-redux";
@@ -93,7 +93,8 @@ const RestaurantInformation = () => {
                   value={formChange.telephone ? formChange.telephone : ""}
                   onInput={(e) => onChange(e)}
                 />
-
+              </Box>
+              <Box className={classes.BoxChild}>
                 <Box className={classes.boxImg}>
                   <AddImage onChooseFile={getImage} />
                 </Box>
@@ -122,13 +123,42 @@ const RestaurantInformation = () => {
                   value={formChange.url_website ? formChange.url_website : ""}
                   onInput={(e) => onChange(e)}
                 />
-                <InputText
+                <Box
+                  display="flex"
+                  marginTop="10px"
+                  height="52.75px"
+                  width="100%"
+                  alignItems="flex-end"
+                >
+                  <Box fontSize="20px" color="rgb(48, 92, 139)">
+                    {getLabel(LangConstant.TXT_PAYMENTS)}
+                  </Box>
+                  <Box marginLeft="20px" marginRight="10px">
+                    {getLabel(LangConstant.TXT_CASH)}:
+                  </Box>
+                  <Checkbox style={{ color: "rgb(48, 92, 139)", padding: 0 }} />
+                  <Box marginLeft="20px" marginRight="10px">
+                    {" "}
+                    {getLabel(LangConstant.TXT_CREDIT_CARD)}:
+                  </Box>
+                  <Checkbox style={{ color: "rgb(48, 92, 139)", padding: 0 }} />
+                  <Box marginLeft="20px" marginRight="10px">
+                    {" "}
+                    {getLabel(LangConstant.TXT_APP)}:
+                  </Box>
+                  <Checkbox style={{ color: "rgb(48, 92, 139)", padding: 0 }} />
+                  <Box marginLeft="20px" marginRight="10px">
+                    {getLabel(LangConstant.TXT_ETC)}:
+                  </Box>
+                  <Checkbox style={{ color: "rgb(48, 92, 139)", padding: 0 }} />
+                </Box>
+                {/* <InputText
                   nameLabel={getLabel(LangConstant.TXT_PAYMENTS)}
                   typeInput="text"
                   nameText="payment_method"
                   defaultValueInput={formChange.payments}
                   onInput={(e) => onChange(e)}
-                />
+                /> */}
                 <InputText
                   nameLabel={getLabel(LangConstant.TXT_TIME_WORK)}
                   typeInput="text"
