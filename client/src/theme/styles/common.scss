@@ -10,6 +10,7 @@ html {
   height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -20,13 +21,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #08080a;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 /* width */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
 }
 
 /* Track */
