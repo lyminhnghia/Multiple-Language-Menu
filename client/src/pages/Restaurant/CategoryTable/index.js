@@ -13,29 +13,41 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Dialog,
 } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
-import { KeyboardArrowDown, KeyboardArrowUp, Delete } from "@material-ui/icons";
-import PopupCategory from "./Components/popupCategory";
-import PopupProduct from "./Components/popupProduct";
-import PopupRemove from "./Components/popupRemove";
+import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
+import {
+  PopupCategory,
+  PopupProduct,
+  PopupRemove,
+  AddProduct,
+} from "./Components";
+import { BoxButton, MultipleChoice } from "../../../components";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryRestaurantAction from "../../../redux/categoryRestaurant.redux";
+import ItemRestaurantAction from "../../../redux/itemRestaurant.redux";
 import { uuid } from "../../../utils";
+import { useTranslation } from "react-i18next";
 
 const CategoryTable = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
   const dispatch = useDispatch();
+
+  const [openAdd, setOpenAdd] = useState(false);
   const [category, setCategory] = useState(null);
+
   const listCategory = useSelector(
     (state) => state.categoryRestaurantRedux.listCategory
   );
-  const isUpdateSuccess = useSelector(
+  const isUpdateCategory = useSelector(
     (state) => state.categoryRestaurantRedux.isUpdateSuccess
   );
   const isRemoveCategory = useSelector(
     (state) => state.categoryRestaurantRedux.isRemoveSuccess
+  );
+  const isCreateItem = useSelector(
+    (state) => state.itemRestaurantRedux.isCreateSuccess
   );
   const isRemoveItem = useSelector(
     (state) => state.itemRestaurantRedux.isRemoveSuccess
@@ -45,6 +57,10 @@ const CategoryTable = () => {
     dispatch(CategoryRestaurantAction.getListCategory({}));
   }
 
+  const onClose = () => {
+    setOpenAdd(false);
+  };
+
   useEffect(() => {
     if (listCategory) {
       setCategory(listCategory);
@@ -52,11 +68,11 @@ const CategoryTable = () => {
   }, [listCategory]);
 
   useEffect(() => {
-    if (isUpdateSuccess) {
+    if (isUpdateCategory) {
       dispatch(CategoryRestaurantAction.resetCategory());
       dispatch(CategoryRestaurantAction.getListCategory({}));
     }
-  }, [isUpdateSuccess]);
+  }, [isUpdateCategory]);
 
   useEffect(() => {
     if (isRemoveCategory) {
@@ -64,6 +80,13 @@ const CategoryTable = () => {
       dispatch(CategoryRestaurantAction.getListCategory({}));
     }
   }, [isRemoveCategory]);
+
+  useEffect(() => {
+    if (isCreateItem) {
+      dispatch(ItemRestaurantAction.resetItem());
+      dispatch(CategoryRestaurantAction.getListCategory({}));
+    }
+  }, [isCreateItem]);
 
   useEffect(() => {
     if (isRemoveItem) {
@@ -74,36 +97,65 @@ const CategoryTable = () => {
 
   return (
     <RestaurantLayout>
-      <TableContainer component={Paper} className={classes.tableContainer}>
-        <Table aria-label="collapsible table">
-          <TableHead className={classes.tableHeadBox}>
-            <TableRow>
-              <TableCell />
-              <TableCell>{getLabel(LangConstant.TXT_NAME_CATEGORY)}</TableCell>
-              <TableCell align="center">
-                {getLabel(LangConstant.TXT_AMOUNT_ITEM)}
-              </TableCell>
-              <TableCell align="right">
-                {getLabel(LangConstant.TXT_DESCRIPTION_CATEGORY)}
-              </TableCell>
-              <TableCell align="right">
-                {getLabel(LangConstant.TXT_EDIT)}
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {category &&
-              category.map((row, index) => <Row key={uuid()} row={row} />)}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Box style={{ padding: "0 20px" }}>
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            margin: "10px 0",
+          }}
+        >
+          <MultipleChoice
+            // className={classes.multipleChoice}
+            listMenu={LangConstant.ARR_ADMIN_STATE}
+            // defaultValue={formChange.state - 1}
+            // onChange={onChangeChoice}
+          />
+          <Box style={{ width: 140, height: 40, marginLeft: 30 }}>
+            <BoxButton
+              nameButton={getLabel(LangConstant.TXT_ADD_ITEM)}
+              onClick={() => setOpenAdd(true)}
+            />
+          </Box>
+        </Box>
+        <Dialog open={openAdd} fullScreen>
+          <AddProduct onClose={onClose} />
+        </Dialog>
+        <TableContainer component={Paper}>
+          <Table aria-label="collapsible table">
+            <TableHead className={classes.tableHeadBox}>
+              <TableRow>
+                <TableCell />
+                <TableCell>
+                  {getLabel(LangConstant.TXT_NAME_CATEGORY)}
+                </TableCell>
+                <TableCell align="center">
+                  {getLabel(LangConstant.TXT_AMOUNT_ITEM)}
+                </TableCell>
+                <TableCell align="right">
+                  {getLabel(LangConstant.TXT_DESCRIPTION_CATEGORY)}
+                </TableCell>
+                <TableCell align="right">
+                  {getLabel(LangConstant.TXT_EDIT)}
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {category &&
+                category.map((row, index) => (
+                  <Row key={uuid()} category={category} row={row} />
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
     </RestaurantLayout>
   );
 };
 
 const Row = (props) => {
   const { t: getLabel } = useTranslation();
-  const { row } = props;
+  const { row, category } = props;
   const [open, setOpen] = useState(false);
   const classes = useStyles();
   return (
@@ -188,6 +240,7 @@ const Row = (props) => {
                             IDProduct={item.code}
                             priceProduct={item.price}
                             descriptionProduct={item.description}
+                            categoryProduct={category}
                             imgProduct={item.image_item}
                           />
                           <PopupRemove
@@ -210,9 +263,6 @@ const Row = (props) => {
 };
 
 const useStyles = makeStyles({
-  tableContainer: {
-    marginTop: 30,
-  },
   boxParent: {
     backgroundColor: "#ff4d4d",
     width: "100vw",

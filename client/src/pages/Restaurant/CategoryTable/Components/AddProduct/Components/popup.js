@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import { LangConstant } from "../../../../const";
+import { LangConstant } from "../../../../../../const";
 import {
   Button,
   makeStyles,
@@ -10,11 +10,11 @@ import {
   Box,
   TextareaAutosize,
 } from "@material-ui/core";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import InputText from "../../../../components/inputText";
+import { AddCircle } from "@material-ui/icons";
+import { InputText } from "../../../../../../components";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import CategoryRestaurantAction from "../../../../redux/categoryRestaurant.redux";
+import CategoryRestaurantAction from "../../../../../../redux/categoryRestaurant.redux";
 
 const PopupBox = () => {
   const classes = useStyles();
@@ -47,7 +47,7 @@ const PopupBox = () => {
         aria-label="add"
         onClick={onClickOpen}
       >
-        <AddCircleIcon />
+        <AddCircle />
       </IconButton>
       <Dialog
         open={open}

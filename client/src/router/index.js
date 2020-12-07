@@ -11,7 +11,6 @@ import {
 import NotFoundPage from "../pages/NotFound";
 import {
   LoginRestaurant,
-  RestaurantAddCategory,
   CategoryTable,
   TranferLanguage,
   ContractInformation,
@@ -27,7 +26,7 @@ import {
   TranferLang,
   OrderItems,
   PayItems,
-  ConfirmPay
+  ConfirmPay,
 } from "../pages/Customer";
 
 function AuthenticationRoute(props) {
@@ -80,11 +79,6 @@ const Routes = () => {
         path={PathConstant.LOGIN_RESTAURANT}
       />
       <Route
-        component={RestaurantAddCategory}
-        exact
-        path={PathConstant.RESTAURANT_ADD_CATEGORY}
-      />
-      <Route
         component={CategoryTable}
         exact
         path={PathConstant.RESTAURANT_CATEGORY_TABLE}
@@ -119,11 +113,27 @@ const Routes = () => {
       <Route component={Category} exact path={PathConstant.CUSTOMER_CATEGORY} />
 
       <Route component={Introduce} exact path={PathConstant.ROOT} />
-      <Route component={OrderHistory} exact path={PathConstant.CUSTOMER_ORDER_HISTORY} />
-      <Route component={TranferLang} exact path={PathConstant.CUSTOMER_LANGUAGE} />
-      <Route component={OrderItems} exact path={PathConstant.CUSTOMER_ITEM_CATEGORY} />
+      <Route
+        component={OrderHistory}
+        exact
+        path={PathConstant.CUSTOMER_ORDER_HISTORY}
+      />
+      <Route
+        component={TranferLang}
+        exact
+        path={PathConstant.CUSTOMER_LANGUAGE}
+      />
+      <Route
+        component={OrderItems}
+        exact
+        path={PathConstant.CUSTOMER_ITEM_CATEGORY}
+      />
       <Route component={PayItems} exact path={PathConstant.CUSTOMER_PAY} />
-      <Route component={ConfirmPay} exact path={PathConstant.CUSTOMER_CONFIRM_PAY} />
+      <Route
+        component={ConfirmPay}
+        exact
+        path={PathConstant.CUSTOMER_CONFIRM_PAY}
+      />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       {/* <Redirect to={PathConstant.NOT_FOUND} /> */}
     </Switch>

@@ -9,6 +9,8 @@ const { Types, Creators } = createActions({
   removeItem: ["data"],
   removeItemSuccess: ["data"],
   removeItemFailure: ["error"],
+
+  resetItem: [],
 });
 
 export const ItemRestaurantTypes = Types;
@@ -66,6 +68,13 @@ export const removeItemFailure = (state = INITIAL_STATE, action) => ({
   errorRemove: action.error,
 });
 
+/* ------------- reset Item ------------- */
+export const resetItem = (state = INITIAL_STATE) => ({
+  ...state,
+  isCreateSuccess: false,
+  isRemoveSuccess: false,
+});
+
 /* ------------- Mapping ------------- */
 export const HANDLERS = {
   // create Item
@@ -76,6 +85,8 @@ export const HANDLERS = {
   [Types.REMOVE_ITEM]: removeItem,
   [Types.REMOVE_ITEM_SUCCESS]: removeItemSuccess,
   [Types.REMOVE_ITEM_FAILURE]: removeItemFailure,
+  // reset Item
+  [Types.RESET_ITEM]: resetItem,
 };
 
 /* ------------- Hookup Reducers To Types ------------- */

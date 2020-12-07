@@ -23,7 +23,7 @@ const PopupCategory = ({ key, id, nameCategory, descriptionCategory }) => {
   const [formChange, setFormChange] = useState({
     id: id,
     name: nameCategory,
-    description: descriptionCategory,
+    description: descriptionCategory || "",
   });
 
   const onClickOpen = () => {
@@ -52,13 +52,7 @@ const PopupCategory = ({ key, id, nameCategory, descriptionCategory }) => {
       >
         <EditOutlinedIcon />
       </IconButton>
-      <Dialog
-        open={open}
-        onClose={onClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-        className={classes.dialogBox}
-      >
+      <Dialog open={open} onClose={onClose} className={classes.dialogBox}>
         <form onSubmit={onSubmit}>
           <Box className={classes.dialogTitleBox}>
             {getLabel(LangConstant.TXT_EDIT_CATEGORY)}
@@ -107,9 +101,10 @@ const useStyles = makeStyles({
     },
   },
   dialogTitleBox: {
-    color: "#000000",
     padding: "20px 0px 0px 20px",
-    fontSize: "20px",
+    color: "rgb(48, 92, 139)",
+    fontSize: 20,
+    fontWeight: 500,
   },
 });
 export default memo(PopupCategory);

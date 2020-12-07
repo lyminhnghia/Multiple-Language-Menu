@@ -4,9 +4,9 @@ import { PhotoCamera } from "@material-ui/icons";
 import { LangConstant } from "../const";
 import { useTranslation } from "react-i18next";
 
-const UploadImage = ({ onChooseFile }) => {
+const UploadImage = ({ onChooseFile, src }) => {
   const { t: getLabel } = useTranslation();
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(src ? src : null);
 
   const onClickUpload = (event) => {
     let file = event.target.files[0];
