@@ -1,52 +1,53 @@
 import React, { memo } from "react";
 import { Link } from "react-router-dom";
-import { makeStyles, Box, Button } from "@material-ui/core";
+import { makeStyles, Box } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import ButtonBox from "../../../../components/buttonBox";
-const ListCategory = () => {
+import { useDispatch, useSelector } from "react-redux";
+import { AppConstant } from "../../../../const";
+import CustomerAction from "../../../../redux/customer.redux";
+import Cookie from "js-cookie";
+
+const ListCategory = ({ restaurantId }) => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
-  const categoris = [
-    {
-      id: "1",
-      name: "Đồ uống",
-      total: 2,
-    },
-    {
-      id: "2",
-      name: "Đồ ăn",
-      total: 3,
-    },
-    {
-      id: "3",
-      name: "Đồ nhậu",
-      total: 2,
-    },
-    {
-      id: "4",
-      name: "Đồ uống",
-      total: 2,
-    },
-  ];
+  const dispatch = useDispatch();
+  const langCode = Cookie.get(AppConstant.KEY_LANG);
+
+  const dataCategory = useSelector((state) => state.customerRedux.category);
+
+  if (dataCategory === null) {
+    dispatch(
+      CustomerAction.getListCategoryCustomer({
+        restaurantId: restaurantId,
+        lang_code: langCode,
+      })
+    );
+  }
+
   return (
     <Box>
-      <Box className={classes.boxHeader}>Category</Box>
+      <Box className={classes.boxHeader}>Danh mục món ăn</Box>
       <Box className={classes.boxPara}>
-        {categoris.map((category, index) => (
-          <Box key={"cate" + index} className={classes.boxBorder}>
-            <Box className={classes.boxContent}>
-              <Link
-                to={`/${1}/categories/${category.id}`}
-                style={{ textDecoration: "none", color: "black" }}
-              >
-                <Box style={{ fontSize: "18px", fontWeight: "500" }}>
-                  {category.name}
-                </Box>
-                <Box>{category.total}</Box>
-              </Link>
+        {dataCategory &&
+          dataCategory.map((category, index) => (
+            <Box key={"cate" + index} className={classes.boxBorder}>
+              <Box className={classes.boxContent}>
+                <Link
+                  to={`/${restaurantId}/categories/${category.id}`}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <Box style={{ fontSize: "18px", fontWeight: "500" }}>
+                    {category.name}
+                  </Box>
+                  <Box>
+                    {category.item_languages
+                      ? category.item_languages.length
+                      : 0}
+                  </Box>
+                </Link>
+              </Box>
             </Box>
-          </Box>
-        ))}
+          ))}
       </Box>
     </Box>
   );
@@ -75,12 +76,6 @@ const useStyles = makeStyles({
     padding: "10px 0px",
     width: "100%",
   },
-  // boxButton:{
-  //     width: "100%",
-  //     height: "100%",
-  //     position: "absolute",
-  //     top: "0"
-  // }
 });
 
 export default memo(ListCategory);

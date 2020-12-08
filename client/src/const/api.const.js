@@ -36,3 +36,9 @@ export const RESTAURANT_LANGUAGE = "/api/restaurant/list-language";
 export const UPLOAD_IMAGE = "/api/upload";
 export const CREATE_QRCODE = "/api/restaurant/create-qrcode";
 export const GET_QRCODE = "/api/restaurant/qrcode";
+
+// Api CUSTOMER
+
+export const LIST_CATEGORY_CUSTOMER = "/api/customer/categories";
+export const LIST_ITEM_CUSTOMER = "/api/customer/items";
+export const LIST_LANGUAGE_CUSTOMER = "/api/customer/languages";

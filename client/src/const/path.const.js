@@ -19,10 +19,10 @@ export const RESTAURANT_TRANFER_LANGUAGE = "/restaurant/tranfer-language";
 export const RESTAURANT_CONTRACT = "/restaurant/contract-info";
 export const RESTAURANT_ORDER_HISTORY = "/restaurant/order-history";
 // Consumer
-export const CUSTOMER_CATEGORY = "/:categoryId/categories";
-export const CUSTOMER_LANGUAGE = "/:categoryId/languages";
-export const CUSTOMER_INFO = "/:categoryId/info";
-export const CUSTOMER_ORDER_HISTORY = "/:categoryId/order-history";
-export const CUSTOMER_ITEM_CATEGORY = "/:categoryId/categories/:itemId";
-export const CUSTOMER_PAY = "/:categoryId/pay";
-export const CUSTOMER_CONFIRM_PAY = "/:categoryId/confirm-pay";
+export const CUSTOMER_CATEGORY = "/:restaurantId/categories";
+export const CUSTOMER_LANGUAGE = "/:restaurantId/languages";
+export const CUSTOMER_INFO = "/:restaurantId/info";
+export const CUSTOMER_ORDER_HISTORY = "/:restaurantId/order-history";
+export const CUSTOMER_ITEM_CATEGORY = "/:restaurantId/categories/:categoryId";
+export const CUSTOMER_PAY = "/:restaurantId/pay";
+export const CUSTOMER_CONFIRM_PAY = "/:restaurantId/confirm-pay";

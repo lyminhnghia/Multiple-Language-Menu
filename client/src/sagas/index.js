@@ -13,6 +13,7 @@ import { ItemRestaurantTypes } from "../redux/itemRestaurant.redux";
 import { LanguageRestaurantTypes } from "../redux/languageRestaurant.redux";
 import { ImageTypes } from "../redux/image.redux";
 import { QRCodeTypes } from "../redux/qrcode.redux";
+import { CustomerTypes } from "../redux/customer.redux";
 
 /* ------------- Sagas ------------- */
 import {
@@ -48,6 +49,8 @@ import { createQRCode, getQRCode } from "./qrcode.saga";
 import { requestUploadPostImage } from "./image.saga";
 
 import { getLanguageRestaurant } from "./languageRestaurant.saga";
+
+import { getListCategoryCustomer } from "./customer.saga";
 
 import { raiseError, resetError } from "./error.saga";
 
@@ -101,6 +104,12 @@ export default function* root() {
     // Image
     takeLatest(ImageTypes.REQUEST_UPLOAD_POST_IMAGE, requestUploadPostImage),
 
+    // CUSTOMER
+    takeLatest(
+      CustomerTypes.GET_LIST_CATEGORY_CUSTOMER,
+      getListCategoryCustomer
+    ),
+
     takeLatest(
       [
         AuthTypes.REQUEST_LOGIN,
@@ -125,6 +134,7 @@ export default function* root() {
         ImageTypes.REQUEST_UPLOAD_POST_IMAGE,
         QRCodeTypes.CREATE_QR_CODE,
         QRCodeTypes.GET_QR_CODE,
+        CustomerTypes.GET_LIST_CATEGORY_CUSTOMER,
       ],
       resetError
     ),
@@ -152,6 +162,7 @@ export default function* root() {
         ImageTypes.REQUEST_UPLOAD_POST_IMAGE,
         QRCodeTypes.CREATE_QR_CODE,
         QRCodeTypes.GET_QR_CODE,
+        CustomerTypes.GET_LIST_CATEGORY_CUSTOMER,
       ],
       raiseError
     ),

@@ -22,15 +22,17 @@ import {
   Storefront,
   RoomService,
 } from "@material-ui/icons";
-import { LangConstant, PathConstant } from "../../const";
+import { AppConstant, PathConstant } from "../../const";
 import { useLocation } from "react-router-dom";
 import Cookie from "js-cookie";
 import { useTranslation } from "react-i18next";
 
-const CustomerLayout = ({ children }) => {
+const CustomerLayout = ({ children, number }) => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
   const location = useLocation();
+
+  const restaurantId = Cookie.get(AppConstant.KEY_RESTAURANT);
 
   const [open, setOpen] = useState(false);
 
@@ -82,7 +84,7 @@ const CustomerLayout = ({ children }) => {
           <IconButton
             onClick={onDrawerOpen}
             edge="start"
-            // disableRipple
+            disableRipple
             className={classes.menuButton}
           >
             <Menu />
@@ -91,15 +93,20 @@ const CustomerLayout = ({ children }) => {
             MENUUU
           </Typography>
           <IconButton
-            className={`${classes.orderButton} ${classes.boxChange}`}
-            // disableRipple
+            className={`${classes.orderButton} ${
+              !number ? classes.boxChange : classes.boxChangeShow
+            }`}
+            disableRipple
           >
             <Link
-              to={`/${1}/pay`}
-              style={{ textDecoration: "none", color: "white" }}
+              to={`/${restaurantId}/pay`}
+              style={{
+                textDecoration: "none",
+                color: number ? "white" : "currentColor",
+              }}
             >
               <Restaurant />
-              <Box className={classes.boxPosition}>1</Box>
+              {number && <Box className={classes.boxPosition}>{number}</Box>}
             </Link>
           </IconButton>
         </Toolbar>
@@ -220,7 +227,6 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    // padding: theme.spacing(3),
   },
   itemIcon: {
     minWidth: 38,
@@ -253,6 +259,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   boxChange: {
+    borderRadius: "0",
+  },
+  boxChangeShow: {
     borderRadius: "0",
     backgroundColor: "rgb(48, 92, 139)",
   },

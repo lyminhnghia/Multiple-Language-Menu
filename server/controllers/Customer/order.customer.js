@@ -10,6 +10,10 @@ exports.listCategoryLanguage = async (req, res) => {
       attributes: ["id", "name", "description"],
       include: [
         {
+          model: ItemLanguage,
+          attributes: ["id"],
+        },
+        {
           model: Language,
           where: {
             lang_code: req.query.lang_code,

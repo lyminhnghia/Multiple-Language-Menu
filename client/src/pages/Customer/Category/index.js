@@ -17,7 +17,7 @@ import ListCategory from "./Components/listCategory";
 const Category = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
-  const { categoryId } = useParams();
+  const { restaurantId } = useParams();
 
   const [checked, setChecked] = useState(false);
   const [isStart, setIsStart] = useState(
@@ -27,7 +27,7 @@ const Category = () => {
   const onStartUsePage = () => {
     if (checked) {
       setIsStart(true);
-      Cookie.set(AppConstant.KEY_RESTAURANT, categoryId);
+      Cookie.set(AppConstant.KEY_RESTAURANT, restaurantId);
       Cookie.set(AppConstant.KEY_LANG, AppConstant.DEFAULT_LANG);
     }
   };
@@ -65,7 +65,7 @@ const Category = () => {
         </Box>
       </Box>
       <Box style={{ display: isStart ? "block" : "none" }}>
-        <ListCategory />
+        <ListCategory restaurantId={restaurantId} />
       </Box>
     </CustomerLayout>
   );

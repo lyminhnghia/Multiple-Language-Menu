@@ -6,6 +6,7 @@ import * as ItemRestaurantService from "./itemRestaurant.service";
 import * as LanguageRestaurantService from "./languageRestaurant.service";
 import * as ImageService from "./image.service";
 import * as QRCodeService from "./qrcode.service";
+import * as CustomerService from "./customer.service";
 
 export {
   AuthService,
@@ -16,4 +17,5 @@ export {
   LanguageRestaurantService,
   ImageService,
   QRCodeService,
+  CustomerService,
 };
