@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import clsx from "clsx";
 import {
   makeStyles,
@@ -12,7 +12,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Box
+  Box,
 } from "@material-ui/core";
 import {
   Menu,
@@ -23,11 +23,14 @@ import {
   RoomService,
 } from "@material-ui/icons";
 import { LangConstant, PathConstant } from "../../const";
+import { useLocation } from "react-router-dom";
+import Cookie from "js-cookie";
 import { useTranslation } from "react-i18next";
 
 const CustomerLayout = ({ children }) => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
+  const location = useLocation();
 
   const [open, setOpen] = useState(false);
 
@@ -44,7 +47,7 @@ const CustomerLayout = ({ children }) => {
       text: "Đặt món ăn",
       IconComponent: <Restaurant />,
       isNewTab: false,
-      // path: PathConstant.,
+      path: PathConstant.CUSTOMER_CATEGORY,
     },
     {
       text: "Lịch sử",
@@ -87,14 +90,17 @@ const CustomerLayout = ({ children }) => {
           <Typography variant="h3" noWrap className={classes.Title}>
             MENUUU
           </Typography>
-          <IconButton 
+          <IconButton
             className={`${classes.orderButton} ${classes.boxChange}`}
             // disableRipple
           >
-            <Link to={`/{id}/pay`} activeClassName="active" style={{textDecoration: "none",color:"white"}}>
+            <Link
+              to={`/${1}/pay`}
+              style={{ textDecoration: "none", color: "white" }}
+            >
               <Restaurant />
               <Box className={classes.boxPosition}>1</Box>
-            </Link>            
+            </Link>
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -118,7 +124,12 @@ const CustomerLayout = ({ children }) => {
         </div>
         <List>
           {listSidebar.map((data) => (
-            <ListItem button key={data.text} className={classes.parentItem}>
+            <ListItem
+              selected={data.path === location.path}
+              button
+              key={data.text}
+              className={classes.parentItem}
+            >
               <ListItemIcon className={classes.itemIcon}>
                 {data.IconComponent}
               </ListItemIcon>
@@ -228,7 +239,7 @@ const useStyles = makeStyles((theme) => ({
       color: "rgb(48, 92, 139)",
     },
   },
-  boxPosition:{
+  boxPosition: {
     position: "fixed",
     top: 4,
     right: 4,
@@ -239,12 +250,12 @@ const useStyles = makeStyles((theme) => ({
     color: "rgb(48, 92, 139)",
     fontSize: "14px",
     lineHeight: "20px",
-    textAlign: "center"
+    textAlign: "center",
   },
-  boxChange:{
+  boxChange: {
     borderRadius: "0",
     backgroundColor: "rgb(48, 92, 139)",
-  }
+  },
 }));
 
 export default memo(CustomerLayout);

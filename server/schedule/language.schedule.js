@@ -43,7 +43,7 @@ exports.UpdateState = async () => {
 
 exports.RestaurantInfoSchedule = async () => {
   try {
-    let shorestaurants = await Restaurant.findAll({
+    let restaurants = await Restaurant.findAll({
       where: {
         status_change: true,
       },

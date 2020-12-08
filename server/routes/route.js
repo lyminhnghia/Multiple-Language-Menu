@@ -10,6 +10,10 @@ module.exports = (app) => {
   const profileRestaurant = require("../controllers/Restaurant/profile.restaurant");
   const categoryRestaurant = require("../controllers/Restaurant/category.restaurant");
   const itemRestaurant = require("../controllers/Restaurant/item.restaurant");
+
+  const orderCustomer = require("../controllers/Customer/order.customer");
+  const languageCustomer = require("../controllers/Customer/language.customer");
+
   const limiter = rateLimit({
     windowMs: 15 * 1000,
     max: 15,
@@ -181,6 +185,12 @@ module.exports = (app) => {
     }
     res.status(200).sendFile(path.resolve(`./images/${fileName}`));
   });
+
+  // CUSTOMER
+
+  app.get("/api/customer/categories", orderCustomer.listCategoryLanguage);
+  app.get("/api/customer/items", orderCustomer.listItemLanguage);
+  app.get("/api/customer/languages", languageCustomer.listLanguage);
 
   const LanguageSchedule = require("../schedule/language.schedule");
 
