@@ -5,7 +5,13 @@ import { useTranslation } from "react-i18next";
 import { Clear, Restaurant } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
-const PopupListItems = ({ total, categoryId, listTotal, listChecked }) => {
+const PopupListItems = ({
+  total,
+  amount,
+  categoryId,
+  listTotal,
+  listChecked,
+}) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const { t: getLabel } = useTranslation();
@@ -51,6 +57,7 @@ const PopupListItems = ({ total, categoryId, listTotal, listChecked }) => {
                 pathname: `/${categoryId}/pay`,
                 data: {
                   total: total,
+                  amount: amount,
                   listTotal: newList(),
                   listChecked: listChecked,
                 },

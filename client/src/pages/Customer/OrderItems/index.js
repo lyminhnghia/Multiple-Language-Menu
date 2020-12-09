@@ -20,6 +20,7 @@ const OrderItems = () => {
   const [listTotal, setListTotal] = useState([]);
   const [listChecked, setListChecked] = useState([]);
   const [total, setTotal] = useState(0);
+  const [amount, setAmount] = useState(0);
 
   const changeButton = (id) => {
     if (listChecked.includes(id)) {
@@ -36,6 +37,7 @@ const OrderItems = () => {
       newList[index].total += 1;
       setListTotal(newList);
       setTotal(total + 1);
+      setAmount(amount + newList[index].price);
     }
   };
   const removeQuantity = (index) => {
@@ -44,6 +46,7 @@ const OrderItems = () => {
       newList[index].total -= 1;
       setListTotal(newList);
       setTotal(total - 1);
+      setAmount(amount - newList[index].price);
     }
   };
 
@@ -140,6 +143,7 @@ const OrderItems = () => {
           <PopupListItems
             categoryId={categoryId}
             total={total}
+            amount={amount}
             listTotal={listTotal}
             listChecked={listChecked}
           />

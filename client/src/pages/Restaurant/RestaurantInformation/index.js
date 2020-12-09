@@ -96,7 +96,10 @@ const RestaurantInformation = () => {
               </Box>
               <Box className={classes.BoxChild}>
                 <Box className={classes.boxImg}>
-                  <AddImage onChooseFile={getImage} />
+                  <AddImage
+                    onChooseFile={getImage}
+                    src={formChange.url_image ? formChange.url_image : ""}
+                  />
                 </Box>
               </Box>
               <Box className={classes.BoxChild}>

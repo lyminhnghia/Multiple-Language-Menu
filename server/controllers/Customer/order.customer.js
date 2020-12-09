@@ -57,6 +57,11 @@ exports.listItemLanguage = async (req, res) => {
   }
 };
 
-exports.orderItem = async (req, res) => {};
+exports.orderItem = async (req, res) => {
+  try {
+  } catch (error) {
+    res.status(500).send({ success: false, message: error });
+  }
+};
 
 exports.orderHistory = async (req, res) => {};

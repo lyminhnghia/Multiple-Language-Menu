@@ -2,8 +2,10 @@ import React, { memo, useState } from "react";
 import { makeStyles, IconButton, Box } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { AddCircle, RemoveCircle } from "@material-ui/icons";
-import ButtonBox from "../../../components/buttonBox";
+import { AppConstant } from "../../../const";
 import { CustomerLayout } from "../../../layouts";
+import { Link } from "react-router-dom";
+import Cookie from "js-cookie";
 
 const PayItems = (props) => {
   const classes = useStyles();
@@ -11,39 +13,31 @@ const PayItems = (props) => {
   const dataProps =
     props.location.data && props.location.data.listTotal
       ? props.location.data
-      : { listTotal: [], listChecked: [], total: 0 };
+      : { listTotal: [], listChecked: [], total: 0, amount: 0 };
 
   const [listTotal, setListTotal] = useState(dataProps.listTotal);
   const [listChecked, setListChecked] = useState(dataProps.listChecked);
   const [total, setTotal] = useState(dataProps.total);
+  const [amount, setAmount] = useState(dataProps.amount);
+  const [table, setTable] = useState("");
 
-  const [open, setOpen] = useState(false);
-  const [listItems, setChangeListItems] = useState(data);
-  let totalItems = 0;
-  let totalPrice = 0;
-  listItems.forEach((element) => {
-    totalItems += element.total;
-    totalPrice += element.price * element.total;
-  });
-  console.log(listTotal, listChecked, total);
   const addQuantity = (index) => {
-    let newList = [...listItems];
+    let newList = [...listTotal];
     if (newList[index].total < 99) {
       newList[index].total += 1;
-      setChangeListItems(newList);
+      setListTotal(newList);
+      setTotal(total + 1);
+      setAmount(amount + newList[index].price);
     }
   };
   const removeQuantity = (index) => {
-    let newList = [...listItems];
+    let newList = [...listTotal];
     if (newList[index].total > 1) {
       newList[index].total -= 1;
-      setChangeListItems(newList);
+      setListTotal(newList);
+      setTotal(total - 1);
+      setAmount(amount - newList[index].price);
     }
-  };
-  const removeItem = (index) => {
-    let newList = [...listItems];
-    newList.splice(index, 1);
-    setChangeListItems(newList);
   };
 
   return (
@@ -68,7 +62,7 @@ const PayItems = (props) => {
                 >
                   <AddCircle />
                 </IconButton>
-                <Box className={classes.boxDataTotal}>{data.total}</Box>
+                <Box className={classes.boxDataCount}>{data.total}</Box>
                 <IconButton
                   className={classes.boxIconButton}
                   onClick={(e) => removeQuantity(index)}
@@ -81,39 +75,50 @@ const PayItems = (props) => {
         </Box>
         <Box className={classes.boxFooter}>
           <Box className={classes.boxFooterTitl}>
-            {/* <Box style={{ fontWeight: "500" }}>{element.total}</Box> */}
+            <Box style={{ fontWeight: "500" }}>Bàn</Box>
+            <input
+              className={classes.inputTable}
+              name="tables"
+              onChange={(e) => setTable(e.target.value)}
+            />
+          </Box>
+          <Box className={classes.boxFooterTitl}>
+            <Box style={{ fontWeight: "500" }}>Tổng</Box>
             <Box className={classes.boxDataTotal}>{total}</Box>
-            {/* <Box className={classes.boxDataPrice}>{totalPrice}</Box> */}
+            <Box className={classes.boxDataPrice}>{amount + " VND"}</Box>
           </Box>
           <Box className={classes.boxButton}>
-            <ButtonBox nameButton="Đặt hàng" />
+            <Link
+              className={classes.boxLink}
+              to={{
+                pathname: `/${Cookie.get(
+                  AppConstant.KEY_RESTAURANT
+                )}/confirm-pay`,
+                data: {
+                  total: total,
+                  amount: amount,
+                  listTotal: listTotal,
+                  listChecked: listChecked,
+                },
+              }}
+            >
+              <Box
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  backgroundColor: "rgb(48, 92, 139)",
+                }}
+              >
+                <Box>Đặt hàng</Box>
+              </Box>
+            </Link>
           </Box>
         </Box>
       </Box>
     </CustomerLayout>
   );
 };
-const element = {
-  id: "ID",
-  total: "Tổng",
-};
-const data = [
-  {
-    name: "my tom",
-    total: 2,
-    price: 2000,
-  },
-  {
-    name: "my cay",
-    total: 1,
-    price: 20000,
-  },
-  {
-    name: "coca",
-    total: 1,
-    price: 2000000,
-  },
-];
+
 const useStyles = makeStyles({
   iconButton: {
     padding: "9px",
@@ -142,7 +147,6 @@ const useStyles = makeStyles({
     },
   },
   boxBody: {
-    // margin: "0 auto",
     width: "100%",
     height: "400px",
     overflow: "auto",
@@ -158,7 +162,6 @@ const useStyles = makeStyles({
     marginTop: "7px",
     marginBottom: "7px",
     borderBottom: "1px solid rgb(0 0 0 / 0.1)",
-    // boxShadow: " 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 6px 0 rgba(0,0,0,.19)",
   },
   boxLeft: {
     width: "65%",
@@ -181,7 +184,16 @@ const useStyles = makeStyles({
     textAlign: "center",
     lineHeight: "19px",
     padding: "0px 5px",
-    margin: "13px 0px",
+    margin: "0px 0px",
+  },
+  boxDataCount: {
+    minWidth: "20px",
+    boxSizing: "border-box",
+    height: "34px",
+    textAlign: "center",
+    lineHeight: "19px",
+    padding: "8px 5px",
+    margin: "0",
   },
   boxFooter: {
     boxShadow: " 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 6px 0 rgba(0,0,0,.19)",
@@ -195,13 +207,13 @@ const useStyles = makeStyles({
   },
   boxFooterTitl: {
     width: "100%",
-    height: "50px",
+    height: "25px",
     backgroundColor: "#bdbdbd",
     display: "flex",
     flexWrap: "wrap",
     alignItems: "center",
-    padding: "0px 2%",
-    justifyContent: "space-around",
+    padding: "0px 20px",
+    justifyContent: "space-between",
   },
   boxIconButton: {
     padding: "5px",
@@ -225,6 +237,17 @@ const useStyles = makeStyles({
     "& .MuiButton-text": {
       borderRadius: "2px",
     },
+  },
+  boxLink: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgb(48, 92, 139)",
+    lineHeight: "45px",
+    textAlign: "center",
+    fontSize: "18px",
+    color: "white",
+    fontWeight: "500",
+    textDecoration: "none",
   },
 });
 export default memo(PayItems);
