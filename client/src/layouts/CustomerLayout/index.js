@@ -23,7 +23,7 @@ import {
   RoomService,
 } from "@material-ui/icons";
 import { AppConstant, PathConstant } from "../../const";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import Cookie from "js-cookie";
 import { useTranslation } from "react-i18next";
 
@@ -31,6 +31,7 @@ const CustomerLayout = ({ children, number }) => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
   const location = useLocation();
+  const history = useHistory();
 
   const restaurantId = Cookie.get(AppConstant.KEY_RESTAURANT);
 
@@ -44,30 +45,47 @@ const CustomerLayout = ({ children, number }) => {
     setOpen(false);
   };
 
+  const onGoToPage = (data) => {
+    if (data.isNewTab) {
+      window.open(data.path, "_blank");
+    } else {
+      history.push(data.path);
+    }
+  };
+
   const listSidebar = [
     {
       text: "Đặt món ăn",
       IconComponent: <Restaurant />,
       isNewTab: false,
-      path: PathConstant.CUSTOMER_CATEGORY,
+      path: PathConstant.CUSTOMER_CATEGORY.replace(
+        ":restaurantId",
+        Cookie.get(AppConstant.KEY_RESTAURANT)
+      ),
     },
     {
       text: "Lịch sử",
       IconComponent: <RoomService />,
       isNewTab: false,
-      // path: PathConstant.,
+      path: PathConstant.CUSTOMER_ORDER_HISTORY.replace(
+        ":restaurantId",
+        Cookie.get(AppConstant.KEY_RESTAURANT)
+      ),
     },
     {
       text: "Nhà hàng",
       IconComponent: <Storefront />,
       isNewTab: false,
-      // path: PathConstant.,
+      path: PathConstant.CUSTOMER_INFO,
     },
     {
       text: "Language",
       IconComponent: <Translate />,
       isNewTab: false,
-      // path: PathConstant.,
+      path: PathConstant.CUSTOMER_LANGUAGE.replace(
+        ":restaurantId",
+        Cookie.get(AppConstant.KEY_RESTAURANT)
+      ),
     },
   ];
 
@@ -134,10 +152,11 @@ const CustomerLayout = ({ children, number }) => {
         <List>
           {listSidebar.map((data) => (
             <ListItem
-              selected={data.path === location.path}
+              selected={data.path === location.pathname}
               button
               key={data.text}
-              className={classes.parentItem}
+              classes={{ root: classes.parentItem, selected: classes.selected }}
+              onClick={() => onGoToPage(data)}
             >
               <ListItemIcon className={classes.itemIcon}>
                 {data.IconComponent}
@@ -246,6 +265,9 @@ const useStyles = makeStyles((theme) => ({
     "&:selected": {
       color: "rgb(48, 92, 139)",
     },
+  },
+  selected: {
+    color: "rgb(48, 92, 139)",
   },
   boxPosition: {
     position: "fixed",

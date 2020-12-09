@@ -17,6 +17,17 @@ const PopupListItems = ({ total, categoryId, listTotal, listChecked }) => {
   const onClose = () => {
     setOpen(false);
   };
+
+  const newList = () => {
+    let newList = [];
+    listTotal.forEach((data) => {
+      if (listChecked.includes(data.id)) {
+        newList.push(data);
+      }
+    });
+    return newList;
+  };
+
   return (
     <Box style={{ width: "100%", height: "100%" }}>
       <IconButton
@@ -40,15 +51,10 @@ const PopupListItems = ({ total, categoryId, listTotal, listChecked }) => {
                 pathname: `/${categoryId}/pay`,
                 data: {
                   total: total,
-                  listTotal: listTotal.map((data) => {
-                    if (listChecked.includes(data.id)) {
-                      return listChecked;
-                    }
-                  }),
+                  listTotal: newList(),
                   listChecked: listChecked,
                 },
               }}
-              activeClassName="active"
             >
               <Box style={{ display: "flex", justifyContent: "center" }}>
                 <Restaurant style={{ height: 60, marginRight: 20 }} />

@@ -50,14 +50,16 @@ const PayItems = (props) => {
     <CustomerLayout number={total}>
       <Box className={classes.boxBorder}>
         <Box className={classes.boxHeader}>
-          <Box>Pay Pay</Box>
+          <Box>Giỏ hàng</Box>
         </Box>
         <Box className={classes.boxBody}>
-          {listItems.map((data, index) => (
+          {listTotal.map((data, index) => (
             <Box className={classes.boxContent} key={"b" + index}>
               <Box className={classes.boxLeft}>
                 <Box className={classes.boxDataName}>{data.name}</Box>
-                <Box className={classes.boxDataPrice}>{data.price}</Box>
+                <Box className={classes.boxDataPrice}>
+                  {data.price + " " + data.currency_unit}
+                </Box>
               </Box>
               <Box className={classes.boxRight}>
                 <IconButton
@@ -79,14 +81,9 @@ const PayItems = (props) => {
         </Box>
         <Box className={classes.boxFooter}>
           <Box className={classes.boxFooterTitl}>
-            <Box style={{ fontWeight: "500" }}>{element.total}</Box>
-            <Box
-              className={classes.boxDataTotal}
-              style={{ border: "1px solid #ffffff" }}
-            >
-              {totalItems}
-            </Box>
-            <Box className={classes.boxDataPrice}>{totalPrice}</Box>
+            {/* <Box style={{ fontWeight: "500" }}>{element.total}</Box> */}
+            <Box className={classes.boxDataTotal}>{total}</Box>
+            {/* <Box className={classes.boxDataPrice}>{totalPrice}</Box> */}
           </Box>
           <Box className={classes.boxButton}>
             <ButtonBox nameButton="Đặt hàng" />
@@ -179,7 +176,6 @@ const useStyles = makeStyles({
   },
   boxDataTotal: {
     minWidth: "20px",
-    border: "1px solid rgb(0 0 0 / 0.1)",
     boxSizing: "border-box",
     height: "20px",
     textAlign: "center",
@@ -193,13 +189,14 @@ const useStyles = makeStyles({
     display: "flex",
     flexWrap: "wrap",
     position: "fixed",
+    backgroundColor: "#bdbdbd",
     bottom: "0",
     justifyContent: "space-around",
   },
   boxFooterTitl: {
     width: "100%",
     height: "50px",
-    backgroundColor: "#ffffff",
+    backgroundColor: "#bdbdbd",
     display: "flex",
     flexWrap: "wrap",
     alignItems: "center",
