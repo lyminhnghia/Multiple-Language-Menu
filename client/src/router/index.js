@@ -27,6 +27,7 @@ import {
   OrderItems,
   PayItems,
   ConfirmPay,
+  InforRestaurant
 } from "../pages/Customer";
 
 function AuthenticationRoute(props) {
@@ -133,6 +134,11 @@ const Routes = () => {
         component={ConfirmPay}
         exact
         path={PathConstant.CUSTOMER_CONFIRM_PAY}
+      />
+      <Route
+        component={InforRestaurant}
+        exact
+        path={PathConstant.CUSTOMER_INFO}
       />
       <Route component={NotFoundPage} exact path={PathConstant.NOT_FOUND} />
       {/* <Redirect to={PathConstant.NOT_FOUND} /> */}

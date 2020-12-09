@@ -5,6 +5,7 @@ import TranferLang from "./TranferLanguage";
 import OrderItems from "./OrderItems"
 import PayItems from "./PayItems"
 import ConfirmPay from "./ConfirmPay"
+import InforRestaurant from "./InforRestaurant"
 export 
 {   Introduce,
     Category,
@@ -13,4 +14,5 @@ export
     OrderItems,
     PayItems,
     ConfirmPay,
+    InforRestaurant
 };
