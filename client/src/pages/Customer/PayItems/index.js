@@ -40,6 +40,10 @@ const PayItems = (props) => {
     }
   };
 
+  const onSubmit = () => {
+    console.log();
+  };
+
   return (
     <CustomerLayout number={total}>
       <Box className={classes.boxBorder}>
@@ -101,6 +105,7 @@ const PayItems = (props) => {
                   listChecked: listChecked,
                 },
               }}
+              onClick={() => onsubmit()}
             >
               <Box
                 style={{

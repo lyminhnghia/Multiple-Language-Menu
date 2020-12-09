@@ -76,7 +76,10 @@ const CustomerLayout = ({ children, number }) => {
       text: "Nhà hàng",
       IconComponent: <Storefront />,
       isNewTab: false,
-      path: PathConstant.CUSTOMER_INFO,
+      path: PathConstant.CUSTOMER_INFO.replace(
+        ":restaurantId",
+        Cookie.get(AppConstant.KEY_RESTAURANT)
+      ),
     },
     {
       text: "Language",

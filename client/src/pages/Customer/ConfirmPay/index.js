@@ -54,6 +54,12 @@ const ConfirmPay = (props) => {
                 pathname: `/${Cookie.get(
                   AppConstant.KEY_RESTAURANT
                 )}/order-history`,
+                data: {
+                  total: total,
+                  amount: amount,
+                  listTotal: listTotal,
+                  listChecked: listChecked,
+                },
               }}
             >
               <Box
