@@ -48,6 +48,7 @@ exports.listItemLanguage = async (req, res) => {
         "price",
         "currency_unit",
         "description",
+        "itemId",
       ],
     });
     res.status(200).send({ success: true, data: item_language });

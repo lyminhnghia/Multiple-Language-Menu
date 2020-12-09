@@ -16,10 +16,10 @@ const OrderItems = () => {
 
   const dataItem = useSelector((state) => state.customerRedux.item);
 
-  const [checked, setChecked] = useState(null);
   const [dataShow, setDataShow] = useState([]);
   const [listTotal, setListTotal] = useState([]);
   const [listChecked, setListChecked] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const changeButton = (id) => {
     if (listChecked.includes(id)) {
@@ -35,6 +35,7 @@ const OrderItems = () => {
     if (newList[index].total < 99) {
       newList[index].total += 1;
       setListTotal(newList);
+      setTotal(total + 1);
     }
   };
   const removeQuantity = (index) => {
@@ -42,6 +43,7 @@ const OrderItems = () => {
     if (newList[index].total >= 1) {
       newList[index].total -= 1;
       setListTotal(newList);
+      setTotal(total - 1);
     }
   };
 
@@ -60,14 +62,22 @@ const OrderItems = () => {
       setDataShow(dataItem);
       let newData = [];
       dataItem.forEach((data) =>
-        newData.push({ id: data.id, total: 0, check: false })
+        newData.push({
+          id: data.id,
+          name: data.name,
+          price: data.price,
+          currency_unit: data.currency_unit,
+          itemId: data.itemId,
+          total: 0,
+          check: false,
+        })
       );
       setListTotal(newData);
     }
   }, [dataItem]);
 
   return (
-    <CustomerLayout>
+    <CustomerLayout number={total}>
       <Box className={classes.boxHeader}>Món ăn</Box>
       <Box className={classes.boxPara}>
         {dataShow &&
@@ -127,7 +137,12 @@ const OrderItems = () => {
             </Box>
           ))}
         <Box className={classes.boxFooter}>
-          <PopupListItems />
+          <PopupListItems
+            categoryId={categoryId}
+            total={total}
+            listTotal={listTotal}
+            listChecked={listChecked}
+          />
         </Box>
       </Box>
     </CustomerLayout>

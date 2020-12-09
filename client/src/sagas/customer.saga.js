@@ -34,3 +34,18 @@ export function* getListItemCustomer(action) {
     yield put(CustomerAction.getListItemCustomerFailure(error));
   }
 }
+
+export function* getLanguageCustomer(action) {
+  try {
+    const { data } = action;
+    let response = yield call(CustomerService.languageCustomer, data);
+    if (response.status == ApiConstant.STT_OK) {
+      let responseData = response.data.data;
+      yield put(CustomerAction.getLanguageCustomerSuccess(responseData));
+    } else {
+      yield put(CustomerAction.getLanguageCustomerFailure(response.data.error));
+    }
+  } catch (error) {
+    yield put(CustomerAction.getLanguageCustomerFailure(error));
+  }
+}

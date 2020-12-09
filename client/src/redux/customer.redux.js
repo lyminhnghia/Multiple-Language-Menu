@@ -9,6 +9,10 @@ const { Types, Creators } = createActions({
   getListItemCustomer: ["data"],
   getListItemCustomerSuccess: ["data"],
   getListItemCustomerFailure: ["error"],
+
+  getLanguageCustomer: ["data"],
+  getLanguageCustomerSuccess: ["data"],
+  getLanguageCustomerFailure: ["error"],
 });
 
 export const CustomerTypes = Types;
@@ -25,6 +29,11 @@ export const INITIAL_STATE = {
   errorItem: null,
   isItemSuccess: false,
   item: null,
+
+  isLanguage: false,
+  errorLanguage: null,
+  isLanguageSuccess: false,
+  language: null,
 };
 
 /* ------------- Reducers ------------- */
@@ -72,6 +81,25 @@ export const getListItemCustomerFailure = (state = INITIAL_STATE, action) => ({
   errorItem: action.error,
 });
 
+/* ------------- get Language Customer ------------- */
+export const getLanguageCustomer = (state = INITIAL_STATE) => ({
+  ...state,
+  isLanguage: true,
+});
+
+export const getLanguageCustomerSuccess = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isLanguage: false,
+  isLanguageSuccess: true,
+  language: action.data,
+});
+
+export const getLanguageCustomerFailure = (state = INITIAL_STATE, action) => ({
+  ...state,
+  isLanguage: false,
+  errorLanguage: action.error,
+});
+
 /* ------------- Mapping ------------- */
 export const HANDLERS = {
   // get List Category
@@ -83,6 +111,11 @@ export const HANDLERS = {
   [Types.GET_LIST_ITEM_CUSTOMER]: getListItemCustomer,
   [Types.GET_LIST_ITEM_CUSTOMER_SUCCESS]: getListItemCustomerSuccess,
   [Types.GET_LIST_ITEM_CUSTOMER_FAILURE]: getListItemCustomerFailure,
+
+  // get Language
+  [Types.GET_LANGUAGE_CUSTOMER]: getLanguageCustomer,
+  [Types.GET_LANGUAGE_CUSTOMER_SUCCESS]: getLanguageCustomerSuccess,
+  [Types.GET_LANGUAGE_CUSTOMER_FAILURE]: getLanguageCustomerFailure,
 };
 
 /* ------------- Hookup Reducers To Types ------------- */

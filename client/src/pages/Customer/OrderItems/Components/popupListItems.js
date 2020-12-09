@@ -1,11 +1,11 @@
 import React, { memo, useState } from "react";
 import { LangConstant } from "../../../../const";
-import { Button, makeStyles, Dialog, IconButton, Box } from "@material-ui/core";
+import { makeStyles, Dialog, IconButton, Box } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { Clear } from "@material-ui/icons";
+import { Clear, Restaurant } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
-const PopupListItems = () => {
+const PopupListItems = ({ total, categoryId, listTotal, listChecked }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const { t: getLabel } = useTranslation();
@@ -19,13 +19,16 @@ const PopupListItems = () => {
   };
   return (
     <Box style={{ width: "100%", height: "100%" }}>
-      <Button style={{ width: "100%", height: "100%" }} onClick={onClickOpen}>
+      <IconButton
+        style={{ width: "100%", height: "100%", color: "white", fontSize: 18 }}
+        onClick={onClickOpen}
+      >
         Thêm vào giỏ hàng
-      </Button>
+      </IconButton>
       <Dialog open={open} onClose={onClose} className={classes.dialogBox}>
         <Box className={classes.boxBorder}>
           <Box className={classes.boxHeader}>
-            <Box>Order List1</Box>
+            <Box>Thêm vào giỏ hàng</Box>
             <IconButton onClick={(e) => setOpen(false)}>
               <Clear />
             </IconButton>
@@ -33,10 +36,24 @@ const PopupListItems = () => {
           <Box className={classes.boxFooter}>
             <Link
               className={classes.boxLink}
-              to={`/{id}/pay`}
+              to={{
+                pathname: `/${categoryId}/pay`,
+                data: {
+                  total: total,
+                  listTotal: listTotal.map((data) => {
+                    if (listChecked.includes(data.id)) {
+                      return listChecked;
+                    }
+                  }),
+                  listChecked: listChecked,
+                },
+              }}
               activeClassName="active"
             >
-              Đặt hàng
+              <Box style={{ display: "flex", justifyContent: "center" }}>
+                <Restaurant style={{ height: 60, marginRight: 20 }} />
+                <Box>Đặt hàng</Box>
+              </Box>
             </Link>
           </Box>
         </Box>
@@ -57,7 +74,7 @@ const useStyles = makeStyles({
   },
   boxBorder: {
     width: "100%",
-    height: "133px",
+    height: "113px",
     position: "fixed",
     bottom: "0",
     backgroundColor: "#ffffff",
@@ -84,7 +101,7 @@ const useStyles = makeStyles({
   boxFooter: {
     boxShadow: " 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 6px 0 rgba(0,0,0,.19)",
     width: "100%",
-    height: "50px",
+    height: "60px",
     display: "flex",
     flexWrap: "wrap",
     position: "fixed",
@@ -95,7 +112,7 @@ const useStyles = makeStyles({
     width: "100%",
     height: "100%",
     backgroundColor: "rgb(48, 92, 139)",
-    lineHeight: "50px",
+    lineHeight: "60px",
     textAlign: "center",
     fontSize: "18px",
     color: "white",

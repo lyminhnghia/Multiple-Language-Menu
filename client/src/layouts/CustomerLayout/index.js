@@ -106,7 +106,9 @@ const CustomerLayout = ({ children, number }) => {
               }}
             >
               <Restaurant />
-              {number && <Box className={classes.boxPosition}>{number}</Box>}
+              {Boolean(number) && (
+                <Box className={classes.boxPosition}>{number}</Box>
+              )}
             </Link>
           </IconButton>
         </Toolbar>

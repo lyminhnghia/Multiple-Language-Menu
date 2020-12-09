@@ -13,10 +13,13 @@ import { BoxButton } from "../../../components";
 import { useParams } from "react-router-dom";
 import Cookie from "js-cookie";
 import ListCategory from "./Components/listCategory";
+import { useDispatch, useSelector } from "react-redux";
+import CustomerAction from "../../../redux/customer.redux";
 
 const Category = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
+  const dispatch = useDispatch();
   const { restaurantId } = useParams();
 
   const [checked, setChecked] = useState(false);
@@ -27,6 +30,12 @@ const Category = () => {
   const onStartUsePage = () => {
     if (checked) {
       setIsStart(true);
+      dispatch(
+        CustomerAction.getListCategoryCustomer({
+          restaurantId: restaurantId,
+          lang_code: AppConstant.DEFAULT_LANG,
+        })
+      );
       Cookie.set(AppConstant.KEY_RESTAURANT, restaurantId);
       Cookie.set(AppConstant.KEY_LANG, AppConstant.DEFAULT_LANG);
     }
