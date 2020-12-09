@@ -1,83 +1,131 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { makeStyles, Box, IconButton } from "@material-ui/core";
 import { CustomerLayout } from "../../../layouts";
 import { useTranslation } from "react-i18next";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
+import { CheckCircle, AddCircle, RemoveCircle } from "@material-ui/icons";
 import PopupListItems from "./Components/popupListItems";
+import CustomerAction from "../../../redux/customer.redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 const OrderItems = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
-  const [checked, setChecked] = useState();
-  const changeBbutton = (name) => {
-    setChecked(name);
+  const dispatch = useDispatch();
+  const { categoryId } = useParams();
+
+  const dataItem = useSelector((state) => state.customerRedux.item);
+
+  const [checked, setChecked] = useState(null);
+  const [dataShow, setDataShow] = useState([]);
+  const [listTotal, setListTotal] = useState([]);
+  const [listChecked, setListChecked] = useState([]);
+
+  const changeButton = (id) => {
+    if (listChecked.includes(id)) {
+      let newList = listChecked.filter((data) => data !== id);
+      setListChecked(newList);
+    } else {
+      setListChecked([...listChecked, id]);
+    }
   };
-  const [listItems, setChangeListItems] = useState(data);
-  let totalItems = 0;
-  let totalPrice = 0;
-  listItems.forEach((element) => {
-    totalItems += element.total;
-    totalPrice += element.price * element.total;
-  });
+
   const addQuantity = (index) => {
-    let newList = [...listItems];
+    let newList = [...listTotal];
     if (newList[index].total < 99) {
       newList[index].total += 1;
-      setChangeListItems(newList);
+      setListTotal(newList);
     }
   };
   const removeQuantity = (index) => {
-    let newList = [...listItems];
+    let newList = [...listTotal];
     if (newList[index].total >= 1) {
       newList[index].total -= 1;
-      setChangeListItems(newList);
+      setListTotal(newList);
     }
   };
+
+  useEffect(() => {
+    if (dataItem === null) {
+      dispatch(
+        CustomerAction.getListItemCustomer({
+          categoryId: categoryId,
+        })
+      );
+    }
+  }, [dataItem]);
+
+  useEffect(() => {
+    if (dataItem) {
+      setDataShow(dataItem);
+      let newData = [];
+      dataItem.forEach((data) =>
+        newData.push({ id: data.id, total: 0, check: false })
+      );
+      setListTotal(newData);
+    }
+  }, [dataItem]);
+
   return (
     <CustomerLayout>
-      <Box className={classes.boxHeader}>Item</Box>
+      <Box className={classes.boxHeader}>Món ăn</Box>
       <Box className={classes.boxPara}>
-        {data.map((data, index) => (
-          <Box key={"items" + index} className={classes.boxBorder}>
-            <IconButton
-              onClick={(e) => changeBbutton(data.name)}
-              className={classes.menuButton}
-            >
-              <CheckCircleIcon
-                style={{
-                  color: data.name == checked ? "rgb(48, 92, 139)" : "",
-                }}
-              />
-            </IconButton>
-            <Box className={classes.boxContent}>
-              <Box className={classes.boxTop}>
-                <Box className={classes.boxDataName}>{data.name}</Box>
-              </Box>
-              <Box className={classes.boxBottom}>
-                <Box className={classes.boxDataTotal}>{data.price}</Box>
-                <Box
-                  style={{ display: data.name == checked ? "flex" : "none" }}
-                >
-                  <IconButton
-                    className={classes.boxIconButton}
-                    onClick={(e) => removeQuantity(index)}
+        {dataShow &&
+          dataShow.map((data, index) => (
+            <Box key={"items" + index} className={classes.boxBorder}>
+              <IconButton onClick={(e) => changeButton(data.id)}>
+                <CheckCircle
+                  style={{
+                    color: listChecked.includes(data.id)
+                      ? "rgb(48, 92, 139)"
+                      : "#bdbdbd",
+                  }}
+                />
+              </IconButton>
+              <Box className={classes.boxContent}>
+                <Box className={classes.boxTop}>
+                  <Box className={classes.boxDataName}>{data.name}</Box>
+                </Box>
+                <Box className={classes.boxBottom}>
+                  <Box className={classes.boxDataTotal}>
+                    {data.price + " " + data.currency_unit}
+                  </Box>
+                  <Box
+                    style={{
+                      display: listChecked.includes(data.id) ? "flex" : "none",
+                    }}
                   >
-                    <RemoveCircleIcon />
-                  </IconButton>
-                  <Box className={classes.boxDataTotal}>{data.total}</Box>
-                  <IconButton
-                    className={classes.boxIconButton}
-                    onClick={(e) => addQuantity(index)}
-                  >
-                    <AddCircleIcon />
-                  </IconButton>
+                    <IconButton
+                      classes={{
+                        root: classes.boxIconButton,
+                        label: classes.boxIconLabel,
+                      }}
+                      onClick={(e) => removeQuantity(index)}
+                    >
+                      <RemoveCircle
+                        style={{
+                          width: 40,
+                          height: 40,
+                        }}
+                      />
+                    </IconButton>
+                    <Box className={classes.boxDataNumber}>
+                      {listTotal[index].total}
+                    </Box>
+                    <IconButton
+                      classes={{
+                        root: classes.boxIconButton,
+                        label: classes.boxIconLabel,
+                      }}
+                      onClick={(e) => addQuantity(index)}
+                    >
+                      <AddCircle style={{ width: 40, height: 40 }} />
+                    </IconButton>
+                  </Box>
                 </Box>
               </Box>
             </Box>
-          </Box>
-        ))}
+          ))}
         <Box className={classes.boxFooter}>
           <PopupListItems />
         </Box>
@@ -85,28 +133,7 @@ const OrderItems = () => {
     </CustomerLayout>
   );
 };
-const element = {
-  id: "ID",
-  total: "Tổng",
-  price: "Giá",
-};
-const data = [
-  {
-    name: "my tom",
-    total: 0,
-    price: 2000,
-  },
-  {
-    name: "my cay",
-    total: 0,
-    price: 20000,
-  },
-  {
-    name: "coca",
-    total: 0,
-    price: 2000000,
-  },
-];
+
 const useStyles = makeStyles({
   boxHeader: {
     width: "100%",
@@ -134,7 +161,12 @@ const useStyles = makeStyles({
   },
   boxTop: {
     width: "100%",
-    padding: "0px 0px 10px 10px",
+    padding: "0px 0px 5px 5px",
+  },
+  boxMiddle: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
   },
   boxBottom: {
     width: "100%",
@@ -147,21 +179,45 @@ const useStyles = makeStyles({
     fontWeight: "500",
     fontSize: "18px",
   },
-  boxDataTotal: {
+  boxDataDesc: {
     minWidth: "20px",
     boxSizing: "border-box",
     height: "20px",
     textAlign: "center",
     lineHeight: "19px",
     padding: "0px 5px",
-    margin: "13px 0px",
+    margin: "5px 0px",
+  },
+  boxDataTotal: {
+    minWidth: "20px",
+    boxSizing: "border-box",
+    height: 40,
+    fontWeight: 600,
+    textAlign: "center",
+    lineHeight: "19px",
+    padding: "10px 5px",
+    margin: 0,
+  },
+  boxDataNumber: {
+    minWidth: 40,
+    boxSizing: "border-box",
+    height: 40,
+    fontWeight: 600,
+    fontSize: 24,
+    textAlign: "center",
+    lineHeight: "19px",
+    padding: "10px 0px",
+    margin: 0,
   },
   boxIconButton: {
-    padding: "5px",
+    padding: 0,
+  },
+  boxIconLabel: {
+    color: "#bdbdbd",
   },
   boxFooter: {
     width: "100%",
-    height: "50px",
+    height: "60px",
     backgroundColor: "rgb(48, 92, 139)",
     position: "fixed",
     bottom: "0",

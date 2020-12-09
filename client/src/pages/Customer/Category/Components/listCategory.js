@@ -35,6 +35,13 @@ const ListCategory = ({ restaurantId }) => {
                 <Link
                   to={`/${restaurantId}/categories/${category.id}`}
                   style={{ textDecoration: "none", color: "black" }}
+                  onClick={() =>
+                    dispatch(
+                      CustomerAction.getListItemCustomer({
+                        categoryId: category.id,
+                      })
+                    )
+                  }
                 >
                   <Box style={{ fontSize: "18px", fontWeight: "500" }}>
                     {category.name}

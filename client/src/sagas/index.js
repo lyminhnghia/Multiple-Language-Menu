@@ -50,7 +50,7 @@ import { requestUploadPostImage } from "./image.saga";
 
 import { getLanguageRestaurant } from "./languageRestaurant.saga";
 
-import { getListCategoryCustomer } from "./customer.saga";
+import { getListCategoryCustomer, getListItemCustomer } from "./customer.saga";
 
 import { raiseError, resetError } from "./error.saga";
 
@@ -109,6 +109,7 @@ export default function* root() {
       CustomerTypes.GET_LIST_CATEGORY_CUSTOMER,
       getListCategoryCustomer
     ),
+    takeLatest(CustomerTypes.GET_LIST_ITEM_CUSTOMER, getListItemCustomer),
 
     takeLatest(
       [
@@ -135,6 +136,7 @@ export default function* root() {
         QRCodeTypes.CREATE_QR_CODE,
         QRCodeTypes.GET_QR_CODE,
         CustomerTypes.GET_LIST_CATEGORY_CUSTOMER,
+        CustomerTypes.GET_LIST_ITEM_CUSTOMER,
       ],
       resetError
     ),
@@ -163,6 +165,7 @@ export default function* root() {
         QRCodeTypes.CREATE_QR_CODE,
         QRCodeTypes.GET_QR_CODE,
         CustomerTypes.GET_LIST_CATEGORY_CUSTOMER,
+        CustomerTypes.GET_LIST_ITEM_CUSTOMER,
       ],
       raiseError
     ),

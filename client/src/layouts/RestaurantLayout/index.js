@@ -63,12 +63,6 @@ const RestaurantLayout = (props) => {
       path: PathConstant.RESTAURANT_INFORMATION,
     },
     {
-      text: getLabel(LangConstant.TXT_SORT_LANGUAGE),
-      IconComponent: <Language />,
-      isNewTab: false,
-      path: PathConstant.RESTAURANT_TRANFER_LANGUAGE,
-    },
-    {
       text: getLabel(LangConstant.TXT_CATEGORY_PRODUCT),
       IconComponent: <FormatListBulleted />,
       isNewTab: false,
